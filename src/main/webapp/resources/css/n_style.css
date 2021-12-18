@@ -102,9 +102,20 @@ footer {
     margin: 0px auto;
 }
 
-.n-anchorBox img {
+
+/* .n-anchorBox img {
     width: 100%;
     height: 276.812px;
+} */
+
+.n-thumbnail {
+    position: relative;
+}
+
+.n-thumbnail img {
+    width: 100%;
+    height: 276.812px;
+    /* position: absolute; */
 }
 
 .n-discription {

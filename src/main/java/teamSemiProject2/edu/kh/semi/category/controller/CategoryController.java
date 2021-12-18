@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import teamSemiProject2.edu.kh.semi.category.model.service.CategoryService;
 import teamSemiProject2.edu.kh.semi.category.model.vo.Category;
+import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
 
 @WebServlet("/category/*")
 public class CategoryController extends HttpServlet {
@@ -33,30 +34,38 @@ public class CategoryController extends HttpServlet {
 		String path = null;
 		RequestDispatcher dispatcher = null;
 		String message = null;
+		
+		CategoryService service = new CategoryService();
+		
 		try {
 
-			if (method.equals("GET")) {//a href로 제품 입력 페이지로 오게됨, DB에서 카테고리 정보 담아서 보여줌, 대분류 소분류 안나누고 보여주기
-				CategoryService service = new CategoryService();
-				if (command.equals("add")) {
+			if (method.equals("GET")) {
+				//a href로 카테고리: 제품 진열 페이지로 이동, 이동 시 parameter는 카테고리 번호, 페이지네이션을 위해서 currentPage정보가 필요함: 기본 1
+				if (command.equals("view")) {
 
-			List<Category> category	= service.getCategory();
-					req.setAttribute("category", category);
-					
-					dispatcher = req.getRequestDispatcher("/WEB-INF/views/category/addProduct.jsp");
-					
-					
-					
-					dispatcher.forward(req, resp);
-					
+				//카테고리 페이지로 요청위임 경로설정
+				path = "/WEB-INF/views/category/category.jsp";
+				
+				//위임할 제품진열 페이지에 카테고리 번호, 현재 페이지를 가지고 와서 DB에서 데이터 조회 후 뿌려주어야 함
+				//DB의 얻어올 정보는 제품 정보 List<Product>와,  pagination 정보:페이지네이션 객체
+				
+				//우선은 기초적으로 나열 실험 해보려 <Product> List만을 들고온다 
+				
+				
+				List<Product> pList = service.getProduct();
+				
+				
+				req.setAttribute("productList", pList);
+				
+				dispatcher = req.getRequestDispatcher(path);
+				dispatcher.forward(req, resp);
+				
+				
+				
 				}
 			} else {//method 방식이 post 
 				
-				if (command.equals("add")) { //post이면서 add: 제품 입력시 data가 text, image로 오게 된다
-					
-					
-					
-					
-				}
+				
 				
 				
 			}

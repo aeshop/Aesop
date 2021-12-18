@@ -5,6 +5,12 @@
 	<entry key="getCategory">
 		SELECT * FROM PRODUCT_CATEGORY
 	</entry>
+	<entry key="getProduct">
+		SELECT * FROM PRODUCT
+	</entry>
+	<entry key="getProductImageList">
+		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO=?
+	</entry>
 	
 
 </properties>

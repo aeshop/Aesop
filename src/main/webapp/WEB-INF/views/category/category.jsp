@@ -1,4 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
+
+
 <html lang="ko">
 
 <head>
@@ -7,7 +13,7 @@
     <title>제품 진열페이지</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- bootstrap5 -->
-    <link rel="stylesheet" href="../../../resources/css/n_style.css">
+    <link rel="stylesheet" href="${contextPath}/resources/css/n_style.css">
     <!-- custom css -->
 
 </head>
@@ -60,28 +66,32 @@
         <div id="n-product-list-wrapper">
             <ul id="n-product-list-ul">
                 <!-- 상품 진열 리스트 아이템 시작: 반복문 -->
-
-                <li class="n-anchorBox">
+<c:forEach items="${productList}" var="product">
+	
+				<li class="n-anchorBox">
                     <div class="n-thumbnail">
-                        <a href="링크"><img src="../../../resources/images/category/향수1.jpg" alt="이미지들어가는곳"></a>
+                        <a href="링크"><img src="${contextPath}${product.imgList[0].imgPath}${product.imgList[0].imgName}" alt="이미지들어가는곳">
+       
+                        </a>
                     </div>
                     <div class="n-discription">
                         <div class="n-tag">
                             <span style="background-color: #000;color: #fff">시즌오프</span>
-                            <span style="background-color: red;color: #fff">28%</span>
+                            <span style="background-color: red;color: #fff"><fmt:formatNumber type="number" value="${100-product.discount*100}"/>  %</span>
                         </div>
                         <strong class="n-name">
                           <a href="#">
-                              <span>상품명은 한줄을 넘어가지 않는다</span>
+                              <span>${product.productName}</span>
                           </a>
                       </strong>
                         <div class="n-priceGroup">
-                            <div class="n-dc-rate">28%</div>
-                            <div class="n-price">123,456원</div>
-                            <div class="n-origin-price">234,567원</div>
+                            <div class="n-dc-rate">${product.discount*100}%</div>
+                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.discount*product.price}" var="discountPrice"/>
+                            <div class="n-price">${discountPrice}원</div>
+                            <div class="n-origin-price">${product.price}원</div>
                         </div>
                         <div class="n-ico-basket">
-                            <img src="../../../resources/images/category/cart.png" alt="장바구니 담기" onclick="">
+                            <img src="${contextPath}/resources/images/category/cart.png" alt="장바구니 담기" onclick="">
                         </div>
                         <div class="n-review">
                             <span class="n-star">
@@ -99,44 +109,13 @@
                         <div class="n-soldout-icon"></div>
                     </div>
                 </li>
-                <li class="n-anchorBox">
-                    <div class="n-thumbnail">
-                        <a href="링크"><img src="../../../resources/images/category/향수1.jpg" alt="이미지들어가는곳"></a>
-                    </div>
-                    <div class="n-discription">
-                        <div class="n-tag">
-                            <span style="background-color: #000;color: #fff">시즌오프</span>
-                            <span style="background-color: red;color: #fff">28%</span>
-                        </div>
-                        <strong class="n-name">
-                          <a href="#">
-                              <span>상품명은 한줄을 넘어가지 않는다</span>
-                          </a>
-                      </strong>
-                        <div class="n-priceGroup">
-                            <div class="n-dc-rate">28%</div>
-                            <div class="n-price">123,456원</div>
-                            <div class="n-origin-price">234,567원</div>
-                        </div>
-                        <div class="n-ico-basket">
-                            <img src="../../../resources/images/category/cart.png" alt="장바구니 담기" onclick="">
-                        </div>
-                        <div class="n-review">
-                            <span class="n-star">
-                              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="star">
-                                  <defs>
-                                      <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                  </defs>
-                                  <use xlink:href="#star-full"></use>
-                              </svg>
+             
 
-                          </span>
-                            <span class="n-star-score"></span>
-                            <span class="n-reviewCount">(244)</span>
-                        </div>
-                        <div class="n-soldout-icon"></div>
-                    </div>
-                </li>
+
+</c:forEach>
+
+
+                
 
 
 

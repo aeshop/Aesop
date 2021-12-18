@@ -1,5 +1,7 @@
 package teamSemiProject2.edu.kh.semi.product.model.vo;
 
+import java.util.List;
+
 /**
  * @author nyr
  *
@@ -17,28 +19,14 @@ public class Product {
 	private String categoryName;
 	private String statusName;
 	
+	private List<ProductImage> imgList;
 	
 	
+
+
 	public Product() {
 		super();
 	}
-
-
-
-	public Product(int productNo, String productName, int price, double discount, int stock, int categoryNo,
-			int statusNo, String categoryName, String statusName) {
-		super();
-		this.productNo = productNo;
-		this.productName = productName;
-		this.price = price;
-		this.discount = discount;
-		this.stock = stock;
-		this.categoryNo = categoryNo;
-		this.statusNo = statusNo;
-		this.categoryName = categoryName;
-		this.statusName = statusName;
-	}
-
 
 
 	public int getProductNo() {
@@ -146,7 +134,15 @@ public class Product {
 	public void setStatusName(String statusName) {
 		this.statusName = statusName;
 	}
+	
+	public List<ProductImage> getImgList() {
+		return imgList;
+	}
 
+
+	public void setImgList(List<ProductImage> imgList) {
+		this.imgList = imgList;
+	}
 	
 	
 	

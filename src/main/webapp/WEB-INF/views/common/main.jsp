@@ -19,6 +19,7 @@
    
    <a href="${contextPath}/product/add">제품 입력 페이지로 이동</a>
    
+      <a href="${contextPath}/category/view">카테고리 페이지로 이동</a>
    
    
      <c:if test="${!empty sessionScope.message}">

@@ -17,6 +17,11 @@ SELECT * FROM RECOMMENDED_PRODUCT;
 SELECT * FROM PRODUCT_IMG;
 SELECT * FROM PRODUCT_STATUS;
 
+
+SELECT * FROM PRODUCt;
+
+
+
 ---------------------------주문--------------------------
 
 SELECT * FROM ORDER_1;
