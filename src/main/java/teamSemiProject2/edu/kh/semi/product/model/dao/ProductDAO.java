@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Properties;
 
 import teamSemiProject2.edu.kh.semi.category.model.vo.Category;
+import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
+import teamSemiProject2.edu.kh.semi.product.model.vo.ProductImage;
 
 public class ProductDAO {
 
@@ -56,6 +58,77 @@ public class ProductDAO {
 		}
 
 		return category;
+	}
+
+	public int nextProductNum(Connection conn) throws SQLException {
+		String sql = prop.getProperty("nextProductNum");
+		int result = 0;
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} finally {
+
+			close(rs);
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertProduct(Product prod, Connection conn) throws Exception {
+		String sql = prop.getProperty("insertProduct");
+		int result = 0;
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prod.getProductNo());
+			pstmt.setString(2, prod.getProductName());
+			pstmt.setInt(3, prod.getPrice());
+			pstmt.setDouble(4, prod.getDiscount());
+			pstmt.setInt(5, prod.getStock());
+			pstmt.setInt(6, prod.getCategoryNo());
+
+			
+			
+			result = pstmt.executeUpdate();
+
+			
+		} finally {
+
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertImg(ProductImage img, Connection conn) throws SQLException {
+		String sql = prop.getProperty("insertImg");
+		int result = 0;
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, img.getImgPath());
+			pstmt.setString(2, img.getImgName());
+			pstmt.setInt(3, img.getImgLevel());
+			pstmt.setInt(4, img.getProductNo());
+
+			
+			
+			result = pstmt.executeUpdate();
+
+			
+		} finally {
+
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 }

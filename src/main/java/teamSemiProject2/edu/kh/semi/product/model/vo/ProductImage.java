@@ -6,21 +6,21 @@ private String imgPath;
 private String imgName;
 
 private int imgLevel;
-private int boardNo;
+private int productNo;
 
 public ProductImage() {
 	super();
 
 }
 
-public ProductImage(int imgNo, String imgPath, String imgName, int imgLevel, int boardNo) {
+public ProductImage(int imgNo, String imgPath, String imgName, int imgLevel, int productNo) {
 	super();
 	this.imgNo = imgNo;
 	this.imgPath = imgPath;
 	this.imgName = imgName;
 
 	this.imgLevel = imgLevel;
-	this.boardNo = boardNo;
+	this.productNo = productNo;
 }
 
 public int getImgNo() {
@@ -57,18 +57,20 @@ public void setImgLevel(int imgLevel) {
 	this.imgLevel = imgLevel;
 }
 
-public int getBoardNo() {
-	return boardNo;
+public int getProductNo() {
+	return productNo;
 }
 
-public void setBoardNo(int boardNo) {
-	this.boardNo = boardNo;
+public void setProductNo(int productNo) {
+	this.productNo = productNo;
 }
 
 @Override
 public String toString() {
-	return "BoardImage [imgNo=" + imgNo + ", imgPath=" + imgPath + ", imgName=" + imgName +   ", imgLevel=" + imgLevel + ", boardNo=" + boardNo + "]";
+	return "ProductImage [imgNo=" + imgNo + ", imgPath=" + imgPath + ", imgName=" + imgName + ", imgLevel=" + imgLevel
+			+ ", productNo=" + productNo + "]";
 }
+
 
 
 

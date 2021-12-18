@@ -15,6 +15,7 @@ SELECT * FROM PRODUCT;
 SELECT * FROM PRODUCT_CATEGORY;
 SELECT * FROM RECOMMENDED_PRODUCT;
 SELECT * FROM PRODUCT_IMG;
+SELECT * FROM PRODUCT_STATUS;
 
 ---------------------------주문--------------------------
 
@@ -56,8 +57,12 @@ SELECT * FROM ADDRESS;
 ---------------------------상품--------------------------
 
 INSERT INTO PRODUCT (PRODUCT_NO,PRODUCT_NM,PRODUCT_PRICE,DISCOUNT,STOCK,"상품카테고리번호") values (num,'?',num,num,num,fk);
-
+select * from product;
 SELECT * FROM PRODUCT_CATEGORY;
+select * from product_status;
+
+select * from product_img;
+
 SELECT * FROM RECOMMENDED_PRODUCT;
 INSERT INTO PRODUCT_IMG (PRODUCT_IMG_NO,PRODUCT_IMG_PATH,PRODUCT_IMG_NM,PRODUCT_IMG_LEVEL,PRODUCT_NO) values (num,'?','?','?',num);
 
@@ -86,4 +91,3 @@ SELECT * FROM BOARD_CATEGORY;
 
 SELECT * FROM REPLY;
 SELECT * FROM REPLY_STATUS;
-

@@ -20,7 +20,7 @@
 <c:forEach items="${category}" var="item">
 
 <c:if test="${item.categoryNo%10!=0}">
-<input type="radio" name="CategoryNo" value="${item.categoryNo}">
+<input type="radio" name="categoryNo" value="${item.categoryNo}">
 ${item.categoryName}
 <br>
 
@@ -34,7 +34,7 @@ ${item.categoryName}
 <h3>상품가격</h3> 
 <input type="number" name= "productPrice">
 <h3>할인율: 소수점</h3> 
-<input type="number" name= "productDiscount">
+<input type="text" name= "productDiscount">
 <h3>상품재고</h3> 
 <input type="number" name= "productStock">
 
@@ -44,7 +44,25 @@ ${item.categoryName}
 <input type="file" name="img1">
 <input type="file" name="img2">
 
+<hr>
+<br>
+<button>제품 등록</button>
+
 </form>   
+   
+  <c:if test="${!empty sessionScope.message}">
+<script>
+ 	alert("${message}");
+
+//EL 작성시 scope작성 안하면 page request session application 순으로 검색
+</script>
+
+<c:remove var="message" scope="session"/>
+<%--유지되고 있던 session의 message attribute를 제거해줘야 한다. --%>
+</c:if>
+   
+   
+   
    
 </body>
 </html>
