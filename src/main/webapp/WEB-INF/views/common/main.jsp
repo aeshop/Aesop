@@ -6,10 +6,17 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>홈페이지명</title>
+   <title></title>
 </head>
 <body>
-  <jsp:forward page="/WEB-INF/views/common/main.jsp"/>
+      <c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
+
+   <h1>소제목</h1>
    
+   <pre>내용</pre>
+   
+   
+   
+   <a href="${contextPath}/product/add">제품 입력 페이지로 이동</a>
 </body>
 </html>

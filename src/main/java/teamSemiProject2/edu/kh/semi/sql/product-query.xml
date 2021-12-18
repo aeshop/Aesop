@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!-- 로그인 (탈퇴 회원 제외) -->
+	<entry key="getCategory">
+		SELECT * FROM PRODUCT_CATEGORY
+	</entry>
+	
+
+</properties>
