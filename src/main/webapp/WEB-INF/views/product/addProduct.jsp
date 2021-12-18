@@ -10,7 +10,7 @@
 <body>
    
    
-   <h1>관리자 로그인 X 상품추가 페이지</h1>
+   <h1>관리자 로그인 없이 상품추가 페이지</h1>
 
 
 <form action="${contextPath}/product/add" enctype="multipart/form-data" method="post">
@@ -33,7 +33,7 @@ ${item.categoryName}
 <input type="text" name= "productName">
 <h3>상품가격</h3> 
 <input type="number" name= "productPrice">
-<h3>할인율: 소수점</h3> 
+<h3>할인율: 소수점으로 입력 <br> ex: 90% 할인 = 0.9</h3> 
 <input type="text" name= "productDiscount">
 <h3>상품재고</h3> 
 <input type="number" name= "productStock">

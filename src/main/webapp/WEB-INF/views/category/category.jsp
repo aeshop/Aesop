@@ -26,7 +26,7 @@
             <!-- 원래는 이미지가 막 변경되고 그런거같은데, 안함 -->
 
             <a href="#">
-                <img src="../../../resources/images/category/향수_배너.jpg" alt="">
+                <img src="${contextPath}/resources/images/category/categoryBanner.jpg" alt="">
 
             </a>
             <div class="n-wrap">
@@ -77,7 +77,7 @@
                     <div class="n-discription">
                         <div class="n-tag">
                             <span style="background-color: #000;color: #fff">시즌오프</span>
-                            <span style="background-color: red;color: #fff"><fmt:formatNumber type="number" value="${100-product.discount*100}"/>  %</span>
+                            <span style="background-color: red;color: #fff"><fmt:formatNumber type="number" value="${product.discount*100}"/>  %</span>
                         </div>
                         <strong class="n-name">
                           <a href="#">
@@ -86,9 +86,11 @@
                       </strong>
                         <div class="n-priceGroup">
                             <div class="n-dc-rate">${product.discount*100}%</div>
-                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.discount*product.price}" var="discountPrice"/>
+                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${(1-product.discount)*product.price}" var="discountPrice"/>
                             <div class="n-price">${discountPrice}원</div>
-                            <div class="n-origin-price">${product.price}원</div>
+                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" var="originalPrice"/>
+                            
+                            <div class="n-origin-price">${originalPrice}원</div>
                         </div>
                         <div class="n-ico-basket">
                             <img src="${contextPath}/resources/images/category/cart.png" alt="장바구니 담기" onclick="">
