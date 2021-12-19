@@ -8,6 +8,7 @@ import java.util.List;
 
 import teamSemiProject2.edu.kh.semi.category.model.dao.CategoryDAO;
 import teamSemiProject2.edu.kh.semi.category.model.vo.Category;
+import teamSemiProject2.edu.kh.semi.category.model.vo.Pagination;
 import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
 import teamSemiProject2.edu.kh.semi.product.model.vo.ProductImage;
 
@@ -26,12 +27,27 @@ public class CategoryService {
 		return category;
 	}
 
-	public List<Product> getProduct() throws Exception {
+
+
+	public Pagination getPagination(int cp) throws Exception {
+		conn = getConnection();
+
+		int productCount = dao.getPageCount(conn);
+		
+		Pagination pagination = new Pagination(productCount, cp);
+		
+		
+		
+		close(conn);
+		return pagination;
+	}
+
+	public List<Product> getProduct(Pagination pagination,int categoryNo) throws Exception {
 		conn = getConnection();
 
 		List<Product> pList = null;
 
-		pList = dao.getProduct(conn);
+		pList = dao.getProduct(pagination,categoryNo,conn);
 
 		
 		for (Product product : pList) {

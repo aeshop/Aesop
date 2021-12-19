@@ -1,6 +1,6 @@
 *:not(html, body) {
     box-sizing: border-box;
-    /* border: solid 1px black; */
+    border: solid 1px black;
 }
 
 a {
@@ -75,6 +75,7 @@ footer {
 #n-sort-navbar li {
     display: inline-block;
     margin: auto;
+    font-size: 0.9em;
 }
 
 #n-sort-navbar {
@@ -88,9 +89,12 @@ footer {
 }
 
 #n-category-navbar li {
-    width: 50px;
+    width: auto;
     text-align: left;
 }
+
+
+/* 상품 네비게이션 바 */
 
 .n-anchorBox {
     width: 25%;
@@ -173,6 +177,22 @@ footer {
     width: 8%;
     height: 8%;
 }
+
+
+/* 상품 전시 프레임 */
+
+#n-pagination-wrapper {
+    margin-left: 25%;
+    position: relative;
+    top: 40px;
+}
+
+.n-pagination li {
+    display: inline-block;
+}
+
+
+/* 페이지네이션 */
 
 
 /* -------------------end category-category */

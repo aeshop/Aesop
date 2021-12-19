@@ -14,6 +14,7 @@ import java.util.Properties;
 import org.eclipse.jdt.internal.compiler.IErrorHandlingPolicy;
 
 import teamSemiProject2.edu.kh.semi.category.model.vo.Category;
+import teamSemiProject2.edu.kh.semi.category.model.vo.Pagination;
 import teamSemiProject2.edu.kh.semi.order.controller.orderConTmp;
 import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
 import teamSemiProject2.edu.kh.semi.product.model.vo.ProductImage;
@@ -63,7 +64,7 @@ public class CategoryDAO {
 		return category;
 	}
 
-	public List<Product> getProduct(Connection conn) throws Exception {
+	public List<Product> getProduct(Pagination pagination, int categoryNo, Connection conn) throws Exception {
 
 		List<Product> pList = new ArrayList<Product>();
 
@@ -71,6 +72,31 @@ public class CategoryDAO {
 			String sql = prop.getProperty("getProduct");
 
 			pstmt = conn.prepareStatement(sql);
+			// pagination 객체에 존재하는 limit 를 활용해야 한다.
+			// 현재 페이지가 1이면, 제품은 1~12번, 2면 13~24번 제품이 보여져야한다
+			// ((cp -1)*limit +1), ((cp -1)*limit +1) + limit -1
+
+			// 받아온 categoryNo를 활용해야한다
+
+			int cateStart = 0;
+			int cateEnd = 0;
+			if (categoryNo == 300) {
+				cateStart = 300;
+				cateEnd = cateStart + 100 - 1;
+			} else {
+				cateStart = categoryNo;
+				cateEnd = cateStart + 10 - 1;
+			}
+
+			int startProduct = ((pagination.getCurrentPage() - 1) * pagination.getLimit() + 1);
+			int endProduct = startProduct + pagination.getLimit() - 1;
+
+			// 카테고리별로 검색조건 앵커
+			pstmt.setInt(1, cateStart);
+			pstmt.setInt(2, cateEnd);
+			// 페이지네이션 ROWNUM BETWEEN 앵커
+			pstmt.setInt(3, startProduct);
+			pstmt.setInt(4, endProduct);
 
 			rs = pstmt.executeQuery();
 
@@ -78,11 +104,12 @@ public class CategoryDAO {
 				Product tmp = new Product();
 				tmp.setProductNo(rs.getInt("PRODUCT_NO"));
 				tmp.setProductName(rs.getString("PRODUCT_NM"));
-				tmp.setPrice(rs.getInt(3));
-				tmp.setDiscount(rs.getDouble(4));
-				tmp.setStock(rs.getInt(5));
-				tmp.setCategoryNo(rs.getInt(6));
-				tmp.setStatusNo(rs.getInt(7));
+				tmp.setPrice(rs.getInt("PRODUCT_PRICE"));
+				tmp.setDiscount(rs.getDouble("DISCOUNT"));
+				tmp.setStock(rs.getInt("STOCK"));
+				tmp.setCategoryNo(rs.getInt("PRODUCT_CATEGORY"));
+				tmp.setStatusNo(rs.getInt("PRO_STATUS_NO"));
+				tmp.setCategoryName(rs.getString("CATEGORY_NM"));
 
 				pList.add(tmp);
 			}
@@ -120,6 +147,26 @@ public class CategoryDAO {
 		}
 
 		return imgList;
+	}
+
+	public int getPageCount(Connection conn) throws Exception {
+		int result = 0;
+		try {
+			String sql = prop.getProperty("getPageCount");
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+
+				result = rs.getInt(1);
+			}
+
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+
+		return result;
 	}
 
 }

@@ -3,14 +3,26 @@
 <properties>
 	<!-- 로그인 (탈퇴 회원 제외) -->
 	<entry key="getCategory">
-		SELECT * FROM PRODUCT_CATEGORY
+		SELECT * FROM PRODUCT_CATEGORY ORDER BY CATEGORY_NO ASC
+	</entry>
+	<entry key="getPageCount">
+		SELECT count(*) FROM PRODUCT
 	</entry>
 	<entry key="getProduct">
-		SELECT * FROM PRODUCT
+	SELECT * FROM
+		(
+		SELECT ROWNUM rnum ,A.*
+		FROM(
+		SELECT p.* , c.category_nm
+		FROM product p
+		JOIN product_category c ON(p.product_category = c.category_no)
+        WHERE c.category_no BETWEEN ? AND ?
+		ORDER BY p.pro_status_no,p.product_no DESC) A)
+		WHERE rnum BETWEEN ? AND ?
 	</entry>
 	<entry key="getProductImageList">
 		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO=?
 	</entry>
-	
+
 
 </properties>
