@@ -76,7 +76,7 @@ public class CategoryDAO {
 			// 현재 페이지가 1이면, 제품은 1~12번, 2면 13~24번 제품이 보여져야한다
 			// ((cp -1)*limit +1), ((cp -1)*limit +1) + limit -1
 
-			// 받아온 categoryNo를 활용해야한다
+			// 받아온 categoryNo를 경우의 수에 맞게 활용
 
 			int cateStart = 0;
 			int cateEnd = 0;
@@ -84,8 +84,16 @@ public class CategoryDAO {
 				cateStart = 300;
 				cateEnd = cateStart + 100 - 1;
 			} else {
-				cateStart = categoryNo;
-				cateEnd = cateStart + 10 - 1;
+				
+				if(categoryNo%10==0) {
+					cateStart = categoryNo;
+					cateEnd = cateStart + 10 - 1;
+				} else {
+					cateStart = categoryNo;
+					cateEnd = categoryNo;
+
+				}
+			
 			}
 
 			int startProduct = ((pagination.getCurrentPage() - 1) * pagination.getLimit() + 1);

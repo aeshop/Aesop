@@ -67,8 +67,15 @@ public class CategoryController extends HttpServlet {
 				//전체 카테고리 정보는 항상 보여지고 있는 상태, 클릭한것만 검정불 들어오고  가져온 상태에서, 세부 카테고리는 안보임
 				//널디와 이솝의 차이점이 널디는 큰 카테고리 안 세부 카테고리가 없고 이솝은 있다는 것
 				
-				//일단 큰 카테고리 가져오기 - 완료   소 카테고리 도전: jsp로 태그들을 만들고, 거기 안에 링크들을 부여하면 된다, 큰 카테고리 아래 지역에 div 만듬
+				//일단 큰 카테고리 가져오기 - 완료   
+				//소 카테고리 도전: jsp로 태그들을 만들고, 거기 안에 링크들을 부여하면 된다, 큰 카테고리 아래 지역에 div 만듬: 
+				//소 카테고리의 경우에는 자기것만 보여야 하므로, between 물음표가 자기에서 자기로 끝나야 한다
 				List<Category> cList = service.getCategory();
+				
+				for(Category cate : cList){
+					cate.setCurrentCategoryNo(categoryNo);					
+				}
+				
 				req.setAttribute("category", cList);
 				
 				//DB의 얻어올 정보는 제품 정보 List<Product>와,  pagination 정보:페이지네이션 객체이고, pagination객체를 먼저 얻어와야한다

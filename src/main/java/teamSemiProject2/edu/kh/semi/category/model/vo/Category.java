@@ -4,6 +4,8 @@ public class Category {
 
 	private int categoryNo;
 	private String categoryName;
+	private int currentCategoryNo;
+	
 	public Category() {
 		super();
 
@@ -24,6 +26,12 @@ public class Category {
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	public int getCurrentCategoryNo() {
+		return currentCategoryNo;
+	}
+	public void setCurrentCategoryNo(int currentCategoryNo) {
+		this.currentCategoryNo = currentCategoryNo;
 	}
 	
 	

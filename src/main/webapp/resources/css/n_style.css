@@ -1,11 +1,11 @@
 *:not(html, body) {
     box-sizing: border-box;
-    border: solid 1px black;
+    /* border: solid 1px black; */
 }
 
 a {
     text-decoration: none;
-    color: red;
+    color: black;
 }
 
 ul {
@@ -56,9 +56,13 @@ footer {
     font-size: 1.2em;
 }
 
+
+/*  카테고리페이지-배너 */
+
 #n-navbar-wrapper {
+    margin-top: 20px;
     margin-bottom: 10px;
-    border: solid 1px black;
+    border-top: solid 3px black;
 }
 
 #n-category-navbar,
@@ -66,6 +70,7 @@ footer {
     width: 50%;
     display: inline-block;
     line-height: 50px;
+    border: none;
     border-top: solid 1px black;
     border-bottom: solid 1px black;
     height: 60px;
@@ -93,8 +98,18 @@ footer {
     text-align: left;
 }
 
+#n-sCategory-navbar-wrapper {
+    border-bottom: solid 1px #ccc;
+}
 
-/* 상품 네비게이션 바 */
+#n-sCategory-navbar li {
+    display: inline-block;
+    margin: auto;
+    font-size: 0.8em;
+}
+
+
+/* 카테고리 - 상품 네비게이션 바 */
 
 .n-anchorBox {
     width: 25%;
@@ -180,6 +195,13 @@ footer {
 
 
 /* 상품 전시 프레임 */
+
+.soldout {
+    opacity: 0.5;
+}
+
+
+/* 상품 전시 프레임- 품절시 */
 
 #n-pagination-wrapper {
     margin-left: 25%;

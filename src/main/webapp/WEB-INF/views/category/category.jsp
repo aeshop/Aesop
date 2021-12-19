@@ -24,7 +24,7 @@
 
                 <div id="n-list-container">
                     <div id="n-category-hero-banner">
-                        <!-- 원래는 이미지가 막 변경되고 그런거같은데, 안함 -->
+                        <!-- 캐러셀: 안함 -->
 
                         <a href="#"> <img src="${contextPath}/resources/images/category/categoryBanner.jpg" alt="">
 
@@ -43,13 +43,23 @@
 
 
                     <div id="n-navbar-wrapper">
-                        <!-- 카테고리 네비게이션 바: 반복문 -->
+                        <!-- 카테고리 네비게이션 바: 완성 -->
                         <div id="n-category-navbar">
                             <ul id="n-category-ul">
 
                                 <c:forEach items="${category}" var="cate">
                                     <c:if test="${cate.categoryNo%10==0}">
-                                        <li><a href="view?cp=${pagination.currentPage}&cate=${cate.categoryNo}">${cate.categoryName}</a></li>
+                                    	<c:choose>
+                                    	<c:when test="${cate.currentCategoryNo==cate.categoryNo}">
+                                    <li><a href="view?cp=${pagination.currentPage}&cate=${cate.categoryNo}" style="font-weight:bold;">${cate.categoryName}</a></li>
+                                    	
+                                    	</c:when>
+                                    	
+                                    	<c:otherwise>
+                                    	<li><a href="view?cp=${pagination.currentPage}&cate=${cate.categoryNo}">${cate.categoryName}</a></li>
+                                    	
+                                    	</c:otherwise>
+                                    	</c:choose>
 
                                     </c:if>
 
@@ -59,7 +69,7 @@
                             </ul>
 
                         </div>
-                        <!-- 정렬방식 네비게이션 바 -->
+                        <!-- 정렬방식 네비게이션 바 미완성: 나중에 도전할 예정 -->
                         <div id="n-sort-navbar">
                             <ul id="n-sort-ul">
                                 <li><a href="#">신상품</a></li>
@@ -70,20 +80,92 @@
 
                         </div>
                     </div>
+                  <!-- 소분류 네비게이션 바, 및 페이지네이션: 테스트 필요-->
+                    
+                    <c:if test="${category[0].currentCategoryNo!=300}">
+                    <div id="n-sCategory-navbar-wrapper">
+                    
+                       <div id="n-sCategory-navbar">
+                            <ul id="n-sCategory-ul">
+                            
+                            <c:forEach items="${category}" var="index">
+                            <c:set var="lc1" value="${category[0].currentCategoryNo/10}"/>
+                            <fmt:parseNumber type="number" var="largeCate" integerOnly="true" value="${lc1}"/>
+                            <c:set var="lc2" value="${index.categoryNo/10}"/>
+                            <fmt:parseNumber type="number" var="indexCate" integerOnly="true" value="${lc2}"/>
+                            
+								<c:if test="${largeCate eq indexCate && largeCate*10!=index.categoryNo}">
+								                               <%--소수점으로 나오는 문제 극복, fmt: parseNumber를 사용한다
+								                               그럼 이제 대분류가 섞여 나오는 문제 극복해야한다
+								                               
+								                               소분류 컬럼을 하나 추가하는 편이 훨씬 편하다, 어쨋든 지금 상황에서는 안되므로	
+								                               이전에 parseNumber로 만들었던 정수:31 에 10을 곱한 값 : 310 320 ... 등
+								                               이 대분류 310 320 이랑 같지 않을 경우에만 출력하도록 만들었다.							                               
+								                                --%>
+								
+							<c:choose>
+							<c:when test="${index.categoryNo==index.currentCategoryNo}">
+							<li><a href="view?cp=${pagination.currentPage}&cate=${index.categoryNo}" style="font-weight:bold;">${index.categoryName}</a></li>
+							
+							</c:when>
+							
+							<c:otherwise>
+								<li><a href="view?cp=${pagination.currentPage}&cate=${index.categoryNo}">${index.categoryName}</a></li>							
+							</c:otherwise>
+							</c:choose>
+							
+							
+								
+								
+								</c:if>
+
+							</c:forEach>
+                            
+                            
+                            </ul>
+
+                        </div>
+                   </div>
+                        
+                    </c:if>
+                    
+                 
+                    
+                    
+                    
+                    
 
                     <div id="n-product-list-wrapper">
                         <ul id="n-product-list-ul">
                             <!-- 상품 진열 리스트 아이템 시작: 반복문 -->
-                            <c:forEach items="${productList}" var="product">
+							<c:if test="${empty productList}">
+							<h3 style="text-align:center;">상품이 존재하지 않습니다.</h3>
+							</c:if>
 
+                            <c:forEach items="${productList}" var="product">
+					
+					
                                 <li class="n-anchorBox">
+                                <c:if test="${product.stock eq 0}">
+                                <c:set var="isSoldout" value="soldout"/>
+                                </c:if>
+                                
                                     <div class="n-thumbnail">
-                                        <a href="링크"><img src="${contextPath}${product.imgList[0].imgPath}${product.imgList[0].imgName}" alt="이미지들어가는곳"> </a>
+                                        <a href="링크"><img src="${contextPath}${product.imgList[0].imgPath}${product.imgList[0].imgName}" alt="이미지들어가는곳" class="${isSoldout}"> </a>
                                     </div>
                                     <div class="n-discription">
                                         <div class="n-tag">
-                                            <span style="background-color: #000; color: #fff">시즌오프</span> <span style="background-color: red; color: #fff"><fmt:formatNumber
+                                        
+                                        <c:choose>
+                                        <c:when test="${!empty isSoldout}">
+                                         <span style="background-color: #fff; color: red; border:solid 1px red;">SOLD OUT</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                         <span style="background-color: #000; color: #fff">시즌오프</span> <span style="background-color: red; color: #fff"><fmt:formatNumber
 										type="number" value="${product.discount*100}" /> %</span>
+                                        </c:otherwise>
+                                        </c:choose>
+                                        
                                         </div>
                                         <strong class="n-name"> <a href="#"> <span>${product.productName}</span>
 							</a>
@@ -122,27 +204,16 @@
                             </c:forEach>
 
 
-
-
-
-
-
-
-
                             <!-- 상품 진열 리스트 반복문 끝 -->
 
                         </ul>
 
 
 
-                       
-
-
-
                     </div>
 
  
-<!-- 페이지네이션 부분 -->
+					<!-- 페이지네이션 부분, 완성 -->
 
                         <div id="n-pagination-wrapper">
                             <ul class="n-pagination">
@@ -168,8 +239,6 @@
 
 
                                 </c:forEach>
-
-
 
 
                                 <!-- 다음, 마지막 리모콘 버튼 -->
