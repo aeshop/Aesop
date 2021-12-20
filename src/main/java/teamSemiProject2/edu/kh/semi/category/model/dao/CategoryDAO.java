@@ -11,11 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.eclipse.jdt.internal.compiler.IErrorHandlingPolicy;
 
 import teamSemiProject2.edu.kh.semi.category.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.category.model.vo.Pagination;
-import teamSemiProject2.edu.kh.semi.order.controller.orderConTmp;
 import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
 import teamSemiProject2.edu.kh.semi.product.model.vo.ProductImage;
 

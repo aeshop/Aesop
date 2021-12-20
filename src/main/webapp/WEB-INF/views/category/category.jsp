@@ -98,8 +98,8 @@
                             <fmt:parseNumber type="number" var="indexCate" integerOnly="true" value="${lc2}"/>
                             
 								<c:if test="${largeCate eq indexCate && largeCate*10!=index.categoryNo}">
-								                               <%--소수점으로 나오는 문제 극복, fmt: parseNumber를 사용한다
-								                               그럼 이제 대분류가 섞여 나오는 문제 극복해야한다
+								                               <%--소수점으로 나오는 문제 해결, fmt: parseNumber를 사용한다
+								                               그럼 이제 대분류가 섞여 나오는 문제 해결해야한다
 								                               
 								                               소분류 컬럼을 하나 추가하는 편이 훨씬 편하다, 어쨋든 지금 상황에서는 안되므로	
 								                               이전에 parseNumber로 만들었던 정수:31 에 10을 곱한 값 : 310 320 ... 등

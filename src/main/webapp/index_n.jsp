@@ -9,7 +9,7 @@
    <title>홈페이지명</title>
 </head>
 <body>
-  <jsp:forward page="/WEB-INF/views/common/main.jsp"/>
+  <jsp:forward page="/WEB-INF/views/common/main_n.jsp"/>
    
 </body>
 </html>
