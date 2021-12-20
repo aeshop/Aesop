@@ -48,9 +48,12 @@
                             <ul id="n-category-ul">
 
                                 <c:forEach items="${category}" var="cate">
+                                    <fmt:parseNumber var="cCn" value="${cate.currentCategoryNo/10}" integerOnly="true"/>
+                                    	<fmt:parseNumber var="cN" value="${cate.categoryNo/10}" integerOnly="true"/>
                                     <c:if test="${cate.categoryNo%10==0}">
                                     	<c:choose>
-                                    	<c:when test="${cate.currentCategoryNo==cate.categoryNo}">
+                                    	
+                                    	<c:when test="${cCn==cN}">
                                     <li><a href="view?cp=${pagination.currentPage}&cate=${cate.categoryNo}" style="font-weight:bold;">${cate.categoryName}</a></li>
                                     	
                                     	</c:when>
@@ -214,12 +217,12 @@
 
  
 					<!-- 페이지네이션 부분, 완성 -->
-
+<br>
                         <div id="n-pagination-wrapper">
                             <ul class="n-pagination">
                                 <!-- 첫째, 이전 리모콘 버튼 -->
-                                <li><a class="page-link" href="view?cp=1">&lt;&lt;</a></li>
-                                <li><a class="page-link" href="view?cp=${pagination.prevPage}">&lt;</a></li>
+                                <li><a class="page-link" href="view?cp=1&cate=${category[0].currentCategoryNo}">&lt;&lt;</a></li>
+                                <li><a class="page-link" href="view?cp=${pagination.prevPage}&cate=${category[0].currentCategoryNo}">&lt;</a></li>
 
 
 
@@ -231,7 +234,7 @@
 
                                         </c:when>
                                         <c:otherwise>
-                                            <li><a class="page-link" href="view?cp=${index}">${index}</a></li>
+                                            <li><a class="page-link" href="view?cp=${index}&cate=${category[0].currentCategoryNo}">${index}</a></li>
 
                                         </c:otherwise>
                                     </c:choose>
@@ -242,8 +245,8 @@
 
 
                                 <!-- 다음, 마지막 리모콘 버튼 -->
-                                <li><a class="page-link" href="view?cp=${pagination.nextPage}">&gt;</a></li>
-                                <li><a class="page-link" href="view?cp=${pagination.maxPage}">&gt;&gt;</a></li>
+                                <li><a class="page-link" href="view?cp=${pagination.nextPage}&cate=${category[0].currentCategoryNo}">&gt;</a></li>
+                                <li><a class="page-link" href="view?cp=${pagination.maxPage}&cate=${category[0].currentCategoryNo}">&gt;&gt;</a></li>
 
                             </ul>
 

@@ -204,6 +204,7 @@ footer {
 /* 상품 전시 프레임- 품절시 */
 
 #n-pagination-wrapper {
+    clear: both;
     margin-left: 25%;
     position: relative;
     top: 40px;
