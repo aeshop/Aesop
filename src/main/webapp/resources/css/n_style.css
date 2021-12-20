@@ -306,3 +306,122 @@ footer {
 
 
 /* -------------------start order-payment */
+
+#n-order-container {
+    font-size: 0.8em;
+}
+
+#n-shipping-alert {
+    background-color: rgb(250, 195, 195);
+    padding: 10px 0px;
+    ;
+}
+
+.n-order-row div {
+    display: inline-block;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.n-order-row p {
+    display: block;
+    text-align: right;
+    margin-top: -20px;
+}
+
+.n-delete {
+    margin-top: 15px;
+}
+
+#n-shipping-alert>div {
+    color: red;
+}
+
+#n-shipping li {
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 30px;
+    text-align: justify;
+}
+
+#n-shipping li:nth-child(2) {
+    position: relative;
+    left: 650px;
+}
+
+#n-p-summery td {
+    border: none;
+}
+
+#n-p-summery td:nth-child(2) {
+    text-align: right;
+}
+
+#n-order-info {
+    margin-top: 20px;
+}
+
+#n-delivery-info {
+    margin-top: 20px;
+}
+
+.n-addr {
+    margin-left: 20px;
+}
+
+#n-order-info table,
+#n-delivery-info table {
+    font-size: 0.8em;
+}
+
+.n-order-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.n-order-table td {
+    padding: 5px;
+    width: auto;
+    border-top: 1px solid black;
+}
+
+.n-order-table td:nth-of-type(1) {
+    border-right: 1px solid black;
+}
+
+#n-pay-info {
+    margin-top: 30px;
+}
+
+#n-cal-table,
+#n-discount-table {
+    margin-top: 30px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#n-cal-table td {
+    padding: 15px;
+    width: auto;
+    border-top: 1px solid black;
+    text-align: center;
+}
+
+#n-cal-table tr:nth-child(1) {
+    background-color: rgba(202, 202, 202, 0.589);
+}
+
+#n-cal-table tr:nth-child(2) td {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#n-discount-table td {
+    padding: 10px;
+    border-top: 1px solid black;
+    text-align: left;
+}
+
+#n-discount-table td:nth-of-type(1) {
+    width: 150px;
+}

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문결제 페이지</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- bootstrap5 -->
+    <link rel="stylesheet" href="../../../resources/css/n_style.css">
+    <!-- custom css -->
+
+</head>
+
+<body>
+    <header> 헤더입니다</header>
+
+
+
+    <div id="n-order-container">
+
+
+        <form id="n-order-frm" action="">
+
+
+
+
+
+            <div id="n-membership-benefit-wrapper">
+                <div class="n-infomation">
+                    <div class="n-membership">혜택정보</div>
+                    <div class="n-membership"><span id="n-membership-id">노용래</span>님은, [<span id="n-membership-rank">브론즈</span>] 회원이십니다. <br>10,000원 이상 구매시 <span id="n-membership-rate">1</span>%을 추가적립 받으실 수 있습니다.</div>
+
+                </div>
+            </div>
+            <div id="n-shipping-alert">
+                <div><img src="../../../resources/images/order/ico_info.gif" alt="느낌표 아이콘"> 상품의 수량 변경은 상품상세 또는 장바구니에서 가능합니다.</div>
+            </div>
+            <div id="n-shipping-wrapper">
+
+                <div class="n-order-row">
+                    <div>국내배송상품 주문내역</div>
+                    <p><img src="../../../resources/images/order/btn_prev.gif" alt="이전페이지 버튼"></p>
+
+                </div>
+            </div>
+
+            <div id="n-cart-info">
+                <table class="n-cart-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" onclick=""></th>
+                            <th>이미지</th>
+                            <th>상품정보</th>
+                            <th>판매가</th>
+                            <th>수량</th>
+                            <th>배송비</th>
+                            <th>합계</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="checkbox" onclick="">
+                            </td>
+                            <td>
+                                <img src="" alt="">
+                            </td>
+                            <td><a href="">에일리언 삭스 머스타드</a>
+                                <ul>
+                                    <li>[옵션: <span></span>]</li>
+                                </ul>
+                            </td>
+                            <td>7,500원</td>
+
+                            <td>
+
+                                1
+                            </td>
+                            <td>2,500원</td>
+                            <td>10000원</td>
+
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr id="n-p-summery">
+                            <td>[기본배송]</td>
+                            <td colspan="6">상품구매금액 + 배송비 (무료) = 합계 : 350,000원 </td>
+                        </tr>
+                    </tfoot>
+
+
+                </table>
+
+                <div class="n-order-row n-delete">
+                    <div>선택상품을 <img src="../../../resources/images/order/btn_delete2.gif" alt="삭제하기 버튼"></div>
+                    <p><img src="../../../resources/images/order/btn_prev.gif" alt="이전페이지 버튼"></p>
+
+                </div>
+            </div>
+
+
+            <!-- 주문 정보 -->
+
+            <div id="n-order-info">
+                <div id="n-order-wrapper">
+                    <div class="n-order-row">
+                        <div>주문 정보</div>
+                        <p><img src="../../../resources/images/order/ico_required.gif" alt="required 빨간 별">필수입력사항</p>
+
+                    </div>
+
+                    <table class="n-order-table">
+                        <tr>
+                            <td>주문하시는 분<img src="../../../resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
+                            <td>
+                                <div><input type="text" name="oName" size="10" required></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>휴대전화<img src="../../../resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
+                            <td><select name="phone1" id="oPhone1" required>
+                            <option value="010" selected>010</option>
+                            <option value="011">011</option>
+                            <option value="016">016</option>
+                            <option value="017">017</option>
+                            <option value="018">018</option>
+                            <option value="019">019</option>
+                          </select> -
+                                <input type="text" name="oPhone2" size="10" required> -
+                                <input type="text" name="oPhone3" size="10" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3">이메일<img src="../../../resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
+                            <td><input type="text" name="oEmail1"> "@"
+                                <input type="text" name="oEmail2">
+                                <select name="oEmail3">
+                                <option value="selected">이메일 선택</option>
+                                <option value="naver.com">naver.com</option>
+                                <option value="daum.net">daum.net</option>
+                                <option value="nate.com">nate.com</option>
+                                <option value="gmail.com">gmail.com</option>
+                                <option value="etc">직접입력</option>
+                              </select>
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <td>-이메일을 통해 주문처리과정을 보내드립니다.</td>
+                        </tr>
+                        <tr>
+
+                            <td>-이메일 주소란에는 반드시 수신가능한 이메일주소를 입력해 주세요.</td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- 배송 정보 -->
+            <div id="n-delivery-info">
+                <div id="n-delivery-wrapper">
+                    <div class="n-order-row">
+                        <div>배송 정보</div>
+                        <p><img src="../../../resources/images/order/ico_required.gif" alt="required 빨간 별">필수입력사항</p>
+
+                    </div>
+                    <table class="n-order-table">
+                        <tr>
+                            <td>
+                                <div>배송지 선택</div>
+                            </td>
+                            <td colspan="2">
+                                <input type="radio" id="sameaddr0" name="addr" value="sameaddr0">
+                                <label for="sameaddr0">주문자 정보와 동일</label>
+                                <input type="radio" id="sameaddr1" name="addr" value="sameaddr1">
+                                <label for="sameaddr1">새로운 배송지</label>
+                                <input type="radio" id="sameaddr2" name="addr" value="sameaddr2">
+                                <label for="sameaddr2">최근 배송지</label>
+
+                                <span><img src="../../../resources/images/order/btn_address.gif" alt="주소록 버튼"></span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>받으시는 분<img src="../../../resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
+                            <td>
+                                <input type="text" name="rName" size="10">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3">주소<img src="../../../resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
+                            <td><input type="text" name="rZipcode"> <img src="../../../resources/images/order/btn_zipcode.gif" alt="우편번호 버튼이미지"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="rAddr1" size="70" maxlength="100"><span class="n-addr">기본주소</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="rAddr2" size="70" maxlength="100"><span class="n-addr"></span>나머지주소(선택입력가능) <span style="color:red;">상세주소(동/호수)를 꼭 기입 바랍니다</span></span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>휴대전화<img src="../../../resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
+                            <td><select name="phone1" id="rPhone1" required>
+                          <option value="010" selected>010</option>
+                          <option value="011">011</option>
+                          <option value="016">016</option>
+                          <option value="017">017</option>
+                          <option value="018">018</option>
+                          <option value="019">019</option>
+                        </select> -
+                                <input type="text" name="rPhone2" size="10" required> -
+                                <input type="text" name="rPhone3" size="10" required></td>
+
+                        </tr>
+
+                        <tr>
+                            <td>배송메세지</td>
+                            <td colspan="2">
+                                <textArea name="rMessage" cols="160" rows="5">
+
+                        </textArea>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- 결제 예정 금액 -->
+
+
+            <div id="n-pay-info">
+                <div id="n-pay-wrapper">
+                    <div class="n-order-row">
+                        <div>결제 예정 금액</div>
+
+                    </div>
+                    <table id="n-cal-table">
+                        <tr>
+                            <td>총 주문 금액 <img src="../../../resources/images/order/btn_list.gif" alt="내역보기 이미지 버튼"></td>
+                            <td>총 할인 + 부가결제 금액</td>
+                            <td>총 결제예정 금액</td>
+                        </tr>
+                        <tr>
+                            <td>123,456원 </td>
+                            <td>-123,456원 </td>
+                            <td>=123,456원 </td>
+
+                        </tr>
+                    </table>
+                    <table id="n-discount-table">
+                        <tr>
+                            <td>총 할인 금액</td>
+                            <td>111,111원</td>
+                        </tr>
+
+
+                        <tr>
+                            <td>추가 할인 금액</td>
+                            <td><img src="../../../resources/images/order/btn_list.gif" alt="내역보기"></td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- 결제 수단 -->
+
+            <!-- 카드결제 api 이용 예정  사용법 익혀야함 -->
+
+
+
+
+
+
+
+            <!-- 카드사 직접결제 -->
+
+        </form>
+
+    </div>
+
+
+    <footer> 푸터입니다</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- bootstrap5 -->
+
+</body>
+
+</html>
