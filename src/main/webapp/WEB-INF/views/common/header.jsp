@@ -10,55 +10,86 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>aesop</title>
-
-<!-- Bootstrap4 CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-
 <!-- 공용 CSS -->
 <link rel="stylesheet" href="${contextPath}/resources/css/common/common.css">
 
-<!-- swiper CSS -->
-<!-- 널디에서 사용하길래 사용해봅니다. (오토슬라이드 기능) -->
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+<!-- bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    <!-- 외부 font -->
+  <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
+
+  <!-- swiper CSS -->
+  <!-- 널디에서 사용하길래 사용해봅니다. (오토슬라이드 기능) -->
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  
 </head>
 
 <body>
-<div class="header">
-    <div class="nav-event">
-      <a href="#">이미지 오토 슬라이드 이벤트</a>
-    </div>
-    <div class="main_nav">
-      <div class="main_nav_left">
-        <div class="nav_links">
-          <a href="#">category1</a>
-          <a href="#">category2</a>
-          <a href="#">category3</a>
-          <a href="#">category4</a>
-          <a href="#">category5</a>
-          <a href="#">category6</a>
+<header id="carousel">
+    <!-- Bootstrap Carousel-->
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="5500">
+          11111111111111111111111111
+        </div>
+        <div class="carousel-item" data-bs-interval="5500">
+          222222222222222222222222222
+        </div>
+        <div class="carousel-item" data-bs-interval="5500">
+          33333333333333333333333333333
         </div>
       </div>
+    </div>
+  </header>
 
-      <div class="main_nav_right">
-        <form id="searchBarForm" action="#" method="get">
-          <div class="main_header_search">
-            <input class= "inputTypeText"  type="text" id="keyword" placeholder="SEARCH" autocomplete="off">
-            <input type="submit" value="검색" class="btn-search">
-          </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarColor03">
+        <div class="nav-logo">
+          <a href="#" id="logo_href">
+            Aesop
+          </a>
+        </div>
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Category1
+              <!-- <span class="visually-hidden">(current)</span> -->
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Category2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Category3</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Category4</a>
+          </li>
+
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-sm-2" type="text" placeholder="Search" style=" border-bottom: 2px solid black;">
+          <button type="button" class="r-form-control-button">
+            <i class="fas fa-search" style="font-size: 44px;"></i>
+          </button>
+
+          <button type="button">
+            LOGIN
+          </button>
+          <button type="button">
+            JOIN
+          </button>
+          <button type="button">
+            <i class="far fa-user"></i>
+          </button>
+          <button type="button">
+            <i class="fas fa-shopping-cart"></i>
+          </button>
+
         </form>
-
-        <div class="main_nav_sign">
-          <a href="#" class="btn-login">Login</a>
-          <a href="#" class="btn-join ">Join</a>
-        </div>
-
-        <div class="main_nav_member">
-          <a href="#" class="btn-mypage">Mypage</a>
-          <a href="#" class="btn-cart">Cart</a>
-        </div>
       </div>
-
     </div>
-  </div>
+  </nav>
 

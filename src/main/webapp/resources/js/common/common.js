@@ -1,46 +1,71 @@
-/**
- * 
- */
 
-// 메인 화면 컨테이너 슬라이드
-const swiper = new Swiper('.swiper-container', {
-        //기본 셋팅
-        //방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
-        direction : 'horizontal',
-        //한번에 보여지는 페이지 숫자
-        slidesPerView : 1,
-        //페이지와 페이지 사이의 간격
-        spaceBetween : 30,
-        //드레그 기능 true 사용가능 false 사용불가
-        debugger : true,
-        //마우스 휠기능 true 사용가능 false 사용불가
-        mousewheel : true,
-        //반복 기능 true 사용가능 false 사용불가
-        loop : true,
-        //선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 djqt
-        centeredSlides : true,
-        // 페이지 전환효과 slidesPerView효과와 같이 사용 불가
-        // effect: 'fade',
-        speed : 1000,
-        //자동 스크를링
-        autoplay : {
-            //시간 1000 이 1초
-            delay : 3500,
-            disableOnInteraction : false,
-        },
-        //페이징
-        pagination : {
-            //페이지 기능
-            el : '.swiper-pagination',
-            //클릭 가능여부
-            clickable : true,
-        },
-        //방향표
-        navigation : {
-            //다음페이지 설정
-            nextEl : '.swiper-button-next',
-            //이전페이지 설정
-            prevEl : '.swiper-button-prev',
-        },
+    var swiperHead = new Swiper(".swiper_header", {
+      spaceBetween: 100,
+      centeredSlides: true,
+      autoplay: {
+        delay: 3300,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev"
+      }
     });
 
+  /*<%-- footer JS --%>*/
+ 
+    var swiperFooter = new Swiper(".swiper_footer", {
+      direction: "vertical",
+      slidesPerView: "auto",
+      freeMode: true,
+      scrollbar: {
+        el: ".swiper-scrollbar",
+      },
+      mousewheel: true,
+    });
+
+    /* copyright */
+    document.getElementById("copyright_btn_open").addEventListener("click", function () {
+      const copyright = document.getElementById("copyright");
+
+      copyright.style.display = "block";
+      this.style.display = "none";
+
+      document.getElementById("copyright_btn_close").addEventListener("click", function () {
+        const copyrightBtn = document.getElementById("copyright_btn_open");
+
+        copyright.style.display = "none";
+        copyrightBtn.style.display = "block";
+      });
+    });
+
+    $(".sidebar_categoty").children().hide();
+    $(".sidebar_categoty").on("mouseover", function () {
+      $(".sidebar_categoty").children().hide();
+      $(this).children().show();
+    });
+
+    setTimeout(function () {
+      $(".sidebar_categoty").on("mouseout", function () {
+
+        $(this).children().hide();
+      });
+
+    });
+
+    $(".main_container_2_slide_center_image").on(("mouseover"), function () {
+      $(this).parent().hide();
+      $(".main_container_2_slide_center_hover").css("display", "block").css("background", "rgb(248, 202, 202)");
+    });
+
+    setTimeout(function () {
+      $(".main_container_2_slide_center_hover").on("mouseout", function () {
+        $(".main_container_2_slide_center_hover").hide();
+        $(".main_container_2_slide_center").css("display", "block");
+      });
+
+    });
