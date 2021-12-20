@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!-- 로그인 (탈퇴 회원 제외) -->
+	<entry key="getCategory">
+		SELECT * FROM PRODUCT_CATEGORY
+	</entry>
+	
+	<entry key="nextProductNum">
+		SELECT seq_product_no.nextval FROM DUAL
+	</entry>
+	<entry key="insertProduct">
+INSERT INTO PRODUCT VALUES (?,?,?,?,?,?,1001)
+	</entry>
+	<entry key="insertImg">
+INSERT INTO PRODUCT_IMG VALUES (seq_product_img_no.nextval,?,?,?,?)
+	</entry>
+	
+
+</properties>
