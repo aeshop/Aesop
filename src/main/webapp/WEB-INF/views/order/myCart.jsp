@@ -1,0 +1,169 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html lang="ko">
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
+
+
+
+<jsp:include page="../common/header_n.jsp"></jsp:include>
+
+<jsp:include page="../common/sidebar_n.jsp"></jsp:include>
+
+
+
+
+			<head>
+			
+			<link rel="stylesheet" href="${contextPath}/resources/css/n_style.css">
+			
+			</head>
+
+<fmt:parseNumber value="${100*(1-sessionScope.loginMemberDiscount)}" var="discountRate" integerOnly="true"/>
+
+<div id="n-order-container">
+
+	<div id="n-membership-benefit-wrapper">
+		<div class="n-infomation">
+			<div class="n-membership">혜택정보</div>
+			<div class="n-membership">
+				<span id="n-membership-id">${sessionScope.loginMemberName}</span>님은, [<span
+					id="n-membership-rank">${sessionScope.loginMemberGradeName}</span>] 회원이십니다. <br>구매금액의
+				<span id="n-membership-rate">${discountRate}</span>%을 할인 받으실 수 있습니다.
+			</div>
+
+		</div>
+	</div>
+	<!-- 주문항목 테이블 -->
+	<div id="n-shipping-wrapper">
+
+		<ul id="n-shipping">
+			<li>국내배송상품(<span>${orderCount}</span>)
+			</li>
+		</ul>
+	</div>
+
+	<div id="n-cart-info">
+		<table class="n-cart-table">
+			<thead>
+				<tr>
+					<th><input type="checkbox" onclick=""></th>
+					<th>이미지</th>
+					<th>상품정보</th>
+					<th>판매가</th>
+					<th>수량</th>
+					<th>배송비</th>
+					<th>합계</th>
+					<th>선택</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<c:choose>
+				<c:when test="${orderCount eq 0}">
+				<tr>
+				<td colspan="8">
+				장바구니에 담은 상품이 없습니다.
+				</td>
+				</tr>
+				</c:when>
+				
+				<c:otherwise>
+				
+				<c:forEach items="${orderList}" var="index" varStatus="vs">
+				
+					<tr>
+					<td><input type="checkbox" onclick=""></td>
+					<td><img src="${contextPath}${index.thumnailImgPath}${index.thumnailImgName}" alt="썸네일이미지"></td>
+					<td><a href="">${index.productName}</a></td>
+					<c:set var="price" value="${(1-index.productDiscount) *index.productPrice}"/>
+					
+					
+ 					
+ 					<td class="proPrice" width="100px;"><fmt:formatNumber value="${price}" maxFractionDigits="3"/>원</td>
+
+					<td><span> <span class="n-qty-change"> 
+					<input type="text" class="n-qty-no proAmount" value="${index.orderAmount}"> 
+					<a href="" onclick=""><img src="${contextPath}/resources/images/order/btn_quantity_up.gif"alt=""></a>
+				    <a href="" onclick=""><img src="${contextPath}/resources/images/order/btn_quantity_down.gif"alt=""></a>
+						</span></span></td>
+					
+					<c:if test="${vs.count eq 1}">
+						<td width="100px;" rowspan="${orderCount}"><span class="n-shipCal"></span>원</td>					
+
+					</c:if>	
+						<td ><span class="orderPrice"></span>원</td>
+					<td class="n-cart-btns"><a href="" onclick=""><img src="${contextPath}/resources/images/order/btn_order_p.png" alt="주문하기버튼img"></a> 
+					<a href="" onclick=""><img src="${contextPath}/resources/images/order/btn_delete2.gif"alt="삭제버튼img"></a></td>
+				</tr>
+				
+				
+				
+				
+				</c:forEach>
+				
+				
+				
+				</c:otherwise>
+				
+				</c:choose>
+				
+				
+			</tbody>
+
+
+			<tfoot>
+			<tr><td colspan="5" style="text-align:left;" >[기본배송]</td>
+				<td colspan="3">상품구매금액 <span class="n-proCal"></span>+ 배송비 <span class="n-shipCal"></span> = 합계 : <span class="n-sumCal"></span>원</td></tr>
+				
+			</tfoot>
+		</table>
+		<div class="n-cart-ctl-btn">
+			<span>선택상품을</span> <a href=""><img src="${contextPath}/resources/images/order/btn_delete2.gif" alt="삭제하기버튼img"></a>
+			<p>
+				<a href=""><img src="${contextPath}/resources/images/order/btn_clear.gif" alt="장바구니 비우기버튼img"></a>
+			</p>
+		</div>
+	</div>
+	<!-- 총 주문금액 : 국내배송상품 -->
+	<div class="n-summery">
+		<table class="n-summery-table">
+			<thead>
+				<tr>
+					<td>총 상품금액</td>
+					<td>총 배송비</td>
+					<td>총 결제예정금액</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><span class="n-proCal"></span>원</td>
+					<td>+ <span class="n-shipCal"></span>원</td>
+					<td>=<span class="n-sumCal"></span>원</td>
+				</tr>
+			</tbody>
+
+		</table>
+
+	</div>
+
+	<!-- 주문버튼 -->
+	<div class="n-order-btn-wrapper">
+		<div>
+			<button class="btn btn-primary">전체상품주문</button>
+			<button class="btn btn-secondary">선택상품주문</button>
+		</div>
+
+		<p>
+			<button class="btn btn-outline-secondary">쇼핑계속하기</button>
+		</p>
+	</div>
+</div>
+
+
+<jsp:include page="../common/footer_n.jsp"></jsp:include>
+<script type="text/javascript" src="${contextPath}/resources/js/order/myCart.js"></script>

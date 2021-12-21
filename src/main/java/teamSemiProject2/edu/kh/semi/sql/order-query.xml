@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!-- 회원 번호로 주문정보 받아오기 -->
+	<entry key="getOrder">
+SELECT * FROM V_ORDER_INFO WHERE MEMBER_NO = ?
+	</entry>
+	
+
+
+
+</properties>
