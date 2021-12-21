@@ -306,12 +306,13 @@ footer {
 
 .n-qty-change a:nth-of-type(2) {
     position: absolute;
-    top: 3px;
+    top: 13px;
     left: 50px;
 }
 
 .n-qty-change img {
     width: 20px;
+    height: 15px;
 }
 
 .n-cart-btns a {

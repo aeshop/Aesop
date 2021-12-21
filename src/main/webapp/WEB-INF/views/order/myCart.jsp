@@ -75,9 +75,9 @@
 				<c:otherwise>
 				
 				<c:forEach items="${orderList}" var="index" varStatus="vs">
-				
+				<%--DB에서 정보 받아와서 화면에 뿌리기 hidden으로 주문번호 checkbox 앞에 숨겨둠 parentNode firstChild로 접근가능  --%>
 					<tr>
-					<td><input type="checkbox" onclick=""></td>
+					<td><input type="hidden" value="${index.orderNo}"><input type="checkbox" class="n-order-chk" value="${index.orderNo}"></td>
 					<td><img src="${contextPath}${index.thumnailImgPath}${index.thumnailImgName}" alt="썸네일이미지"></td>
 					<td><a href="">${index.productName}</a></td>
 					<c:set var="price" value="${(1-index.productDiscount) *index.productPrice}"/>
@@ -88,8 +88,8 @@
 
 					<td><span> <span class="n-qty-change"> 
 					<input type="text" class="n-qty-no proAmount" value="${index.orderAmount}"> 
-					<a href="" onclick=""><img src="${contextPath}/resources/images/order/btn_quantity_up.gif"alt=""></a>
-				    <a href="" onclick=""><img src="${contextPath}/resources/images/order/btn_quantity_down.gif"alt=""></a>
+					<a onclick="amountUp(this)"><img src="${contextPath}/resources/images/order/btn_quantity_up.gif"alt="수량Up버튼"></a>
+				    <a onclick="amountDown(this)"><img src="${contextPath}/resources/images/order/btn_quantity_down.gif"alt="수량Down버튼"></a>
 						</span></span></td>
 					
 					<c:if test="${vs.count eq 1}">
@@ -98,7 +98,7 @@
 					</c:if>	
 						<td ><span class="orderPrice"></span>원</td>
 					<td class="n-cart-btns"><a href="" onclick=""><img src="${contextPath}/resources/images/order/btn_order_p.png" alt="주문하기버튼img"></a> 
-					<a href="" onclick=""><img src="${contextPath}/resources/images/order/btn_delete2.gif"alt="삭제버튼img"></a></td>
+					<a onclick="deleteOrder()"><img src="${contextPath}/resources/images/order/btn_delete2.gif"alt="삭제버튼img"></a></td>
 				</tr>
 				
 				
@@ -123,7 +123,7 @@
 			</tfoot>
 		</table>
 		<div class="n-cart-ctl-btn">
-			<span>선택상품을</span> <a href=""><img src="${contextPath}/resources/images/order/btn_delete2.gif" alt="삭제하기버튼img"></a>
+			<span>선택상품을</span> <a onclick="deleteSelectedOrder()"><img src="${contextPath}/resources/images/order/btn_delete2.gif" alt="삭제하기버튼img"></a>
 			<p>
 				<a href=""><img src="${contextPath}/resources/images/order/btn_clear.gif" alt="장바구니 비우기버튼img"></a>
 			</p>

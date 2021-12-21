@@ -25,4 +25,38 @@ public class OrderService {
 		return oList;
 	}
 
+	public int amountChange(int orderAmount,int orderNo, int loginMemberNo  ) throws Exception {
+
+		
+		conn = getConnection();
+
+		int result = dao.amountChange(orderAmount,orderNo,loginMemberNo,conn);
+		
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+
+		return result;
+	}
+
+	public int deleteOrder(int orderNo, int loginMemberNo) throws Exception{
+
+		
+		conn = getConnection();
+
+		int result = dao.deleteOrder(orderNo,loginMemberNo,conn);
+		
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+
+		return result;
+	}
+
 }

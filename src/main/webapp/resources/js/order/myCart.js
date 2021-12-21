@@ -1,5 +1,3 @@
-console.log("제대로 읽힙니다.");
-
 /* 
 JS는 화면에 뿌려진 것으로 계산하기 때문에 태그 안의 내용의 쉼표나 원을 빼고,
 숫자로 바꿔주고 계산을진행해야한다
@@ -21,7 +19,19 @@ calculateRow 함수 : 한 열의 상품가와 수량을 계산하는 함수
 
 document.addEventListener('DOMContentLoaded', calculatePrice);
 
+const proAmountArr = document.querySelectorAll('.proAmount');
 
+// calculateRow() 행 가격 계산 함수
+function calculateRow(proPrice, amount) {
+
+    const p = (Number)((proPrice.innerText).replaceAll(/[,원]/g, ''));
+    const a = (Number)(amount.value);
+
+
+    return p * a;
+}
+
+// calculatePrice() 전체 가격 계산 함수
 function calculatePrice() {
     //각 열의 가격정보 담은 span 태그
     const proPriceArr = document.querySelectorAll('.proPrice');
@@ -70,11 +80,131 @@ function calculatePrice() {
 
 }
 
-function calculateRow(proPrice, amount) {
-
-    const p = (Number)((proPrice.innerText).replaceAll(/[,원]/g, ''));
-    const a = (Number)(amount.value);
 
 
-    return p * a;
+
+//수량 변환 함수
+function amountUp(et) {
+    const orderAmount = et.parentNode.parentNode.firstElementChild.firstElementChild;
+    orderAmount.value = (Number)(orderAmount.value) + 1;
+    console.log(et);
+
+    const nF = amountChanged.bind(et);
+    nF();
+}
+
+function amountDown(et) {
+    //버튼 클릭한 위치의 DOM을 활용하는 수밖에 없는듯
+    const orderAmount = et.parentNode.parentNode.firstElementChild.firstElementChild;
+
+
+    if (orderAmount.value == 1) {
+        alert('1미만으로는 내릴 수 없습니다.');
+        return;
+    }
+
+    orderAmount.value = (Number)(orderAmount.value) - 1;
+    // console.log(et);
+
+    const nF = amountChanged.bind(et);
+    nF();
+
+
+}
+
+
+//수량 변환 함수 및 input태그에 bind
+function amountChanged() {
+    //버튼 클릭한 위치의 DOM을 활용
+    // 수량 input 태그 얻어오기
+    console.log('변경함수실행');
+    const orderAmount = this.parentNode.parentNode.firstElementChild.firstElementChild;
+    if (isNaN(orderAmount.value)) {
+        alert('숫자를 입력해 주세요');
+        orderAmount.value = "";
+        return;
+    } else if (orderAmount.value == 0) {
+        alert('1미만으로 내릴 수 없습니다.');
+        orderAmount.value = 1;
+        return;
+    }
+    //클릭한 주문번호 얻어오기
+    const orderNo = this.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
+
+    //ajax 실행
+    $.ajax({
+        url: "/teamSemiProject2/order/amountChange",
+        type: "POST",
+        data: {
+            "orderNo": orderNo,
+            "orderAmount": orderAmount.value
+        },
+        success: function(result) {
+            if (result == 1) {
+                alert("수량변경완료");
+                calculatePrice();
+            }
+        },
+        error: function() {
+            alert("수량up과정에서 오류 발생");
+        }
+
+    });
+
+}
+//화면 load시  수량 input에 변경이벤트시 함수 바인딩
+for (let i = 0; i < proAmountArr.length; i++) {
+    proAmountArr[i].addEventListener('change', amountChanged);
+
+}
+
+/*행의 상품 삭제 : deleteOrder()
+
+1.선택한 상품을 삭제할 것인지 묻는다 (confirm)
+2.삭제한 다음에(DB에서 update로 order 상태 변경)
+3. 화면을 reload함 : 다시 새로고침하는 효과를 요청주소를 보내고 거기서 redirect하는 방식으로 했음
+*/
+
+function deleteOrder() {
+    const orderNo = event.target.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
+
+    const deleteConfirm = confirm('선택하신 상품을 삭제하시겠습니까?');
+
+    if (deleteConfirm) {
+        location.href = '/teamSemiProject2/order/delete?' + "orderNo=" + orderNo;
+    }
+
+}
+
+/*선택상품 여러개의 삭제 : 
+
+또는 getParameterValue로 받을 수 있도록 queryString을 조작, 또는 post방식으로 보내도록 조작
+-->자바스크립트는 본문에 form이 없는 경우 post방식으로 데이터를 넘기기 힘들다 : JS로 form을 만들고 진행한다.
+
+1.선택한 상품을 삭제할 것인지 묻는다 (confirm)
+2.삭제한 다음에(DB에서 update로 order 상태 변경)
+3. 화면을 reload함 : 다시 새로고침하는 효과를 요청주소를 보내고 거기서 redirect하는 방식으로 했음
+*/
+
+function deleteSelectedOrder() {
+    // console.log('deleteSelectedOrder');
+    const orderCheckBox = document.querySelectorAll('.n-order-chk');
+
+    const orderNoArr = new Array();
+    let deleteQueryString = "";
+    for (let i = 0; i < orderCheckBox.length; i++) {
+        if (orderCheckBox[i].checked) {
+            deleteQueryString += ("&orderNo=" + orderCheckBox[i].value);
+        }
+    }
+    // console.log(orderNoArr);
+
+    //post로 보낼것인지,아니면 parameter로 보낼수도 있나? 그냥 get방식으로 보내기로
+
+    const deleteConfirm = confirm('선택하신 상품들을 삭제하시겠습니까?');
+
+    if (deleteConfirm) {
+        location.href = '/teamSemiProject2/order/deleteAll?' + deleteQueryString;
+    }
+
 }
