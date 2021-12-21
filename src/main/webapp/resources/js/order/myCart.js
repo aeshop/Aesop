@@ -220,3 +220,26 @@ function deleteAll() {
     checkAll();
     deleteSelectedOrder();
 }
+
+
+/* 
+상품 주문: 체크한 상품번호를 넘겨주고, 다음 페이지로 이동해서 보여주어야 한다.
+똑같이 get 방식으로 진행? 
+*/
+
+//선택상품 주문버튼 클릭
+function orderSelectedProduct() {
+    const orderCheckBox = document.querySelectorAll('.n-order-chk');
+    const orderNoArr = new Array();
+    let orderQueryString = "";
+    for (let i = 0; i < orderCheckBox.length; i++) {
+        if (orderCheckBox[i].checked) {
+            orderQueryString += ("&orderNo=" + orderCheckBox[i].value);
+        }
+    }
+    location.href = '/teamSemiProject2/order/orderAll?' + orderQueryString;
+
+}
+
+
+//전체상품주문 버튼 클릭

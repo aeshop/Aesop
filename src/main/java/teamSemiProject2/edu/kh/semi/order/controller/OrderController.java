@@ -1,6 +1,7 @@
 package teamSemiProject2.edu.kh.semi.order.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -124,6 +125,20 @@ public class OrderController extends HttpServlet {
 					resp.sendRedirect(path);
 					
 					
+				}else if (command.equals("orderAll")) {
+					
+					String[] orderNoArr = req.getParameterValues("orderNo");
+					//orderNoArr의 길이에 따라 다른 SQL구문을 사용할 예정, 또는, getOrder로 다 받아오고, orderNo가 존재하지 않으면 출력에서 제외한다?
+					//List.contains()의 override? 
+					
+					List<Order> oList = service.orderAll(orderNoArr,(int) session.getAttribute("loginMemberNo"));
+					//oList에는 없는 체크되지 않은 주문를 제외한 주문row들이 옴
+					
+					req.setAttribute("orderList", oList);
+					
+					path="/WEB-INF/views/order/payment.jsp";
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
 				}
 
 			} else {// post방식 처리

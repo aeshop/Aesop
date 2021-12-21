@@ -35,7 +35,7 @@ public class OrderDAO {
 	 * 
 	 * @param loginMemberNo
 	 * @param conn
-	 * @return
+	 * @return ArrayList
 	 * @throws Exception
 	 */
 	public List<Order> getOrder(int loginMemberNo, Connection conn) throws Exception {
@@ -124,5 +124,43 @@ public class OrderDAO {
 
 		return result;
 	}
+
+//	public List<Order> orderAll(int[] orderNoArrInt, int loginMemberNo, Connection conn) throws Exception {
+//
+//		List<Order> oList = new OrderList();
+//
+//		try {
+//			String sql = prop.getProperty("orderAll");
+//
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, loginMemberNo);
+//
+//			rs = pstmt.executeQuery();
+//
+//			while (rs.next()) {
+//				Order tmp = new Order();
+//				tmp.setOrderNo(rs.getInt("ORDER_NO"));
+//				tmp.setMemberNo(rs.getInt("MEMBER_NO"));
+//				tmp.setProductNo(rs.getInt("PRODUCT_NO"));
+//				tmp.setOrderAmount(rs.getInt("ORDER_AMOUNT"));
+//				tmp.setOrderStatusCode(rs.getInt("ORDER_STATUS_CD"));
+//
+//				// 상품정보
+//				tmp.setProductName(rs.getString("PRODUCT_NM"));
+//				tmp.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+//				tmp.setProductDiscount(rs.getDouble("DISCOUNT"));
+//				tmp.setThumnailImgPath(rs.getString("PRODUCT_IMG_PATH"));
+//				tmp.setThumnailImgName(rs.getString("PRODUCT_IMG_NM"));
+//
+//				oList.add(tmp);
+//			}
+//
+//		} finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//
+//		return oList;
+//	}
 
 }

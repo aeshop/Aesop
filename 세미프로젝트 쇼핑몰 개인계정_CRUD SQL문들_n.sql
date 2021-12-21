@@ -44,6 +44,10 @@ SELECT * FROM V_ORDER_INFO WHERE MEMBER_NO = 9 ORDER BY order_no DESC;
 select * from order_status;
 
 select * from order_1;
+
+select * from order_1 where order_no = 2 or order_no = 3;
+
+
 UPDATE order_1 SET order_status_cd = 400 WHERE member_no = 9;
 
 commit;

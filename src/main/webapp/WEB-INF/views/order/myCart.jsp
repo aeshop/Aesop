@@ -154,8 +154,8 @@
 	<!-- 주문버튼 -->
 	<div class="n-order-btn-wrapper">
 		<div>
-			<button class="btn btn-primary">전체상품주문</button>
-			<button class="btn btn-secondary">선택상품주문</button>
+			<button class="btn btn-primary" onclick="orderAll()">전체상품주문</button>
+			<button class="btn btn-secondary" onclick="orderSelectedProduct()">선택상품주문</button>
 		</div>
 
 		<p>
