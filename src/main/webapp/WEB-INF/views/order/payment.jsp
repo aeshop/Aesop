@@ -69,34 +69,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                    
+                    <c:forEach items="${orderList}" var="index" varStatus="vs">
+                     	<tr>
                             <td>
                                 <input type="checkbox" onclick="">
                             </td>
                             <td>
-                                <img src="" alt="">
+                                 <img src="${contextPath}${index.thumnailImgPath}${index.thumnailImgName}" alt="물품이미지">
                             </td>
-                            <td><a href="">에일리언 삭스 머스타드</a>
-                                <ul>
-                                    <li>[옵션: <span></span>]</li>
-                                </ul>
+                            <td><a href="">${index.productName}</a>
+                               
                             </td>
-                            <td>7,500원</td>
+                            <td><fmt:formatNumber maxFractionDigits="3">${index.productPrice*index.productDiscount}</fmt:formatNumber>원</td>
 
                             <td>
-
-                                1
+                                ${index.orderAmount}
                             </td>
-                            <td>2,500원</td>
-                            <td>10000원</td>
+                            <c:if test="${vs.index==0}">
+                            <td rowspan="${orderCount}">자바스크립트</td>
+                            
+                            </c:if>
+                            <td><fmt:formatNumber maxFractionDigits="3">${index.productPrice*index.productDiscount*index.orderAmount}</fmt:formatNumber>원</td>
 
                         </tr>
+                    </c:forEach>
+                    
+                       
 
                     </tbody>
                     <tfoot>
                         <tr id="n-p-summery">
                             <td>[기본배송]</td>
-                            <td colspan="6">상품구매금액 + 배송비 (무료) = 합계 : 350,000원 </td>
+                            <td colspan="6">상품구매금액 js + 배송비 (무료 or JS) = 합계 : s원 </td>
                         </tr>
                     </tfoot>
 
@@ -292,6 +297,12 @@
 
 
 
+    <p>아임 서포트 결제 모듈 테스트 해보기</p>
+    <button id="check_module" type="button">아임 서포트 결제 모듈 테스트 해보기</button>
+
+
+
+
 
             <!-- 카드사 직접결제 -->
 
@@ -303,4 +314,6 @@
 
 <jsp:include page="../common/footer_n.jsp"></jsp:include>
 <script type="text/javascript" src="${contextPath}/resources/js/order/myCart.js"></script>
+<!-- 아임포트 CDN -->
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js" type="text/javascript"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/order/payment.js"></script>

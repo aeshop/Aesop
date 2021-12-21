@@ -70,16 +70,13 @@ public class OrderController extends HttpServlet {
 					int loginMemberNo = 9;
 					List<Order> oList = service.getOrder(loginMemberNo);
 
+					
 					req.setAttribute("orderList", oList);
 					// 사실 회원정보는 세션에 다 있는데 받아올 필요가 있었을까? - order query를 다시 짜야 한다.(가격, 할인율 가져와야함) +
 					// 지금은 Session안에 정보를 강제로 집어넣기
 					req.setAttribute("orderCount", oList.size());
 
-//					//session에 로그인정보 강제 집어넣기	 위로 올림				
-//					session.setAttribute("loginMemberNo", 9);
-//					session.setAttribute("loginMemberName", "테스트용계정");
-//					session.setAttribute("loginMemberGradeName", "브론즈");
-//					session.setAttribute("loginMemberDiscount", 0.99);
+
 
 					path = "/WEB-INF/views/order/myCart.jsp";
 					dispatcher = req.getRequestDispatcher(path);
@@ -134,8 +131,11 @@ public class OrderController extends HttpServlet {
 					List<Order> oList = service.orderAll(orderNoArr,(int) session.getAttribute("loginMemberNo"));
 					//oList에는 없는 체크되지 않은 주문를 제외한 주문row들이 옴
 					
-					req.setAttribute("orderList", oList);
+//					List<Address> aList = service.getAddress(loginMemberNo);
 					
+					req.setAttribute("orderList", oList);
+					req.setAttribute("orderCount", oList.size());
+//					req.setAttribute("addressList", aList);
 					path="/WEB-INF/views/order/payment.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
