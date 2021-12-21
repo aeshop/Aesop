@@ -83,6 +83,16 @@ html,
     .d-flex button:hover {
       font-size: 21.2px;
     }
+    
+    header{
+      position: sticky;
+      top: 0;
+      background-color: black;
+      color: white;
+      z-index : 5000;
+      opacity:0.6;
+      height : 40px
+    }
 
     
 
