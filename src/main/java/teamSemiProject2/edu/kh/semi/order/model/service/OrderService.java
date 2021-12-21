@@ -59,4 +59,32 @@ public class OrderService {
 		return result;
 	}
 
+	public int deleteAll(String[] orderNoArr,int loginMemberNo) throws Exception {
+
+		
+		conn = getConnection();
+		int orderNo =0;
+		int result =0;
+		
+		for(int i =0; i<orderNoArr.length;i++){
+			orderNo = Integer.parseInt(orderNoArr[i]); 
+			
+			result = dao.deleteOrder(orderNo,loginMemberNo,conn);			
+		
+			if(result==0) {
+				rollback(conn);
+			break;
+			}
+			
+		}
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+
+		return result;
+	}
+
 }

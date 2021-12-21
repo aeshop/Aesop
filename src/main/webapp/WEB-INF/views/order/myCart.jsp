@@ -51,7 +51,7 @@
 		<table class="n-cart-table">
 			<thead>
 				<tr>
-					<th><input type="checkbox" onclick=""></th>
+					<th><input type="checkbox" onclick="checkAll()"></th>
 					<th>이미지</th>
 					<th>상품정보</th>
 					<th>판매가</th>
@@ -67,7 +67,7 @@
 				<c:when test="${orderCount eq 0}">
 				<tr>
 				<td colspan="8">
-				장바구니에 담은 상품이 없습니다.
+				<h3 style="color:red;font-size:1.2em;font-weight:bold;">장바구니에 담은 상품이 없습니다.</h3>
 				</td>
 				</tr>
 				</c:when>
@@ -125,7 +125,7 @@
 		<div class="n-cart-ctl-btn">
 			<span>선택상품을</span> <a onclick="deleteSelectedOrder()"><img src="${contextPath}/resources/images/order/btn_delete2.gif" alt="삭제하기버튼img"></a>
 			<p>
-				<a href=""><img src="${contextPath}/resources/images/order/btn_clear.gif" alt="장바구니 비우기버튼img"></a>
+				<a onclick="deleteAll()"><img src="${contextPath}/resources/images/order/btn_clear.gif" alt="장바구니 비우기버튼img"></a>
 			</p>
 		</div>
 	</div>

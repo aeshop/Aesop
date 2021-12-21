@@ -103,9 +103,26 @@ public class OrderController extends HttpServlet {
 
 				} else if (command.equals("deleteAll")) {
 
-					String[] arr = req.getParameterValues("orderNo");
-					System.out.println(Arrays.toString(arr));
-					//[4, 3] : 정상적으로 보내지는 것을 확인했다. //이제 지우면 된다
+					String[] orderNoArr = req.getParameterValues("orderNo");
+//					System.out.println(Arrays.toString(arr));
+					//[4, 3] : 정상적으로 보내지는 것을 확인했다 이제 지우면 된다
+					/*
+					 * String 배열을 int배열로 변환: parseInt말고 다른 수식이 필요함, 그냥 service에서 DAO 여러번 보내면서 변경하는걸로...
+					 * 
+					 * */
+					
+					int result = service.deleteAll(orderNoArr,(int) session.getAttribute("loginMemberNo"));
+					
+					if (result == 1) {
+						message = "정상적으로 체크된 물품이 삭제되었습니다.";
+
+					} else {
+						message = "삭제 과정에서 오류 발생";
+					}
+					session.setAttribute("message", message);
+					path = "view";// redirect는 주소 경로 사용하므로, WEB-INF 등으로 직접접근 할 수 없다
+					resp.sendRedirect(path);
+					
 					
 				}
 

@@ -64,7 +64,7 @@ function calculatePrice() {
 
     //배송비 계산후 n-shipCal에 넣어줌
     let ship = 2500;
-    if (sum >= 50000) {
+    if (sum >= 50000 || sum == 0) {
         ship = 0;
     }
 
@@ -207,4 +207,16 @@ function deleteSelectedOrder() {
         location.href = '/teamSemiProject2/order/deleteAll?' + deleteQueryString;
     }
 
+}
+//전체 물품 체크 하는 함수
+function checkAll() {
+    const chkBoxArr = document.querySelectorAll('.n-order-chk');
+    for (const iterator of chkBoxArr) {
+        iterator.checked = true;
+    }
+}
+
+function deleteAll() {
+    checkAll();
+    deleteSelectedOrder();
 }
