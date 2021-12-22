@@ -61,7 +61,6 @@ public class MemberController extends HttpServlet{
 							if (loginMember.getStatusCode() == 101) {
 
 
-							System.out.println("여기까지");
 
 							if (loginMember.getStatusCode() == 101) {
 								System.out.println(loginMember.getMemberEmail());

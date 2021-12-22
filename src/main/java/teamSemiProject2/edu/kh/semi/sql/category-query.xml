@@ -3,7 +3,7 @@
 <properties>
 	<!-- 로그인 (탈퇴 회원 제외) -->
 	<entry key="getCategory">
-		SELECT * FROM PRODUCT_CATEGORY ORDER BY CATEGORY_NO1 ASC
+		SELECT * FROM PRODUCT_CATEGORY ORDER BY CATEGORY_NO2 ASC
 	</entry>
 	<entry key="getPageCount">
 		SELECT count(*) FROM PRODUCT
