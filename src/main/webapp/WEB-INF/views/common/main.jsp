@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -218,6 +218,9 @@
 <!-- footer -->
 <jsp:include page="r_footer.jsp"/>
 
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 7aa76005e4482dc22bc7b3b144418e9e75917576
 </body>
 </html>

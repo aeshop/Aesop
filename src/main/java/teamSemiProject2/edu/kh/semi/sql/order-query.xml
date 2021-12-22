@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7aa76005e4482dc22bc7b3b144418e9e75917576
 	<!-- 회원 번호로 주문정보 받아오기 -->
 	<entry key="getOrder">
 		SELECT * FROM V_ORDER_INFO WHERE MEMBER_NO = ? ORDER BY order_no DESC
