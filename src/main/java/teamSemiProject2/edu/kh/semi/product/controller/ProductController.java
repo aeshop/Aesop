@@ -47,6 +47,12 @@ public class ProductController extends HttpServlet {
 		try {
 
 			if (method.equals("GET")) {// a href로 제품 입력 페이지로 오게됨, DB에서 카테고리 정보 담아서 보여줌, 대분류 소분류 안나누고 보여주기
+				if(command.equals("productDetail")) {
+					path="/WEB-INF/views/product/productDetail.jsp";
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
+					
+				}
 				if (command.equals("add")) {
 
 					List<Category> category = service.getCategory();
