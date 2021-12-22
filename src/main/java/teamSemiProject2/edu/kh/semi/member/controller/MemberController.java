@@ -58,11 +58,14 @@ public class MemberController extends HttpServlet {
 
 					Member loginMember = service.login(memberId, memberPw);
 
+//					System.out.println(loginMember);
 					if (loginMember != null) {
 
 						if (loginMember.getStatusCode() == 101) {
 								session.setAttribute("loginMember", loginMember);
 								session.setMaxInactiveInterval(3000);
+								
+								
 
 								resp.sendRedirect(req.getContextPath());
 						} else { // 로그인 실패

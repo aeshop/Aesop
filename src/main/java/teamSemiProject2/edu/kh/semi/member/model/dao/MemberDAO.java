@@ -57,6 +57,8 @@ public class MemberDAO {
 				loginMember.setEnrollDate(rs.getDate("ENROLL_DT"));
 				loginMember.setStatusCode(rs.getInt("MEMBER_STATUS_NO"));
 				loginMember.setGradeCode(rs.getInt("MEMBER_GRADE_NO"));
+				loginMember.setMemberGradeName(rs.getString("MEMBER_GRADE_NAME"));
+				loginMember.setMemberGradeDiscount(rs.getInt("MEMBER_GRADE_DISCOUNT"));
 				
 			}
 		} finally {
