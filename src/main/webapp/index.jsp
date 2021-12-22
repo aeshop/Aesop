@@ -10,13 +10,9 @@
    <title>홈페이지명</title>
 </head>
 <body>
-  <jsp:forward page="/WEB-INF/views/common/main_n.jsp"/>
+  <jsp:forward page="/WEB-INF/views/common/main.jsp"/>
    
 </body>
 </html>
-=======
 
-<%-- jsp 액션 태그 --%>
-<jsp:forward page="main"/>
-<%-- 요청 위임 --%>
->>>>>>> RKH:src/main/webapp/index.jsp
+
