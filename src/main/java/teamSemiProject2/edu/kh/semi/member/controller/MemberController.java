@@ -41,13 +41,11 @@ public class MemberController extends HttpServlet{
 					String memberId = req.getParameter("memberId");
 					String memberPw = req.getParameter("memberPw");
 					
-<<<<<<< HEAD
 
-//					System.out.println("memberId : " + memberId);
-=======
+
 					System.out.println("memberId : " + memberId);
 					System.out.println("memberPw : " + memberPw);
->>>>>>> CNH
+
 					
 					try {
 						MemberService service = new MemberService();
@@ -57,17 +55,17 @@ public class MemberController extends HttpServlet{
 						HttpSession session = req.getSession();
 						
 						if (loginMember != null) {
-<<<<<<< HEAD
+
 
 
 							if (loginMember.getStatusCode() == 101) {
 
-=======
+
 							System.out.println("여기까지");
 
 							if (loginMember.getStatusCode() == 101) {
 								System.out.println(loginMember.getMemberEmail());
->>>>>>> CNH
+
 								session.setAttribute("loginMember", loginMember);
 								session.setMaxInactiveInterval(3000);
 								
@@ -79,31 +77,14 @@ public class MemberController extends HttpServlet{
 						}
 						resp.sendRedirect(req.getContextPath() );
 						
-					}catch (Exception e) {
+						}}catch (Exception e) {
 						e.printStackTrace();
 					}
-					
+						
 				}
 				
 			}
-//			else if(command.equals("join")) {
-//				if(method.equals("GET")) {
-//					path = "/WEB-INF/views/member/join.jsp";
-//					dispatcher = req.getRequestDispatcher(path);
-//					dispatcher.forward(req, resp);
-//				}else {
-//					// POST
-//					
-//					
-//					
-//					
-//				}
-//				
-//				
-//				
-//				
-//				
-//			}
+
 			
 		
 		
