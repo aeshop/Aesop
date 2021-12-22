@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-<<<<<<< HEAD
 	<!-- 회원 번호로 주문정보 받아오기 -->
 	<entry key="getOrder">
 		SELECT * FROM V_ORDER_INFO WHERE MEMBER_NO = ? ORDER BY order_no DESC
@@ -10,8 +9,7 @@
 		UPDATE order_1 SET order_amount = ? WHERE order_no = ? AND member_no = ?
 	</entry>
 	<entry key="deleteOrder">
-UPDATE order_1 SET order_status_cd = 403 WHERE order_no = ? AND member_no = ?
-=======
+UPDATE order_1 SET order_status_cd = 403 WHERE order_no = ? AND member_no = ?</entry>
 	<!-- 로그인 (탈퇴 회원 제외) -->
 	<entry key="amountDown">
 		UPDATE p_order SET product_amount = product_amount-1
@@ -30,7 +28,6 @@ UPDATE order_1 SET order_status_cd = 403 WHERE order_no = ? AND member_no = ?
 	</entry>
 	<entry key="getOrderItem2">
 		OR o.order_no = ?
->>>>>>> CNH
 	</entry>
 
 
