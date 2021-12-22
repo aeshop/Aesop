@@ -3,7 +3,7 @@
 <properties>
 	<!-- 로그인 (탈퇴 회원 제외) -->
 	<entry key="getCategory">
-		SELECT * FROM PRODUCT_CATEGORY ORDER BY CATEGORY_NO_1 ASC
+		SELECT * FROM PRODUCT_CATEGORY ORDER BY CATEGORY_NO1 ASC
 	</entry>
 	<entry key="getPageCount">
 		SELECT count(*) FROM PRODUCT
@@ -15,8 +15,8 @@
 		FROM(
 		SELECT p.* , c.category_nm
 		FROM product p
-		JOIN product_category c ON(p.product_category = c.category_no)
-        WHERE c.category_no BETWEEN ? AND ?
+		JOIN product_category c ON(p.product_category = c.category_no2)
+        WHERE c.category_no2 BETWEEN ? AND ?
 		ORDER BY p.pro_status_no,p.product_no DESC) A)
 		WHERE rnum BETWEEN ? AND ?
 	</entry>
