@@ -150,7 +150,7 @@
                                 </c:if>
                                 
                                     <div class="n-thumbnail">
-                                        <a href="링크"><img src="${contextPath}${product.imgList[0].imgPath}${product.imgList[0].imgName}" alt="이미지들어가는곳" class="${isSoldout}"> </a>
+                                        <a href="${contextPath}/product/productDetail?productNo=${product.productNo}"><img src="${contextPath}${product.imgList[0].imgPath}${product.imgList[0].imgName}" alt="이미지들어가는곳" class="${isSoldout}"> </a>
                                     </div>
                                     <div class="n-discription">
                                         <div class="n-tag">

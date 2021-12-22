@@ -151,12 +151,17 @@ select  floor(category_no1/10)  from product_category;
 		JOIN product_category c ON(p.product_category = c.category_no2)
         WHERE c.category_no2 BETWEEN 300 AND 400
 		ORDER BY p.pro_status_no,p.product_no DESC) A)
-		WHERE rnum BETWEEN 10 AND 20;
+		WHERE rnum BETWEEN 1 AND 10;
 
-	SELECT p.* , c.category_nm
+SELECT ROWNUM rnum ,A.*
+		FROM(
+		SELECT p.* , c.category_nm
 		FROM product p
 		JOIN product_category c ON(p.product_category = c.category_no2)
-        WHERE c.category_no2 BETWEEN 300 AND 400;
+        WHERE c.category_no2 BETWEEN 300 AND 400
+		ORDER BY p.pro_status_no,p.product_no DESC) A;
+
+
 
 select * from product_category;
 

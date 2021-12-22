@@ -56,7 +56,18 @@ public class ProductController extends HttpServlet {
 
 					dispatcher.forward(req, resp);
 
+				} else if(command.equals("productDetail")) {//   /product/productDetail?productNo=숫자 로 던져서 얻어온 정보를 화면에 뿌려줘야한다
+//					int productNo = Integer.parseInt(req.getParameter("productNo"));
+				
+					
+					path="/WEB-INF/views/product/productDetail.jsp";
+					
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
+				
 				}
+				
+				
 			} else {// method 방식이 post
 
 				if (command.equals("add")) { // post이면서 add: 제품 입력시 data가 text, image로 오게 된다
