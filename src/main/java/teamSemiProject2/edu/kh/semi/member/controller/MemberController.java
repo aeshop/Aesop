@@ -90,6 +90,7 @@ public class MemberController extends HttpServlet{
 				if(method.equals("GET")) {
 					
 					
+					HttpSession session = req.getSession();
 					
 					
 					
