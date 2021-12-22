@@ -8,9 +8,9 @@
 
 <head>
 <meta charset="UTF-8">
+<jsp:include page="../../common/r_header.jsp" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="${contextPath}/resources/css/board.css">
-
 <title>하이</title>
 </head>
 
@@ -157,6 +157,6 @@
 	</div>
 
 
-
 </body>
 </html>
+<jsp:include page="../../common/r_footer.jsp" />
