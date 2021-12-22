@@ -48,7 +48,9 @@ public class CategoryDAO {
 
 			while (rs.next()) {
 				Category tmp = new Category();
-				tmp.setCategoryNo(rs.getInt("CATEGORY_NO"));
+				tmp.setCategoryNo1(rs.getInt("CATEGORY_NO1"));
+				tmp.setCategoryNo2(rs.getInt("CATEGORY_NO2"));
+
 				tmp.setCategoryName(rs.getString("CATEGORY_NM"));
 				category.add(tmp);
 
@@ -113,7 +115,7 @@ public class CategoryDAO {
 				tmp.setPrice(rs.getInt("PRODUCT_PRICE"));
 				tmp.setDiscount(rs.getDouble("DISCOUNT"));
 				tmp.setStock(rs.getInt("STOCK"));
-				tmp.setCategoryNo(rs.getInt("PRODUCT_CATEGORY"));
+				tmp.setCategoryNo(rs.getInt("PRODUCT_CATEGORY"));//311 312 등이 온다
 				tmp.setStatusNo(rs.getInt("PRO_STATUS_NO"));
 				tmp.setCategoryName(rs.getString("CATEGORY_NM"));
 
@@ -126,7 +128,7 @@ public class CategoryDAO {
 
 		return pList;
 	}
-
+//제품 이미지 가져옴
 	public List<ProductImage> getProductImageList(int productNo, Connection conn) throws Exception {
 
 		List<ProductImage> imgList = new ArrayList<ProductImage>();
