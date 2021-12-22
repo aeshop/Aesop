@@ -10,6 +10,7 @@ import teamSemiProject2.edu.kh.semi.board.model.vo.Board;
 import teamSemiProject2.edu.kh.semi.board.model.vo.BoardImage;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Pagination;
+import teamSemiProject2.edu.kh.semi.common.XSS;
 
 public class BoardService {
 	private BoardDAO dao = new BoardDAO();
@@ -73,6 +74,33 @@ public class BoardService {
 		List<Category> category = dao.selectCategory(conn);
 		close(conn);
 		return category;
+	}
+
+	public int insertBoard(Board board) throws Exception{
+		Connection conn = getConnection();
+		int boardNo = dao.nextBoardNo(conn);
+		
+		board.setBoardNo(boardNo);
+		
+		
+		// 게시글 삽입 
+		// xss 방지
+		board.setBoardTitle(XSS.replaceParameter(board.getBoardTitle()));
+		board.setBoardContent(XSS.replaceParameter(board.getBoardContent()));
+		
+		// 개행문자 <br>변경
+		
+		String content = board.getBoardContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		board.setBoardContent(content);
+		
+		
+		int result = dao.insertBoard(board,conn);
+		if(result >0) {
+			commit(conn);
+			result = boardNo;
+		}
+		else rollback(conn);
+		return result;
 	}
 
 }

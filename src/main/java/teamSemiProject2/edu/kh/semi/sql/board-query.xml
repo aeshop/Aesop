@@ -5,7 +5,8 @@
 
 	<entry key="getListCount">
 		SELECT COUNT(*) FROM BOARD
-		WHERE BD_STATUS_CD != 702 AND CATEGORY_CD = ?
+		WHERE BD_STATUS_CD != 702
+		AND CATEGORY_CD = ?
 	</entry>
 	<entry key="selectBoardList">
 		SELECT * FROM
@@ -14,7 +15,8 @@
 		FROM BOARD_LIST
 		WHERE BD_STATUS_CD != 702
 		AND CATEGORY_CD = ?
-		ORDER BY BOARD_NO DESC) A)
+		ORDER BY
+		BOARD_NO DESC) A)
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	<entry key="selectBoard">
@@ -50,5 +52,7 @@
 	<entry key="selectCategory">
 		SELECT * FROM BOARD_CATEGORY
 	</entry>
-
+	<entry key="nextBoardNo">
+		SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+	</entry>
 </properties>

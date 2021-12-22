@@ -9,10 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 
-import edu.kh.semi.common.MyRenamePolicy;
+
 import teamSemiProject2.edu.kh.semi.board.model.service.BoardService;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Board;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Category;
@@ -92,11 +93,31 @@ public class BoardController extends HttpServlet {
 					dispatcher.forward(req, resp);
 				}
 				else {
+					HttpSession session = req.getSession();
 					String boardTitle = req.getParameter("boardTitle");
 					String boardContent = req.getParameter("boardContent");
 					int categoryCode = Integer.parseInt(req.getParameter("categoryCode"));
 					
-					int memberNo = ((Member))
+					int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+					
+					Board board = new Board();
+					board.setBoardTitle(boardTitle);
+					board.setBoardContent(boardContent);
+					board.setCategoryCode(categoryCode);
+					board.setMemberNo(memberNo);
+					
+					int result = service.insertBoard(board);
+					
+					if(result >0) {
+						message = "게시글이 등록 되었습니다.";
+						path = "view?no="+result+"&cp=1";
+					}
+					else {
+						message = "게시글 등록중 문제가 발생했습니다.";
+						path = "insert";
+					}
+					session.setAttribute("message", message);
+					resp.sendRedirect(path);
 				}
 			}
 

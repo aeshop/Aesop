@@ -188,6 +188,54 @@ public class BoardDAO {
 
 
 
+	public int nextBoardNo(Connection conn) throws Exception{
+		
+		int boardNo = 0;
+		try {
+			String sql = prop.getProperty("nextBoardNo");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				boardNo = rs.getInt(1);
+			}
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return boardNo;
+	}
+
+
+
+	public int insertBoard(Board board, Connection conn) throws Exception{
+		
+		int result = 0;
+		try {
+			String sql = prop.getProperty("insertBoard");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, board.getBoardNo());
+			pstmt.setString(2, board.getBoardTitle());
+			pstmt.setString(3, board.getBoardContent());
+			pstmt.setInt(4, board.getMemberNo());
+			pstmt.setInt(5, board.getCategoryCode());
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
 
 	
 	
