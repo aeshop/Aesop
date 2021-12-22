@@ -8,6 +8,7 @@ import java.util.List;
 import teamSemiProject2.edu.kh.semi.board.model.dao.BoardDAO;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Board;
 import teamSemiProject2.edu.kh.semi.board.model.vo.BoardImage;
+import teamSemiProject2.edu.kh.semi.board.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Pagination;
 
 public class BoardService {
@@ -64,6 +65,14 @@ public class BoardService {
 		close(conn);
 
 		return board;
+	}
+
+	public List<Category> selectCategory() throws Exception{
+		Connection conn = getConnection();
+		
+		List<Category> category = dao.selectCategory(conn);
+		close(conn);
+		return category;
 	}
 
 }

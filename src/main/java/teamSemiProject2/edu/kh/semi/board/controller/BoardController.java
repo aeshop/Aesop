@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+
+import edu.kh.semi.common.MyRenamePolicy;
 import teamSemiProject2.edu.kh.semi.board.model.service.BoardService;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Board;
+import teamSemiProject2.edu.kh.semi.board.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Pagination;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 
@@ -74,6 +78,25 @@ public class BoardController extends HttpServlet {
 				else {
 					// 조회실패
 					System.out.println("조회실패");
+				}
+			}
+			
+			else if (command.equals("insert")) {
+				if(method.equals("GET")) {
+					List<Category> category = service.selectCategory();
+					
+					req.setAttribute("category", category);
+					
+					path = "/WEB-INF/view/board/boardInsert.jsp";
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
+				}
+				else {
+					String boardTitle = req.getParameter("boardTitle");
+					String boardContent = req.getParameter("boardContent");
+					int categoryCode = Integer.parseInt(req.getParameter("categoryCode"));
+					
+					int memberNo = ((Member))
 				}
 			}
 

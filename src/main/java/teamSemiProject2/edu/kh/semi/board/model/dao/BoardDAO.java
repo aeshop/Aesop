@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import teamSemiProject2.edu.kh.semi.board.model.vo.Board;
 import teamSemiProject2.edu.kh.semi.board.model.vo.BoardImage;
+import teamSemiProject2.edu.kh.semi.board.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Pagination;
 import teamSemiProject2.edu.kh.semi.category.model.dao.CategoryDAO;
 public class BoardDAO {
@@ -157,6 +158,32 @@ public class BoardDAO {
 		
 		
 		return result;
+	}
+
+
+
+	public List<Category> selectCategory(Connection conn) throws Exception{
+		
+		List<Category> category = new ArrayList<Category>();
+		
+		try {
+			String sql = prop.getProperty("selectCategory");
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Category gory = new Category();
+		
+				gory.setCategoryCode(rs.getInt(1));
+				gory.setCategoryName(rs.getString(2));
+				category.add(gory);
+			}
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return category;
 	}
 
 

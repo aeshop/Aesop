@@ -73,17 +73,12 @@
 					<div
 						class="xans-element- xans-board xans-board-movement-1002 xans-board-movement xans-board-1002 ">
 						<ul>
-							<li class="prev displaynone"><c:if test="${param.cp >= 2 }">
-									<strong>이전글</strong>
-									<a href="${contextPath}/"></a>
-								</c:if></li>
-							<li class="next "><c:if test="${param.cp >= 2 }"><strong>다음글</strong><a href=""> 공지공지공지
-							</a></c:if></li>
+							<li class="prev displaynone"></li>
 						</ul>
 					</div>
 				</div>
 				<a href="list?cp=${param.cp }"
-					class="btn btn-primary float-right mr-2">목록으로</a>
+					class="btn btn-default">목록으로</a>
 		</form>
 	</div>
 </body>

@@ -47,5 +47,8 @@
 		WHERE
 		BOARD_NO = ?
 	</entry>
+	<entry key="selectCategory">
+		SELECT * FROM BOARD_CATEGORY
+	</entry>
 
 </properties>
