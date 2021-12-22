@@ -71,7 +71,7 @@
                   </a>
               </span>
               <span class="addr-btn2">
-                  <a href="/aesop_MyPage/addrRegister_cnh.html">
+                  <a href="${contextPath}/member/myPage/addr/Register">
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_register.gif">
                   </a>
               </span>

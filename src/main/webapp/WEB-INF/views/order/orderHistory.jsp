@@ -77,11 +77,11 @@
                       </p>
                       <!--  주문 취소 버튼 ( 배송 준비중일 경우에만 보이게 설정 )-->
                       <a href="#" class="displaynone">
-                          <img src="images/btn_order_cancel.gif">
+                          <img src="${contextPath}/resources/images/cnh/images/btn_order_cancel.gif">
                       </a>
                   </td>
                   <td class="order-product-img">
-                      <img src="images/product1.webp">
+                      <img src="${contextPath}/resources/images/cnh/images/product1.webp">
                   </td>
                   <td>
                       <a href="#" style="text-decoration: none;">
@@ -104,7 +104,7 @@
           <a href="#" class="order-pagination"> 1 </a> <!-- 페이지네이션 자리-->
       </div>
       <div class="order-process">
-          <img src="images/orderprocess.jpg">
+          <img src="${contextPath}/resources/images/cnh/images/orderprocess.jpg">
       </div>
   </div>
   

@@ -94,9 +94,9 @@
           </div>
       </div>
     </div> <!--content end-->
-
-
-  <!-- footer include -->
+    
+    
+      <!-- footer include -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

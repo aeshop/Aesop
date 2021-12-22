@@ -50,6 +50,7 @@ public class MemberDAO {
             
             loginMember.setMemberNo(rs.getInt("MEMBER_NO"));
             loginMember.setMemberId(memberId);
+            loginMember.setMemberPw(memberPw); // 낙희추가
             loginMember.setMemberEmail(rs.getString("MEMBER_EMAIL"));
             loginMember.setMemberName(rs.getString("MEMBER_NAME"));
             loginMember.setMemberBirthday(rs.getInt("MEMBER_BIRTHDAY"));

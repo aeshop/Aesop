@@ -90,7 +90,7 @@
                   <table style="width: 250px;">
                       <tr>
                           <td>
-                              <a href="updateMember_cnh.html">
+                              <a href="${contextPath}/member/myPage/updateMember">
                                   <p>
                                       <img src="${contextPath}/resources/images/cnh/images/myinfo.png">
                                   </p>
@@ -98,7 +98,7 @@
                               </a>
                           </td>
                           <td>
-                              <a href="/aesop_MyPage/mypageBoard_cnh.html">
+                              <a href="${contextPath}/member/myPage/myPageBoard">
                                   <p>
                                       <img src="${contextPath}/resources/images/cnh/images/board.png">
                                   </p>
@@ -106,7 +106,7 @@
                               </a>
                           </td>
                           <td>
-                              <a href="/aesop_MyPage/mypageBoard_cnh.html">
+                              <a href="${contextPath}/member/myPage/myPageBoard">
                                   <p>
                                       <img src="${contextPath}/resources/images/cnh/images/qna.png">
                                   </p>
@@ -156,7 +156,7 @@
                   </tbody>
               </table>
               <div class="order-more"> <!-- 최근 주문 더보기 -->
-                  <a href="#"> <!-- 주문/배송현황 > 주문내역조회 html로 이동-->
+                  <a href="${contextPath}/member/myPage/orderHistory"> <!-- 주문/배송현황 > 주문내역조회 html로 이동-->
                       더보기
                       <img src="${contextPath}/resources/images/cnh/images/more.png">
                   </a>

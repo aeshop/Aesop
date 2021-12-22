@@ -38,6 +38,10 @@
 	  <link rel="stylesheet" href="${contextPath}/resources/css/productDetail.css">
 	  <link rel="stylesheet" href="${contextPath}/resources/css/orderHistory.css">
 	  <link rel="stylesheet" href="${contextPath}/resources/css/addrModify.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/addrModifyEdit.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/addrRegister.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/updateMember.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/myPageBoard.css">
 </head>
 
 <body>
