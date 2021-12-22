@@ -97,7 +97,7 @@ public class MemberController extends HttpServlet {
 		// 회원가입 *************
 		else if(command.equals("signup")) {
 			if(method.equals("GET")) {
-				path = "/WEB-INF/views/member/signup.jsp";
+				path = "/WEB-INF/views/member/signUp.jsp";
 				dispatcher = req.getRequestDispatcher(path);
 				dispatcher.forward(req, resp);
 			
