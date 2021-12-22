@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <!-- header -->
-<jsp:include page="header.jsp" />
+<jsp:include page="r_header.jsp" />
 
 <!-- 메인 화면 이미지 -->
 <div class="main_container" style="border: 1px solid black;">
@@ -215,7 +215,7 @@
   </div>
 
 <!-- footer -->
-<jsp:include page="footer.jsp"/>
+<jsp:include page="r_footer.jsp"/>
 
 </body>
 </html>

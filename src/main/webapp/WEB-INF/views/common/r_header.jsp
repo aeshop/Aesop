@@ -15,7 +15,7 @@
 <title>aesop</title>
 <!-- 공용 CSS -->
 <link rel="stylesheet"
-	href="${contextPath}/resources/css/common/common.css">
+	href="${contextPath}/resources/css/common/r_common.css">
 
 <!-- bootstrap -->
 <link
@@ -81,7 +81,7 @@
 							<button type="button"
 								onclick="location.href='${contextPath}/member/login'">
 								LOGIN</button>
-							<button type="button">JOIN</button>
+							<button type="button" onclick="location.href='${contextPath}/member/join'">JOIN</button>
 						</c:when>
 						<c:otherwise>
 							<button type="button">LOGOUT</button>
