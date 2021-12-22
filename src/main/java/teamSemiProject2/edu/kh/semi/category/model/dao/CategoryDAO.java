@@ -48,7 +48,9 @@ public class CategoryDAO {
 
 			while (rs.next()) {
 				Category tmp = new Category();
-				tmp.setCategoryNo(rs.getInt("CATEGORY_NO"));
+				tmp.setCategoryNo1(rs.getInt("CATEGORY_NO1"));
+				tmp.setCategoryNo2(rs.getInt("CATEGORY_NO2"));
+
 				tmp.setCategoryName(rs.getString("CATEGORY_NM"));
 				category.add(tmp);
 
