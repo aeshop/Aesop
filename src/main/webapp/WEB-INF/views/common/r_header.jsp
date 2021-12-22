@@ -4,8 +4,6 @@
 
 <c:set var="contextPath"
 	value="${pageContext.servletContext.contextPath}" scope="application" />
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,8 +12,6 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>aesop</title>
 <!-- 공용 CSS -->
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/common/r_common.css">
 
 <!-- bootstrap -->
 <link
@@ -33,6 +29,12 @@
 <link rel="stylesheet"
 	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
+
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/header.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/productDetail.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/myPage.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/footer.css">
 </head>
 
 <body>
@@ -55,7 +57,9 @@
 		<div class="container-fluid">
 			<div class="collapse navbar-collapse" id="navbarColor03">
 				<div class="nav-logo">
-					<a href="${contextPath}" id="logo_href"> Aesop </a>
+					<a href="${contextPath}" id="logo_href"> 
+						<img src="${contextPath}/resources/images/cnh/images/logo.png" style="width: 100px;">
+					 </a>
 				</div>
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item"><a class="nav-link" href="#">Category1
@@ -87,7 +91,7 @@
 							<button type="button">LOGOUT</button>
 						</c:otherwise>
 					</c:choose>
-					<button type="button">
+					<button type="button" onclick="location.href='${contextPath}/member/myPage'">
 						<i class="far fa-user"></i>
 					</button>
 					<button type="button">

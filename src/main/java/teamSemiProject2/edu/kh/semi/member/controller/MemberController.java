@@ -84,6 +84,14 @@ public class MemberController extends HttpServlet{
 				}
 				
 			}
+			
+			if(command.equals("myPage")) {
+				if(method.equals("GET")) {
+					path = "/WEB-INF/views/member/myPage.jsp";
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
+				}
+			}
 
 			
 		

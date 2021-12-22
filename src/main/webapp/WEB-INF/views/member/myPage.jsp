@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
 
     <!-------------------------------------------------- 낙희 --------------------------------->
     <!-- main 1페이지 -->
@@ -9,8 +9,8 @@
           <div class="grade">
               <div class="grade-text">
                   <strong>
-                      <span class="member-name">ddd</span>
-                      크루
+                      <span class="member-name">${sessionScope.loginMember.memberName}</span>
+                      회원
                   </strong>
                   님은
                   <br>
@@ -51,7 +51,7 @@
                   <ul>
                       <li>
                           <a href="orderHistory_cnh.html">
-                              <img src="${contextPath}/resources/images/myicon_01.png"> 주문/배송현황
+                              <img src="${contextPath}/resources/images/cnh/images/myicon_01.png"> 주문/배송현황
                               <span class="count-icon">
                                   <span>
                                       <span class="count">1</span>
@@ -61,7 +61,7 @@
                       </li>
                       <li>
                           <a href="#">
-                              <img src="${contextPath}/resources/images/myicon_02.png"> 취소/교환/반품 내역
+                              <img src="${contextPath}/resources/images/cnh/images/myicon_02.png"> 취소/교환/반품 내역
                               <span class="count-icon">
                                   <span class="count">1</span>
                               </span>
@@ -69,7 +69,7 @@
                       </li>
                       <li>
                           <a href="#">
-                              <img src="${contextPath}/resources/images/wish_icon.png"> 장바구니
+                              <img src="${contextPath}/resources/images/cnh/images/wish_icon.png"> 장바구니
                               <span class="count-icon">
                                   <span class="count">1</span>
                               </span>
@@ -77,7 +77,7 @@
                       </li>
                       <li>
                           <a href="addrModify_cnh.html">
-                              <img src="${contextPath}/resources/images/myicon_03.png"> 배송지 수정
+                              <img src="${contextPath}/resources/images/cnh/images/myicon_03.png"> 배송지 수정
                           </a>
                       </li>
                   </ul>
@@ -90,7 +90,7 @@
                           <td>
                               <a href="updateMember_cnh.html">
                                   <p>
-                                      <img src="${contextPath}/resources/images/myinfo.png">
+                                      <img src="${contextPath}/resources/images/cnh/images/myinfo.png">
                                   </p>
                                   <p>회원정보 수정</p>
                               </a>
@@ -98,7 +98,7 @@
                           <td>
                               <a href="/aesop_MyPage/mypageBoard_cnh.html">
                                   <p>
-                                      <img src="${contextPath}/resources/images/board.png">
+                                      <img src="${contextPath}/resources/images/cnh/images/board.png">
                                   </p>
                                   <p>게시물 관리</p>
                               </a>
@@ -106,7 +106,7 @@
                           <td>
                               <a href="/aesop_MyPage/mypageBoard_cnh.html">
                                   <p>
-                                      <img src="${contextPath}/resources/images/qna.png">
+                                      <img src="${contextPath}/resources/images/cnh/images/qna.png">
                                   </p>
                                   <p>문의 내역</p>
                               </a>
@@ -133,7 +133,7 @@
                           <td class="order-date"> 2021-12-28</td>
                           <td class="order-img"> 
                               <a href="#">
-                                  <img src="${contextPath}/resources/images/product1.webp">
+                                  <img src="${contextPath}/resources/images/cnh/images/product1.webp">
                               </a>
                           </td>
                           <td class="order-product">
@@ -156,7 +156,7 @@
               <div class="order-more"> <!-- 최근 주문 더보기 -->
                   <a href="#"> <!-- 주문/배송현황 > 주문내역조회 html로 이동-->
                       더보기
-                      <img src="${contextPath}/resources/images/more.png">
+                      <img src="${contextPath}/resources/images/cnh/images/more.png">
                   </a>
               </div>
           </div>
