@@ -12,6 +12,7 @@
           <img src="${contextPath}/resources/images/handcream1.webp">
           <div id="productInfo">
             <div>
+            <input type="hidden" id="n-proNumber" value="${productNo}">
               <h2 style="margin-bottom: 20px;">레저렉션 아로마틱 핸드 밤</h2>
             </div>
             <div id="priceSection">
@@ -112,6 +113,16 @@
 	<!-- footer include -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+		<!--  js 파일에서 사용을위한 script-->
+		
+		<script>
+		const loginMemberNo = ${loginMember.memberNo};
+		</script>
+		
+		
+	
+	<script type="text/javascript" src="${contextPath}/resources/js/product/productDetail.js"></script>
+	
 	
 </body>
 </html>
