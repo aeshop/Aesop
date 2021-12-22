@@ -53,7 +53,7 @@ public class OrderController extends HttpServlet {
 		try {
 
 			if (method.equals("GET")) {// get방식 처리
-				if (command.equals("view")) {// 장바구니 홈페이지로 이동
+				if (command.equals("view")) {// 장바구니 페이지로 이동
 
 					/*
 					 * 원래는 로그인한 상태에서 들어가게 되서 로그인이 되어있지 않으면, 로그인이 필요한 서비스입니다. 메세지가 confirm으로 나오고 로그인
@@ -66,9 +66,11 @@ public class OrderController extends HttpServlet {
 					 * 내 회원번호와 맞는 주문 테이블 row를 가지고 와야 한다.
 					 */
 
-					// 현재 테스트용 계정의 회원번호: 9
+					//로그인 번호로 장바구니 테이블 조회 후 진행한다
 					List<Order> oList = service.getOrder(loginMemberNo);
 
+				
+					
 					
 					req.setAttribute("orderList", oList);
 					// 사실 회원정보는 세션에 다 있는데 받아올 필요가 있었을까? - order query를 다시 짜야 한다.(가격, 할인율 가져와야함) +

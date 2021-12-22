@@ -22,7 +22,7 @@
 			
 			</head>
 
-<fmt:parseNumber value="${100*(1-sessionScope.loginMemberDiscount)}" var="discountRate" integerOnly="true"/>
+<fmt:parseNumber value="${100*(1-sessionScope.loginMember 조인으로 할인율 가져오기 필요 )}" var="discountRate" integerOnly="true"/>
 
 <div id="n-order-container">
 
@@ -30,8 +30,8 @@
 		<div class="n-infomation">
 			<div class="n-membership">혜택정보</div>
 			<div class="n-membership">
-				<span id="n-membership-id">${sessionScope.loginMemberName}</span>님은, [<span
-					id="n-membership-rank">${sessionScope.loginMemberGradeName}</span>] 회원이십니다. <br>구매금액의
+				<span id="n-membership-id">${sessionScope.loginMember.memberName}</span>님은, [<span
+					id="n-membership-rank">${sessionScope.loginMember.조인으로 계급이름 가져오기 필요}</span>] 회원이십니다. <br>구매금액의
 				<span id="n-membership-rate">${discountRate}</span>%을 할인 받으실 수 있습니다.
 			</div>
 
