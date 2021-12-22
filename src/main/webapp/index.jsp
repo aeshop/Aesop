@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -9,9 +10,12 @@
    <title>홈페이지명</title>
 </head>
 <body>
-  <jsp:forward page="/WEB-INF/views/common/main.jsp"/>
-   
+<%--jsp 액션 태그 --%>
+<jsp:forward page="main"/>
+
 </body>
 </html>
-<%-- jsp 액션 태그 --%>
-<%-- 요청 위임 --%>
+
+
+
+

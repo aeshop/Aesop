@@ -43,19 +43,19 @@
                         <div id="n-category-navbar">
                             <ul id="n-category-ul">
 
-                                <c:forEach items="${category}" var="cate">
+                                <c:forEach items="${category}" var="cate"> <%--cList가 받아져서 옴 --%>
                                     <fmt:parseNumber var="cCn" value="${cate.currentCategoryNo/10}" integerOnly="true"/>
-                                    	<fmt:parseNumber var="cN" value="${cate.categoryNo/10}" integerOnly="true"/>
-                                    <c:if test="${cate.categoryNo%10==0}">
+                                    	<fmt:parseNumber var="cN" value="${cate.categoryNo2/10}" integerOnly="true"/>
+                                    <c:if test="${cate.categoryNo2%10==0}">
                                     	<c:choose>
                                     	
                                     	<c:when test="${cCn==cN}">
-                                    <li><a href="view?cp=${pagination.currentPage}&cate=${cate.categoryNo}" style="font-weight:bold;">${cate.categoryName}</a></li>
+                                    <li><a href="view?cp=${pagination.currentPage}&cate=${cate.categoryNo2}" style="font-weight:bold;">${cate.categoryName}</a></li>
                                     	
                                     	</c:when>
                                     	
                                     	<c:otherwise>
-                                    	<li><a href="view?cp=${pagination.currentPage}&cate=${cate.categoryNo}">${cate.categoryName}</a></li>
+                                    	<li><a href="view?cp=${pagination.currentPage}&cate=${cate.categoryNo2}">${cate.categoryName}</a></li>
                                     	
                                     	</c:otherwise>
                                     	</c:choose>
@@ -90,10 +90,10 @@
                             <c:forEach items="${category}" var="index">
                             <c:set var="lc1" value="${category[0].currentCategoryNo/10}"/>
                             <fmt:parseNumber type="number" var="largeCate" integerOnly="true" value="${lc1}"/>
-                            <c:set var="lc2" value="${index.categoryNo/10}"/>
+                            <c:set var="lc2" value="${index.categoryNo2/10}"/>
                             <fmt:parseNumber type="number" var="indexCate" integerOnly="true" value="${lc2}"/>
                             
-								<c:if test="${largeCate eq indexCate && largeCate*10!=index.categoryNo}">
+								<c:if test="${largeCate eq indexCate && largeCate*10!=index.categoryNo2}">
 								                               <%--소수점으로 나오는 문제 해결, fmt: parseNumber를 사용한다
 								                               그럼 이제 대분류가 섞여 나오는 문제 해결해야한다
 								                               
@@ -103,13 +103,13 @@
 								                                --%>
 								
 							<c:choose>
-							<c:when test="${index.categoryNo==index.currentCategoryNo}">
-							<li><a href="view?cp=${pagination.currentPage}&cate=${index.categoryNo}" style="font-weight:bold;">${index.categoryName}</a></li>
+							<c:when test="${index.categoryNo2==index.currentCategoryNo}">
+							<li><a href="view?cp=${pagination.currentPage}&cate=${index.categoryNo2}" style="font-weight:bold;">${index.categoryName}</a></li>
 							
 							</c:when>
 							
 							<c:otherwise>
-								<li><a href="view?cp=${pagination.currentPage}&cate=${index.categoryNo}">${index.categoryName}</a></li>							
+								<li><a href="view?cp=${pagination.currentPage}&cate=${index.categoryNo2}">${index.categoryName}</a></li>							
 							</c:otherwise>
 							</c:choose>
 							
