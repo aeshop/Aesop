@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<<<<<<< HEAD:src/main/webapp/index_n.jsp
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -13,3 +14,9 @@
    
 </body>
 </html>
+=======
+
+<%-- jsp 액션 태그 --%>
+<jsp:forward page="main"/>
+<%-- 요청 위임 --%>
+>>>>>>> RKH:src/main/webapp/index.jsp
