@@ -14,13 +14,13 @@
                   </strong>
                   님은
                   <br>
-                  <span class="grade-name">아이언</span>
+                  <span class="grade-name">${sessionScope.loginMember.gradeCode}</span>
                   등급입니다.
               </div>
           </div>
           <div class="grade-detail">
               <div class="grade-detail-text">
-                  <span>아이언</span>
+                  <span>${sessionScope.loginMember.gradeCode}</span>
                   등급 혜택
               </div>
               <div class="accrual-rate">
@@ -50,7 +50,7 @@
                   </div>
                   <ul>
                       <li>
-                          <a href="orderHistory_cnh.html">
+                          <a href="mypage/orderHistory">
                               <img src="${contextPath}/resources/images/cnh/images/myicon_01.png"> 주문/배송현황
                               <span class="count-icon">
                                   <span>

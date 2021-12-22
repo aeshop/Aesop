@@ -32,9 +32,11 @@
 
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/header.css">
-	  <link rel="stylesheet" href="${contextPath}/resources/css/productDetail.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/footer.css">
+
 	  <link rel="stylesheet" href="${contextPath}/resources/css/myPage.css">
-	  <link rel="stylesheet" href="${contextPath}/resources/css/footer.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/productDetail.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/orderHistory.css">
 </head>
 
 <body>
