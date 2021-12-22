@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!-- 로그인 (탈퇴 회원 제외) -->
+	<entry key="login">
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_EMAIL, MEMBER_NAME, MEMBER_BIRTHDAY, 
+		MEMBER_PHONE, ENROLL_DT, MEMBER_STATUS_NO, MEMBER_GRADE_NO
+		FROM MEMBER
+		WHERE MEMBER_ID = ?
+		AND MEMBER_PW = ?
+		AND MEMBER_STATUS_NO != 102
+	</entry>
+
+	<entry key="getProductList">
+		select p.*, c.category_nm
+		from p_product p
+		join
+		p_product_category c
+		on(p.product_category=c.category_no)
+	</entry>
+
+
+	<entry key="getProduct">
+		select p.*, c.category_nm
+		from p_product p
+		join p_product_category c
+		on(p.product_category=c.category_no)
+		where p.product_no = ?
+	</entry>
+
+	<!-- 가져오는건 회원번호, 이름, 휴대폰번호, 이메일, 주소, 가입일, 회원상태코드, 회원등급코드만 가져온다, 일단 id는 이미 
+		입력값으로 존재하고, 비밀번호는 가져오면 안됨, 탈퇴회원은 빼고 하기로 했음 -->
+
+
+	<entry key="addCart">
+	insert into p_order values('O'||seq_p_order.nextval,?,?,?,'OS1',null)
+	</entry>
+
+	<entry key="getMyCart">
+		select o.order_no,p.product_nm,p.product_price,p.product_discount,o.product_amount
+		from p_order o
+		join p_product p
+		on(o.product_no = p.product_no)
+		where o.member_no = ? AND order_state_no = 'OS1'
+	</entry>
+	
+	<entry key="subtractProductAmount">
+		UPDATE p_product SET product_amount = product_amount - ?  WHERE product_no = ?
+	</entry>
+<!-- 장바구니 자체추가할 때 중복되는 항목이 존재하면 수량을 조정하지 않는 한, 이걸 여러번 반복하는 방법 말고는 한번에 여러 행을 업데이트 시킬수는 없어 보인다 -->
+<entry key="insertDelivery">
+		INSERT INTO  p_delivery(delivery_no,member_no,addr_1,addr_2) 
+		VALUES ('D'||seq_p_delivery.NEXTVAL,?,?,?)
+	</entry>
+<entry key="getDeliveryCode">
+		SELECT delivery_no FROM p_delivery WHERE member_no = ?
+		ORDER BY order_date DESC
+	</entry>
+<entry key="addOrderDeliveryCode">
+		UPDATE p_order SET delivery_no = ?  WHERE order_no = ?
+	</entry>
+<entry key="insertPayment">
+		INSERT INTO  p_payment 
+		VALUES (seq_p_payment.nextval,?,?,?,?)
+	</entry>
+</properties>
