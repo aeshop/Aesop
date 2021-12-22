@@ -266,10 +266,25 @@ footer {
 
 #n-shipping-wrapper {
     margin: 10px 0px;
+    padding: 5px;
+    background-color: rgba(174, 51, 190, 0.911);
 }
 
 .n-cart-table {
     width: 1000px;
+}
+
+.n-cart-table tr {
+    text-align: center;
+}
+
+.n-cart-table tr {
+    border-top: solid 1px #ccc;
+}
+
+.n-cart-table img {
+    width: 80px;
+    background-color: antiquewhite;
 }
 
 .n-qty-no {
@@ -279,27 +294,67 @@ footer {
 
 .n-qty-change {
     display: inline-block;
+    width: 70px;
     position: relative;
 }
 
 .n-qty-change a:nth-of-type(1) {
     position: absolute;
     top: -8px;
-    left: 25px;
+    left: 50px;
 }
 
 .n-qty-change a:nth-of-type(2) {
     position: absolute;
-    top: 3px;
-    left: 25px;
+    top: 13px;
+    left: 50px;
 }
 
 .n-qty-change img {
     width: 20px;
+    height: 15px;
 }
 
 .n-cart-btns a {
     display: block;
+}
+
+.n-cart-ctl-btn {
+    margin-top: 40px;
+}
+
+.n-cart-ctl-btn p {
+    margin-top: -25px;
+    text-align: right;
+}
+
+.n-summery-table {
+    width: 1000px;
+    border-top: solid 2px #ccc;
+}
+
+.n-summery-table td {
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+    border-top: solid 1px #ccc;
+}
+
+.n-summery-table tbody td {
+    font-size: 1.8em;
+}
+
+.n-order-btn-wrapper {
+    margin-top: 30px;
+}
+
+.n-order-btn-wrapper div {
+    text-align: center;
+}
+
+.n-order-btn-wrapper p {
+    margin-top: -40px;
+    text-align: right;
 }
 
 

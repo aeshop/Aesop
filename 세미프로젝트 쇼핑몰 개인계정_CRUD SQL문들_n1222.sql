@@ -25,6 +25,34 @@ SELECT * FROM PRODUCT_STATUS;
 SELECT * FROM ORDER_1;
 SELECT * FROM ORDER_STATUS;
 
+
+
+--주문 정보 조회 VIEW
+
+CREATE OR REPLACE VIEW v_order_info AS (
+SELECT o.*,p.product_nm,p.product_price,p.discount,pi.product_img_path,pi.product_img_nm
+FROM order_1 o 
+JOIN product p ON(o.product_no = p.product_no)
+JOIN product_img pi ON (p.product_no = pi.product_no)
+WHERE o.order_status_cd = 400 AND pi.product_img_level=0
+);
+--사용법
+SELECT * FROM V_ORDER_INFO WHERE MEMBER_NO = 9 ORDER BY order_no DESC;
+
+--수량변경(up)
+
+select * from order_status;
+
+select * from order_1;
+
+select * from order_1 where order_no = 2 or order_no = 3;
+
+
+UPDATE order_1 SET order_status_cd = 400 WHERE member_no = 9;
+
+commit;
+
+
 --------------------------배송--------------------------
 
 SELECT * FROM DELIVERY;

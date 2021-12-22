@@ -1,25 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title></title>
-</head>
-<body>
-      <c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
+<jsp:include page="header_n.jsp"></jsp:include>
 
-   <h1>소제목</h1>
+
+   <h1>페이지 기능확인위한 임시 페이지</h1>
    
-   <pre>내용</pre>
    
    
    
    <a href="${contextPath}/product/add">제품 입력 페이지로 이동</a>
-   
+   <br>
+   <hr>
       <a href="${contextPath}/category/view">카테고리 페이지로 이동</a>
+         <br>
+         <hr>
+      
+      <a href="${contextPath}/order/view">장바구니 페이지로 이동</a>
    
    
      <c:if test="${!empty sessionScope.message}">
@@ -37,6 +34,4 @@
    
    
    
-   
-</body>
-</html>
+<jsp:include page="footer_n.jsp"></jsp:include>

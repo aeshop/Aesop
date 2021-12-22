@@ -41,6 +41,7 @@ public class MemberController extends HttpServlet{
 					String memberId = req.getParameter("memberId");
 					String memberPw = req.getParameter("memberPw");
 					
+
 //					System.out.println("memberId : " + memberId);
 					
 					try {
@@ -52,7 +53,9 @@ public class MemberController extends HttpServlet{
 						
 						if (loginMember != null) {
 
+
 							if (loginMember.getStatusCode() == 101) {
+
 								session.setAttribute("loginMember", loginMember);
 								session.setMaxInactiveInterval(3000);
 								
