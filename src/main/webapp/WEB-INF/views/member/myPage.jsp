@@ -14,17 +14,19 @@
                   </strong>
                   님은
                   <br>
-                  <span class="grade-name">${sessionScope.loginMember.gradeCode}</span>
+                  <span class="grade-name">${sessionScope.loginMember.memberGradeName}</span>
                   등급입니다.
               </div>
           </div>
           <div class="grade-detail">
               <div class="grade-detail-text">
-                  <span>${sessionScope.loginMember.gradeCode}</span>
+                  <span>${sessionScope.loginMember.memberGradeName}</span>
                   등급 혜택
               </div>
               <div class="accrual-rate">
-                  적립율 1%
+                  적립율 
+                  ${sessionScope.loginMember.memberGradeDiscount}
+                  %
               </div>
               <div class="grade-bar">
                   <div class="bar"> 

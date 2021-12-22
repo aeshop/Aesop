@@ -13,13 +13,16 @@ public class Member {
    private Date enrollDate;
    private int statusCode;
    private int gradeCode;
-   
-   public Member() {}
-   
-   
-   // 회원가입 생성자
+
+   private String memberGradeName;
+   private int memberGradeDiscount;
+
+   public Member() {
+   }
+
    public Member(int memberNo, String memberId, String memberEmail, String memberName, int memberBirthday,
-         String memberPhone, Date enrollDate, int statusCode, int gradeCode) {
+         String memberPhone, Date enrollDate, int statusCode, int gradeCode, String memberGradeName,
+         int memberGradeDiscount) {
       super();
       this.memberNo = memberNo;
       this.memberId = memberId;
@@ -30,9 +33,9 @@ public class Member {
       this.enrollDate = enrollDate;
       this.statusCode = statusCode;
       this.gradeCode = gradeCode;
+      this.memberGradeName = memberGradeName;
+      this.memberGradeDiscount = memberGradeDiscount;
    }
-
-
 
    public int getMemberNo() {
       return memberNo;
@@ -114,17 +117,28 @@ public class Member {
       this.gradeCode = gradeCode;
    }
 
+   public String getMemberGradeName() {
+      return memberGradeName;
+   }
+
+   public void setMemberGradeName(String memberGradeName) {
+      this.memberGradeName = memberGradeName;
+   }
+
+   public int getMemberGradeDiscount() {
+      return memberGradeDiscount;
+   }
+
+   public void setMemberGradeDiscount(int memberGradeDiscount) {
+      this.memberGradeDiscount = memberGradeDiscount;
+   }
+
    @Override
    public String toString() {
       return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw + ", memberEmail="
             + memberEmail + ", memberName=" + memberName + ", memberBirthday=" + memberBirthday + ", memberPhone="
             + memberPhone + ", enrollDate=" + enrollDate + ", statusCode=" + statusCode + ", gradeCode=" + gradeCode
-            + "]";
-   };
-   
-   
-   
-	
-	
+            + ", memberGradeName=" + memberGradeName + ", memberGradeDiscount=" + memberGradeDiscount + "]";
+   }
 
 }

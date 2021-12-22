@@ -57,7 +57,7 @@
                           <span>역삼2차아이파크</span>   
                       </td>
                       <td>
-                          <a href="addrModifyEdit.html">
+                          <a href="${contextPath}/member/myPage/addr/edit">
                               <img src="${contextPath}/resources/images/cnh/images/btn_address_modify.gif">
                           </a>
                       </td>

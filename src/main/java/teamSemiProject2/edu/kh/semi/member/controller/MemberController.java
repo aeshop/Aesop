@@ -28,6 +28,8 @@ public class MemberController extends HttpServlet{
 		String path = null;
 		RequestDispatcher dispatcher = null;
 		
+		HttpSession session = req.getSession();
+
 			if(command.equals("login")) {
 				if(method.equals("GET")) {
 					path = "/WEB-INF/views/member/login.jsp";
@@ -43,8 +45,6 @@ public class MemberController extends HttpServlet{
 					
 
 
-					System.out.println("memberId : " + memberId);
-					System.out.println("memberPw : " + memberPw);
 
 					
 					try {
@@ -52,7 +52,7 @@ public class MemberController extends HttpServlet{
 						
 						Member loginMember = service.login(memberId, memberPw);
 						
-						HttpSession session = req.getSession();
+						System.out.println(loginMember);
 						
 						if (loginMember != null) {
 
@@ -61,7 +61,6 @@ public class MemberController extends HttpServlet{
 							if (loginMember.getStatusCode() == 101) {
 
 
-							System.out.println("여기까지");
 
 							if (loginMember.getStatusCode() == 101) {
 								System.out.println(loginMember.getMemberEmail());
@@ -88,9 +87,6 @@ public class MemberController extends HttpServlet{
 			
 			if(command.equals("myPage")) {
 				if(method.equals("GET")) {
-					
-					
-					HttpSession session = req.getSession();
 					
 					
 					
@@ -124,6 +120,15 @@ public class MemberController extends HttpServlet{
 					dispatcher.forward(req, resp);
 				}
 				
+			}
+			
+			
+			if(command.equals("myPage/addr/edit")){
+				if(method.equals("GET")) {
+					path = "/WEB-INF/views/member/addrModifyEdit.jsp";
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
+				}
 			}
 
 			
