@@ -7,15 +7,15 @@
     <div class="content">
       <div class="order-menu">
           <ul class="order-title">
-              <li class="selected">
-                  <a href="#">
+              <li >
+                  <a href="${contextPath}/member/myPage/orderHistory">
                       주문내역조회 (
                           <span>1</span>
                       )
                   </a>
               </li>
-              <li>
-                  <a href="${contextPath}/member/myPage/orderStatus">
+              <li class="selected">
+                  <a href="#">
                       취소/반품/교환 내역(
                           <span>1</span>
                       )
@@ -110,7 +110,6 @@
   
   <!-- footer include -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-
 
 </body>
 </html>

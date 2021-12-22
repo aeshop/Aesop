@@ -85,12 +85,44 @@ public class MemberController extends HttpServlet{
 				
 			}
 			
+			
 			if(command.equals("myPage")) {
 				if(method.equals("GET")) {
+					
+					
+					
+					
+					
 					path = "/WEB-INF/views/member/myPage.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
 				}
+			}
+			
+			
+			if(command.equals("myPage/orderHistory")) {
+				if(method.equals("GET")) {
+					path = "/WEB-INF/views/order/orderHistory.jsp";
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
+				}
+			}
+			
+			if(command.equals("myPage/orderStatus")) {
+				if(method.equals("GET")) {
+					path = "/WEB-INF/views/order/orderStatus.jsp";
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
+				}
+			}
+			
+			if(command.equals("myPage/addr")) {
+				if(method.equals("GET")) {
+					path = "/WEB-INF/views/member/addrModify.jsp";
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
+				}
+				
 			}
 
 			

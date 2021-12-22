@@ -37,6 +37,7 @@
 	  <link rel="stylesheet" href="${contextPath}/resources/css/myPage.css">
 	  <link rel="stylesheet" href="${contextPath}/resources/css/productDetail.css">
 	  <link rel="stylesheet" href="${contextPath}/resources/css/orderHistory.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/addrModify.css">
 </head>
 
 <body>
@@ -91,11 +92,11 @@
 						</c:when>
 						<c:otherwise>
 							<button type="button">LOGOUT</button>
+							<button type="button" onclick="location.href='${contextPath}/member/myPage'">
+								<i class="far fa-user"></i>
+							</button>
 						</c:otherwise>
 					</c:choose>
-					<button type="button" onclick="location.href='${contextPath}/member/myPage'">
-						<i class="far fa-user"></i>
-					</button>
 					<button type="button">
 						<i class="fas fa-shopping-cart"></i>
 					</button>

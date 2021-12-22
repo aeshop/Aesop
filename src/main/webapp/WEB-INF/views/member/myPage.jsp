@@ -50,7 +50,7 @@
                   </div>
                   <ul>
                       <li>
-                          <a href="mypage/orderHistory">
+                          <a href="${contextPath}/member/myPage/orderHistory">
                               <img src="${contextPath}/resources/images/cnh/images/myicon_01.png"> 주문/배송현황
                               <span class="count-icon">
                                   <span>
@@ -60,7 +60,7 @@
                           </a>
                       </li>
                       <li>
-                          <a href="#">
+                          <a href="${contextPath}/member/myPage/orderStatus">
                               <img src="${contextPath}/resources/images/cnh/images/myicon_02.png"> 취소/교환/반품 내역
                               <span class="count-icon">
                                   <span class="count">1</span>
@@ -68,7 +68,7 @@
                           </a>
                       </li>
                       <li>
-                          <a href="#">
+                          <a href="${contextPath}/order/view">
                               <img src="${contextPath}/resources/images/cnh/images/wish_icon.png"> 장바구니
                               <span class="count-icon">
                                   <span class="count">1</span>
@@ -76,7 +76,7 @@
                           </a>
                       </li>
                       <li>
-                          <a href="addrModify_cnh.html">
+                          <a href="${contextPath}/member/myPage/addr">
                               <img src="${contextPath}/resources/images/cnh/images/myicon_03.png"> 배송지 수정
                           </a>
                       </li>
@@ -165,6 +165,7 @@
 
 <!-- footer include -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
 
 
 </body>
