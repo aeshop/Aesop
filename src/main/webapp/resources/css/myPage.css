@@ -1,0 +1,284 @@
+@charset "UTF-8";
+/************************ 최낙희 css ********************/
+/* content */
+.content{
+    /* border: 1px solid black; */
+    box-sizing: border-box;
+    width: 1200px;
+    float: left;
+    margin: 90px 90px 50px 300px;
+}
+
+/* grade */
+.myshopMain{
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    height: 200px;
+    padding: 20px 0px 20px 0px;
+    margin-bottom: 35px;
+}
+
+.grade-name{
+    color: rgb(201, 89, 10);
+    font-weight: 800;
+}
+
+.grade-text{
+    float: left;
+    padding : 40px 0 0 80px;
+    font-size: 30px;
+    /* font-family: 'Noto Sans KR', sans-serif; */
+    line-height: 40px;
+    letter-spacing: -1.08px;
+    color: black;
+    font-weight: 500;
+}
+
+.grade{
+    float: left;
+    width: calc(100% - 760px);
+    border-right: 1px solid #e0e0e0;
+    height: 158px;
+}
+
+.grade-detail{
+    padding: 2px 80px;
+    float: left;
+    width: 550px;
+    height: 158px;
+}
+
+.grade-detail-text{
+    background-color: black;
+    color: white;
+    display: inline-block;
+    padding: 2px 5px; 
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -1.9px;
+    margin: 0 0 0 0;
+}
+
+.accrual-rate{
+    padding: 5px 0 0 0;
+    font-size: 13.5px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+}
+
+.grade-bar{
+    padding: 10px 0;
+}
+
+.bar{
+    background-color: #eeeeee;
+    height: 5px;
+}
+
+.graph{  /* 등급 그래프 */
+    height: 100%;
+    background-color: black;
+}
+
+.grade-guide{
+    text-align: center;
+    font-size: 12px;
+
+}
+
+.member-benefit{
+    padding-top: 10px;
+    padding-left: 100px;
+    width: 350px;
+}
+
+.member-benefit a{
+    text-decoration: none;
+    text-align: center;
+    /* color: black; */
+    display: block;
+    border: 1px solid black;
+    border-radius: 45px;
+    line-height: 45px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* myshopping */
+
+.side{
+    width: 250px;
+    height: 511px;
+    float: left;
+}
+.myshopping{
+    /* border: 1px solid black; */
+    height: 526px;
+    box-sizing: border-box;
+}
+
+.my-title{
+    font-size: 15px;
+    font-weight: 800;
+    padding-bottom: 15px;
+    border-bottom: 1px solid black;
+    width: 250px;
+    /* border: 1px solid red; */
+    float: left;
+}
+
+
+/* myinfo */
+
+.myinfo{
+    padding: 0 0 30px 0;
+    height: 285px;
+}
+
+.myinfo > ul{
+    float: left;
+    padding: 0;
+    margin: 0;
+}
+
+.myinfo > ul > li{
+    list-style: none;
+    font-size: 13px;
+    font-weight: 550;
+    line-height: 1.5;
+    padding: 19px 0;
+    border-bottom: 1px solid #e0e0e0;
+    width: 250px;
+    background: url(https://whoisnerdy.com/web/upload/images/mobile/myicon_07.png) no-repeat 100% 50%;
+    background-size: 15px 15px;
+}
+
+.myinfo > ul > li > a {
+    text-decoration: none;
+    /* color: black; */
+    display: block;
+    position : relative;
+}
+
+.myinfo > ul > li > a > img{
+    height: 17px;
+    margin-right: 8px;
+}
+
+
+.myShopping_activity img{
+
+    width: 67px;
+    margin-top: 20px;
+}
+
+.myShopping_activity a{
+    text-decoration: none;
+    /* color: black; */
+    text-align: center;
+    font-size: 12px;
+}
+
+.myShopping_activity p{
+    margin : 0 0 9px 0;
+}
+
+.myShopping_activity table{
+    padding: 10px 0;
+}
+
+
+/* 최근 주문내역 */
+
+.recent-order{
+    width: 930px;
+    float: right;
+    /* border: 1px solid black; */
+}
+
+.my-title2{
+    border-bottom: 2px solid black;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 15px;
+    
+}
+
+.mypage-table th{
+    font-size:  14px;
+    padding : 18px 0;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.mypage-table td{
+    padding: 8px 0 5px;
+}
+
+.mypage-table{
+    border-spacing: 0;
+
+}
+
+.order-img img{
+    width: 100%;
+}
+
+.mypage-table tbody td{
+    text-align: center;
+    font-size: 12px;
+}
+
+.order-product a{
+    /* color: black; */
+    text-decoration: none;
+}
+
+
+.order-product {
+    vertical-align: top;
+}
+
+.mypage-table > tbody  .order-product{
+    text-align: left;
+    padding-left: 8px;
+}
+
+.order-no a{
+    /* color: black; */
+    text-decoration: none;
+}
+
+/* 최근 주문 더보기 */
+
+.order-more {
+    padding: 30px 0;
+    text-align: center;
+}
+
+.order-more img{
+    width: 13px;
+}
+
+.order-more a{
+    /* color : black; */
+    text-decoration: none;
+    font-size: 15px;
+}
+
+
+.count-icon{
+    background-color: rgb(184, 81, 8);
+    color: white;
+    border-radius: 50%;
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    font-size: 10px;
+    line-height: 23px;
+    right: 25px;
+    
+}

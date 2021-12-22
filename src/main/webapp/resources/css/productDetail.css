@@ -1,0 +1,130 @@
+@charset "UTF-8";
+  /************************ 최낙희 css ********************/
+  /* content */
+  .content{
+      /* border: 1px solid black; */
+      box-sizing: border-box;
+      width: 1000px;
+      float: left;
+      margin: 90px 90px 0px 500px;
+  }
+
+
+  .productDetailHeader img{
+    width: 500px;
+  }
+
+  .productDetailHeader img:hover{
+    transform: scale(1.05);
+    transition: all 0.1s linear;
+  }
+
+  #productInfo {
+    width: 430px;
+    float: right;
+  }
+
+  #productInfo > div> h2 {
+    font-size: 1.9rem;
+  }
+
+  #productPrice{
+    font-size: 16px;
+    float: left;
+    padding-right: 50px;
+  }
+
+  #salePrice{
+    /* font-weight: bold; */
+    font-size: 25px;
+    letter-spacing: -0.2px;
+  }
+
+  #originPrice{
+    text-decoration: line-through;
+    font-size: 15px;
+  }
+
+  #discountRate{
+    float: right;
+    font-size: 1.8rem;
+    color: #dd0000;
+  }
+
+  #priceSection{
+    border-bottom: 1px solid #dfdfdf;
+    border-top: 2px solid black;
+    padding: 20px 0;
+  }
+
+
+  #deliveryFee{
+    border-bottom: 1px solid #dfdfdf;
+    padding: 13px 0;
+  }
+
+
+  #productSize{
+    margin: 5px 0;
+  }
+
+
+  #sizeSelect{
+    border: 1px solid #d5d5d5;
+    padding-left: 10px;
+    font-size: 15px;
+    height: 32px;
+    width: 100%;
+    letter-spacing: -1px;
+  }
+
+  #selectCancel{
+    width: 17px;
+  }
+
+  /* 수량에 쓰이는 number 태그 속성 */
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button {  
+
+    opacity: 1;
+
+  } 
+
+  #finalOrder input[type=number]{
+    width: 70px;
+  }
+
+
+  #productDescript img{
+    padding: 200px 0 0 0;
+    width: 100%;
+  }
+
+  #productTxt{
+    text-align: center;
+    float: left;
+    margin: 100px 0 0 600px;
+  }
+
+  #orderBtn a{
+    text-decoration: none;
+  }
+
+  /* 구매하기 버튼 */
+  #orderBtn p{
+    border: 1px solid black;
+    text-align: center;
+    padding: 15px 0;
+    margin: 15px 0 0 0;
+  }
+
+  /* 장바구니 담기버튼 */
+  #cartBtn p{ 
+    background-color: rgb(90, 64, 29);
+    color: white;
+  }
+
+  #purchaseBtn p{
+    background-color: black;
+    color: white;
+  }
