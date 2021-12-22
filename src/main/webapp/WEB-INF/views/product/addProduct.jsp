@@ -19,8 +19,8 @@
 <br>
 <c:forEach items="${category}" var="item">
 
-<c:if test="${item.categoryNo%10!=0}">
-<input type="radio" name="categoryNo" value="${item.categoryNo}">
+<c:if test="${item.categoryNo2%10!=0}">
+<input type="radio" name="categoryNo" value="${item.categoryNo2}">
 ${item.categoryName}
 <br>
 

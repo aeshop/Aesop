@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.order.model.service.OrderService;
 import teamSemiProject2.edu.kh.semi.order.model.vo.Order;
 
@@ -45,10 +46,9 @@ public class OrderController extends HttpServlet {
 
 		OrderService service = new OrderService();
 
-		session.setAttribute("loginMemberNo", 9);
-		session.setAttribute("loginMemberName", "테스트용계정");
-		session.setAttribute("loginMemberGradeName", "브론즈");
-		session.setAttribute("loginMemberDiscount", 0.99);
+		Member loginMember = (Member) session.getAttribute("loginMember");
+
+		int loginMemberNo = loginMember.getMemberNo();
 
 		try {
 
@@ -67,7 +67,6 @@ public class OrderController extends HttpServlet {
 					 */
 
 					// 현재 테스트용 계정의 회원번호: 9
-					int loginMemberNo = 9;
 					List<Order> oList = service.getOrder(loginMemberNo);
 
 					
@@ -102,14 +101,14 @@ public class OrderController extends HttpServlet {
 				} else if (command.equals("deleteAll")) {
 
 					String[] orderNoArr = req.getParameterValues("orderNo");
-//					System.out.println(Arrays.toString(arr));
+
 					//[4, 3] : 정상적으로 보내지는 것을 확인했다 이제 지우면 된다
 					/*
 					 * String 배열을 int배열로 변환: parseInt말고 다른 수식이 필요함, 그냥 service에서 DAO 여러번 보내면서 변경하는걸로...
 					 * 
 					 * */
-					
-					int result = service.deleteAll(orderNoArr,(int) session.getAttribute("loginMemberNo"));
+
+					int result = service.deleteAll(orderNoArr,loginMemberNo);
 					
 					if (result == 1) {
 						message = "정상적으로 체크된 물품이 삭제되었습니다.";
@@ -128,7 +127,7 @@ public class OrderController extends HttpServlet {
 					//orderNoArr의 길이에 따라 다른 SQL구문을 사용할 예정, 또는, getOrder로 다 받아오고, orderNo가 존재하지 않으면 출력에서 제외한다?
 					//List.contains()의 override? 
 					
-					List<Order> oList = service.orderAll(orderNoArr,(int) session.getAttribute("loginMemberNo"));
+					List<Order> oList = service.orderAll(orderNoArr,loginMemberNo);
 					//oList에는 없는 체크되지 않은 주문를 제외한 주문row들이 옴
 					
 //					List<Address> aList = service.getAddress(loginMemberNo);
@@ -147,7 +146,7 @@ public class OrderController extends HttpServlet {
 					// ajax는 req dispatcher forward를 사용하지 않는다.
 					int orderNo = Integer.parseInt(req.getParameter("orderNo"));
 					int orderAmount = Integer.parseInt(req.getParameter("orderAmount"));
-					int loginMemberNo = (Integer) session.getAttribute("loginMemberNo");
+					
 					int result = service.amountChange(orderAmount, orderNo, loginMemberNo);
 					resp.getWriter().print(result);
 
