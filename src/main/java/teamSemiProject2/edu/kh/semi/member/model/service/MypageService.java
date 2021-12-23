@@ -29,4 +29,21 @@ public class MypageService {
 		return orderList;
 	}
 
+	
+	
+	/** 취소/교환/환불 내역 조회 Service
+	 * @param memberNo
+	 * @return orderStatusList
+	 * @throws Exception
+	 */
+	public List<OrderList> selectOrderStatus(int memberNo) throws Exception{
+Connection conn = getConnection();
+		
+		List<OrderList> orderStatusList = dao.selectOrderStatus(memberNo, conn);
+		
+		close(conn);
+		
+		return orderStatusList;
+	}
+
 }

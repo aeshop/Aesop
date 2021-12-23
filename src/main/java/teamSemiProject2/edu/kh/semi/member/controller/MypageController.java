@@ -99,9 +99,28 @@ public class MypageController extends HttpServlet{
 				}
 			
 				
+				
 			// 취소/교환/반품 (주문상태) 조회
 			}else if(command.equals("orderStatus")) {
 				if(method.equals("GET")) {
+					
+					Member loginMember = (Member)session.getAttribute("loginMember");
+					
+					int memberNo = loginMember.getMemberNo();
+					
+					try {
+						
+						MypageService service = new MypageService();
+
+						List<OrderList> orderStatusList = service.selectOrderStatus(memberNo);
+						
+						session.setAttribute("orderStatusList", orderStatusList);
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+					
+					
 					path = "/WEB-INF/views/order/orderStatus.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);

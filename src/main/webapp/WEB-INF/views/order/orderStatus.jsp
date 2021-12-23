@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
 
@@ -10,14 +13,14 @@
               <li >
                   <a href="${contextPath}/myPage/orderHistory">
                       주문내역조회 (
-                          <span>1</span>
+                          <span>${fn:length(sessionScope.orderList)}</span>
                       )
                   </a>
               </li>
               <li class="selected">
                   <a href="#">
                       취소/반품/교환 내역(
-                          <span>1</span>
+                          <span>${fn:length(sessionScope.orderStatusList)}</span>
                       )
                   </a>
               </li>
@@ -27,10 +30,7 @@
           <fieldset class="status-select">
               <form method="GET">
                   <select class="select-form">
-                      <option value="all" selected> 전체 주문처리상태</option>
-                      <option value="prepared"> 배송 준비중</option>
-                      <option value="shipped"> 배송중</option>
-                      <option value="shipped-complate"> 배송완료</option>
+                      <option value="all" selected> 취소/교환/반품</option>
                       <option value="cancel"> 취소</option>
                       <option value="exchange"> 교환</option>
                       <option value="return"> 반품</option>
@@ -69,38 +69,50 @@
               </tr>
           </thead>
           <tbody>
-         	  <tr>
-	             <td colspan=6> 주문내역이 없습니다.
-	          </tr>
-              <tr>
-                  <td class="order-num">
-                      2021-12-18
-                      <p style="margin: 0;">
-                         <a href="#">[20211211-0003782]</a> 
-                      </p>
+          
+          	<c:choose>
+          		<c:when test="${empty sessionScope.orderStatusList }">
+          			<tr>
+	              		<td colspan=6> 취소/교환/반품 내역이 없습니다.
+	          		</tr>
+          		</c:when>
+          		<c:otherwise>
+          			<c:forEach items="${sessionScope.orderStatusList}" var="os">
+          				<tr>
+                  			<td class="order-num">
+                    			  ${os.deliveryDt}
+                    		  <p style="margin: 0;">
+                       		  <a href="#">${os.deliveryNo}</a> 
+                    	 	  </p>
                       <!--  주문 취소 버튼 ( 배송 준비중일 경우에만 보이게 설정 )-->
                       <a href="#" class="displaynone">
                           <img src="${contextPath}/resources/images/cnh/images/btn_order_cancel.gif">
                       </a>
                   </td>
                   <td class="order-product-img">
-                      <img src="${contextPath}/resources/images/cnh/images/product1.webp">
+                      <img src="${os.productImgPath}">
                   </td>
                   <td>
                       <a href="#" style="text-decoration: none;">
                           <strong>
-                              레버런스 아로마틱 핸드 워시
+                              ${os.productName }
                           </strong>
                       </a>
                   </td>
                   <td>1</td>
                   <td class="order-product-price">
-                      <strong> 49,000원 </strong>
+                      <strong> ${os.productPrice } </strong>
                   </td>
                   <td class="order-status">
-                      <p> 배송완료 </p>
+                      <p> ${os.orderStatusName} </p>
                   </td>
               </tr>
+          			
+          			</c:forEach>
+          			
+          		</c:otherwise>
+          		
+          	</c:choose>
           </tbody>
       </table>
       <div class="order-li-pagination">

@@ -77,6 +77,51 @@ public class MypageDAO {
 		
 		return orderList;
 	}
+
+
+	/** 취소/교환/환불 내역 조회 DAO
+	 * @param memberNo
+	 * @param conn
+	 * @return orderStatusList
+	 * @throws Exception
+	 */
+	public List<OrderList> selectOrderStatus(int memberNo, Connection conn) throws Exception {
+
+
+		List<OrderList> orderStatusList = new ArrayList<OrderList>();
+		
+		try {
+			String sql = prop.getProperty("selectOrderStatus");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memberNo);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OrderList order = new OrderList();
+				
+				order.setDeliveryDt(rs.getDate("DELIVERY_DT"));
+				order.setProductImgPath(rs.getString("PRODUCT_IMG_PATH"));
+				order.setProductName(rs.getString("PRODUCT_NM"));
+				order.setOrderAmount(rs.getInt("ORDER_AMOUNT"));
+				order.setDeliveryNo(rs.getString("DELIVERY_NO"));
+				order.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+				order.setOrderStatusName(rs.getString("ORDER_STATUS_NM"));
+				
+				orderStatusList.add(order);
+				
+			}
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+			
+		}
+		
+		return orderStatusList;
+	}
 	   
 	   
 

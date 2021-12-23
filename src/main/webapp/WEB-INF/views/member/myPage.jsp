@@ -141,7 +141,7 @@
 	                    		    </tr>
                   				</c:when>
                   				<c:otherwise>
-			                  		<c:forEach items="${sessionScope.orderList}" var="o">
+			                  		<c:forEach items="${sessionScope.orderList}" var="o" begin="0" end="4">
                   						<tr>
 				                          <td class="order-date"> ${o.deliveryDt}</td>
 				                          <td class="order-img"> 
