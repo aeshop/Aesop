@@ -52,7 +52,7 @@
 
                 <div class="n-order-row">
                 <%--결제 페이지에 들어가는 즉시 controller는 DB와 연결해서 주문번호를 생성하고 받아옴 20211223-000123 이런 형태 --%>
-                    <div>국내배송상품 주문내역</div><input type="hidden" id="delivery-no" value = "${deliveryNo}">
+                    <div>국내배송상품 주문내역</div>
                     <p><img src="${contextPath}/resources/images/order/btn_prev.gif" alt="이전페이지 버튼"></p>
 
                 </div>
@@ -77,6 +77,7 @@
                     <c:forEach items="${orderList}" var="index" varStatus="vs">
                      	<tr>
                             <td>
+                            <input type="hidden" class="orderNumber" value="${index.orderNo}">
                                 <input type="checkbox" onclick="">
                             </td>
                             <td>
@@ -335,17 +336,14 @@
 <%-- 아임포트 사용을 위한 js 파일에 데이터 전달 위한 값들 전역에 선언해놓는 스크립트 태그 --%>
 <script type="text/javascript">
 
-const pay_deliveryNo = "${deliveryNo}";
-
-const pay_deliveryName = "${orderList[0].productName} 외 ${orderCount-1}건";
-const pay_buyerName = "${sessionScope.loginMember.memberName}";
-const pay_buyerEmail = "${sessionScope.loginMember.memberEmail}";
-const pay_buyerTel = "${sessionScope.loginMember.memberPhone}";
-
-const pay_buyerZipCode = "";
-const pay_buyerAddress = "";
-/* 구매자주소, 구매자 우편번호? 주소록 분리되어  */
-
+const pay_info = {
+		deliveryName : "${orderList[0].productName} 외 ${orderCount-1}건",
+		buyerName : "${sessionScope.loginMember.memberName}",
+		buyerEmail : "${sessionScope.loginMember.memberEmail}",
+		buyerTel : "${sessionScope.loginMember.memberPhone}",
+		buyerZipCode : "",
+		buyerAddress : ""		
+};
 
 </script>
 

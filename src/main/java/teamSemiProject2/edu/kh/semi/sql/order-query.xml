@@ -28,13 +28,21 @@ UPDATE order_1 SET order_status_cd = 403 WHERE order_no = ? AND member_no = ?</e
 	</entry>
 	<entry key="insertDeliNo">
 INSERT INTO DELIVERY 
-VALUES( ?, ?, null, null, null, null, null, DEFAULT, 500)
+VALUES( ?, ?, null, null, null, null, null, DEFAULT, 500,?)
 	</entry>
 	
 	<entry key="deliNoDupCheck">
 		SELECT *
 		FROM delivery
 		WHERE DELIVERY_NO = ?
+	</entry>
+	<entry key="downStock">
+		UPDATE product SET stock = stock - (SELECT order_amount FROM order_1 WHERE order_no = ? AND member_no = ?)
+		WHERE product_no = (SELECT product_no FROM order_1 WHERE order_no = ? AND member_no = ?)
+	</entry>
+	<entry key="getTotalPrice">
+		SELECT p.PRODUCT_PRICE *(1-p.DISCOUNT) * o.ORDER_AMOUNT FROM product p JOIN order_1 o on (p.product_no = o.product_no)
+       WHERE o.order_no = ? AND o.member_no = ?
 	</entry>
 	
 	

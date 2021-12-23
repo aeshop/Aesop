@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import javax.websocket.Session;
 
 import org.json.simple.JSONObject;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 
 import teamSemiProject2.edu.kh.semi.common.ImportAccessTokenGetter;
@@ -89,8 +91,6 @@ public class OrderController extends HttpServlet {
 					// 지금은 Session안에 정보를 강제로 집어넣기
 					req.setAttribute("orderCount", oList.size());
 
-
-
 					path = "/WEB-INF/views/order/myCart.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
@@ -151,14 +151,13 @@ public class OrderController extends HttpServlet {
 					
 					ArrayList oList = (ArrayList) resultMap.get("orderList");
 					Address defaultAddress = (Address) resultMap.get("defaultAddress");
-					String deliveryNo = (String) resultMap.get("deliveryNo");
+					//배송번호는 ajax로 요청하고 받아올 것이다.
 					
 					//어트리뷰트에 넣고 진행함
 					req.setAttribute("orderList", oList);
 					req.setAttribute("orderCount", oList.size());
 					
 					req.setAttribute("defaultAddress", defaultAddress);
-					req.setAttribute("deliveryNo",deliveryNo);
 					
 					//결제 페이지에 정보를 보냄
 					path="/WEB-INF/views/order/payment.jsp";
@@ -176,7 +175,20 @@ public class OrderController extends HttpServlet {
 					int result = service.amountChange(orderAmount, orderNo, loginMemberNo);
 					resp.getWriter().print(result);
 
-				} else if(command.equals("validation")) {
+				} else if(command.equals("getDelivery")) {
+					//payment페이지에 있는 주문번호들 배열로 받아옴
+					String [] orderNoArr = req.getParameterValues("orderNoList[]");
+			
+					
+					Map<String, String> resultMap = service.getDelivery(orderNoArr,loginMemberNo);
+					//AJAX로 맵 반환함
+
+					resp.getWriter().print(new Gson().toJson(resultMap));
+
+
+				}
+				
+				else if(command.equals("validation")) {
 					// 결제되어 서버에 넘어간 값과 db에 있는 값 비교검증
 					
 					//1. 결제번호 주문번호를 객체에서 추출하기
@@ -212,6 +224,14 @@ public class OrderController extends HttpServlet {
 		} catch (Exception e) {
 
 			e.printStackTrace();
+			
+			if(e instanceof SQLException) {
+				SQLException se = (SQLException) e;
+				if(se.getErrorCode()==1) {//캐치 조건에 어긋날시에
+					//리다이렉트 시도
+				}
+			}
+			
 
 		}
 

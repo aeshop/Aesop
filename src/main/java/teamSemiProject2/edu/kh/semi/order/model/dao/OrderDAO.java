@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -244,7 +245,7 @@ public class OrderDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertDeliNo(String deliveryNo, int loginMemberNo,Connection conn) throws Exception {
+	public int insertDeliNo(String deliveryNo, long totalPrice, int loginMemberNo,Connection conn) throws Exception {
 
 		int result = 0;
 
@@ -254,7 +255,10 @@ public class OrderDAO {
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, deliveryNo);
+
 			pstmt.setInt(2, loginMemberNo);
+
+			pstmt.setLong(3, totalPrice);
 
 			result = pstmt.executeUpdate();
 
@@ -264,6 +268,58 @@ public class OrderDAO {
 
 		}
 
+		return result;
+	}
+
+	public int downStock(int orderNo, int loginMemberNo, Connection conn) throws Exception {
+		int result = 0;
+
+		try {
+			
+			String sql = prop.getProperty("downStock");
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, orderNo);
+			pstmt.setInt(2, loginMemberNo);
+			pstmt.setInt(3, orderNo);
+			pstmt.setInt(4, loginMemberNo);
+
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return 1;
+	}
+
+	public long getTotalPrice(int orderNo, int loginMemberNo, Connection conn) throws SQLException {
+		long result = 0;
+
+		try {
+			
+			String sql = prop.getProperty("getTotalPrice");
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, orderNo);
+			pstmt.setInt(2, loginMemberNo);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getLong(1);
+			}
+
+			
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		
 		return result;
 	}
 

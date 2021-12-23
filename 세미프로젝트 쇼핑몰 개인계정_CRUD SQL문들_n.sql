@@ -37,7 +37,7 @@ JOIN product_img pi ON (p.product_no = pi.product_no)
 WHERE o.order_status_cd = 400 AND pi.product_img_level=0
 );
 --사용법
-SELECT * FROM V_ORDER_INFO WHERE MEMBER_NO = 9 ORDER BY order_no DESC;
+SELECT * FROM V_ORDER_INFO WHERE MEMBER_NO = 26 ORDER BY order_no DESC;
 
 --수량변경(up)
 
