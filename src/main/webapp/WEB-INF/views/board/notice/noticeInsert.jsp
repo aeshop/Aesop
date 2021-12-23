@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <c:set var="contextPath"
 	value="${pageContext.servletContext.contextPath}" scope="application" />
+<jsp:include page="../../common/r_header.jsp" />
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -62,8 +64,9 @@ hr {
 		<h1>게시글 등록</h1>
 		<hr>
 
-		
-		<form action="insert" method="post"  role="form" onsubmit="return boardValidate();">
+
+		<form action="insert" method="post" role="form"
+			onsubmit="return boardValidate();">
 
 			<%-- 카테고리 --%>
 			<div class="mb-2">
@@ -97,38 +100,40 @@ hr {
 			</div>
 
 			<hr>
-	
-
-	<div class="form-group">
-
-		<textarea rows="30" cols="120" placeholder=" 내용을 입력 해주세요 " name="boardContent"></textarea>
-	</div>
 
 
+			<div class="form-group">
 
-	<div class="text-center">
-		<button type="submit" class="btn btn-primary">등록</button>
-		<button type="button" class="btn btn-primary">목록으로</button>
-	</div>
+				<textarea rows="30" cols="120" placeholder=" 내용을 입력 해주세요 "
+					name="boardContent"></textarea>
+			</div>
 
 
-	</form>
+
+			<div class="text-center">
+				<button type="submit" class="btn btn-primary">등록</button>
+				<button type="button" class="btn btn-primary">목록으로</button>
+			</div>
+
+
+		</form>
 	</div>
 </body>
 <script>
-function boardValidate() {
-	if ($("#boardTitle").val().trim().length == 0) {
-		alert("제목을 입력해 주세요.");
-		$("#title").focus();
-		return false;
-	}
+	function boardValidate() {
+		if ($("#boardTitle").val().trim().length == 0) {
+			alert("제목을 입력해 주세요.");
+			$("#title").focus();
+			return false;
+		}
 
-	if ($("#boardContent").val().trim().length == 0) {
-		alert("내용을 입력해 주세요.");
-		$("#content").focus();
-		return false;
+		if ($("#boardContent").val().trim().length == 0) {
+			alert("내용을 입력해 주세요.");
+			$("#content").focus();
+			return false;
+		}
 	}
-}</script>
+</script>
 </html>
 
 <jsp:include page="../../common/r_footer.jsp" />

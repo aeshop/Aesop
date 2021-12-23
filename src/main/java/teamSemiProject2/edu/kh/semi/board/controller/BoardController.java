@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.oreilly.servlet.MultipartRequest;
-
-
 import teamSemiProject2.edu.kh.semi.board.model.service.BoardService;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Board;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Category;
@@ -109,7 +106,7 @@ public class BoardController extends HttpServlet {
 					board.setBoardContent(boardContent);
 					board.setCategoryCode(categoryCode);
 					board.setMemberNo(memberNo);
-					
+					System.out.println(board);
 					int result = service.insertBoard(board);
 					
 					if(result >0) {
