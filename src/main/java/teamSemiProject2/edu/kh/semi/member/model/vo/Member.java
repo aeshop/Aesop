@@ -8,21 +8,37 @@ public class Member {
 	private String memberPw;
 	private String memberEmail;
 	private String memberName;
-	private int memberBirthday;
+	private String memberBirthday;
 	private String memberPhone;
 	private Date enrollDate;
 	private int statusCode;
 	private int gradeCode;
 
 	private String memberGradeName;
-	private int memberGradeDiscount;
+	private Double memberGradeDiscount;
 
 	public Member() {
 	}
+	
+	
+	// 회원가입 
+	public Member(String memberId, String memberPw, String memberEmail, String memberName, String memberBirthday,
+			String memberPhone) {
+		super();
+		this.memberId = memberId;
+		this.memberPw = memberPw;
+		this.memberEmail = memberEmail;
+		this.memberName = memberName;
+		this.memberBirthday = memberBirthday;
+		this.memberPhone = memberPhone;
+	}
 
-	public Member(int memberNo, String memberId, String memberEmail, String memberName, int memberBirthday,
+
+
+	// 회원 정보
+	public Member(int memberNo, String memberId, String memberEmail, String memberName, String memberBirthday,
 			String memberPhone, Date enrollDate, int statusCode, int gradeCode, String memberGradeName,
-			int memberGradeDiscount) {
+			Double memberGradeDiscount) {
 		super();
 		this.memberNo = memberNo;
 		this.memberId = memberId;
@@ -77,11 +93,11 @@ public class Member {
 		this.memberName = memberName;
 	}
 
-	public int getMemberBirthday() {
+	public String getMemberBirthday() {
 		return memberBirthday;
 	}
 
-	public void setMemberBirthday(int memberBirthday) {
+	public void setMemberBirthday(String memberBirthday) {
 		this.memberBirthday = memberBirthday;
 	}
 
@@ -125,11 +141,11 @@ public class Member {
 		this.memberGradeName = memberGradeName;
 	}
 
-	public int getMemberGradeDiscount() {
+	public Double getMemberGradeDiscount() {
 		return memberGradeDiscount;
 	}
 
-	public void setMemberGradeDiscount(int memberGradeDiscount) {
+	public void setMemberGradeDiscount(Double memberGradeDiscount) {
 		this.memberGradeDiscount = memberGradeDiscount;
 	}
 

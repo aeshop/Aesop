@@ -52,13 +52,13 @@ public class MemberDAO {
 				loginMember.setMemberId(memberId);
 				loginMember.setMemberEmail(rs.getString("MEMBER_EMAIL"));
 				loginMember.setMemberName(rs.getString("MEMBER_NAME"));
-				loginMember.setMemberBirthday(rs.getInt("MEMBER_BIRTHDAY"));
+				loginMember.setMemberBirthday(rs.getString("MEMBER_BIRTHDAY"));
 				loginMember.setMemberPhone(rs.getString("MEMBER_PHONE"));
 				loginMember.setEnrollDate(rs.getDate("ENROLL_DT"));
 				loginMember.setStatusCode(rs.getInt("MEMBER_STATUS_NO"));
 				loginMember.setGradeCode(rs.getInt("MEMBER_GRADE_NO"));
 				loginMember.setMemberGradeName(rs.getString("MEMBER_GRADE_NAME"));
-				loginMember.setMemberGradeDiscount(rs.getInt("MEMBER_GRADE_DISCOUNT"));
+				loginMember.setMemberGradeDiscount(rs.getDouble("MEMBER_GRADE_DISCOUNT"));
 				
 			}
 		} finally {

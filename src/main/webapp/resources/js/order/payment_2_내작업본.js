@@ -1,8 +1,9 @@
-document.addEventListener('DOMContentLoaded', calculatePrice);
+document.addEventListener('DOMContentLoaded', calculatePayment);
 
 
-// calculatePrice() 전체 가격 계산 함수
-function calculatePrice() {
+// calculatePayment() 전체 가격 계산 함수
+function calculatePayment() {
+    console.log('calculatePayment');
     //각 열의 가격정보 담은 span 태그
     const rowPriceArr = document.querySelectorAll('.rowPrice');
 
@@ -21,28 +22,59 @@ function calculatePrice() {
 
     }
     //전체 물품가를 클래스 :  위치에 넣어주어야함
-
+    const allProPriceArr = document.querySelectorAll('.allProPrice');
+    for (let i = 0; i < allProPriceArr.length; i++) {
+        allProPriceArr[i] = sum.toLocaleString('ko-KR');
+    }
 
     //배송비 계산후 클래스 : 에 넣어주어야 함
     let ship = 2500;
     if (sum >= 50000 || sum == 0) {
         ship = 0;
     }
+    const shipPriceArr = document.querySelectorAll('.shipPrice');
 
-    for (let i = 0; i < shipCalArr.length; i++) {
-        shipCalArr[i].innerText = ship.toLocaleString('ko-KR');
+    for (let i = 0; i < shipPriceArr.length; i++) {
+        shipPriceArr[i].innerText = ship.toLocaleString('ko-KR');
     }
-    //전체합 구해서 n-sumCal에 넣어줌
 
-    for (let i = 0; i < sumCalArr.length; i++) {
-        sumCalArr[i].innerText = (sum + ship).toLocaleString('ko-KR');
+    const calPrice = (Number)(sum) + ship;
 
+    const calPriceArr = document.querySelectorAll('.calPrice');
+
+    for (let i = 0; i < calPriceArr.length; i++) {
+        calPriceArr[i].innerText = calPrice.toLocaleString('ko-KR');
     }
+
+
+    // //전체합 구해서 n-sumCal에 넣어줌
+
+    // for (let i = 0; i < sumCalArr.length; i++) {
+    //     sumCalArr[i].innerText = ((Number)(sum + ship)).toLocaleString('ko-KR');
+
+    // }
 
 
     //할인된 가격과 최종가격을 마무리짓기
     //할인율 : 1% 등으로 나와 있음
+    const discount = (Number)(document.querySelector('#n-membership-rate').innerText);
 
+    const discountPrice = calPrice * (discount / 100);
+
+    const discountPriceArr = document.querySelectorAll('.discountPrice');
+    for (let i = 0; i < discountPriceArr.length; i++) {
+        discountPriceArr[i].innerText = discountPrice.toLocaleString('ko-KR');
+    }
+
+
+    const totalPrice = calPrice - discountPrice;
+    const totalPriceArr = document.querySelectorAll('.totalPrice');
+
+    console.log('totalPrice');
+
+    for (let i = 0; i < totalPriceArr.length; i++) {
+        totalPriceArr[i].innerText = totalPrice.toLocaleString('ko-KR');
+    }
 
 }
 

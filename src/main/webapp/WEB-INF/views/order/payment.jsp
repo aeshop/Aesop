@@ -41,7 +41,7 @@
                 <div class="n-infomation">
                     <div class="n-membership">혜택정보</div>
                     <div class="n-membership"><span id="n-membership-id">${sessionScope.loginMember.memberName}</span>님은, [<span id="n-membership-rank">${sessionScope.loginMember.memberGradeName}</span>] 회원이십니다. <br>
-                    구매금액의 <span id="n-membership-rate">${sesssionScope.loginMember.discountRate}</span>%을 할인 받으실 수 있습니다.</div>
+                    구매금액의 <span id="n-membership-rate"><fmt:parseNumber value="${sessionScope.loginMember.memberGradeDiscount}" integerOnly="true"/></span>%을 할인 받으실 수 있습니다.</div>
 
                 </div>
             </div>
@@ -280,15 +280,15 @@
                         </tr>
                         <tr>
                             <td><span class="calPrice"></span>원</td>
-                            <td>-<span class="calPrice"></span>원</td>
-                            <td>=<span class="calPrice"></span>원</td>
+                            <td>-<span class="discountPrice"></span>원</td>
+                            <td>=<span class="totalPrice"></span>원</td>
 
                         </tr>
                     </table>
                     <table id="n-discount-table">
                         <tr>
                             <td>총 할인 금액</td>
-                            <td>111,111원</td>
+                            <td><span class="discountPrice"></span>원</td>
                         </tr>
 
 
@@ -327,7 +327,6 @@
 <script type="text/javascript" src="${contextPath}/resources/js/order/myCart.js"></script>
 <!-- 아임포트 CDN -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js" type="text/javascript"></script>
- <script type="text/javascript" src="${contextPath}/resources/js/order/payment.js"></script>
- 
-<%--  <script type="text/javascript" src="${contextPath}/resources/js/order/payment_2_내작업본.js"></script>
- --%>
+<%--  <script type="text/javascript" src="${contextPath}/resources/js/order/payment.js"></script>
+ --%> 
+<script type="text/javascript" src="${contextPath}/resources/js/order/payment_2_내작업본.js"></script>
