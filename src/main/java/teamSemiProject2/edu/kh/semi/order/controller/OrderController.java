@@ -2,6 +2,8 @@ package teamSemiProject2.edu.kh.semi.order.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,6 +23,8 @@ import org.json.simple.JSONObject;
 
 import com.google.gson.JsonParser;
 
+import teamSemiProject2.edu.kh.semi.common.ImportAccessTokenGetter;
+import teamSemiProject2.edu.kh.semi.common.ImportValicationChecker;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.order.model.service.OrderService;
@@ -189,14 +193,15 @@ public class OrderController extends HttpServlet {
 					
 					
 					
+					//엑세스 토큰 받아옴
+					ImportAccessTokenGetter tokenGetter = new  ImportAccessTokenGetter();				
+					
+				String accessToken = tokenGetter.getAccessToken();
 					
 					
-					
-					
-					
-					
-					
-					
+					long importServeramount =new ImportValicationChecker().getImportAmount(imp_uid, accessToken);
+					//long 으로 반환했더니 됬음
+					System.out.println(importServeramount);
 					
 					
 					

@@ -165,22 +165,6 @@ $("#check_module").click(function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     var IMP = window.IMP; // 생략가능
     IMP.init('imp63937946');
     // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -195,7 +179,8 @@ $("#check_module").click(function() {
 
         name: pay_deliveryName,
         //결제창에서 보여질 이름
-        amount: totalPrice,
+        // amount: totalPrice,
+        amount: 100,
         //가격 
         buyer_email: pay_buyerEmail,
         buyer_name: pay_buyerName,
