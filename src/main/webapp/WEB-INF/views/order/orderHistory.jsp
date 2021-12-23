@@ -15,7 +15,7 @@
                   </a>
               </li>
               <li>
-                  <a href="${contextPath}/member/myPage/orderStatus">
+                  <a href="${contextPath}/myPage/orderStatus">
                       취소/반품/교환 내역(
                           <span>1</span>
                       )

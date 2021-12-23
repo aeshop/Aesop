@@ -24,8 +24,8 @@
                   등급 혜택
               </div>
               <div class="accrual-rate">
-                  적립율 
-                  ${sessionScope.loginMember.memberGradeDiscount}
+                  할인율 
+                  ${ Math.floor((1 - sessionScope.loginMember.memberGradeDiscount) *100) } <!-- 1 - memberGradeDiscount *100 -->
                   %
               </div>
               <div class="grade-bar">
@@ -52,7 +52,7 @@
                   </div>
                   <ul>
                       <li>
-                          <a href="${contextPath}/member/myPage/orderHistory">
+                          <a href="${contextPath}/myPage/orderHistory">
                               <img src="${contextPath}/resources/images/cnh/images/myicon_01.png"> 주문/배송현황
                               <span class="count-icon">
                                   <span>
@@ -62,7 +62,7 @@
                           </a>
                       </li>
                       <li>
-                          <a href="${contextPath}/member/myPage/orderStatus">
+                          <a href="${contextPath}/myPage/orderStatus">
                               <img src="${contextPath}/resources/images/cnh/images/myicon_02.png"> 취소/교환/반품 내역
                               <span class="count-icon">
                                   <span class="count">1</span>
@@ -78,7 +78,7 @@
                           </a>
                       </li>
                       <li>
-                          <a href="${contextPath}/member/myPage/addr">
+                          <a href="${contextPath}/myPage/addr">
                               <img src="${contextPath}/resources/images/cnh/images/myicon_03.png"> 배송지 수정
                           </a>
                       </li>
@@ -90,7 +90,7 @@
                   <table style="width: 250px;">
                       <tr>
                           <td>
-                              <a href="${contextPath}/member/myPage/updateMember">
+                              <a href="${contextPath}/myPage/updateMember">
                                   <p>
                                       <img src="${contextPath}/resources/images/cnh/images/myinfo.png">
                                   </p>
@@ -98,7 +98,7 @@
                               </a>
                           </td>
                           <td>
-                              <a href="${contextPath}/member/myPage/myPageBoard">
+                              <a href="${contextPath}/myPage/myPageBoard">
                                   <p>
                                       <img src="${contextPath}/resources/images/cnh/images/board.png">
                                   </p>
@@ -106,7 +106,7 @@
                               </a>
                           </td>
                           <td>
-                              <a href="${contextPath}/member/myPage/myPageBoard">
+                              <a href="${contextPath}/myPage/myPageBoard">
                                   <p>
                                       <img src="${contextPath}/resources/images/cnh/images/qna.png">
                                   </p>
@@ -131,7 +131,14 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr>
+                 <!--   	<c:choose>
+                  		<c:when test="${empty 로그인한 멤버의 주문내역이 없는 경우}"> -->
+	                  		<tr>
+	                      		<td colspan=6> 주문내역이 없습니다.
+	                     	</tr>
+	                <!--      </c:when> -->
+	                <!--      <c:otherwise> -->
+	                     	 <tr>
                           <td class="order-date"> 2021-12-28</td>
                           <td class="order-img"> 
                               <a href="#">
@@ -153,10 +160,15 @@
                               <strong>49,000원</strong>
                           </td>
                       </tr>
+	               <!--       </c:otherwise> -->
+                 <!--  	</c:choose> -->
+                     
+                      
+                  
                   </tbody>
               </table>
               <div class="order-more"> <!-- 최근 주문 더보기 -->
-                  <a href="${contextPath}/member/myPage/orderHistory"> <!-- 주문/배송현황 > 주문내역조회 html로 이동-->
+                  <a href="${contextPath}/myPage/orderHistory"> <!-- 주문/배송현황 > 주문내역조회 html로 이동-->
                       더보기
                       <img src="${contextPath}/resources/images/cnh/images/more.png">
                   </a>

@@ -15,14 +15,14 @@ public class Member {
    private int gradeCode;
 
    private String memberGradeName;
-   private int memberGradeDiscount;
+   private double memberGradeDiscount;
 
    public Member() {
    }
 
    public Member(int memberNo, String memberId, String memberEmail, String memberName, int memberBirthday,
          String memberPhone, Date enrollDate, int statusCode, int gradeCode, String memberGradeName,
-         int memberGradeDiscount) {
+         double memberGradeDiscount) {
       super();
       this.memberNo = memberNo;
       this.memberId = memberId;
@@ -125,11 +125,11 @@ public class Member {
       this.memberGradeName = memberGradeName;
    }
 
-   public int getMemberGradeDiscount() {
+   public double getMemberGradeDiscount() {
       return memberGradeDiscount;
    }
 
-   public void setMemberGradeDiscount(int memberGradeDiscount) {
+   public void setMemberGradeDiscount(double memberGradeDiscount) {
       this.memberGradeDiscount = memberGradeDiscount;
    }
 

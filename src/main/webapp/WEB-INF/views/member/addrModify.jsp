@@ -57,7 +57,7 @@
                           <span>역삼2차아이파크</span>   
                       </td>
                       <td>
-                          <a href="${contextPath}/member/myPage/addr/edit">
+                          <a href="${contextPath}/myPage/addr/edit">
                               <img src="${contextPath}/resources/images/cnh/images/btn_address_modify.gif">
                           </a>
                       </td>
@@ -71,7 +71,7 @@
                   </a>
               </span>
               <span class="addr-btn2">
-                  <a href="${contextPath}/member/myPage/addr/Register">
+                  <a href="${contextPath}/myPage/addr/Register">
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_register.gif">
                   </a>
               </span>

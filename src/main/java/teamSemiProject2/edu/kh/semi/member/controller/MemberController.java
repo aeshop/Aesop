@@ -14,155 +14,113 @@ import teamSemiProject2.edu.kh.semi.member.model.service.MemberService;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 
 @WebServlet("/member/*")
-public class MemberController extends HttpServlet{
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+public class MemberController extends HttpServlet {
 
-		String method = req.getMethod();
-		String uri = req.getRequestURI();
-		String contextPath = req.getContextPath();
-		
-		String command = uri.substring(  (contextPath + "/member/").length()  );
-				
-		String path = null;
-		RequestDispatcher dispatcher = null;
-		
-		HttpSession session = req.getSession();
+   @Override
+   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-			if(command.equals("login")) {
-				if(method.equals("GET")) {
-					path = "/WEB-INF/views/member/login.jsp";
-					dispatcher = req.getRequestDispatcher(path);
-					dispatcher.forward(req, resp);
-				}else {
-					// POST
-					req.setCharacterEncoding("UTF-8");
-					
-					// 전달받은 파라미터를 변수에 저장
-					String memberId = req.getParameter("memberId");
-					String memberPw = req.getParameter("memberPw");
-					
+      String method = req.getMethod();
+      String uri = req.getRequestURI();
+      String contextPath = req.getContextPath();
 
+      String command = uri.substring((contextPath + "/member/").length());
 
+      String path = null;
+      RequestDispatcher dispatcher = null;
+      HttpSession session = req.getSession();
+      req.setCharacterEncoding("UTF-8");
 
-					
-					try {
-						MemberService service = new MemberService();
-						
-						Member loginMember = service.login(memberId, memberPw);
-						
-						System.out.println(loginMember);
-						
-						if (loginMember != null) {
+      // 마이페이지
+      if (command.equals("myPage")) {
+         if (method.equals("GET")) {
+            path = "/WEB-INF/views/member/myPage.jsp";
+            dispatcher = req.getRequestDispatcher(path);
+            dispatcher.forward(req, resp);
+         }
+      }
+      
+      // 마이페이지 끝 ****************************************************
 
+      // 로그인 페이지
+      if (command.equals("login")) {
+         if (method.equals("GET")) {
+            path = "/WEB-INF/views/member/login.jsp";
+            dispatcher = req.getRequestDispatcher(path);
+            dispatcher.forward(req, resp);
+         } else {
+            
+            // POST
+            String memberId = req.getParameter("memberId");
+            String memberPw = req.getParameter("memberPw");
 
+            try {
+               MemberService service = new MemberService();
 
-							if (loginMember.getStatusCode() == 101) {
+               Member loginMember = service.login(memberId, memberPw);
 
+//               System.out.println(loginMember);
+               if (loginMember != null) {
 
+                  if (loginMember.getStatusCode() == 101) {
+                        session.setAttribute("loginMember", loginMember);
+                        session.setMaxInactiveInterval(3000);
+                        
+                        
 
-							if (loginMember.getStatusCode() == 101) {
-								System.out.println(loginMember.getMemberEmail());
+                        resp.sendRedirect(req.getContextPath());
+                  } else { // 로그인 실패
+                     session.setAttribute("message", "아이디 또는 비밀번호를 확인해주세요.");
 
-								session.setAttribute("loginMember", loginMember);
-								session.setMaxInactiveInterval(3000);
-								
-							}
-							
-						}else { // 로그인 실패
-							session.setAttribute("message", "아이디 또는 비밀번호를 확인해주세요.");
-							
-						}
-						resp.sendRedirect(req.getContextPath() );
-						
-						}}catch (Exception e) {
-						e.printStackTrace();
-					}
-						
-				}
-				
-			}
-			
-			
-			if(command.equals("myPage")) {
-				if(method.equals("GET")) {
-					
-					
-					
-					path = "/WEB-INF/views/member/myPage.jsp";
-					dispatcher = req.getRequestDispatcher(path);
-					dispatcher.forward(req, resp);
-				}
-			}
-			
-			
-			if(command.equals("myPage/orderHistory")) {
-				if(method.equals("GET")) {
-					path = "/WEB-INF/views/order/orderHistory.jsp";
-					dispatcher = req.getRequestDispatcher(path);
-					dispatcher.forward(req, resp);
-				}
-			}
-			
-			if(command.equals("myPage/orderStatus")) {
-				if(method.equals("GET")) {
-					path = "/WEB-INF/views/order/orderStatus.jsp";
-					dispatcher = req.getRequestDispatcher(path);
-					dispatcher.forward(req, resp);
-				}
-			}
-			
-			if(command.equals("myPage/addr")) {
-				if(method.equals("GET")) {
-					path = "/WEB-INF/views/member/addrModify.jsp";
-					dispatcher = req.getRequestDispatcher(path);
-					dispatcher.forward(req, resp);
-				}
-				
-			}
-			
-			
-			if(command.equals("myPage/addr/edit")){
-				if(method.equals("GET")) {
-					path = "/WEB-INF/views/member/addrModifyEdit.jsp";
-					dispatcher = req.getRequestDispatcher(path);
-					dispatcher.forward(req, resp);
-				}
-			}
-			
-			if(command.equals("myPage/addr/Register")){
-				if(method.equals("GET")) {
-					path = "/WEB-INF/views/member/addrRegister.jsp";
-					dispatcher = req.getRequestDispatcher(path);
-					dispatcher.forward(req, resp);
-				}
-			}
-			
-			if(command.equals("myPage/updateMember")){
-				if(method.equals("GET")) {
-					path = "/WEB-INF/views/member/updateMember.jsp";
-					dispatcher = req.getRequestDispatcher(path);
-					dispatcher.forward(req, resp);
-				}
-			}
+                  }
 
-			
-			if(command.equals("myPage/myPageBoard")) {
-				if(method.equals("GET")) {
-					path = "/WEB-INF/views/member/myPageBoard.jsp";
-					dispatcher = req.getRequestDispatcher(path);
-					dispatcher.forward(req, resp);
-				}
-			}
-			
-		
-		
-		
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req, resp);
-	}
+               }
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+
+         }
+
+      }
+      // 로그인 끝 *********************************
+      // 조인(회원가입 폼 전 페이지) **************************************
+      else if(command.equals("join")) {
+         if(method.equals("GET")) {
+            path = "/WEB-INF/views/member/join.jsp";
+            dispatcher = req.getRequestDispatcher(path);
+            dispatcher.forward(req, resp);
+            
+         }else {
+            // post
+         }
+      }
+      
+      // 회원가입 *************
+      else if(command.equals("signup")) {
+         if(method.equals("GET")) {
+            path = "/WEB-INF/views/member/signup.jsp";
+            dispatcher = req.getRequestDispatcher(path);
+            dispatcher.forward(req, resp);
+         
+         }else {
+            // post
+            
+            
+         }
+      }
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+   }
+
+   @Override
+   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      doGet(req, resp);
+   }
 }

@@ -50,7 +50,6 @@ public class MemberDAO {
             
             loginMember.setMemberNo(rs.getInt("MEMBER_NO"));
             loginMember.setMemberId(memberId);
-            loginMember.setMemberPw(memberPw); // 낙희추가
             loginMember.setMemberEmail(rs.getString("MEMBER_EMAIL"));
             loginMember.setMemberName(rs.getString("MEMBER_NAME"));
             loginMember.setMemberBirthday(rs.getInt("MEMBER_BIRTHDAY"));
@@ -59,7 +58,7 @@ public class MemberDAO {
             loginMember.setStatusCode(rs.getInt("MEMBER_STATUS_NO"));
             loginMember.setGradeCode(rs.getInt("MEMBER_GRADE_NO"));
             loginMember.setMemberGradeName(rs.getString("MEMBER_GRADE_NAME"));
-            loginMember.setMemberGradeDiscount(rs.getInt("MEMBER_GRADE_DISCOUNT"));
+            loginMember.setMemberGradeDiscount(rs.getDouble("MEMBER_GRADE_DISCOUNT"));
             
          }
       } finally {
