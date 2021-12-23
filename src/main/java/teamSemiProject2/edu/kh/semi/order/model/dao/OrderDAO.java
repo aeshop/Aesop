@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
+import teamSemiProject2.edu.kh.semi.delivery.model.vo.Delivery;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
 import teamSemiProject2.edu.kh.semi.order.model.vo.Order;
 
@@ -319,6 +321,69 @@ public class OrderDAO {
 		}
 		
 		
+		
+		return result;
+	}
+
+	public Delivery getDelivery(String merchantUid, int loginMemberNo, Connection conn) throws Exception {
+
+		Delivery result = null;
+		try {
+			
+			String sql = prop.getProperty("getDelivery");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, merchantUid);
+			pstmt.setInt(2, loginMemberNo);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Delivery tmp = new Delivery();
+				tmp.setDeliveryNo(rs.getString("DELIVERY_NO"));
+				tmp.setMemberNo(rs.getInt("MEMBER_NO"));
+				tmp.setZipCode(rs.getString("ZIP_CODE"));
+				tmp.setAddress1(rs.getString("ADDRESS1"));
+				tmp.setAddress2(rs.getString("ADDRESS2"));
+				tmp.setReceiverName(rs.getString("RECEIVER_NAME"));
+				tmp.setReceiverPhone(rs.getString("RECEIVER_PHONE"));
+				tmp.setDeliveryDate(rs.getString("DELIVERY_DT"));
+				tmp.setDeliveryStatusCode(rs.getInt("DELIVERY_STATUS_CD"));
+				tmp.setDeliveryPrice(rs.getLong("TOTAL_PRICE"));
+				tmp.setDeliveryMessage(rs.getString("DELIVERY_MESSAGE"));
+
+				result = tmp;
+			}
+			
+		} finally {
+
+			close(rs);
+			close(pstmt);
+		
+		}
+		
+		
+		return result;
+	}
+
+	public Member getMember(int loginMemberNo, Connection conn) throws Exception {
+		Member result = null; 
+		try {
+			
+			String sql = prop.getProperty("getMember");
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginMemberNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result= new Member();
+				result.setMemberGradeDiscount(rs.getDouble("MEMBER_GRADE_DISCOUNT"));
+			}
+			
+			
+		} finally {
+
+			close(rs);
+			close(pstmt);
+		}
 		
 		return result;
 	}

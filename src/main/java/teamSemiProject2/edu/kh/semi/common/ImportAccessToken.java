@@ -7,27 +7,50 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class ImportValidate {
 
-	
+
+/**
+ * @author nyr
+ *
+ * 아임포트 토큰 발급 요청 위한 클래스
+ * 서버사이드에서 발급 요청해야한다..
+ * 
+ */
+public class ImportAccessToken {
+
 	HttpURLConnection httpConn = null;
 	String access_token=null;
 	URL url=null;
-	String restAPIKey = "9357807837942432";
-	String  restAPISecret = "4af20e4b01c5ab23dad55215659b9ee1a6971b8c69ac2a2cf612a3183c6576eeff1921a2ed8aa164";
+	private final static	String  restAPIKey = "9357807837942432";
+	private	final	static	String  restAPISecret = "4af20e4b01c5ab23dad55215659b9ee1a6971b8c69ac2a2cf612a3183c6576eeff1921a2ed8aa164";
 	
-	String paymentPath = "https://api.iamport.kr/payments/";
+	public ImportAccessToken() {
 
-	public int getImportAmount() throws Exception{
 		
 		
-		url = new URL("https://api.iamport.kr/users/getToken");
-		httpConn = (HttpURLConnection)url.openConnection();
+		
+		try {
+			url = new URL("https://api.iamport.kr/users/getToken");
+
+			httpConn = (HttpURLConnection)url.openConnection();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
+
+	}
+	
+	
+	
+	public String getAccessToken() throws Exception {
 		//요청방식 : POST
 		httpConn.setRequestMethod("POST");
 		// 헤더 설정 json 방식으로 요청
@@ -42,10 +65,14 @@ public class ImportValidate {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(httpConn.getOutputStream()));
 		bw.write(jObj.toString());
 		bw.flush();
-		bw.close();		
+		bw.close();
 		
+		
+		int result = 0;
 		int responseCode = httpConn.getResponseCode();
-
+		
+//		System.out.println("응답코드: "+responseCode);
+		
 		if(responseCode==200) {
 			BufferedReader br = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
 			StringBuilder sb = new  StringBuilder();
@@ -60,17 +87,18 @@ public class ImportValidate {
 
 			JSONObject jsonObj = (JSONObject) jsonParse.parse(sb.toString());
 			JSONObject response = (JSONObject) jsonObj.get("response");
-			String access_token = (String) response.get("access_token");
+			access_token = (String) response.get("access_token");
 //			System.out.println(access_token);
 			
 			
 	        
-			
+			result=1;
 		} else {
 			System.out.println(httpConn.getResponseMessage());
 		}
 		
 		
-		return 0;
+		return access_token;
 	}
+	
 }

@@ -41,7 +41,7 @@
                 <div class="n-infomation">
                     <div class="n-membership">혜택정보</div>
                     <div class="n-membership"><span id="n-membership-id">${sessionScope.loginMember.memberName}</span>님은, [<span id="n-membership-rank">${sessionScope.loginMember.memberGradeName}</span>] 회원이십니다. <br>
-                    구매금액의 <span id="n-membership-rate"><fmt:parseNumber value="${sessionScope.loginMember.memberGradeDiscount}" integerOnly="true"/></span>%을 할인 받으실 수 있습니다.</div>
+                    구매금액의 <span id="n-membership-rate"><fmt:parseNumber value="${1-sessionScope.loginMember.memberGradeDiscount}" integerOnly="true"/></span>%을 할인 받으실 수 있습니다.</div>
 
                 </div>
             </div>
@@ -86,20 +86,20 @@
                             <td><a href="">${index.productName}</a>
                                
                             </td>
-                            
-                            <c:set var="calProPrice" value="${index.productPrice*(1-index.productDiscount)}"/>
-                            
+                         <fmt:formatNumber var="calProPrice" value="${index.productPrice*(1-index.productDiscount)}" pattern="#"/>
                             <td><fmt:formatNumber maxFractionDigits="3">${calProPrice}</fmt:formatNumber>원</td>
 
                             <td>
                                 ${index.orderAmount}
                             </td>
                             <c:if test="${vs.index==0}">
-                            <td rowspan="${orderCount}">자바스크립트</td>
+                            <td rowspan="${orderCount}" class="shipPrice"></td>
                             
                             </c:if>
                             <c:set var="calculratedPrice" value="${calProPrice*index.orderAmount}"/>
                             <td>
+                                                        
+                            
                             <input type="hidden" class="rowPrice" value="${calculratedPrice}">
                             <fmt:formatNumber maxFractionDigits="3">${calculratedPrice}</fmt:formatNumber>원</td>
 
@@ -344,6 +344,8 @@ const pay_info = {
 		buyerZipCode : "",
 		buyerAddress : ""		
 };
+
+
 
 </script>
 

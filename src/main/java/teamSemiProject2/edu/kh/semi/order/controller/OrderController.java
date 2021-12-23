@@ -25,8 +25,9 @@ import org.json.simple.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 
-import teamSemiProject2.edu.kh.semi.common.ImportAccessTokenGetter;
-import teamSemiProject2.edu.kh.semi.common.ImportValicationChecker;
+import teamSemiProject2.edu.kh.semi.common.ImportAccessToken;
+import teamSemiProject2.edu.kh.semi.common.ImportRecord;
+import teamSemiProject2.edu.kh.semi.delivery.model.vo.Delivery;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.order.model.service.OrderService;
@@ -175,12 +176,12 @@ public class OrderController extends HttpServlet {
 					int result = service.amountChange(orderAmount, orderNo, loginMemberNo);
 					resp.getWriter().print(result);
 
-				} else if(command.equals("getDelivery")) {
+				} else if(command.equals("beforeImport")) {
 					//payment페이지에 있는 주문번호들 배열로 받아옴
 					String [] orderNoArr = req.getParameterValues("orderNoList[]");
 			
 					
-					Map<String, String> resultMap = service.getDelivery(orderNoArr,loginMemberNo);
+					Map<String, String> resultMap = service.beforeImport(orderNoArr,loginMemberNo);
 					//AJAX로 맵 반환함
 
 					resp.getWriter().print(new Gson().toJson(resultMap));
@@ -189,32 +190,47 @@ public class OrderController extends HttpServlet {
 				}
 				
 				else if(command.equals("validation")) {
-					// 결제되어 서버에 넘어간 값과 db에 있는 값 비교검증
+					/* 아임포트 실행직전 내 서버에 저장된 값과 아임포트 서버에 넘어간 값 비교검증
+					* 1. 내 서버에 저장된 가격은 delivery table에서 merchant_uid로 받아옴
+					* 2. 아임포트 서버에 저장된 가격은 엑세스 토큰을 받고 결제번호 imp_uid로 조회해서 파싱
+					*
+					 * */
+					//1. 결제번호 주문번호를 아임포트 실행 성공 후 ajax에서 추출하기
+										
+					String impUid = req.getParameter("imp_uid");
+					//결제 번호
+					String merchantUid = req.getParameter("merchant_uid");
+					//배송 번호
 					
-					//1. 결제번호 주문번호를 객체에서 추출하기
 					
+					//1. 내 서버에 저장된 가격 가져오기
+					long myServerAmount = service.getDelivery(merchantUid, loginMemberNo).getDeliveryPrice();
 					
+					//2. 아임포트에 저장된 가격 가져오기
+					//2-1)액세스 토큰 받아옴
+					
+					String accessToken = new ImportAccessToken().getAccessToken();
+					//2-2) 저장된 가격 가져옴					
+					long importServerAmount =new ImportRecord().getImportAmount(impUid, accessToken);
+					System.out.println("아임포트에서 받아온 결제값:"+importServerAmount);
+					
+					//2-3) 저장된 가격이 서로 같으면 검증 완료 후 해당 배송 레코드에 상세정보(주소 등등) 집어넣음
+					if(myServerAmount==importServerAmount) {
+						
+						Delivery delivery = new Delivery();
+						
+						System.out.println("일치");
 
-
-					
-					String imp_uid = req.getParameter("imp_uid");
-					//결제번호
-					String merchant_uid = req.getParameter("merchant_uid");
-					//주문번호
-					
-					
-					
-					
-					//엑세스 토큰 받아옴
-					ImportAccessTokenGetter tokenGetter = new  ImportAccessTokenGetter();				
-					
-				String accessToken = tokenGetter.getAccessToken();
-					
-					
-					long importServeramount =new ImportValicationChecker().getImportAmount(imp_uid, accessToken);
-					//long 으로 반환했더니 됬음
-					System.out.println(importServeramount);
-					
+						
+						
+						
+						
+						
+						
+					}else {
+						System.out.println("불일치");
+						throw new Exception("아임포트 값과 서버 값이 서로 다름");
+					}
 					
 					
 				}

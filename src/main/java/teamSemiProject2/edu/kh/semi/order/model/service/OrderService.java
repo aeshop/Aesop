@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import teamSemiProject2.edu.kh.semi.delivery.model.vo.Delivery;
+import teamSemiProject2.edu.kh.semi.member.model.dao.MemberDAO;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
 import teamSemiProject2.edu.kh.semi.order.model.dao.OrderDAO;
 import teamSemiProject2.edu.kh.semi.order.model.vo.Order;
@@ -192,7 +194,7 @@ public class OrderService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, String> getDelivery(String[] orderNoArr, int loginMemberNo) throws Exception {
+	public Map<String, String> beforeImport(String[] orderNoArr, int loginMemberNo) throws Exception {
 
 		HashMap<String, String> resultMap = null;
 
@@ -258,10 +260,13 @@ public class OrderService {
 			int orderNo = Integer.parseInt(orderNoArr[i]);
 
 			result += dao.getTotalPrice(orderNo, loginMemberNo, conn);
-
-			if(result<50000) result+=2500;
 			
 		}
+		
+		if(result<50000) result+=2500;
+//여기까지 하면 전체 상품의 계산은 완료되고 추가적으로 멤버의 할인율만큼 할인을 해줘야 한다
+	result*=	dao.getMember(loginMemberNo,conn).getMemberGradeDiscount();
+		
 		return result;
 	}
 
@@ -274,6 +279,25 @@ public class OrderService {
 
 		}
 
+	}
+
+	/** 배송번호 조회
+	 * @param merchantUid
+	 * @param loginMemberNo
+	 * @return
+	 */
+	public Delivery getDelivery(String merchantUid, int loginMemberNo) throws Exception {
+
+		Delivery result = null;
+		
+		conn = getConnection();
+		
+		result = dao.getDelivery(merchantUid,loginMemberNo,conn);
+		
+		close(conn);
+		
+		
+		return result;
 	}
 
 }

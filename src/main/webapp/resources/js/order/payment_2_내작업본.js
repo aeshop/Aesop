@@ -20,7 +20,7 @@
 
 2-5) 아임포트 결제 완료 : 받아온 키, 엑세스 토큰   내 배송테이블 레코드의 총액으로 비교검증해서 맞으면 진행 아니면, 예외라도 던져야되나? 
 
-2-6) 맞으면 배송 테이블 업데이트, 주문 테이블 결제완료로 업데이트 진행하면 결제 끝
+2-6) 맞으면 배송 테이블 업데이트, 주문 테이블 결제완료+ 배송번호 로 업데이트 진행하면 결제 끝
 
 
 
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', calculatePayment);
 
 // calculatePayment() 전체 가격 계산 함수
 function calculatePayment() {
-    console.log('calculatePayment');
+    // console.log('calculatePayment');
     //각 열의 가격정보 담은 span 태그
     const rowPriceArr = document.querySelectorAll('.rowPrice');
 
@@ -42,7 +42,7 @@ function calculatePayment() {
 
         //합계 정보도 계산해서 화면에 뿌려줘야한다
 
-        sum += rowPriceArr[i].value;
+        sum += (Number)(rowPriceArr[i].value);
 
 
 
@@ -50,7 +50,7 @@ function calculatePayment() {
     //전체 물품가를 class : allProPrice 위치에 넣어주어야함
     const allProPriceArr = document.querySelectorAll('.allProPrice');
     for (let i = 0; i < allProPriceArr.length; i++) {
-        allProPriceArr[i] = sum.toLocaleString('ko-KR');
+        allProPriceArr[i].innerText = sum.toLocaleString('ko-KR');
     }
 
     //배송비 계산후 class shipPrice에 넣어주어야 함
@@ -128,13 +128,21 @@ data: {
 */
 
 
+// const deliveryInfo = {
+//     dZipCode: document.querySelector('').value,
+//     dAddress1: document.querySelector('').value,
+//     dAddress2: document.querySelector('').value,
+//     dReceiverName: document.querySelector('').value,
+//     dReceiverPhone: document.querySelector('').value
 
+
+// }
 
 
 
 //이 코드는 프론트단, 버튼을 클릭했을때 화면에 결제창이 뜨고 amount만큼의 돈이 표시가 된다.
 $("#check_module").click(function() {
-
+    console.log("결제버튼 누름");
     // 2-0) 사용자가 결제 버튼을 누름 : import가 켜지기 전에 
     // 2-1) ajax로 주문번호들을 전달
     // service에서 계산 진행할 것이기 때문에, 주문수량, 전체 가격(totalPrice)은 전달하지 않는다.
@@ -161,7 +169,7 @@ $("#check_module").click(function() {
     let totalPrice;
     $.ajax({
 
-        url: "/teamSemiProject2/order/getDelivery",
+        url: "/teamSemiProject2/order/beforeImport",
         type: "post",
         data: { orderNoList: orderNoArr },
         dataType: "json",
@@ -178,8 +186,9 @@ $("#check_module").click(function() {
         }
 
     });
+    console.log("새 배송 레코드 생성 완료");
 
-    console.log(deliveryNo, totalPrice);
+    // console.log(deliveryNo, totalPrice);
     /* 화면 안에 있는 것들 끌어모아서 에이잭스 객체 안에 집어넣기
 
      구매자이메일(buyer_email), 구매자 이름(buyer_name)
@@ -248,16 +257,21 @@ $("#check_module").click(function() {
             msg += '상점 거래ID : ' + rsp.merchant_uid;
             msg += '결제 금액 : ' + rsp.paid_amount;
             msg += '카드 승인번호 : ' + rsp.apply_num;
-            //여기에  결제 성공 여부에 따른 처리 로직이 작성되야 한다. ajax로 작성되야 한다. 
+            //여기에  결제 성공 여부에 따른 처리 로직이 ajax로 작성되야 한다. 
             $.ajax({
-                url: "/teamSemiProject2/order/validation", // 예: https://www.myservice.com/payments/complete
-                //url은 controller일 것이고, 
+                url: "/teamSemiProject2/order/validation",
+                //url은 controller로 보낼 주소
                 method: "POST",
                 data: {
                     imp_uid: rsp.imp_uid,
                     merchant_uid: rsp.merchant_uid
+
+                    //추가적으로 배송관련 정보들을 보내야 한다.
+
+
+
                 }
-                /*이걸 보내고 servlet에서는 이것을 받을 것이다
+                /*이걸 보내고 servlet에서는 하단의 것을 수행
 
                 1. 결제번호, 주문번호를 객체에서 추출하기 - 지금 파라미터 안얻어지는데 제이슨 파싱으로 접근해야하나?
                 2. 결제 정보 조회하기 - REST API access token을 발급받습니다. 라고 적힘

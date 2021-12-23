@@ -148,7 +148,7 @@ function amountChanged() {
             }
         },
         error: function() {
-            alert("수량up과정에서 오류 발생");
+            alert("수량변경과정에서 오류 발생");
         }
 
     });

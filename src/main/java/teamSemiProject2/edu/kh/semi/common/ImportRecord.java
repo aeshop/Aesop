@@ -1,17 +1,14 @@
 package teamSemiProject2.edu.kh.semi.common;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class ImportValicationChecker {
+public class ImportRecord {
 
 	HttpURLConnection httpConn = null;
 	String access_token=null;

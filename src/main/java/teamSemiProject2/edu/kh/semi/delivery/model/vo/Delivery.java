@@ -13,8 +13,9 @@ public class Delivery {
 	private String receiverPhone;
 	private String deliveryDate;
 	private int deliveryStatusCode;
+	private long deliveryPrice;
+	private String deliveryMessage;
 
-	
 	
 	public Delivery() {
 		super();
@@ -73,6 +74,18 @@ public class Delivery {
 	}
 	public void setDeliveryStatusCode(int deliveryStatusCode) {
 		this.deliveryStatusCode = deliveryStatusCode;
+	}
+	public long getDeliveryPrice() {
+		return deliveryPrice;
+	}
+	public void setDeliveryPrice(long deliveryPrice) {
+		this.deliveryPrice = deliveryPrice;
+	}
+	public String getDeliveryMessage() {
+		return deliveryMessage;
+	}
+	public void setDeliveryMessage(String deliveryMessage) {
+		this.deliveryMessage = deliveryMessage;
 	}
 	
 	
