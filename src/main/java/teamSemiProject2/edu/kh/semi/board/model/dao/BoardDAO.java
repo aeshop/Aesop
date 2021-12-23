@@ -15,6 +15,7 @@ import teamSemiProject2.edu.kh.semi.board.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Pagination;
 import teamSemiProject2.edu.kh.semi.category.model.dao.CategoryDAO;
 import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
+import teamSemiProject2.edu.kh.semi.product.model.vo.ProductImage;
 public class BoardDAO {
 
 	PreparedStatement pstmt = null;
@@ -250,16 +251,16 @@ public class BoardDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				
 				Product pdt = new Product();
-				
 				pdt.setProductNo(rs.getInt(1));
 				pdt.setProductName(rs.getString(2));
+				pdt.setCategoryName(rs.getString(3)+rs.getString(4));
+	
 				
 				product.add(pdt);
 			}
 			
-		} catch (Exception e) {
+		} finally {
 			close(rs);
 			close(pstmt);
 		}

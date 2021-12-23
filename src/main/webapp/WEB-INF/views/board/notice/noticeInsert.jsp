@@ -9,52 +9,10 @@
 <html lang="ko">
 
 <head>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <title>게시글 등록</title>
-<style>
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+<link rel="stylesheet" href="${contextPath}/resources/css/boardInsert.css">
 
-* {
-	font-family: 'Noto Sans KR', sans-serif;
-}
-
-.container {
-	width: 1000px;
-	margin: 0 auto;
-}
-
-.form-group {
-	width: 1000px;
-	margin: 0 auto;
-}
-
-.text-center {
-	width: 1000px;
-	margin: 0 auto;
-}
-
-div {
-	padding: 10px;
-}
-
-input {
-	border: 1px solid #353535;
-	border-radius: 8px;
-	height: 40px;
-}
-
-textarea {
-	padding: 10px;
-	box-sizing: border-box;
-	border-radius: 10px;
-}
-
-hr {
-	border: 1px solid #353535;
-	width: 840px;
-	margin: unset;
-}
-</style>
 </head>
 
 <body>
@@ -82,11 +40,11 @@ hr {
 				</select>
 				<select id="reviewImg">
 					<c:forEach items="${product}" var="p">
-						<option value="${p.productNo}">${p.productName}</option>
+						<option value="${p.productNo}" title="${contextPath}${p.categoryName}">${p.productName}</option>
+						
 					</c:forEach>
 				</select>
 			</div>
-
 
 			<div class="form-inline mb-2">
 				<label class="input-group-addon mr-3 insert-label">제목</label> <input
@@ -118,14 +76,16 @@ hr {
 
 			<div class="text-center">
 				<button type="submit" class="btn btn-primary">등록</button>
-				<button type="button" class="btn btn-primary">목록으로</button>
+				<button type="button" class="btn btn-primary" onclick="location.href='list?c=${param.c}'">목록으로</button>
 			</div>
 
 
 		</form>
 	</div>
 </body>
+<script src="${contextPath}/resources/js/board/boardInsert.js"></script>
 <script>
+	
 	function boardValidate() {
 		if ($("#boardTitle").val().trim().length == 0) {
 			alert("제목을 입력해 주세요.");
@@ -139,15 +99,19 @@ hr {
 			return false;
 		}
 	}
+	$(function(){
+		$("#reviewImg_msdd").css('width','500px');
+	});
 	document.getElementById("categoryCode").addEventListener("change",function(){
 
-		
+		$("#reviewImg_msdd").css('width','500px');
 		if(this.value != "801"){
-		
 			document.getElementById("reviewImg").style.visibility ="hidden";
+			$(".dd *,reviewImg_msdd *,reviewImg_msddHolder *,#reviewImg_title *,#reviewImg *").css('border-color','white').css('visibility', 'hidden');
 		}
 		else {			
 			document.getElementById("reviewImg").style.visibility = "visible";
+			$(".dd *, reviewImg_msdd *, reviewImg_msddHolder *,#reviewImg_title *,#reviewImg *").css('border-color','#adb5bd').css('visibility', 'visible');
 		}
 	});
 </script>

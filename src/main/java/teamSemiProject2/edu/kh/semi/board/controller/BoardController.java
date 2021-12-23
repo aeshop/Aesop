@@ -90,6 +90,7 @@ public class BoardController extends HttpServlet {
 					List<Category> category = service.selectCategory();
 					
 					List<Product> product = service.selectProduct();
+					System.out.print(product);
 					req.setAttribute("product", product);
 					req.setAttribute("category", category);
 					

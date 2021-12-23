@@ -64,6 +64,8 @@
 		0, 701, ?,?)
 	</entry>
 	<entry key="selectProduct">
-		select product_no,product_nm from product
+		select
+		product_no,product_nm,product_img_path,product_img_nm from product
+		join product_img using(product_no)
 	</entry>
 </properties>

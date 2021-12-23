@@ -82,7 +82,7 @@
 				</div>
 			</div>
 
-			<a href="list?cp=${param.cp }" class="btn btn-default">목록으로</a>
+			<a href="list?c=${param.c}&cp=${param.cp }" class="btn btn-default">목록으로</a>
 		</form>
 		<form action="#" method="POST" name="requestForm">
 			<input type="hidden" name="cp" value="${param.cp }"> <input

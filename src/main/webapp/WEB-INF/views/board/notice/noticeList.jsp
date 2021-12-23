@@ -73,7 +73,7 @@
 									<td>${board.viewNo}</td>
 
 									<td class="leftV"><a
-										href="${contextPath}/board/notice/view?no=${board.boardNo}&cp=${pagination.currentPage}">
+										href="${contextPath}/board/notice/view?no=${board.boardNo}&c=${param.c}&cp=${pagination.currentPage}">
 											<c:choose>
 												<c:when test="${board.boardStatusName eq '블라인드' }">
 													<strong style="color: red; font-size: 11px"> 관리자에
@@ -118,7 +118,7 @@
 	<%-- 로그인이 되어있는 경우에만 글쓰기 버튼 노출 --%>
 	<c:if test="${!empty loginMember }">
 		<button type="button" class="tSBKF" id="insertBtn"
-			onclick="location.href = '${contextPath}/board/notice/insert';">글쓰기</button>
+			onclick="location.href = '${contextPath}/board/notice/insert?c=${param.c}';">글쓰기</button>
 	</c:if>
 
 
