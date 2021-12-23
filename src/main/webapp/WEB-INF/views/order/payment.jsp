@@ -85,7 +85,10 @@
                             <td><a href="">${index.productName}</a>
                                
                             </td>
-                            <td><fmt:formatNumber maxFractionDigits="3">${index.productPrice*index.productDiscount}</fmt:formatNumber>원</td>
+                            
+                            <c:set var="calProPrice" value="${index.productPrice*(1-index.productDiscount)}"/>
+                            
+                            <td><fmt:formatNumber maxFractionDigits="3">${calProPrice}</fmt:formatNumber>원</td>
 
                             <td>
                                 ${index.orderAmount}
@@ -94,7 +97,7 @@
                             <td rowspan="${orderCount}">자바스크립트</td>
                             
                             </c:if>
-                            <c:set var="calculratedPrice" value="${index.productPrice*index.productDiscount*index.orderAmount}"/>
+                            <c:set var="calculratedPrice" value="${calProPrice*index.orderAmount}"/>
                             <td>
                             <input type="hidden" class="rowPrice" value="${calculratedPrice}">
                             <fmt:formatNumber maxFractionDigits="3">${calculratedPrice}</fmt:formatNumber>원</td>
@@ -327,6 +330,25 @@
 <script type="text/javascript" src="${contextPath}/resources/js/order/myCart.js"></script>
 <!-- 아임포트 CDN -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js" type="text/javascript"></script>
+
+
+<%-- 아임포트 사용을 위한 js 파일에 데이터 전달 위한 값들 전역에 선언해놓는 스크립트 태그 --%>
+<script type="text/javascript">
+
+const pay_deliveryNo = "${deliveryNo}";
+
+const pay_deliveryName = "${orderList[0].productName} 외 ${orderCount-1}건";
+const pay_buyerName = "${sessionScope.loginMember.memberName}";
+const pay_buyerEmail = "${sessionScope.loginMember.memberEmail}";
+const pay_buyerTel = "${sessionScope.loginMember.memberPhone}";
+
+const pay_buyerZipCode = "";
+const pay_buyerAddress = "";
+/* 구매자주소, 구매자 우편번호? 주소록 분리되어  */
+
+
+</script>
+
 <%--  <script type="text/javascript" src="${contextPath}/resources/js/order/payment.js"></script>
  --%> 
 <script type="text/javascript" src="${contextPath}/resources/js/order/payment_2_내작업본.js"></script>

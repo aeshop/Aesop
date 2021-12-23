@@ -180,7 +180,7 @@ public class OrderService {
 			//나머지 자리는 0으로 채워진 6자리 배송카운트+1를 만듬
 			String deliveryNo = String.format("%s-%06d", dateString,todayDeliCount+1);
 			
-			System.out.println(deliveryNo);
+//			System.out.println(deliveryNo);
 			//혹시 삽입이 안되는 상황이 되는지 알기 위해 이미 같은 배송번호를 쓰는 레코드가 있는지 조회함
 			boolean deliNoDupCheck = dao.deliNoDupCheck(deliveryNo,conn);
 			

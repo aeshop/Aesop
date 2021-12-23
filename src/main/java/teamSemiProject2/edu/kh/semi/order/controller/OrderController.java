@@ -1,5 +1,6 @@
 package teamSemiProject2.edu.kh.semi.order.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
+
+import org.json.simple.JSONObject;
+
+import com.google.gson.JsonParser;
 
 import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
@@ -167,6 +172,34 @@ public class OrderController extends HttpServlet {
 					int result = service.amountChange(orderAmount, orderNo, loginMemberNo);
 					resp.getWriter().print(result);
 
+				} else if(command.equals("validation")) {
+					// 결제되어 서버에 넘어간 값과 db에 있는 값 비교검증
+					
+					//1. 결제번호 주문번호를 객체에서 추출하기
+					
+					
+
+
+					
+					String imp_uid = req.getParameter("imp_uid");
+					//결제번호
+					String merchant_uid = req.getParameter("merchant_uid");
+					//주문번호
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 				}
 
 			}

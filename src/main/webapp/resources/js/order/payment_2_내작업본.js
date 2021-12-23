@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', calculatePayment);
 
-
 // calculatePayment() 전체 가격 계산 함수
 function calculatePayment() {
     console.log('calculatePayment');
@@ -124,49 +123,88 @@ data: {
 
 */
 
+
+
+
+
+
 //이 코드는 프론트단, 버튼을 클릭했을때 화면에 결제창이 뜨고 amount만큼의 돈이 표시가 된다.
 $("#check_module").click(function() {
+
+    /* 화면 안에 있는 것들 끌어모아서 에이잭스 객체 안에 집어넣기
+
+    주문번호( merchant_uid), 가격 (amount), 구매자이메일(buyer_email), 구매자 이름(buyer_name)
+    구매자 전화번호(buyer_tel) 구매자 주소(buyer_addr) 구매자 우편번호(buyer_postcode)
+
+    name: "노르웨이 회전 의자", : 이런으로 상품명을 쓰긴 좀.... 쓸까 : 뭐뭐뭐뭐 외 (카운트 -1 )건 등으로
+
+      name: '주문명:결제테스트',
+            //결제창에서 보여질 이름
+            amount: 100,
+            //가격 
+            buyer_email: 'iamport@siot.do',
+            buyer_name: '구매자이름',
+            buyer_tel: '010-1234-5678',
+            buyer_addr: '서울특별시 강남구 삼성동',
+            buyer_postcode: '123-456',
+            m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+
+
+
+
+    */
+    const totalPrice = document.querySelector('.totalPrice').innerText.replaceAll(/[,]/g, '');
+
+    /* 
+    전역에서 선언한 변수+ 값으로 만든 변수를 사용함
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     var IMP = window.IMP; // 생략가능
     IMP.init('imp63937946');
     // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
     // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+
     IMP.request_pay({
         pg: 'inicis', // version 1.1.0부터 지원.
 
         pay_method: 'card',
-        // pay_method: 'trans',
-        /*
-        'samsung':삼성페이,
-        'card':신용카드,
-        'trans':실시간계좌이체,
-        'vbank':가상계좌,
-        'phone':휴대폰소액결제
-        */
-        merchant_uid: 'merchant_' + new Date().getTime(),
-        /*
-        merchant_uid에 경우
-        https://docs.iamport.kr/implementation/payment
-        위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
-        참고하세요.
-        나중에 포스팅 해볼게요.
-        3-1에 써놓음
-        //
 
-        */
-        name: '주문명:결제테스트',
+        merchant_uid: pay_deliveryNo,
+
+        name: pay_deliveryName,
         //결제창에서 보여질 이름
-        amount: 100,
+        amount: totalPrice,
         //가격 
-        buyer_email: 'iamport@siot.do',
-        buyer_name: '구매자이름',
-        buyer_tel: '010-1234-5678',
-        buyer_addr: '서울특별시 강남구 삼성동',
-        buyer_postcode: '123-456',
+        buyer_email: pay_buyerEmail,
+        buyer_name: pay_buyerName,
+        buyer_tel: pay_buyerTel,
+        buyer_addr: pay_buyerZipCode,
+        buyer_postcode: pay_buyerAddress,
         m_redirect_url: 'https://www.yourdomain.com/payments/complete'
             /*
-            모바일 결제시,
-            결제가 끝나고 랜딩되는 URL을 지정
-            (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+            모바일 결제시, 결제가 끝나고 랜딩되는 URL을 지정         
             */
     }, function(rsp) {
         console.log(rsp);
@@ -176,21 +214,18 @@ $("#check_module").click(function() {
             msg += '상점 거래ID : ' + rsp.merchant_uid;
             msg += '결제 금액 : ' + rsp.paid_amount;
             msg += '카드 승인번호 : ' + rsp.apply_num;
-
-
             //여기에  결제 성공 여부에 따른 처리 로직이 작성되야 한다. ajax로 작성되야 한다. 
             $.ajax({
-                url: "{서버의 결제 정보를 받는 endpoint}", // 예: https://www.myservice.com/payments/complete
+                url: "/teamSemiProject2/order/validation", // 예: https://www.myservice.com/payments/complete
                 //url은 controller일 것이고, 
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
                 data: {
                     imp_uid: rsp.imp_uid,
                     merchant_uid: rsp.merchant_uid
                 }
                 /*이걸 보내고 servlet에서는 이것을 받을 것이다
 
-                1. 결제번호, 주문번호를 객체에서 추출하기
+                1. 결제번호, 주문번호를 객체에서 추출하기 - 지금 파라미터 안얻어지는데 제이슨 파싱으로 접근해야하나?
                 2. 결제 정보 조회하기 - REST API access token을 발급받습니다. 라고 적힘
                 3. 결제 정보 검증 후 저장하기
 
