@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
 
     <!-------------------------------------------------- 낙희 --------------------------------->
@@ -131,37 +133,44 @@
                       </tr>
                   </thead>
                   <tbody>
-                 <!--   	<c:choose>
-                  		<c:when test="${empty 로그인한 멤버의 주문내역이 없는 경우}"> -->
-	                  		<tr>
-	                      		<td colspan=6> 주문내역이 없습니다.
-	                     	</tr>
-	                <!--      </c:when> -->
-	                <!--      <c:otherwise> -->
-	                     	 <tr>
-                          <td class="order-date"> 2021-12-28</td>
-                          <td class="order-img"> 
-                              <a href="#">
-                                  <img src="${contextPath}/resources/images/cnh/images/product1.webp">
-                              </a>
-                          </td>
-                          <td class="order-product">
-                              <a href="#">
-                                  <strong>레버런스 아로마틱 핸드 워시</strong>
-                              </a>
-                          </td>
-                          <td class="order-quantity">1</td>
-                          <td class="order-no">
-                              <a href="#"> <!-- 주문상세 내역 페이지로 이동-->
-                                  20211211-0003782
-                              </a>
-                          </td>
-                          <td class="order-price">
-                              <strong>49,000원</strong>
-                          </td>
-                      </tr>
-	               <!--       </c:otherwise> -->
-                 <!--  	</c:choose> -->
+                  		<!--  로그인한 멤버의 주문내역이 없는경우, 아닌경우 -->
+                  			<c:choose>
+                  				<c:when test="${empty sessionScope.orderList}">
+                  					<tr>
+	                      			<td colspan=6> 주문내역이 없습니다.
+	                    		    </tr>
+                  				</c:when>
+                  				<c:otherwise>
+			                  		<c:forEach items="${sessionScope.orderList}" var="o">
+                  						<tr>
+				                          <td class="order-date"> ${o.deliveryDt}</td>
+				                          <td class="order-img"> 
+				                              <a href="#">
+				                                  <img src="${o.productImgPath}">
+				                              </a>
+				                          </td>
+				                          <td class="order-product">
+				                              <a href="#">
+				                                  <strong>${o.productName }</strong>
+				                              </a>
+				                          </td>
+				                          <td class="order-quantity">${o.orderAmount }</td>
+				                          <td class="order-no">
+				                              <a href="#"> <!-- 주문상세 내역 페이지로 이동-->
+				                                  ${o.deliveryNo }
+				                              </a>
+				                          </td>
+				                          <td class="order-price">
+				                              <strong>${o.productPrice}</strong>
+				                              
+				                          </td>
+                      					</tr>
+			                  		</c:forEach>
+                  				</c:otherwise>
+                  			</c:choose>
+                  		
+	                 	 
+
                      
                       
                   

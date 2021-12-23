@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
 
     <!-------------------------------------------------- 낙희 --------------------------------->
@@ -69,35 +71,52 @@
               </tr>
           </thead>
           <tbody>
-              <tr>
-                  <td class="order-num">
-                      2021-12-18
-                      <p style="margin: 0;">
-                         <a href="#">[20211211-0003782]</a> 
-                      </p>
+          
+          	<c:choose>
+          		<c:when test="${empty sessionScope.orderList }">
+          			<tr>
+	              		<td colspan=6> 주문내역이 없습니다.
+	          		</tr>
+          		</c:when>
+          		<c:otherwise>
+          			<c:forEach items="${sessionScope.orderList}" var="o">
+          				<tr>
+                  			<td class="order-num">
+                    			  ${o.deliveryDt}
+                    		  <p style="margin: 0;">
+                       		  <a href="#">${o.deliveryNo}</a> 
+                    	 	  </p>
                       <!--  주문 취소 버튼 ( 배송 준비중일 경우에만 보이게 설정 )-->
                       <a href="#" class="displaynone">
                           <img src="${contextPath}/resources/images/cnh/images/btn_order_cancel.gif">
                       </a>
                   </td>
                   <td class="order-product-img">
-                      <img src="${contextPath}/resources/images/cnh/images/product1.webp">
+                      <img src="${o.productImgPath}">
                   </td>
                   <td>
                       <a href="#" style="text-decoration: none;">
                           <strong>
-                              레버런스 아로마틱 핸드 워시
+                              ${o.productName }
                           </strong>
                       </a>
                   </td>
                   <td>1</td>
                   <td class="order-product-price">
-                      <strong> 49,000원 </strong>
+                      <strong> ${o.productPrice } </strong>
                   </td>
                   <td class="order-status">
-                      <p> 배송완료 </p>
+                      <p> ${o.orderStatusName} </p>
                   </td>
               </tr>
+          			
+          			</c:forEach>
+          			
+          		</c:otherwise>
+          		
+          	</c:choose>
+         	  
+              
           </tbody>
       </table>
       <div class="order-li-pagination">

@@ -8,7 +8,7 @@
       <div class="order-menu">
           <ul class="order-title">
               <li >
-                  <a href="${contextPath}/member/myPage/orderHistory">
+                  <a href="${contextPath}/myPage/orderHistory">
                       주문내역조회 (
                           <span>1</span>
                       )
@@ -69,6 +69,9 @@
               </tr>
           </thead>
           <tbody>
+         	  <tr>
+	             <td colspan=6> 주문내역이 없습니다.
+	          </tr>
               <tr>
                   <td class="order-num">
                       2021-12-18
