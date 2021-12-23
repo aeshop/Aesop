@@ -85,18 +85,22 @@ public class BoardController extends HttpServlet {
 			else if (command.equals("insert")) {
 				if(method.equals("GET")) {
 					List<Category> category = service.selectCategory();
-					
+					System.out.println(category);
 					req.setAttribute("category", category);
 					
-					path = "/WEB-INF/view/board/boardInsert.jsp";
+					path = "/WEB-INF/views/board/notice/noticeInsert.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
 				}
 				else {
 					HttpSession session = req.getSession();
 					String boardTitle = req.getParameter("boardTitle");
+					
+					System.out.println(boardTitle);
 					String boardContent = req.getParameter("boardContent");
+					System.out.println(boardContent);
 					int categoryCode = Integer.parseInt(req.getParameter("categoryCode"));
+					System.out.println(categoryCode);
 					
 					int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
 					
