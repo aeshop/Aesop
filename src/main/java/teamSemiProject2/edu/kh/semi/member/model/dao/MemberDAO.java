@@ -94,14 +94,6 @@ public class MemberDAO {
 		return result;
 	}
 
-	/**
-	 * 아이디 중복 확인
-	 * 
-	 * @param inputId
-	 * @param conn
-	 * @return result (1 중복, 0 사용 가능)
-	 * @throws Exception
-	 */
 	public int idDupCheck(String inputId, Connection conn) throws Exception {
 
 		int result = 0;
@@ -127,14 +119,6 @@ public class MemberDAO {
 		return result;
 	}
 
-	/**
-	 * 이메일 중복 체크
-	 * 
-	 * @param inputEmail
-	 * @param conn
-	 * @return result(1 중복, 0 사용 가능)
-	 * @throws Exception
-	 */
 	public int emailDupCheck(String inputEmail, Connection conn) throws Exception {
 
 		int result = 0;
@@ -158,44 +142,5 @@ public class MemberDAO {
 		return result;
 	}
 
-	/**
-	 * 아이디로 회원 정보 검색
-	 * 
-	 * @param inputId
-	 * @param conn
-	 * @return member
-	 * @throws Exception
-	 */
-	public Member idSearch(String inputId, Connection conn) throws Exception {
-
-		Member member = null;
-
-		try {
-			String sql = prop.getProperty("idSearch");
-
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, inputId);
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				member = new Member();
-
-				member.setMemberId(inputId);
-
-				member.setMemberName(rs.getString(1));
-				member.setMemberPhone(rs.getString(2));
-				member.setMemberEmail(rs.getString(3));
-				member.setMemberBirthday(rs.getString(4));
-
-			}
-
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-
-		return member;
-	}
 
 }

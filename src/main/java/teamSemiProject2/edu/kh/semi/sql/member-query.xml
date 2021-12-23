@@ -23,7 +23,7 @@
 	<!-- 아이디 중복 확인 -->
 	<entry key="idDupCheck">
 		SELECT COUNT(*) FROM MEMBER
-		WHERE STATUS_CD = 101
+		WHERE MEMBER_STATUS_NO = 101
 		AND MEMBER_ID = ?
 	</entry>
 	
@@ -31,7 +31,7 @@
 	<!-- 이메일 중복 확인 -->
 	<entry key="emailDupCheck">
 		SELECT COUNT(*) FROM MEMBER
-		WHERE STATUS_CD = 101
+		WHERE MEMBER_STATUS_NO = 101
 		AND MEMBER_EMAIL = ?  
 	</entry>
 	

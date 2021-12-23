@@ -1,6 +1,7 @@
 package teamSemiProject2.edu.kh.semi.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -141,6 +142,52 @@ public class MemberController extends HttpServlet {
 
 				}
 
+			}
+		}
+		// #################아이디 유효성 검사
+		else if (command.equals("idDupCheck")) {
+			if (method.equals("GET")) {
+
+			} else {
+				// post
+				String inputId = req.getParameter("id");
+
+
+				try {
+					MemberService service = new MemberService();
+
+					int result = service.idDupCheck(inputId);
+
+					PrintWriter out = resp.getWriter();
+
+					out.print(result);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+
+		} 
+		// ################이메일 유효성 검사
+		else if (command.equals("emailDupCheck")) {
+			if (method.equals("GET")) {
+				
+			} else {
+				// post
+				String inputEmail = req.getParameter("email");
+
+				try {
+					MemberService service = new MemberService();
+
+					int result = service.emailDupCheck(inputEmail);
+
+					PrintWriter out = resp.getWriter();
+
+					out.print(result);
+				} catch (Exception e) {
+					e.printStackTrace();
+
+				}
 			}
 		}
 

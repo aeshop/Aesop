@@ -19,19 +19,22 @@
         <span style="border-bottom: 1px solid #000;">Step 2</span>
       </div>
       <div class="input_wrap">
+      
         <div class="signup_input">
           <input id="id" name="id" placeholder="아이디" type="text" autocomplete="off" required>
-          <input type="hidden" name="idDup" id="idDup" value="false">
-          <span id="checkId" class="validity-msg">.</span>
+          <span id="checkId" class="validity-msg"></span>
         </div>
+        
         <div class="signup_input">
           <input id="pwd1" name="pwd1" placeholder="비밀번호" type="password" required>
           <span id="checkPwd1" class="validity-msg"></span>
         </div>
+        
         <div class="signup_input">
           <input id="pwd2" name="pwd2" placeholder="비밀번호 확인" type="password" required>
           <span id="checkPwd2" class="validity-msg"></span>
         </div>
+        
         <div class="signup_input">
           <input id="email" name="email" placeholder="이메일" type="email" autocomplete="off" required>
           <span id="checkEmail" class="validity-msg"></span>
@@ -55,11 +58,11 @@
               <option value="017">017</option>
             </select>
             -
-            <input id="phone2" name="phone" maxlength="4" type="text" style=" width: 35%; border: none;" required>
+            <input id="phone2" name="phone" class="phone" maxlength="4" type="number" style=" width: 35%; border: none;" required>
             -
-            <input id="phone3" name="phone" maxlength="4" type="text" style="width: 35%; border: none;" required>
-        </div>
+            <input id="phone3" name="phone" class="phone" maxlength="4" type="number" style="width: 35%; border: none;" required>
             <span id="checkPhone" class="validity-msg" style="border: none;"></span>
+        </div>
       </div>
       <button type="submit" id="signup_submit">가입하기</button>
     </form>
