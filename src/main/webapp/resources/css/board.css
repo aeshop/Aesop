@@ -7,7 +7,7 @@
 	;
 
 * {
-	font-family: 'Noto Sans KR', 'Kanit';
+	font-family: 'Kanit','Noto Sans KR' ;
 }
 
 .ec-base-table.typeList td {
@@ -18,7 +18,7 @@
 	background-image: url("../images/board/창고.png"),
 		linear-gradient(139.73deg, #F9CF93 0%, #DBD0C0 100%);
 	opacity: 0.9 !important;
-	height: 200px;
+	height: 250px;
 	border-radius: 24px;
 	padding: 24px;
 	margin: 50px auto;

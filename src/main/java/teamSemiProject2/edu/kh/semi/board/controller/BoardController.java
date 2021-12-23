@@ -49,7 +49,8 @@ public class BoardController extends HttpServlet {
 				Pagination pagination = service.getPagination(cp,code);
 
 				List<Board> boardList = service.selectBoardList(pagination,code);
-
+				
+				req.setAttribute("gubun", boardList.get(0).getCategoryName());
 				req.setAttribute("pagination", pagination);
 				req.setAttribute("boardList", boardList);
 				
