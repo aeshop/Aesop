@@ -40,7 +40,8 @@
             <div id="n-membership-benefit-wrapper">
                 <div class="n-infomation">
                     <div class="n-membership">혜택정보</div>
-                    <div class="n-membership"><span id="n-membership-id">${sessionScope.loginMemberName}</span>님은, [<span id="n-membership-rank">${sessionScope.loginMemberGradeName}</span>] 회원이십니다. <br>구매금액의 <span id="n-membership-rate">${discountRate}</span>%을 할인 받으실 수 있습니다.</div>
+                    <div class="n-membership"><span id="n-membership-id">${sessionScope.loginMember.memberName}</span>님은, [<span id="n-membership-rank">${sessionScope.loginMember.memberGradeName}</span>] 회원이십니다. <br>
+                    구매금액의 <span id="n-membership-rate">${sesssionScope.loginMember.discountRate}</span>%을 할인 받으실 수 있습니다.</div>
 
                 </div>
             </div>
@@ -50,7 +51,7 @@
             <div id="n-shipping-wrapper">
 
                 <div class="n-order-row">
-                <%--결제 페이지에 들어가는 즉시 controller는 DB와 연결해서 주문번호를 생성하고 받아옴 20211223-0123 이런 형태 --%>
+                <%--결제 페이지에 들어가는 즉시 controller는 DB와 연결해서 주문번호를 생성하고 받아옴 20211223-000123 이런 형태 --%>
                     <div>국내배송상품 주문내역</div><input type="hidden" id="delivery-no" value = "${deliveryNo}">
                     <p><img src="${contextPath}/resources/images/order/btn_prev.gif" alt="이전페이지 버튼"></p>
 
@@ -279,8 +280,8 @@
                         </tr>
                         <tr>
                             <td><span class="calPrice"></span>원</td>
-                            <td>-123,456원 </td>
-                            <td>=123,456원 </td>
+                            <td>-<span class="calPrice"></span>원</td>
+                            <td>=<span class="calPrice"></span>원</td>
 
                         </tr>
                     </table>
@@ -291,10 +292,7 @@
                         </tr>
 
 
-                        <tr>
-                            <td>추가 할인 금액</td>
-                            <td><img src="${contextPath}/resources/images/order/btn_list.gif" alt="내역보기"></td>
-                        </tr>
+                       
                     </table>
 
                 </div>

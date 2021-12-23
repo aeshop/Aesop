@@ -20,10 +20,10 @@ function calculatePrice() {
 
 
     }
-    //전체 물품가 계산후 n-proCal에 넣어줌
+    //전체 물품가를 클래스 :  위치에 넣어주어야함
 
 
-    //배송비 계산후 n-shipCal에 넣어줌
+    //배송비 계산후 클래스 : 에 넣어주어야 함
     let ship = 2500;
     if (sum >= 50000 || sum == 0) {
         ship = 0;
@@ -38,6 +38,11 @@ function calculatePrice() {
         sumCalArr[i].innerText = (sum + ship).toLocaleString('ko-KR');
 
     }
+
+
+    //할인된 가격과 최종가격을 마무리짓기
+    //할인율 : 1% 등으로 나와 있음
+
 
 }
 
