@@ -48,7 +48,8 @@
             <div id="n-shipping-wrapper">
 
                 <div class="n-order-row">
-                    <div>국내배송상품 주문내역</div>
+                <%--결제 페이지에 들어가는 즉시 controller는 DB와 연결해서 주문번호를 생성하고 받아옴 20211223-0123 이런 형태 --%>
+                    <div>국내배송상품 주문내역</div><input type="hidden" value = "${deliveryNo}">
                     <p><img src="${contextPath}/resources/images/order/btn_prev.gif" alt="이전페이지 버튼"></p>
 
                 </div>
@@ -316,4 +317,6 @@
 <script type="text/javascript" src="${contextPath}/resources/js/order/myCart.js"></script>
 <!-- 아임포트 CDN -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js" type="text/javascript"></script>
-<script type="text/javascript" src="${contextPath}/resources/js/order/payment.js"></script>
+<%-- <script type="text/javascript" src="${contextPath}/resources/js/order/payment.js"></script>
+ --%>
+ <script type="text/javascript" src="${contextPath}/resources/js/order/payment_2_내작업본.js"></script>

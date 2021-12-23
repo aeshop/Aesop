@@ -15,9 +15,11 @@ UPDATE order_1 SET order_status_cd = 403 WHERE order_no = ? AND member_no = ?</e
 		UPDATE p_order SET product_amount = product_amount-1
 		WHERE order_no = ?
 	</entry>
-	<entry key="getAddr">
-		SELECT * FROM p_address
-		WHERE member_no = ?
+	<entry key="getPrimaryAddress">
+		SELECT * 
+		FROM address 
+		WHERE member_no= ? 
+		AND default_address='Y'
 	</entry>
 	<entry key="getOrderItem1">
 		select o.order_no,p.product_no,p.product_nm,p.product_price,p.product_discount,o.product_amount

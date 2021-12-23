@@ -3,7 +3,9 @@ package teamSemiProject2.edu.kh.semi.order.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.order.model.service.OrderService;
 import teamSemiProject2.edu.kh.semi.order.model.vo.Order;
@@ -124,18 +127,27 @@ public class OrderController extends HttpServlet {
 					
 					
 				}else if (command.equals("orderAll")) {
+					//결제 페이지로 데이터 전달: 선택된 상품(주문), 사용자정보, 주소록의 기본 주소, 배송번호(20121101-1234) 
+					
 					
 					String[] orderNoArr = req.getParameterValues("orderNo");
-					//orderNoArr의 길이에 따라 다른 SQL구문을 사용할 예정, 또는, getOrder로 다 받아오고, orderNo가 존재하지 않으면 출력에서 제외한다?
-					//List.contains()의 override? 
+				
+ 
 					
-					List<Order> oList = service.orderAll(orderNoArr,loginMemberNo);
+					Map<String,Object> resultMap = service.orderAll(orderNoArr,loginMemberNo);
 					//oList에는 없는 체크되지 않은 주문를 제외한 주문row들이 옴
 					
-//					List<Address> aList = service.getAddress(loginMemberNo);
-					
+					//회원번호 + 선택된 상품번호들을 전달해서 상품목록, 주소록의 기본주소, 배송번호 를 맵의 형태로 받아오기 = orderAll의 수정
+					//CLASS address 가 현재 존재하지 않아서 만들어야 한다 
+										
+					ArrayList oList = (ArrayList) resultMap.get("orderList");
+					Address defaultAddress = (Address) resultMap.get("defaultAddress");
+					String deliveryCode = (String) resultMap.get("deliveryCode");
 					req.setAttribute("orderList", oList);
 					req.setAttribute("orderCount", oList.size());
+					
+					req.setAttribute("defaultAddress", defaultAddress);
+					req.setAttribute("deliveryCode",deliveryCode);
 //					req.setAttribute("addressList", aList);
 					path="/WEB-INF/views/order/payment.jsp";
 					dispatcher = req.getRequestDispatcher(path);

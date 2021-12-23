@@ -85,9 +85,50 @@ $("#check_module").click(function() {
             msg += '카드 승인번호 : ' + rsp.apply_num;
 
 
-            //여기에  결제 성공 여부에 따른 처리 로직이 작성되야 한다
+            //여기에  결제 성공 여부에 따른 처리 로직이 작성되야 한다. ajax로 작성되야 한다. 
+            $.ajax({
+                url: "{서버의 결제 정보를 받는 endpoint}", // 예: https://www.myservice.com/payments/complete
+                //url은 controller일 것이고, 
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                data: {
+                    imp_uid: rsp.imp_uid,
+                    merchant_uid: rsp.merchant_uid
+                }
+                /*이걸 보내고 servlet에서는 이것을 받을 것이다
+
+                1. 결제번호, 주문번호를 객체에서 추출하기
+                2. 결제 정보 조회하기 - REST API access token을 발급받습니다. 라고 적힘
+                3. 결제 정보 검증 후 저장하기
+
+2. access 토큰 발급받기를 nodeJS 쪽은 나와있는데 servet쪽은 없음
+자바에서 요청시 access 토큰 발급 받는 과정
+
+ curl  : client url을 의미한다 : api 정보를 기술한 것이라고 생각하면 될 것 같다. 이 양식에 맞춰서 작성해 주면 된다는 의미
+  curl  
+  -H "Content-Type: application/json" POST 
+  -d '{"imp_key": "REST API키", "imp_secret":"REST API Secret"}' https://api.iamport.kr/users/getToken
 
 
+2.1 액세스토큰 받을 변수, 액세스 토큰 받아올 요청 주소 입력
+
+결과값으로 오는 getPaymentData에서 정보를 빼내야 한다
+- 지금 access토큰 발급받기를 시도하지 않은 상태라, 어떤 것이 반환될지가 감이 안잡힌다.
+
+
+
+*/
+
+
+            }).done(function(data) { //AJAX done 함수는 요청이 성공하면 요청한 데이터가 done()메소드로 전달된다는 의미 data는 요청 데이터이다
+                // 가맹점 서버 결제 API 완료시 로직 : 여기가 뭔지 모르겠네 : - 아직은 후순위, 가상ㄱ좌 발급시 로직, 결제 성공시 로직 이런식으로 나뉨
+                //지금 중요한 것은 server단에서의 imp_uid,merchant_uid처리이다
+
+                console.log(data);
+
+
+
+            })
 
 
 
@@ -111,7 +152,10 @@ param.merchant_uid에 지정하기를 권장한다 라고 한다
  이걸 추가한다음에 update로 레코드를 계속 수정해 나가야 할듯?
  그러니까 구매 버튼 누르자 마자 가장 먼저 해야 할 일이 3-1인 것
 
- 4. 결제 성공시, 결제 실패시에 대응하는 함수가 실행된다 
+ 4. 결제 성공시, 결제 실패시에 대응하는 함수가 실행된다 : 정확히는 결제 성공시 실패시가 아니라 imp_success 파라미터는 결제 프로세스 정상 종료 여부
+ 이고, 클라이언트 상에서 하는 거기 때문에 위변조의 가능성이 있으므로 이 값으로 결제의 성공 여부를 판단해서는 안된다
+(프로세스 창이 결제가 되고 꺼지던 도중에 취소해서 안되고 꺼지던 success로 취급된다)
+
  블로그 예제는 클라이언트 단과 i'mport 서버에 기록이 남는 방식을 사용했고
  
  5. 나는 여기에 더해서 내 서버 즉 DB에 기록을 남기고, 그 기록을 i'mport 서버와 검증해서 맞으면 결제완료로
