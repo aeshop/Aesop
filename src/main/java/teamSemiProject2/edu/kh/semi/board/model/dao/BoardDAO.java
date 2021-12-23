@@ -14,6 +14,7 @@ import teamSemiProject2.edu.kh.semi.board.model.vo.BoardImage;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Pagination;
 import teamSemiProject2.edu.kh.semi.category.model.dao.CategoryDAO;
+import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
 public class BoardDAO {
 
 	PreparedStatement pstmt = null;
@@ -233,6 +234,37 @@ public class BoardDAO {
 		}
 		
 		return result;
+	}
+
+
+
+	public List<Product> selectProduct(Connection conn) throws Exception{
+		
+		List<Product> product = new ArrayList<Product>();
+		
+		try {
+			
+			String sql = prop.getProperty("selectProduct");
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				Product pdt = new Product();
+				
+				pdt.setProductNo(rs.getInt(1));
+				pdt.setProductName(rs.getString(2));
+				
+				product.add(pdt);
+			}
+			
+		} catch (Exception e) {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return product;
 	}
 
 

@@ -63,4 +63,7 @@
 		(?, ?, ?, DEFAULT,
 		0, 701, ?,?)
 	</entry>
+	<entry key="selectProduct">
+		select product_no,product_nm from product
+	</entry>
 </properties>

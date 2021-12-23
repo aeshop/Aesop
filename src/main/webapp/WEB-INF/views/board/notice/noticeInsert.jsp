@@ -70,14 +70,20 @@ hr {
 
 			<%-- 카테고리 --%>
 			<div class="mb-2">
-				<label class="input-group-addon mr-3 insert-label">카테고리</label> <select
+				<label class="input-group-addon mr-3 insert-label">카테고리</label> 
+				<select
 					class="custom-select" id="categoryCode" name="categoryCode"
 					style="width: 150px;">
 
 					<c:forEach items="${category}" var="c">
-						<option value="${c.categoryCode}">${c.categoryName }</option>
+						<option id="categoryOption" value="${c.categoryCode}">${c.categoryName }</option>
 					</c:forEach>
 
+				</select>
+				<select id="reviewImg">
+					<c:forEach items="${product}" var="p">
+						<option value="${p.productNo}">${p.productName}</option>
+					</c:forEach>
 				</select>
 			</div>
 
@@ -133,6 +139,17 @@ hr {
 			return false;
 		}
 	}
+	document.getElementById("categoryCode").addEventListener("change",function(){
+
+		
+		if(this.value != "801"){
+		
+			document.getElementById("reviewImg").style.visibility ="hidden";
+		}
+		else {			
+			document.getElementById("reviewImg").style.visibility = "visible";
+		}
+	});
 </script>
 </html>
 

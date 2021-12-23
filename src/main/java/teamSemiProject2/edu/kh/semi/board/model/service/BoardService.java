@@ -11,6 +11,7 @@ import teamSemiProject2.edu.kh.semi.board.model.vo.BoardImage;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Pagination;
 import teamSemiProject2.edu.kh.semi.common.XSS;
+import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
 
 public class BoardService {
 	private BoardDAO dao = new BoardDAO();
@@ -101,6 +102,14 @@ public class BoardService {
 		}
 		else rollback(conn);
 		return result;
+	}
+
+	public List<Product> selectProduct() throws Exception{
+		
+		Connection conn = getConnection();
+		List<Product> product = dao.selectProduct(conn);
+		close(conn);
+		return product;
 	}
 
 }

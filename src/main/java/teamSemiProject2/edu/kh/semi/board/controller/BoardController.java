@@ -18,6 +18,7 @@ import teamSemiProject2.edu.kh.semi.board.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Pagination;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Reply;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
+import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
 
 
 @WebServlet("/board/notice/*")
@@ -36,7 +37,7 @@ public class BoardController extends HttpServlet {
 		String path = null;
 		RequestDispatcher dispatcher = null;
 		String message = null;
-		int code = 803;
+		
 		try {
 
 			BoardService service = new BoardService();
@@ -44,14 +45,14 @@ public class BoardController extends HttpServlet {
 			int cp = req.getParameter("cp") == null ? 1 : Integer.parseInt(req.getParameter("cp"));
 			
 			if (command.equals("list")) {
-
+				int code = Integer.parseInt(req.getParameter("c"));
 				Pagination pagination = service.getPagination(cp,code);
 
 				List<Board> boardList = service.selectBoardList(pagination,code);
 
 				req.setAttribute("pagination", pagination);
 				req.setAttribute("boardList", boardList);
-
+				
 				path = "/WEB-INF/views/board/notice/noticeList.jsp";
 				dispatcher = req.getRequestDispatcher(path);
 				dispatcher.forward(req, resp);
@@ -87,7 +88,9 @@ public class BoardController extends HttpServlet {
 			else if (command.equals("insert")) {
 				if(method.equals("GET")) {
 					List<Category> category = service.selectCategory();
-					System.out.println(category);
+					
+					List<Product> product = service.selectProduct();
+					req.setAttribute("product", product);
 					req.setAttribute("category", category);
 					
 					path = "/WEB-INF/views/board/notice/noticeInsert.jsp";
@@ -98,11 +101,11 @@ public class BoardController extends HttpServlet {
 					HttpSession session = req.getSession();
 					String boardTitle = req.getParameter("boardTitle");
 					
-					System.out.println(boardTitle);
+					
 					String boardContent = req.getParameter("boardContent");
-					System.out.println(boardContent);
+					
 					int categoryCode = Integer.parseInt(req.getParameter("categoryCode"));
-					System.out.println(categoryCode);
+					
 					
 					int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
 					
@@ -111,7 +114,7 @@ public class BoardController extends HttpServlet {
 					board.setBoardContent(boardContent);
 					board.setCategoryCode(categoryCode);
 					board.setMemberNo(memberNo);
-					System.out.println(board);
+					
 					int result = service.insertBoard(board);
 					
 					if(result >0) {
