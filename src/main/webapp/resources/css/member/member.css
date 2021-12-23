@@ -214,7 +214,7 @@ input {
 
 .signup_form {
 	width: 390px;
-	margin: 0 auto;
+	margin: 60px auto;
 }
 
 h2 {
@@ -236,6 +236,14 @@ h2 {
 
 .input_wrap, .input_wrap2 {
 	margin-bottom: 15px;
+}
+
+.signup_input{
+	width: 383px;
+}
+
+.signup_input_arr *{
+	text-align:center;
 }
 
 .signup_input input {
