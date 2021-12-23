@@ -1,3 +1,59 @@
+document.addEventListener('DOMContentLoaded', calculatePrice);
+
+
+// calculatePrice() 전체 가격 계산 함수
+function calculatePrice() {
+    //각 열의 가격정보 담은 span 태그
+    const rowPriceArr = document.querySelectorAll('.rowPrice');
+
+    //각 열의 수량담은 input 태그
+
+    let sum = 0;
+
+
+    for (let i = 0; i < rowPriceArr.length; i++) {
+
+        //합계 정보도 계산해서 화면에 뿌려줘야한다
+
+        sum += rowPriceArr[i].value;
+
+
+
+    }
+    //전체 물품가 계산후 n-proCal에 넣어줌
+
+
+    //배송비 계산후 n-shipCal에 넣어줌
+    let ship = 2500;
+    if (sum >= 50000 || sum == 0) {
+        ship = 0;
+    }
+
+    for (let i = 0; i < shipCalArr.length; i++) {
+        shipCalArr[i].innerText = ship.toLocaleString('ko-KR');
+    }
+    //전체합 구해서 n-sumCal에 넣어줌
+
+    for (let i = 0; i < sumCalArr.length; i++) {
+        sumCalArr[i].innerText = (sum + ship).toLocaleString('ko-KR');
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*https://docs.iamport.kr/implementation/payment에 클라단에서 서버단까지의 상세정보가 나와있음
 
 블로그 검색으로 보면 자기 서버단에 어떻게 저장하는지에 대한 정보는 나와있지 않은 경우도 존재한다.

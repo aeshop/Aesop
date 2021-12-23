@@ -6,6 +6,8 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 
 
 
@@ -49,7 +51,7 @@
 
                 <div class="n-order-row">
                 <%--결제 페이지에 들어가는 즉시 controller는 DB와 연결해서 주문번호를 생성하고 받아옴 20211223-0123 이런 형태 --%>
-                    <div>국내배송상품 주문내역</div><input type="hidden" value = "${deliveryNo}">
+                    <div>국내배송상품 주문내역</div><input type="hidden" id="delivery-no" value = "${deliveryNo}">
                     <p><img src="${contextPath}/resources/images/order/btn_prev.gif" alt="이전페이지 버튼"></p>
 
                 </div>
@@ -91,7 +93,10 @@
                             <td rowspan="${orderCount}">자바스크립트</td>
                             
                             </c:if>
-                            <td><fmt:formatNumber maxFractionDigits="3">${index.productPrice*index.productDiscount*index.orderAmount}</fmt:formatNumber>원</td>
+                            <c:set var="calculratedPrice" value="${index.productPrice*index.productDiscount*index.orderAmount}"/>
+                            <td>
+                            <input type="hidden" class="rowPrice" value="${calculratedPrice}">
+                            <fmt:formatNumber maxFractionDigits="3">${calculratedPrice}</fmt:formatNumber>원</td>
 
                         </tr>
                     </c:forEach>
@@ -102,7 +107,7 @@
                     <tfoot>
                         <tr id="n-p-summery">
                             <td>[기본배송]</td>
-                            <td colspan="6">상품구매금액 js + 배송비 (무료 or JS) = 합계 : s원 </td>
+                            <td colspan="6">상품구매금액 <span class="allProPrice"></span> + 배송비 <span class="shipPrice"></span> = 합계 : <span class="calPrice"></span>원 </td>
                         </tr>
                     </tfoot>
 
@@ -131,7 +136,7 @@
                         <tr>
                             <td>주문하시는 분<img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
                             <td>
-                                <div><input type="text" name="oName" size="10" required></div>
+                                <div><input type="text" name="oName" size="10" value="${loginMember.memberName}" required></div>
                             </td>
                         </tr>
                         <tr>
@@ -144,14 +149,21 @@
                             <option value="018">018</option>
                             <option value="019">019</option>
                           </select> -
-                                <input type="text" name="oPhone2" size="10" required> -
-                                <input type="text" name="oPhone3" size="10" required>
+                          <c:set var="mPhone" value="${loginMember.memberPhone}"></c:set>
+                          <!-- 013-4856-1382 -->
+                                <input type="text" name="oPhone2" size="10" value="${fn:substring(mPhone, 4, 8)}"  required> -
+                                <input type="text" name="oPhone3" size="10" value="${fn:substring(mPhone, 9, 13)}" required>
                             </td>
                         </tr>
                         <tr>
+                      <c:set var="mEmail" value="${loginMember.memberEmail}"/>
+
+
+
+
                             <td rowspan="3">이메일<img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
-                            <td><input type="text" name="oEmail1"> "@"
-                                <input type="text" name="oEmail2">
+                            <td><input type="text" name="oEmail1" value='${fn:substringBefore(mEmail, "@")}'> @
+                                <input type="text" name="oEmail2" value='${fn:substringAfter(mEmail, "@")}'>
                                 <select name="oEmail3">
                                 <option value="selected">이메일 선택</option>
                                 <option value="naver.com">naver.com</option>
@@ -192,12 +204,11 @@
                                 <div>배송지 선택</div>
                             </td>
                             <td colspan="2">
-                                <input type="radio" id="sameaddr0" name="addr" value="sameaddr0">
+                                <input type="radio" id="sameaddr0" name="addr" value="sameaddr0" checked>
                                 <label for="sameaddr0">주문자 정보와 동일</label>
                                 <input type="radio" id="sameaddr1" name="addr" value="sameaddr1">
                                 <label for="sameaddr1">새로운 배송지</label>
-                                <input type="radio" id="sameaddr2" name="addr" value="sameaddr2">
-                                <label for="sameaddr2">최근 배송지</label>
+                          
 
                                 <span><img src="${contextPath}/resources/images/order/btn_address.gif" alt="주소록 버튼"></span>
 
@@ -206,18 +217,18 @@
                         <tr>
                             <td>받으시는 분<img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
                             <td>
-                                <input type="text" name="rName" size="10">
+                                <input type="text" name="rName" size="10" value="${loginMember.memberName}">
                             </td>
                         </tr>
                         <tr>
                             <td rowspan="3">주소<img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
-                            <td><input type="text" name="rZipcode"> <img src="${contextPath}/resources/images/order/btn_zipcode.gif" alt="우편번호 버튼이미지"></td>
+                            <td><input type="text" name="rZipcode" value="${defaultAddress.zipCode}"> <img src="${contextPath}/resources/images/order/btn_zipcode.gif" alt="우편번호 버튼이미지"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="rAddr1" size="70" maxlength="100"><span class="n-addr">기본주소</span></td>
+                            <td><input type="text" name="rAddr1" size="70" maxlength="100" value="${defaultAddress.address1}"><span class="n-addr">기본주소</span></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="rAddr2" size="70" maxlength="100"><span class="n-addr"></span>나머지주소(선택입력가능) <span style="color:red;">상세주소(동/호수)를 꼭 기입 바랍니다</span></span>
+                            <td><input type="text" name="rAddr2" size="70" maxlength="100"  value="${defaultAddress.address1}"><span class="n-addr"></span>나머지주소(선택입력가능) <span style="color:red;">상세주소(동/호수)를 꼭 기입 바랍니다</span></span>
                             </td>
 
                         </tr>
@@ -231,8 +242,9 @@
                           <option value="018">018</option>
                           <option value="019">019</option>
                         </select> -
-                                <input type="text" name="rPhone2" size="10" required> -
-                                <input type="text" name="rPhone3" size="10" required></td>
+                      <c:set var="aPhone" value="${defaultAddress.addrPhone}"/>
+                                <input type="text" name="rPhone2" size="10" value="${fn:substring(aPhone, 4, 8)}"  required> -
+                                <input type="text" name="rPhone3" size="10"  value="${fn:substring(aPhone, 9, 13)}"  required></td>
 
                         </tr>
 
@@ -266,7 +278,7 @@
                             <td>총 결제예정 금액</td>
                         </tr>
                         <tr>
-                            <td>123,456원 </td>
+                            <td><span class="calPrice"></span>원</td>
                             <td>-123,456원 </td>
                             <td>=123,456원 </td>
 
@@ -317,6 +329,7 @@
 <script type="text/javascript" src="${contextPath}/resources/js/order/myCart.js"></script>
 <!-- 아임포트 CDN -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js" type="text/javascript"></script>
-<%-- <script type="text/javascript" src="${contextPath}/resources/js/order/payment.js"></script>
+ <script type="text/javascript" src="${contextPath}/resources/js/order/payment.js"></script>
+ 
+<%--  <script type="text/javascript" src="${contextPath}/resources/js/order/payment_2_내작업본.js"></script>
  --%>
- <script type="text/javascript" src="${contextPath}/resources/js/order/payment_2_내작업본.js"></script>

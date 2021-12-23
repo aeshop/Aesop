@@ -137,18 +137,21 @@ public class OrderController extends HttpServlet {
 					Map<String,Object> resultMap = service.orderAll(orderNoArr,loginMemberNo);
 					//oList에는 없는 체크되지 않은 주문를 제외한 주문row들이 옴
 					
-					//회원번호 + 선택된 상품번호들을 전달해서 상품목록, 주소록의 기본주소, 배송번호 를 맵의 형태로 받아오기 = orderAll의 수정
-					//CLASS address 가 현재 존재하지 않아서 만들어야 한다 
-										
+					//회원번호 + 선택된 상품번호들을 전달해서 선택된 상품목록, 주소록의 기본주소, 배송번호 를 맵의 형태로 받아옴
+				
+					
 					ArrayList oList = (ArrayList) resultMap.get("orderList");
 					Address defaultAddress = (Address) resultMap.get("defaultAddress");
-					String deliveryCode = (String) resultMap.get("deliveryCode");
+					String deliveryNo = (String) resultMap.get("deliveryNo");
+					
+					//어트리뷰트에 넣고 진행함
 					req.setAttribute("orderList", oList);
 					req.setAttribute("orderCount", oList.size());
 					
 					req.setAttribute("defaultAddress", defaultAddress);
-					req.setAttribute("deliveryCode",deliveryCode);
-//					req.setAttribute("addressList", aList);
+					req.setAttribute("deliveryNo",deliveryNo);
+					
+					//결제 페이지에 정보를 보냄
 					path="/WEB-INF/views/order/payment.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);

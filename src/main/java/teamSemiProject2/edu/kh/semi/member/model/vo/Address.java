@@ -11,7 +11,7 @@ public class Address {
 	private String address2;
 	private String isDefault;
 	private int memberNo;
-	
+	private String addrPhone;
 	
 	
 	
@@ -60,6 +60,12 @@ public class Address {
 	}
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
+	}
+	public String getAddrPhone() {
+		return addrPhone;
+	}
+	public void setAddrPhone(String addrPhone) {
+		this.addrPhone = addrPhone;
 	}
 	
 	

@@ -21,6 +21,23 @@ UPDATE order_1 SET order_status_cd = 403 WHERE order_no = ? AND member_no = ?</e
 		WHERE member_no= ? 
 		AND default_address='Y'
 	</entry>
+	<entry key="todayDeliCount">
+		SELECT count(*) 
+		FROM delivery
+		WHERE DELIVERY_DT  between TRUNC(SYSDATE) and  TRUNC(SYSDATE+1)
+	</entry>
+	<entry key="insertDeliNo">
+INSERT INTO DELIVERY 
+VALUES( ?, ?, null, null, null, null, null, DEFAULT, 500)
+	</entry>
+	
+	<entry key="deliNoDupCheck">
+		SELECT *
+		FROM delivery
+		WHERE DELIVERY_NO = ?
+	</entry>
+	
+	
 	<entry key="getOrderItem1">
 		select o.order_no,p.product_no,p.product_nm,p.product_price,p.product_discount,o.product_amount
 		from p_order o

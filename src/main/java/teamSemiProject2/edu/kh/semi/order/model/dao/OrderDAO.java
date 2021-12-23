@@ -77,6 +77,14 @@ public class OrderDAO {
 		return oList;
 	}
 
+	/**수량 변경 데이터베이스에 반영
+	 * @param orderAmount
+	 * @param orderNo
+	 * @param loginMemberNo
+	 * @param conn
+	 * @return
+	 * @throws Exception
+	 */
 	public int amountChange(int orderAmount, int orderNo, int loginMemberNo, Connection conn) throws Exception {
 		int result = 0;
 
@@ -101,6 +109,13 @@ public class OrderDAO {
 		return result;
 	}
 
+	/**선택된 장바구니 레코드 지우기
+	 * @param orderNo
+	 * @param loginMemberNo
+	 * @param conn
+	 * @return
+	 * @throws Exception
+	 */
 	public int deleteOrder(int orderNo, int loginMemberNo, Connection conn) throws Exception {
 		int result = 0;
 
@@ -124,9 +139,15 @@ public class OrderDAO {
 		return result;
 	}
 
+	/**기본 주소 받아오기
+	 * @param loginMemberNo
+	 * @param conn
+	 * @return
+	 * @throws Exception
+	 */
 	public Address getPrimaryAddress(int loginMemberNo, Connection conn) throws Exception {
 
-		Address addr = new Address();
+		Address addr = null;
 		try {
 			String sql = prop.getProperty("getPrimaryAddress");
 
@@ -136,6 +157,7 @@ public class OrderDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				addr = new Address();
 				addr.setAddressNo(rs.getInt("ADDRESS_NO"));
 				addr.setZipCode(rs.getString("ZIP_CODE"));
 				addr.setAddressName(rs.getString("ADDRESS_NM"));
@@ -143,7 +165,7 @@ public class OrderDAO {
 				addr.setAddress2("ADDRESS2");
 				addr.setMemberNo(rs.getInt("MEMBER_NO"));
 				addr.setIsDefault(rs.getString("DEFAULT_ADDRESS"));
-
+				addr.setAddrPhone(rs.getString("ADDRESS_PHONE"));
 			}
 
 		} finally {
@@ -154,34 +176,7 @@ public class OrderDAO {
 		return addr;
 	}
 
-	public String makeNewDeliveryRecord(Connection conn) throws Exception {
 
-		// 새로운 배송레코드를 만들고 배송코드를 반환하는 것까지? - 하나의 dao 메소드에서 진행하나?
-		// 새로운 배송번호를 만들고, 중복검사, insert 성공하면 배송번호를 반환
-		// 배송번호는 데이터베이스에서 지금 날짜에 맞는 레코드에 1을 더한 값으로 만든다
-
-		String newRecodeNo = null;
-
-		try {
-			String sql = prop.getProperty("makeNewDeliveryRecord");
-
-			pstmt = conn.prepareStatement(sql);
-
-			int result = pstmt.executeUpdate();
-
-			if (result > 0) {
-
-			} else {
-
-			}
-
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-
-		return newRecodeNo;
-	}
 
 	/**
 	 * 오늘 쌓인 배송 레코드 count를 받아오는 메소드
@@ -216,10 +211,10 @@ public class OrderDAO {
 	/** 배송번호가 있는지 조회위해 체크
 	 * @param deliNum
 	 * @param conn
-	 * @return
+	 * @return  중복됬을때 트루반환 없으면 펄스반환
 	 * @throws Exception
 	 */
-	public boolean deliNoDupCheck(String deliNum, Connection conn) throws Exception {
+	public boolean deliNoDupCheck(String deliveryNo, Connection conn) throws Exception {
 
 		try {
 
@@ -227,7 +222,7 @@ public class OrderDAO {
 
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, deliNum);
+			pstmt.setString(1, deliveryNo);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -243,13 +238,13 @@ public class OrderDAO {
 		return false;
 	}
 
-	/** 중복되지 않을 때 새로운 배송 레코드를 삽입한다.
+	/** 중복되지 않을 때 새로운 배송 레코드를 삽입하는 메소드
 	 * @param deliNum
 	 * @param conn
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertDeliNo(String deliNum, Connection conn) throws Exception {
+	public int insertDeliNo(String deliveryNo, int loginMemberNo,Connection conn) throws Exception {
 
 		int result = 0;
 
@@ -258,7 +253,8 @@ public class OrderDAO {
 			String sql = prop.getProperty("insertDeliNo");
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, deliNum);
+			pstmt.setString(1, deliveryNo);
+			pstmt.setInt(2, loginMemberNo);
 
 			result = pstmt.executeUpdate();
 
@@ -271,42 +267,5 @@ public class OrderDAO {
 		return result;
 	}
 
-//	public List<Order> orderAll(int[] orderNoArrInt, int loginMemberNo, Connection conn) throws Exception {
-//
-//		List<Order> oList = new OrderList();
-//
-//		try {
-//			String sql = prop.getProperty("orderAll");
-//
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, loginMemberNo);
-//
-//			rs = pstmt.executeQuery();
-//
-//			while (rs.next()) {
-//				Order tmp = new Order();
-//				tmp.setOrderNo(rs.getInt("ORDER_NO"));
-//				tmp.setMemberNo(rs.getInt("MEMBER_NO"));
-//				tmp.setProductNo(rs.getInt("PRODUCT_NO"));
-//				tmp.setOrderAmount(rs.getInt("ORDER_AMOUNT"));
-//				tmp.setOrderStatusCode(rs.getInt("ORDER_STATUS_CD"));
-//
-//				// 상품정보
-//				tmp.setProductName(rs.getString("PRODUCT_NM"));
-//				tmp.setProductPrice(rs.getInt("PRODUCT_PRICE"));
-//				tmp.setProductDiscount(rs.getDouble("DISCOUNT"));
-//				tmp.setThumnailImgPath(rs.getString("PRODUCT_IMG_PATH"));
-//				tmp.setThumnailImgName(rs.getString("PRODUCT_IMG_NM"));
-//
-//				oList.add(tmp);
-//			}
-//
-//		} finally {
-//			close(rs);
-//			close(pstmt);
-//		}
-//
-//		return oList;
-//	}
 
 }

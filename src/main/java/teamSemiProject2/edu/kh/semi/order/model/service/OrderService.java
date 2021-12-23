@@ -165,7 +165,6 @@ public class OrderService {
 			//2. 주소록의 기본주소 반환 
 			
 			Address defaultAddr = dao.getPrimaryAddress(loginMemberNo,conn); 
-			
 			//3. 배송번호 받아오기 = 배송 컬럼을 만들어서, 배송 번호를 만들어서 받아와야 한다 no,
 			
 			//3.1 : 배송 번호를 만들고, 그게 중복레코드가 있는지를 체크한 다음에, 있으면 주문취소 없으면 레코드 삽입
@@ -179,29 +178,39 @@ public class OrderService {
 			String dateString = sf.format(time);
 			
 			//나머지 자리는 0으로 채워진 6자리 배송카운트+1를 만듬
-			String deliveryCode = String.format("%s-%06d", dateString,todayDeliCount+1);
+			String deliveryNo = String.format("%s-%06d", dateString,todayDeliCount+1);
 			
-			System.out.println(deliveryCode);
+			System.out.println(deliveryNo);
 			//혹시 삽입이 안되는 상황이 되는지 알기 위해 이미 같은 배송번호를 쓰는 레코드가 있는지 조회함
-			boolean deliNoDupCheck = dao.deliNoDupCheck(deliveryCode,conn);
+			boolean deliNoDupCheck = dao.deliNoDupCheck(deliveryNo,conn);
 			
 			int insertCheck = 0;
 			
 			//없을때 삽입을 진행함
 			if(!deliNoDupCheck) {
-				insertCheck = dao.insertDeliNo(deliveryCode,conn);
+				insertCheck = dao.insertDeliNo(deliveryNo,loginMemberNo,conn);
+				
+				if(insertCheck>0) {
+					commit(conn);
+					
+				}else {
+					rollback(conn);
+				}
+				
 			} else {
-				//있으면 오류를 일으킴 
+				//있으면 null  일으킴 
 				return null;
 			}
 			
 			// order ArrayList, defaultAddress, deliveryCode 를 맵에 담음
 			
 			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
 			
 			resultMap.put("orderList", resultList);
+			
 			resultMap.put("defaultAddress", defaultAddr);
-			resultMap.put("deliveryCode", deliveryCode);
+			resultMap.put("deliveryNo", deliveryNo);
 			
 		
 			
