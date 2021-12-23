@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import teamSemiProject2.edu.kh.semi.board.model.service.BoardService;
+import teamSemiProject2.edu.kh.semi.board.model.service.ReplyService;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Board;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Pagination;
+import teamSemiProject2.edu.kh.semi.board.model.vo.Reply;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 
 
@@ -65,7 +67,9 @@ public class BoardController extends HttpServlet {
 				
 				Board board = service.selectBoard(boardNo,memberNo);
 				if(board != null) {
-					System.out.print("댓글");
+					
+					List<Reply> rList = new ReplyService().selectReplyList(boardNo);
+					req.setAttribute("rList", rList);
 					
 					req.setAttribute("board", board);
 					path = "/WEB-INF/views/board/notice/noticeView.jsp";
@@ -76,6 +80,7 @@ public class BoardController extends HttpServlet {
 				else {
 					// 조회실패
 					System.out.println("조회실패");
+					resp.sendRedirect("list");
 				}
 			}
 			

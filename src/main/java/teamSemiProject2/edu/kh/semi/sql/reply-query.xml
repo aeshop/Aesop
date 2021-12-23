@@ -22,8 +22,8 @@
 	</entry>
 	<entry key="insertReply">
 		INSERT INTO REPLY(
-		REPLY_NO,REPLY_CONTENT,BOARD_NO,MEMBER_NO)
-		VALUES(SEQ_REPLY_NO.NEXTVAL,?,?,?)
+		REPLY_NO,REPLY_CONTENT,REPLY_CREATE_DT,BOARD_NO,REPLY_STATUS_CD,MEMBER_NO)
+		VALUES(SEQ_REPLY_NO.NEXTVAL,?,DEFAULT,?,901,?)
 	</entry>
 	<entry key="updateReply">
 		UPDATE REPLY SET
@@ -32,7 +32,7 @@
 	</entry>
 	<entry key="deleteReply">
 		UPDATE REPLY SET
-		REPLY_STATUS_CD = 2
+		REPLY_STATUS_CD = 902
 		WHERE REPLY_NO = ?
 	</entry>
 

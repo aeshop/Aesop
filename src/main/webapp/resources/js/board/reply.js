@@ -60,7 +60,7 @@ function selectReplyList() {
 // 댓글 등록
 function addReply() {
   // 게시글 번호 로그인 회원 번호 댓글내용
-
+console.log(1);
   if (loginMemberNo == "") {
     alert("로그인 후 이용해주세요");
   } else {

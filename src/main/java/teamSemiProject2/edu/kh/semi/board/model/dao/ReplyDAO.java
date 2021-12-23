@@ -23,7 +23,7 @@ public class ReplyDAO {
 	public ReplyDAO() {
 	
 	String filePath = BoardDAO.class.getResource("/teamSemiProject2/edu/kh/semi/sql/reply-query.xml").getPath();
-	System.out.println("이쯤에서 오류가 날수도 있다.");
+	
 	try {
 		prop = new Properties();
 		prop.loadFromXML(new FileInputStream(filePath));
