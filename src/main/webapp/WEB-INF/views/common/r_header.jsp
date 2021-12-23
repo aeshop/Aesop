@@ -84,7 +84,7 @@
 							<button type="button" onclick="location.href='${contextPath}/member/join'">JOIN</button>
 						</c:when>
 						<c:otherwise>
-							<button type="button">LOGOUT</button>
+							<button type="button"  onclick="location.href='${contextPath}/member/logout'">LOGOUT</button>
 						</c:otherwise>
 					</c:choose>
 					<button type="button">

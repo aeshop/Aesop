@@ -34,25 +34,24 @@ public class MemberController extends HttpServlet {
 		if (command.equals("myPage")) {
 			if (method.equals("GET")) {
 				path = "/WEB-INF/views/member/myPage.jsp";
-				dispatcher = req.getRequestDispatcher(path);
-				dispatcher.forward(req, resp);
+				req.getRequestDispatcher(path).forward(req, resp);
 			}
 		}
-		
+
 		// 마이페이지 끝 ****************************************************
 
 		// 로그인 페이지
 		if (command.equals("login")) {
 			if (method.equals("GET")) {
 				path = "/WEB-INF/views/member/login.jsp";
-				dispatcher = req.getRequestDispatcher(path);
-				dispatcher.forward(req, resp);
+				req.getRequestDispatcher(path).forward(req, resp);
 			} else {
-				
+
 				// POST
 				String memberId = req.getParameter("memberId");
 				String memberPw = req.getParameter("memberPw");
 
+				memberId = replaceParameter(memberId);
 				try {
 					MemberService service = new MemberService();
 
@@ -62,12 +61,10 @@ public class MemberController extends HttpServlet {
 					if (loginMember != null) {
 
 						if (loginMember.getStatusCode() == 101) {
-								session.setAttribute("loginMember", loginMember);
-								session.setMaxInactiveInterval(3000);
-								
-								
+							session.setAttribute("loginMember", loginMember);
+							session.setMaxInactiveInterval(3000);
 
-								resp.sendRedirect(req.getContextPath());
+							resp.sendRedirect(req.getContextPath());
 						} else { // 로그인 실패
 							session.setAttribute("message", "아이디 또는 비밀번호를 확인해주세요.");
 
@@ -81,41 +78,71 @@ public class MemberController extends HttpServlet {
 			}
 
 		}
-		// 로그인 끝 *********************************
+
+		// 로그아웃 *********************************
+		else if (command.equals("logout")) {
+			if (method.equals("GET")) {
+				session.removeAttribute("loginMember");
+				session.invalidate();
+
+				resp.sendRedirect(req.getContextPath());
+			}
+		}
+
 		// 조인(회원가입 폼 전 페이지) **************************************
-		else if(command.equals("join")) {
-			if(method.equals("GET")) {
+		else if (command.equals("join")) {
+			if (method.equals("GET")) {
 				path = "/WEB-INF/views/member/join.jsp";
-				dispatcher = req.getRequestDispatcher(path);
-				dispatcher.forward(req, resp);
-				
-			}else {
+				req.getRequestDispatcher(path).forward(req, resp);
+
+			} else {
 				// post
 			}
 		}
-		
+
 		// 회원가입 *************
-		else if(command.equals("signup")) {
-			if(method.equals("GET")) {
-				path = "/WEB-INF/views/member/signup.jsp";
-				dispatcher = req.getRequestDispatcher(path);
-				dispatcher.forward(req, resp);
-			
-			}else {
+		else if (command.equals("signup")) {
+			if (method.equals("GET")) {
+				path = "/WEB-INF/views/member/signUp.jsp";
+				req.getRequestDispatcher(path).forward(req, resp);
+
+			} else {
 				// post
-				
-				
+				String memberId = req.getParameter("id");
+				String memberPw = req.getParameter("pwd1");
+				String memberEmail = req.getParameter("email");
+				String memberName = req.getParameter("name");
+				String memberBirthday = req.getParameter("birthday");
+
+				String[] phone = req.getParameterValues("phone");
+				String memberPhone = String.join("-", phone);
+
+				memberId = replaceParameter(memberId);
+				memberEmail = replaceParameter(memberEmail);
+
+				Member member = new Member(memberId, memberPw, memberEmail, memberName, memberBirthday, memberPhone);
+
+				try {
+					MemberService service = new MemberService();
+
+					int result = service.signUp(member);
+
+					String message = null;
+					if (result > 0) {
+						message = "회원가입에 성공하셨습니다.";
+
+						session.setAttribute("message", message);
+
+						resp.sendRedirect(req.getContextPath());
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+
+				}
+
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
 	}
 
@@ -123,4 +150,23 @@ public class MemberController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
 	}
+
+	private String replaceParameter(String param) {
+
+		String result = param;
+
+		if (result != null) {
+
+			result = result.replaceAll("&", "&amp;");
+
+			result = result.replaceAll("<", "&lt;");
+
+			result = result.replaceAll(">", "&gt;");
+
+			result = result.replaceAll("\"", "&quot");
+		}
+
+		return result;
+	}
+
 }

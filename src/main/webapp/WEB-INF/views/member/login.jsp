@@ -32,6 +32,7 @@
 
 <!-- footer -->
 <jsp:include page="../common/r_footer.jsp" />
+<script src="${contextPath}/resources/js/member/member.js"></script>
 
 
 </body>
