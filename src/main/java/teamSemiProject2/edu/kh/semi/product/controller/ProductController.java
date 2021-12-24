@@ -1,6 +1,7 @@
 package teamSemiProject2.edu.kh.semi.product.controller;
 
 import java.io.IOException;
+import java.security.Provider.Service;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -58,8 +59,10 @@ public class ProductController extends HttpServlet {
 
 				} else if(command.equals("productDetail")) {//   /product/productDetail?productNo=숫자 로 던져서 얻어온 정보를 화면에 뿌려줘야한다
 					int productNo = Integer.parseInt(req.getParameter("productNo"));
-				
-					req.setAttribute("productNo",productNo);					
+					
+				Product product = 	service.getProductDetail(productNo);
+					
+					req.setAttribute("product",product);
 					path="/WEB-INF/views/product/productDetail.jsp";
 					
 					dispatcher = req.getRequestDispatcher(path);

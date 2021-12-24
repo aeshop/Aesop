@@ -173,6 +173,9 @@ public class OrderService {
 
 		Address defaultAddr = dao.getPrimaryAddress(loginMemberNo, conn);
 
+		
+		
+		
 		// order ArrayList, defaultAddress를 맵에 담음
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();

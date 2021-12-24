@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 	<!-- header include -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -9,50 +12,66 @@
     <div class="content">
       <div class="productDetailHeader">
         <div>
-          <img src="${contextPath}/resources/images/handcream1.webp">
+          <img src="${contextPath}${product.imgList[0].imgPath}${product.imgList[0].imgName}">
           <div id="productInfo">
             <div>
-            <input type="hidden" id="n-proNumber" value="${productNo}">
-              <h2 style="margin-bottom: 20px;">레저렉션 아로마틱 핸드 밤</h2>
+            <input type="hidden" id="n-proNumber" value="${product.productNo}">
+              <h2 style="margin-bottom: 20px;">${product.productName}</h2>
             </div>
+            
+            <c:set var="discountedPrice" value="${product.price* (1-product.discount)}"/>
+            
             <div id="priceSection">
               <div id="productPrice">판매가</div>
-              <span id="salePrice">27,900원</span> <!-- 상품금액 * 할인율 -->
-              <span id="originPrice">31,000원</span> <!-- 상품금액, originPrice display: none 추가 -->
-              <div id="discountRate">10%</div> <!-- 할인율 0일경우 #salePrice에 수식 X, discountRate display: none 추가 -->
+              <fmt:formatNumber var="formatedDiscountedPrice" value="${discountedPrice}" maxFractionDigits="3"/>
+              <fmt:formatNumber var="formatedPrice" value="${product.price}" maxFractionDigits="3"/>
+              <span id="salePrice">${formatedDiscountedPrice}원</span> <!-- 상품금액 * 할인율 -->
+              <span id="originPrice">${formatedPrice}원</span> <!-- 상품금액, originPrice display: none 추가 -->
+            
+              <div id="discountRate">${product.discount*100}%</div> <!-- 할인율 0일경우 #salePrice에 수식 X, discountRate display: none 추가 -->
+            
+            
             </div>
             <div id="deliveryFee">
               <span>배송비</span>
-              <span>2,500원</span>
+              <c:choose>
+              <c:when test="${discountedPrice>=50000}">
+                <span>무료</span>              
+              </c:when>
+              <c:otherwise>
+               <span id="shipment">2,500원</span>              
+              </c:otherwise>
+              </c:choose>
+              
             </div>
             <div>
-              <div id="productSize">
+        <!--       <div id="productSize">
                 사이즈
-              </div>
-              <select id="sizeSelect">
+              </div> -->
+      <!--         <select id="sizeSelect">
                 <option value="msg" selected> - [필수] 옵션을 선택해 주세요 - </option>
                 <option value="none" disabled> -------------------------------------- </option>
-                <!-- DB에서 해당 상품 사이즈 목록 불러오기 -->
+                DB에서 해당 상품 사이즈 목록 불러오기
                 <option value="75ml" > 75ml </option>
                 <option value="120ml" > 120ml </option>
                 <option value="500ml" > 500ml </option>
-              </select>
+              </select> -->
               <div id="finalOrder">
                 <table>
                   <tbody>
                     <tr>
                       <td>
-                        <p>
+                <!--         <p>
                           레저렉션 아로마틱 핸드 밤
                           -
-                          <span>75ml</span> <!-- 사이즈 75ml-->
-                        </p>
+                          <span>75ml</span> 사이즈 75ml
+                   		</p> -->
                       </td>
                       <td>
-                        <input type="number" value="1">
+                        <input type="number" id="productAmount" value="1">
                       </td>
                       <td>
-                        <span>31,000원</span> <!-- 상품금액(정가)-->
+                        <span>${formatedPrice}원</span> <!-- 상품금액(정가)-->
                       </td>
                       <td>
                         <a href="#none"> <!-- 삭제 -->
@@ -64,10 +83,11 @@
                   <tfoot>
                     <tr>
                       <td>
+                      <!-- 할인 가격 표시 위치  -->
                         <strong>총 상품금액(수량)</strong>
                         <strong>
-                          <span>31,000원</span>
-                          <span> (1개) </span>
+                          <span id="calculatedPrice">${formatedDiscountedPrice}원</span>
+                          <span> (<span id="calculatedAmount">1</span>개) </span>
                         </strong>
                       </td>
                     </tr>
@@ -75,13 +95,22 @@
                 </table>
               </div>
               <div id="orderBtn">
-                <a href="#none" id="cartBtn">
+              
+              <c:choose>
+              	<c:when test="${product.stock != 0}">
+              	<a href="#none" id="cartBtn">
                     <p>장바구니 담기</p>
                 </a>
                 <a href="#none" id="purchaseBtn">
                     <p>바로 구매</p>
                 </a>
-                <span class="btn_action soldout displaynone">SOLD OUT</span>
+              	</c:when>
+              
+              <c:otherwise>
+                <span class="btn_action soldout">SOLD OUT</span>
+              </c:otherwise>
+              </c:choose>
+                
               </div>
             </div>
           </div>

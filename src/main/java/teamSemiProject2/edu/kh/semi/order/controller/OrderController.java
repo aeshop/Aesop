@@ -157,7 +157,7 @@ public class OrderController extends HttpServlet {
 					//어트리뷰트에 넣고 진행함
 					req.setAttribute("orderList", oList);
 					req.setAttribute("orderCount", oList.size());
-					
+
 					req.setAttribute("defaultAddress", defaultAddress);
 					
 					//결제 페이지에 정보를 보냄
@@ -212,7 +212,7 @@ public class OrderController extends HttpServlet {
 					String accessToken = new ImportAccessToken().getAccessToken();
 					//2-2) 저장된 가격 가져옴					
 					long importServerAmount =new ImportRecord().getImportAmount(impUid, accessToken);
-					System.out.println("아임포트에서 받아온 결제값:"+importServerAmount);
+//					System.out.println("아임포트에서 받아온 결제값:"+importServerAmount);
 					
 					//2-3) 저장된 가격이 서로 같으면 검증 완료 의미: 배송 레코드에 ajax로 전달받은 상세정보(주소 등등) 집어넣고
 					//order 테이블 해당 row들 결제완료로 상태코드수정, 배송번호 널에서 업데이트
@@ -220,8 +220,6 @@ public class OrderController extends HttpServlet {
 						
 						Delivery del = new Delivery();
 						
-						System.out.println("일치");
-
 						
 						del.setMemberNo(loginMemberNo);
 						del.setZipCode(req.getParameter("dZipCode"));
@@ -233,6 +231,7 @@ public class OrderController extends HttpServlet {
 						del.setDeliveryStatusCode(502);
 						del.setDeliveryMessage(req.getParameter("dMessage"));		
 						
+						System.out.println(del);
 						
 						//해당 배송번호로 업데이트할 주문들
 						String [] orderNoArr = req.getParameterValues("orderNoList[]");

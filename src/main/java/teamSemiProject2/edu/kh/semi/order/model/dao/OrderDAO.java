@@ -164,11 +164,12 @@ public class OrderDAO {
 				addr.setAddressNo(rs.getInt("ADDRESS_NO"));
 				addr.setZipCode(rs.getString("ZIP_CODE"));
 				addr.setAddressName(rs.getString("ADDRESS_NM"));
-				addr.setAddress1("ADDRESS1");
-				addr.setAddress2("ADDRESS2");
+				addr.setAddress1(rs.getString("ADDRESS1"));
+				addr.setAddress2(rs.getString("ADDRESS2"));
 				addr.setMemberNo(rs.getInt("MEMBER_NO"));
 				addr.setIsDefault(rs.getString("DEFAULT_ADDRESS"));
 				addr.setAddrPhone(rs.getString("ADDRESS_PHONE"));
+				addr.setReceiverName(rs.getString("ADDR_RECEIVER_NM"));
 			}
 
 		} finally {
@@ -425,9 +426,11 @@ public class OrderDAO {
 			pstmt.setString(2, del.getAddress1());
 			pstmt.setString(3, del.getAddress2());
 			pstmt.setString(4, del.getReceiverName());
-			pstmt.setInt(5, del.getDeliveryStatusCode());
-			pstmt.setString(6, del.getDeliveryMessage());
-			pstmt.setString(7, merchantUid);
+			pstmt.setString(5, del.getReceiverPhone());
+
+			pstmt.setInt(6, del.getDeliveryStatusCode());
+			pstmt.setString(7, del.getDeliveryMessage());
+			pstmt.setString(8, merchantUid);
 			
 			result = pstmt.executeUpdate();
 			

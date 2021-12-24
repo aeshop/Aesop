@@ -315,6 +315,12 @@ $("#check_module").click(function() {
                 console.log(deliveryInfo);
 
 
+                //결제가 성공하였습니다. 페이지로 이동
+                //사진 하나랑 결제내역 조회 페이지로,홈으로 두 개 버튼 만들고 싶음
+
+
+                // location.href = '/teamSemiProject2';
+
             })
 
 

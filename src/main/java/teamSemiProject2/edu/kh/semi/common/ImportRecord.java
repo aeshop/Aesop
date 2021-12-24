@@ -43,7 +43,7 @@ public class ImportRecord {
 				
 			}
 			br.close();
-			System.out.println(sb.toString());//아임포트 결제 정보 들어옴
+//			System.out.println(sb.toString());//아임포트 결제 정보 들어옴
 			JSONParser jsonParse = new JSONParser();
 
 			JSONObject jsonObj = (JSONObject) jsonParse.parse(sb.toString());

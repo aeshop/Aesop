@@ -226,7 +226,7 @@
                         <tr>
                             <td>받으시는 분<img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
                             <td>
-                                <input type="text" id="rName" name="rName" size="10" value="${loginMember.memberName}">
+                                <input type="text" id="rName" name="rName" size="10" value="${defaultAddress.receiverName}">
                             </td>
                         </tr>
                         <tr>
@@ -260,9 +260,7 @@
                         <tr>
                             <td>배송메세지</td>
                             <td colspan="2">
-                                <textArea name="rMessage" id="rMessage" cols="160" rows="5">
-
-                        </textArea>
+                                <textArea name="rMessage" id="rMessage" cols="160" rows="5"></textArea>
                             </td>
                         </tr>
                     </table>
@@ -317,7 +315,7 @@
 
 
     <p>아임 서포트 결제 모듈 테스트 해보기</p>
-    <button id="check_module" type="button">아임 서포트 결제 모듈 테스트 해보기</button>
+    <div id="check_module"><img src="${contextPath}/resources/images/order/"></div>
 
 
 

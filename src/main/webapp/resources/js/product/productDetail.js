@@ -11,6 +11,13 @@ productDetail..jsp 수정 부탁
 */
 
 
+function showPrice() {
+    const originPrice = (Number)(document.querySelector('originPrice').innerText.replaceAll(/[,원]/g, ''));
+    const salePrice = (Number)(document.querySelector('salePrice').innerText.replaceAll(/[,원]/g, ''));
+
+
+}
+
 
 
 

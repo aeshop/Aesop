@@ -77,6 +77,22 @@ public class ProductService {
 		
 		return result;
 	}
+
+	public Product getProductDetail(int productNo) throws Exception{
+
+		
+		Product result = null;
+		conn = getConnection();
+		
+		result = dao.getProduct(productNo,conn);
+		
+		result.setImgList(dao.getProductImg(productNo,conn)); 
+		
+		close(conn);
+		
+
+		return result;
+	}
 	
 	
 

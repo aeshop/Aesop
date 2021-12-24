@@ -96,11 +96,8 @@ public class ProductDAO {
 			pstmt.setInt(5, prod.getStock());
 			pstmt.setInt(6, prod.getCategoryNo());
 
-			
-			
 			result = pstmt.executeUpdate();
 
-			
 		} finally {
 
 			close(pstmt);
@@ -120,17 +117,90 @@ public class ProductDAO {
 			pstmt.setInt(3, img.getImgLevel());
 			pstmt.setInt(4, img.getProductNo());
 
-			
-			
 			result = pstmt.executeUpdate();
 
-			
 		} finally {
 
 			close(pstmt);
 		}
 
 		return result;
+	}
+
+	public Product getProduct(int productNo, Connection conn) throws Exception {
+		Product result = null;
+		try {
+
+			String sql = prop.getProperty("getProduct");
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, productNo);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				Product tmp = new Product();
+
+				tmp.setProductNo(rs.getInt("PRODUCT_NO"));
+				tmp.setProductName(rs.getString("PRODUCT_NM"));
+				tmp.setPrice(rs.getInt("PRODUCT_PRICE"));
+				tmp.setDiscount(rs.getDouble("DISCOUNT"));
+				tmp.setStock(rs.getInt("STOCK"));
+				tmp.setCategoryNo(rs.getInt("PRODUCT_CATEGORY"));
+				tmp.setStatusNo(rs.getInt("PRO_STATUS_NO"));
+
+				result = tmp;
+			}
+
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public List<ProductImage> getProductImg(int productNo, Connection conn)  throws Exception{
+
+
+		List<ProductImage> imgList = new ArrayList<ProductImage>();
+		
+		
+		try {
+			
+			String sql = prop.getProperty("getProductImg");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, productNo);
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductImage img = new ProductImage(); 
+				
+				img.setImgNo(rs.getInt(1));
+				img.setImgPath(rs.getString(2));
+				img.setImgName(rs.getString(3));
+				img.setImgLevel(rs.getInt(4));
+				img.setProductNo(rs.getInt(5));
+				
+				imgList.add(img);
+				
+			}
+			
+			
+			
+		} finally {
+
+close(rs);
+close(pstmt);
+		}
+		
+		
+		
+		return imgList;
 	}
 
 }

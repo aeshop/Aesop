@@ -1,5 +1,9 @@
 package teamSemiProject2.edu.kh.semi.member.model.vo;
 
+/**
+ * @author nyr
+ *
+ */
 public class Address {
 
 	private int addressNo;
@@ -12,7 +16,7 @@ public class Address {
 	private String isDefault;
 	private int memberNo;
 	private String addrPhone;
-	
+	private String receiverName;
 	
 	
 	public Address() {
@@ -66,6 +70,18 @@ public class Address {
 	}
 	public void setAddrPhone(String addrPhone) {
 		this.addrPhone = addrPhone;
+	}
+	public String getReceiverName() {
+		return receiverName;
+	}
+	public void setReceiverName(String receiverName) {
+		this.receiverName = receiverName;
+	}
+	@Override
+	public String toString() {
+		return "Address [addressNo=" + addressNo + ", zipCode=" + zipCode + ", addressName=" + addressName
+				+ ", address1=" + address1 + ", address2=" + address2 + ", isDefault=" + isDefault + ", memberNo="
+				+ memberNo + ", addrPhone=" + addrPhone + ", receiverName=" + receiverName + "]";
 	}
 	
 	
