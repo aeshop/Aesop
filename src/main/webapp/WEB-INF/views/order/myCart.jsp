@@ -50,7 +50,7 @@
 		<table class="n-cart-table">
 			<thead>
 				<tr>
-					<th><input type="checkbox" onclick="checkAll(this)"></th>
+					<th><input type="checkbox" id="allChk" onchange="checkAll(this)"></th>
 					<th>이미지</th>
 					<th>상품정보</th>
 					<th>판매가</th>

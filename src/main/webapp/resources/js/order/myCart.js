@@ -188,7 +188,7 @@ function deleteOrder() {
 3. 화면을 reload함 : 다시 새로고침하는 효과를 요청주소를 보내고 거기서 redirect하는 방식으로 했음
 */
 
-function deleteSelectedOrder() {
+function deleteSelectedOrder(message) {
     // console.log('deleteSelectedOrder');
     const orderCheckBox = document.querySelectorAll('.n-order-chk');
 
@@ -197,20 +197,26 @@ function deleteSelectedOrder() {
     for (let i = 0; i < orderCheckBox.length; i++) {
         if (orderCheckBox[i].checked) {
             deleteQueryString += ("&orderNo=" + orderCheckBox[i].value);
+            orderNoArr.push(orderCheckBox[i].value);
         }
     }
-    // console.log(orderNoArr);
+    if (orderNoArr.length == 0) {
+        alert('선택된 상품이 없습니다.');
+        return;
+    }
 
     //post로 보낼것인지,아니면 parameter로 보낼수도 있나? 그냥 get방식으로 보내기로
-
-    const deleteConfirm = confirm('선택하신 상품들을 삭제하시겠습니까?');
+    if (message == null) {
+        message = '선택하신 상품들을 삭제하시겠습니까?';
+    }
+    const deleteConfirm = confirm(message);
 
     if (deleteConfirm) {
         location.href = '/teamSemiProject2/order/deleteAll?' + deleteQueryString;
     }
 
 }
-//전체 물품 체크 하는 함수
+//전체 물품 체크,체크해제 하는 함수
 function checkAll(e) {
 
 
@@ -227,7 +233,7 @@ function deleteAll() {
         iterator.checked = true;
     }
 
-    deleteSelectedOrder();
+    deleteSelectedOrder('전체 상품을 삭제하시겠습니까?');
 }
 
 
@@ -239,7 +245,6 @@ function deleteAll() {
 //선택상품 주문버튼 클릭
 function orderSelectedProduct() {
     const orderCheckBox = document.querySelectorAll('.n-order-chk');
-    const orderNoArr = new Array();
     let orderQueryString = "";
     for (let i = 0; i < orderCheckBox.length; i++) {
         if (orderCheckBox[i].checked) {
@@ -252,3 +257,17 @@ function orderSelectedProduct() {
 
 
 //전체상품주문 버튼 클릭
+function orderAll() {
+    // document.querySelector('#allChk').checked = true;
+    //가장 상단의 체크박스를 change한다고 해서 다른 함수가 실행되지는 않는다
+
+    const chk = document.querySelectorAll('input[type="checkbox"]');
+
+    for (const iterator of chk) {
+        iterator.checked = true;
+    }
+
+
+    orderSelectedProduct();
+
+}
