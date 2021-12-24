@@ -12,7 +12,7 @@
 
 
 
-<jsp:include page="../common/header_n.jsp"></jsp:include>
+<jsp:include page="../common/r_header.jsp" />
 
 <jsp:include page="../common/sidebar_n.jsp"></jsp:include>
 
@@ -327,9 +327,12 @@
 
     </div>
 
+<jsp:include page="../common/r_header.jsp" />
 
 
-<jsp:include page="../common/footer_n.jsp"></jsp:include>
+<%-- <jsp:include page="../common/footer_n.jsp"></jsp:include>
+ --%>
+
 <script type="text/javascript" src="${contextPath}/resources/js/order/myCart.js"></script>
 <!-- 아임포트 CDN -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js" type="text/javascript"></script>

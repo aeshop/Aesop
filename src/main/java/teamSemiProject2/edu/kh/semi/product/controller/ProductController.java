@@ -1,10 +1,17 @@
 package teamSemiProject2.edu.kh.semi.product.controller;
 
 import java.io.IOException;
+
+import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
+import 	teamSemiProject2.edu.kh.semi.member.model.vo.Member;
+import teamSemiProject2.edu.kh.semi.order.model.vo.Order;
+
 import java.security.Provider.Service;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,6 +52,11 @@ public class ProductController extends HttpServlet {
 		
 		ProductService service = new ProductService();
 		HttpSession session = req.getSession();
+		
+		Member loginMember = (Member) session.getAttribute("loginMember"); 
+		
+		int	loginMemberNo = loginMember.getMemberNo();
+		
 		try {
 
 			if (method.equals("GET")) {// a href로 제품 입력 페이지로 오게됨, DB에서 카테고리 정보 담아서 보여줌, 대분류 소분류 안나누고 보여주기
@@ -68,6 +80,46 @@ public class ProductController extends HttpServlet {
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
 				
+				} 	else if(command.equals("buyNow")) {
+					//바로 구매 : 주문번호를 번호표처럼받아서, 그걸로 insert,
+					//주문번호를 가지고와서 select, orderList반환받아서 req에 담고 
+					//결제페이지로
+					
+					int productNo = Integer.parseInt(req.getParameter("productNo"));
+					int amount = Integer.parseInt(req.getParameter("amount"));
+					
+					 int result = service.addCart(productNo,amount,loginMemberNo);
+
+					 Map<String, Object> resultMap = null;
+
+					 
+					 if(result==1) {//삽입이 성공했으면, 즉시구매하고자 하는 물건 = 내가 추가한 가장 최근의 order 데이터
+						 //배송으로 보내는 거라서 주문목록 + 기본주소록 목록이 필요하다 - 둘을 맵으로 묶어서 와야함
+
+						 
+						 resultMap = service.buyNow(loginMemberNo);
+					 }
+					
+					 ArrayList oList = (ArrayList) resultMap.get("orderList");
+						Address defaultAddress = (Address) resultMap.get("defaultAddress");
+					
+						
+						
+					 req.setAttribute("orderList", oList);
+					req.setAttribute("orderCount", oList.size());
+					req.setAttribute("defaultAddress",defaultAddress);
+
+					
+					
+					
+					
+					//결제 페이지에 정보를 보냄
+					path="/WEB-INF/views/order/payment.jsp";
+					
+					dispatcher = req.getRequestDispatcher(path);
+
+					dispatcher.forward(req, resp);
+
 				}
 				
 				
@@ -163,7 +215,23 @@ public class ProductController extends HttpServlet {
 				
 				resp.sendRedirect(path);
 				
+				} else if(command.equals("addCart")) {
+					
+					int productNo = Integer.parseInt(req.getParameter("productNo"));
+					int amount = Integer.parseInt(req.getParameter("amount"));
+					
+				 int result = service.addCart(productNo,amount,loginMemberNo);
+					
+					//ajax 반환
+				 
+				resp.getWriter().print(result);	
+					
+					
+					
+					
 				}
+				
+			
 
 			}
 

@@ -9,10 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import teamSemiProject2.edu.kh.semi.category.model.service.CategoryService;
 import teamSemiProject2.edu.kh.semi.category.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.category.model.vo.Pagination;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
 
 @WebServlet("/category/*")
@@ -31,6 +33,10 @@ public class CategoryController extends HttpServlet {
 		String contextPath = req.getContextPath();
 		String command = uri.substring((contextPath + "/category/").length());
 
+		HttpSession session = req.getSession();
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		
 		
 		String path = null;
 		RequestDispatcher dispatcher = null;

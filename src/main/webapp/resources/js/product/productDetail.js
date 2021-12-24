@@ -65,23 +65,70 @@ function showPrice() {
 //원래는 보안을 위해서 post 방식으로 진행하는게 맞지만, 데이터 흐름 보려고, 그리고 시간이 없어서 get방식으로 진행함
 //자바스크립트 세션 받아오기 : jsp파일에서 script 태그 안에 js로 변수명 만들어주고 그 이후에 자스 파일을 실행한다.
 
+/****  세션이 관계가 있나? 왜 세션이 관계가 있다고 판단했지?
+
+제품번호 수량 이 두개를 가지고 서버로 이동한다.에이젝스는 post방식으로 처리를 다 한 후에 이동한다?
+
+
+buyNow는? 주문번호를 받아오고 insert하고 그 목록만 가지고 와서 같은 parameter명: orderList 등으로 집어넣고 그 JSP 파일로 가면 될꺼다?
+
+
+*/
 function addCart() {
 
     console.log("addCart");
 
     const productNo = document.getElementById('n-proNumber').value;
+    //제품번호 받아오기
+
+    const amount = document.getElementById('inputAmount').value;
+
+    $.ajax({
+
+        url: "/teamSemiProject2/product/addCart",
+        method: "POST",
+        data: {
+            productNo: productNo,
+            amount: amount,
+        },
+
+        success: function(result) {
+
+            if (result == 1) {
+
+                const moveToCart = confirm('상품이 장바구니에 담겼습니다. 이동하시겠습니까?');
+
+                if (moveToCart) {
+                    location.href = '/teamSemiProject2/order/view';
+                }
+
+            }
 
 
 
+        },
+
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("ajax 통신-장바구니담기 중 오류 발생");
+            console.log(jqXHR.responseText);
+        }
+
+
+
+    });
 
 }
 
 
 function buyNow() {
 
-    console.log("buyNow");
-
     const productNo = document.getElementById('n-proNumber').value;
+    //제품번호 받아오기
+
+    const amount = document.getElementById('inputAmount').value;
+
+    location.href = '/teamSemiProject2/product/buyNow?productNo=' + productNo + '&amount=' + amount;
+
 
 
 

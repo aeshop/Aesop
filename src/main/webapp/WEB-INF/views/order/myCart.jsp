@@ -9,7 +9,7 @@
 
 
 
-<jsp:include page="../common/header_n.jsp"></jsp:include>
+<jsp:include page="../common/r_header.jsp" />
 
 <jsp:include page="../common/sidebar_n.jsp"></jsp:include>
 
@@ -164,5 +164,5 @@
 </div>
 
 
-<jsp:include page="../common/footer_n.jsp"></jsp:include>
+<jsp:include page="../common/r_footer.jsp" />
 <script type="text/javascript" src="${contextPath}/resources/js/order/myCart.js"></script>

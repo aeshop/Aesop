@@ -4,7 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 	<!-- header include -->
-	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<%-- 	<jsp:include page="${contextPath}/WEB-INF/views/common/header.jsp"/>
+ --%>	
+<jsp:include page="../common/r_header.jsp" />
 	
 	<!-- 메인 화면 이미지 -->
 	<!-------------------------------------------------- 낙희 --------------------------------->
@@ -98,10 +100,10 @@
               
               <c:choose>
               	<c:when test="${product.stock != 0}">
-              	<a href="#none" id="cartBtn">
+              	<a href="" id="cartBtn" onclick='addCart()'>
                     <p>장바구니 담기</p>
                 </a>
-                <a href="#none" id="purchaseBtn">
+                <a href="" id="purchaseBtn" onclick='buyNow()'>
                     <p>바로 구매</p>
                 </a>
               	</c:when>
@@ -140,8 +142,13 @@
 		
 		
 	<!-- footer include -->
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-
+<%-- 	<jsp:include page="${contextPath}/WEB-INF/views/common/footer.jsp"/>
+ --%>
+  
+  
+<jsp:include page="../common/r_footer.jsp"/>
+  
+  
 		<!--  js 파일에서 사용을위한 script-->
 		
 		<script>
