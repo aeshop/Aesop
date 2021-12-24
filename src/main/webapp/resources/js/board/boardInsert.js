@@ -13,3 +13,42 @@
 
     $("#reviewImg").msDropDown();
 
+(function() {
+	// 오늘 날짜 출력 
+	var today = new Date();
+	var month = (today.getMonth() + 1);
+	var date = today.getDate();
+
+	var str = today.getFullYear() + "-"
+			+ (month < 10 ? "0" + month : month) + "-"
+			+ (date < 10 ? "0" + date : date);
+	$("#today").html(str);
+})();
+	function boardValidate() {
+		if ($("#boardTitle").val().trim().length == 0) {
+			alert("제목을 입력해 주세요.");
+			$("#title").focus();
+			return false;
+		}
+
+		if ($("#boardContent").val().trim().length == 0) {
+			alert("내용을 입력해 주세요.");
+			$("#content").focus();
+			return false;
+		}
+	}
+	$(function(){
+		$("#reviewImg_msdd").css('width','500px');
+	});
+	document.getElementById("categoryCode").addEventListener("change",function(){
+
+		$("#reviewImg_msdd").css('width','500px');
+		if(this.value != "801"){
+			document.getElementById("reviewImg").style.visibility ="hidden";
+			$(".dd *,reviewImg_msdd *,reviewImg_msddHolder *,#reviewImg_title *,#reviewImg *").css('border-color','white').css('visibility', 'hidden');
+		}
+		else {			
+			document.getElementById("reviewImg").style.visibility = "visible";
+			$(".dd *, reviewImg_msdd *, reviewImg_msddHolder *,#reviewImg_title *,#reviewImg *").css('border-color','#adb5bd').css('visibility', 'visible');
+		}
+	});

@@ -63,7 +63,39 @@ public class BoardDAO {
 	}
 
 
+	// 검색 조건을 만족하는 전체 게시글 수 조회
+	public int getListCount(Connection conn, int code, String condition, String search) throws Exception{
+		
+		int listCount = 0;
+		
+		try {
 
+			String sql = prop.getProperty("getListCount") + condition;
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, code);
+			pstmt.setString(2, search);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+
+
+	
+	
 	public List<Board> selectBoardList(Pagination pagination, Connection conn, int code) throws Exception{
 		List<Board> boardList = new ArrayList<Board>(); 
 		
@@ -270,29 +302,31 @@ public class BoardDAO {
 
 
 
-	public List<Board> searchBoardList(String searchKey, String search, Connection conn) throws Exception{
+	public List<Board> selectSearchList(Pagination pagination,Connection conn, int code,String condition,String search) throws Exception{
 		
 		List<Board> board = new ArrayList<Board>();
 		
 		try {
-			String sql = prop.getProperty("searchBoardList");
+			String sql = prop.getProperty("searchBoardList") + condition + " ORDER BY BOARD_NO DESC) A)";
+			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, searchKey);
+			pstmt.setInt(1, code);
 			pstmt.setString(2, search);
 			rs = pstmt.executeQuery();
 			
+			System.out.println(sql);
 			
+			int count = pagination.getListCount() -(pagination.getCurrentPage()-1) * pagination.getLimit();  
 			while(rs.next()) {
 				Board board2 = new Board();
-			
+				board2.setViewNo(count--);
 				board2.setBoardNo(rs.getInt("BOARD_NO"));
 				board2.setBoardTitle(rs.getString("BOARD_TITLE"));
 				board2.setMemberName(rs.getString("MEMBER_NAME"));
 				board2.setReadCount(rs.getInt("READ_COUNT"));
 				board2.setCategoryName(rs.getString("CATEGORY_NM"));
-				board2.setBoardStatusName(rs.getString("BD_STATUS_NM"));
+				board2.setBoardStatusCode(rs.getInt("BD_STATUS_CD"));
 				board2.setCreateDate(rs.getString("CREATE_DT"));
-				
 				// 리스트에 담기
 				board.add(board2);
 			}

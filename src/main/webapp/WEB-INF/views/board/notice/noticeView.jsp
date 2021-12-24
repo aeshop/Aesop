@@ -70,6 +70,7 @@
 				</table>
 			</div>
 
+			<a href="list?c=${param.c}&cp=${param.cp }" class="tSBKF">목록으로</a>
 			<div
 				class="xans-element- xans-board xans-board-commentpackage-1002 xans-board-commentpackage xans-board-1002 ">
 
@@ -82,7 +83,6 @@
 				</div>
 			</div>
 
-			<a href="list?c=${param.c}&cp=${param.cp }" class="btn btn-default">목록으로</a>
 		</form>
 		<form action="#" method="POST" name="requestForm">
 			<input type="hidden" name="cp" value="${param.cp }"> <input

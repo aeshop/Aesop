@@ -104,12 +104,13 @@
 							<select id="search_key" name="search_key" class="tSBKF">
 								<option value="board_title">제목</option>
 								<option value="board_content">내용</option>
-								<option value="">글쓴이</option>
+								<option value="member_name">글쓴이</option>
 							</select> <input id="button" name="search" class="inputTypeText tSBKF" placeholder=""
 								value="" type="text">
 							<button class="tSBKF">찾기</button>
 
 						</fieldset>
+						<input type="hidden" name="c" value="${param.c}">
 					</form>
 					<%-- 로그인이 되어있는 경우에만 글쓰기 버튼 노출 --%>
 						<c:if test="${!empty loginMember }">
@@ -124,14 +125,22 @@
 
 			<%---------------------- Pagination ----------------------%>
 
+			<!-- search_key=board_content&search=쿼리&c=801 -->
+
+				<c:if test="${!empty param.search}">
+					<c:set var="searchParam">
+						&search_key=${param.search_key}&search=${param.search}
+					</c:set>
+				</c:if>
+					
 
 				<div class="my-5">
 					<ul class="pagination">
 
 
 						<c:if test="${pagination.startPage != 1 }">
-							<li><a class="page-link" href="list?cp=1">&lt;&lt;</a></li>
-							<li><a class="page-link" href="list?cp=${pagination.prevPage}">&lt;</a></li>
+							<li><a class="page-link" href="list?c=${param.c}&cp=1${searchParam}">&lt;&lt;</a></li>
+							<li><a class="page-link" href="list?c=${param.c}&cp=${pagination.prevPage}${searchParam}">&lt;</a></li>
 						</c:if>
 
 						<%-- 페이지네이션 번호 목록 --%>
@@ -143,14 +152,14 @@
 									</c:when>
 
 									<c:otherwise>
-										<li><a class="page-link" href="list?cp=${i}">${i}</a></li>
+										<li><a class="page-link" href="list?c=${param.c}&cp=${i}${searchParam}">${i}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
 
 							<c:if test="${pagination.endPage != pagination.maxPage }">
-								<li><a class="page-link" href="list?cp=${pagination.nextPage}">&gt;</a></li>
-								<li><a class="page-link" href="list?cp=${pagination.maxPage }">&gt;&gt;</a></li>
+								<li><a class="page-link" href="list?c=${param.c}&cp=${pagination.nextPage}${searchParam}">&gt;</a></li>
+								<li><a class="page-link" href="list?c=${param.c}&cp=${pagination.maxPage }${searchParam}">&gt;&gt;</a></li>
 							</c:if>
 					</ul>
 				</div>

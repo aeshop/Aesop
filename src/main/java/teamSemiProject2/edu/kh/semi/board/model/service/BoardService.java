@@ -30,6 +30,32 @@ public class BoardService {
 		// 페이징 처리 관련 값 생성
 		return new Pagination(listCount, cp);
 	}
+	
+	// 검색 페이지네이션
+	public Pagination getPagination(int cp, int code, String searchKey, String search) throws Exception{
+		Connection conn = getConnection();
+		
+		String condition = null;
+		
+		switch(searchKey) {
+		case "board_title":
+			condition = " AND BOARD_TITLE LIKE '%' || ? || '%'"; break;
+		case "board_content":
+			condition = " AND BOARD_CONTENT LIKE '%' || ? || '%'"; break;
+		case "member_name":
+			condition = " AND MEMBER_NAME LIKE '%' || ? || '%'"; break;
+		}
+
+		// 검색 조건을 만족하는 전체 게시글 수 조회 DAO 호출
+		int listCount = dao.getListCount(conn,code, condition, search );
+
+		close(conn);
+
+		// 검색 조건을 만족하는 전체 게시글 수 + 현패 페이지를 이용하여
+		// 페이징 처리 관련 값 생성
+		return new Pagination(listCount, cp);
+	}
+	
 
 	// 게시글 목록 조회
 	public List<Board> selectBoardList(Pagination pagination, int code) throws Exception {
@@ -40,6 +66,31 @@ public class BoardService {
 		close(conn);
 		return boardList;
 	}
+	
+	
+	// 검색 게시글 목록 조회
+	public List<Board> selectSearchList(Pagination pagination, int code, String searchKey, String search) throws Exception {
+
+		Connection conn = getConnection();
+		String condition = null;
+		
+		switch(searchKey) {
+		case "board_title":
+			condition = " AND BOARD_TITLE LIKE '%' || ? || '%'"; break;
+		case "board_content":
+			condition = " AND BOARD_CONTENT LIKE '%' || ? || '%'"; break;
+		case "member_name":
+			condition = " AND MEMBER_NAME LIKE '%' || ? || '%'"; break;
+		}
+		
+		List<Board> boardList = dao.selectSearchList(pagination, conn,code, condition, search);
+
+		close(conn);
+		return boardList;
+	}
+
+	
+	
 
 	public Board selectBoard(int boardNo, int memberNo) throws Exception {
 
@@ -112,13 +163,19 @@ public class BoardService {
 		return product;
 	}
 
-	public List<Board> searchBoardList(String searchKey, String search) throws Exception{
-		
-		Connection conn = getConnection();
-		List<Board> board = dao.searchBoardList(searchKey,search,conn);
-		close(conn);
-		
-		return board;
-	}
+//	public List<Board> searchBoardList(String searchKey, String search) throws Exception{
+//		
+//		Connection conn = getConnection();
+//		List<Board> board = dao.searchBoardList(searchKey,search,conn);
+//		close(conn);
+//		
+//		return board;
+//	}
+
+
+
+
+
+
 
 }

@@ -32,14 +32,14 @@ function selectReplyList() {
         if (reply.memberNo == loginMemberNo) {
           const replyBtnArea = $('<div class="replyBtnArea">');
           const showUpdate = $("<button>")
-            .addClass("btn btn-primary btn-sm ml-1")
+            .addClass("tSBKF")
             .text("수정");
           showUpdate.attr(
             "onclick",
             "showUpdateReply(" + reply.replyNo + ", this)"
           );
           const deleteReply = $("<button>")
-            .addClass("btn btn-primary btn-sm ml-1")
+            .addClass("tSBKF")
             .text("삭제");
           deleteReply.attr("onclick", "deleteReply(" + reply.replyNo + ")");
 
@@ -138,10 +138,10 @@ function showUpdateReply(replyNo, el) {
 
 
     // 수정 버튼
-    const updateReply = $("<button>").addClass("btn btn-primary btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
+    const updateReply = $("<button>").addClass("tSBKF").text("댓글 수정").attr("onclick", "updateReply(" + replyNo + ", this)");
 
     // 취소 버튼
-    const cancelBtn = $("<button>").addClass("btn btn-primary btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
+    const cancelBtn = $("<button>").addClass("tSBKF").text("취소").attr("onclick", "updateCancel(this)");
 
     const replyBtnArea = $(el).parent();
 

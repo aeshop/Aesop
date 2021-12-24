@@ -5,9 +5,12 @@
 
 	<entry key="getListCount">
 		SELECT COUNT(*) FROM BOARD
+		NATURAL JOIN member
 		WHERE BD_STATUS_CD != 702
 		AND CATEGORY_CD = ?
 	</entry>
+	
+	
 	<entry key="selectBoardList">
 		SELECT * FROM
 		(SELECT ROWNUM RNUM, A.*
@@ -72,8 +75,8 @@
         SELECT * FROM
 		(SELECT ROWNUM RNUM, A.*
 		FROM (select
-		* from board
-		join member using(member_no) WHERE ? like '%' || ? || '%' ORDER BY
-		BOARD_NO DESC) A)
+		* from board NATURAL JOIN BOARD_CATEGORY
+		join member using(member_no) 
+		WHERE CATEGORY_CD = ?  
 	</entry>
 </properties>

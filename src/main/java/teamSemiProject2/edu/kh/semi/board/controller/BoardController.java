@@ -43,24 +43,37 @@ public class BoardController extends HttpServlet {
 			BoardService service = new BoardService();
 
 			int cp = req.getParameter("cp") == null ? 1 : Integer.parseInt(req.getParameter("cp"));
-			
 			if (command.equals("list")) {
+				Pagination pagination =null;
 				List<Board> boardList = null;
-				if(req.getParameter("c") == null) {
+				
+				int code = Integer.parseInt(req.getParameter("c"));
+				if(req.getParameter("search") != null) {
 					String searchKey = req.getParameter("search_key");
 					String search = req.getParameter("search");
-					boardList = service.searchBoardList(searchKey,search);
+					
+					pagination =  service.getPagination(cp,code,searchKey,search);
+					
+					boardList = service.selectSearchList(pagination,code,searchKey,search);
+					//boardList = service.searchBoardList(searchKey,search);
 					
 				}else {
 					
-					int code = Integer.parseInt(req.getParameter("c"));
-					Pagination pagination = service.getPagination(cp,code);
 					
-					 boardList = service.selectBoardList(pagination,code);
+					pagination = service.getPagination(cp,code);
 					
-					req.setAttribute("gubun", boardList.get(0).getCategoryName());
-					req.setAttribute("pagination", pagination);
+					boardList = service.selectBoardList(pagination,code);
 				}
+				String gubun = null;
+				switch(code) {
+				case 801 : gubun = "리뷰"; break;
+				case 802 : gubun = "Q&A"; break; 
+				case 803 : gubun = "공지사항"; break;
+				}
+				
+				
+				req.setAttribute("gubun", gubun);
+				req.setAttribute("pagination", pagination);
 				
 				req.setAttribute("boardList", boardList);
 				path = "/WEB-INF/views/board/notice/noticeList.jsp";
@@ -96,6 +109,8 @@ public class BoardController extends HttpServlet {
 			}
 			
 			else if (command.equals("insert")) {
+			
+				
 				if(method.equals("GET")) {
 					List<Category> category = service.selectCategory();
 					
@@ -109,6 +124,7 @@ public class BoardController extends HttpServlet {
 					dispatcher.forward(req, resp);
 				}
 				else {
+					
 					HttpSession session = req.getSession();
 					String boardTitle = req.getParameter("boardTitle");
 					
@@ -116,10 +132,7 @@ public class BoardController extends HttpServlet {
 					String boardContent = req.getParameter("boardContent");
 					
 					int categoryCode = Integer.parseInt(req.getParameter("categoryCode"));
-					
-					
 					int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
-					
 					Board board = new Board();
 					board.setBoardTitle(boardTitle);
 					board.setBoardContent(boardContent);
@@ -127,15 +140,15 @@ public class BoardController extends HttpServlet {
 					board.setMemberNo(memberNo);
 					
 					int result = service.insertBoard(board);
-					
 					if(result >0) {
 						message = "게시글이 등록 되었습니다.";
-						path = "view?no="+result+"&cp=1";
+						path = "view?no="+result+"&cp=1&c="+req.getParameter("c");
 					}
 					else {
 						message = "게시글 등록중 문제가 발생했습니다.";
 						path = "insert";
 					}
+					
 					session.setAttribute("message", message);
 					resp.sendRedirect(path);
 				}

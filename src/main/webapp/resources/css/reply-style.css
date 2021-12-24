@@ -20,3 +20,44 @@
 	border-top : 1px solid #ccc;
 	padding : 15px 0;
 }
+
+.tSBKF {
+	-webkit-box-align: center;
+	align-items: center;
+	border: 0px;
+	border-radius: 12px;
+	box-shadow: rgb(14 14 44/ 40%) 0px -1px 0px 0px inset;
+	cursor: pointer;
+	display: inline-flex;
+	font-family: inherit;
+	font-size: 12px;
+	font-weight: 400;
+	-webkit-box-pack: center;
+	justify-content: center;
+	letter-spacing: 0.03em;
+	line-height: 1;
+	opacity: 1;
+	outline: 0px;
+	transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+	height: 24px;
+	padding: 0px 12px;
+	background-color: rgb(39, 38, 44);
+	color: #D8D9D3;
+}
+
+button:hover, [type=button]:hover {
+	transform: translate3d(0, 2px, 0);
+	box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.3);
+}
+
+button:focus, [type=button]:focus {
+	border-color: #41403e;
+	border-style: solid;
+	border-width: 2px;
+	box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3);
+}
+
+button:active, [type=button]:active {
+	border-color: rgba(0, 0, 0, 0.2);
+	transition: none;
+}
