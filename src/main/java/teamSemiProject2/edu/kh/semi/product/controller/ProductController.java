@@ -55,7 +55,6 @@ public class ProductController extends HttpServlet {
 		
 		Member loginMember = (Member) session.getAttribute("loginMember"); 
 		
-		int	loginMemberNo = loginMember.getMemberNo();
 		
 		try {
 
@@ -87,6 +86,7 @@ public class ProductController extends HttpServlet {
 					
 					int productNo = Integer.parseInt(req.getParameter("productNo"));
 					int amount = Integer.parseInt(req.getParameter("amount"));
+					int	loginMemberNo = loginMember.getMemberNo();
 					
 					 int result = service.addCart(productNo,amount,loginMemberNo);
 
@@ -113,7 +113,7 @@ public class ProductController extends HttpServlet {
 					
 					
 					
-					//결제 페이지에 정보를 보냄
+					//결제 페이지에 요청을 위임 보냄
 					path="/WEB-INF/views/order/payment.jsp";
 					
 					dispatcher = req.getRequestDispatcher(path);
@@ -219,6 +219,7 @@ public class ProductController extends HttpServlet {
 					
 					int productNo = Integer.parseInt(req.getParameter("productNo"));
 					int amount = Integer.parseInt(req.getParameter("amount"));
+					int	loginMemberNo = loginMember.getMemberNo();
 					
 				 int result = service.addCart(productNo,amount,loginMemberNo);
 					

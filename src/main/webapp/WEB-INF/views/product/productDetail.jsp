@@ -100,10 +100,10 @@
               
               <c:choose>
               	<c:when test="${product.stock != 0}">
-              	<a href="" id="cartBtn" onclick='addCart()'>
+              	<a id="cartBtn" onclick='addCart()'>
                     <p>장바구니 담기</p>
                 </a>
-                <a href="" id="purchaseBtn" onclick='buyNow()'>
+                <a id="purchaseBtn" onclick='buyNow()'>
                     <p>바로 구매</p>
                 </a>
               	</c:when>
