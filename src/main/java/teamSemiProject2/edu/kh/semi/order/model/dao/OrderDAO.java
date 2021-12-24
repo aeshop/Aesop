@@ -80,7 +80,9 @@ public class OrderDAO {
 		return oList;
 	}
 
-	/**수량 변경 데이터베이스에 반영
+	/**
+	 * 수량 변경 데이터베이스에 반영
+	 * 
 	 * @param orderAmount
 	 * @param orderNo
 	 * @param loginMemberNo
@@ -112,7 +114,9 @@ public class OrderDAO {
 		return result;
 	}
 
-	/**선택된 장바구니 레코드 지우기
+	/**
+	 * 선택된 장바구니 레코드 지우기
+	 * 
 	 * @param orderNo
 	 * @param loginMemberNo
 	 * @param conn
@@ -142,7 +146,9 @@ public class OrderDAO {
 		return result;
 	}
 
-	/**기본 주소 받아오기
+	/**
+	 * 기본 주소 받아오기
+	 * 
 	 * @param loginMemberNo
 	 * @param conn
 	 * @return
@@ -180,8 +186,6 @@ public class OrderDAO {
 		return addr;
 	}
 
-
-
 	/**
 	 * 오늘 쌓인 배송 레코드 count를 받아오는 메소드
 	 * 
@@ -212,10 +216,12 @@ public class OrderDAO {
 		return result;
 	}
 
-	/** 배송번호가 있는지 조회위해 체크
+	/**
+	 * 배송번호가 있는지 조회위해 체크
+	 * 
 	 * @param deliNum
 	 * @param conn
-	 * @return  중복됬을때 트루반환 없으면 펄스반환
+	 * @return 중복됬을때 트루반환 없으면 펄스반환
 	 * @throws Exception
 	 */
 	public boolean deliNoDupCheck(String deliveryNo, Connection conn) throws Exception {
@@ -242,13 +248,15 @@ public class OrderDAO {
 		return false;
 	}
 
-	/** 중복되지 않을 때 새로운 배송 레코드를 삽입하는 메소드
+	/**
+	 * 중복되지 않을 때 새로운 배송 레코드를 삽입하는 메소드
+	 * 
 	 * @param deliNum
 	 * @param conn
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertDeliNo(String deliveryNo, long totalPrice, int loginMemberNo,Connection conn) throws Exception {
+	public int insertDeliNo(String deliveryNo, long totalPrice, int loginMemberNo, Connection conn) throws Exception {
 
 		int result = 0;
 
@@ -278,7 +286,7 @@ public class OrderDAO {
 		int result = 0;
 
 		try {
-			
+
 			String sql = prop.getProperty("downStock");
 			pstmt = conn.prepareStatement(sql);
 
@@ -288,13 +296,11 @@ public class OrderDAO {
 			pstmt.setInt(4, loginMemberNo);
 
 			result = pstmt.executeUpdate();
-			
+
 		} finally {
 			close(pstmt);
 		}
-		
-		
-		
+
 		return 1;
 	}
 
@@ -302,27 +308,24 @@ public class OrderDAO {
 		long result = 0;
 
 		try {
-			
+
 			String sql = prop.getProperty("getTotalPrice");
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, orderNo);
 			pstmt.setInt(2, loginMemberNo);
-			
+
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				result = rs.getLong(1);
 			}
 
-			
 		} finally {
 			close(rs);
 			close(pstmt);
 		}
-		
-		
-		
+
 		return result;
 	}
 
@@ -330,14 +333,14 @@ public class OrderDAO {
 
 		Delivery result = null;
 		try {
-			
+
 			String sql = prop.getProperty("getDelivery");
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, merchantUid);
 			pstmt.setInt(2, loginMemberNo);
-			
+
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				Delivery tmp = new Delivery();
 				tmp.setDeliveryNo(rs.getString("DELIVERY_NO"));
 				tmp.setMemberNo(rs.getInt("MEMBER_NO"));
@@ -353,75 +356,68 @@ public class OrderDAO {
 
 				result = tmp;
 			}
-			
+
 		} finally {
 
 			close(rs);
 			close(pstmt);
-		
+
 		}
-		
-		
+
 		return result;
 	}
 
 	public Member getMember(int loginMemberNo, Connection conn) throws Exception {
-		Member result = null; 
+		Member result = null;
 		try {
-			
+
 			String sql = prop.getProperty("getMember");
-			
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, loginMemberNo);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				result= new Member();
+			if (rs.next()) {
+				result = new Member();
 				result.setMemberGradeDiscount(rs.getDouble("MEMBER_GRADE_DISCOUNT"));
 			}
-			
-			
+
 		} finally {
 
 			close(rs);
 			close(pstmt);
 		}
-		
+
 		return result;
 	}
 
-	/**배송정보 update로 완성시키는 메소드
+	/**
+	 * 배송정보 update로 완성시키는 메소드
+	 * 
 	 * @param del
 	 * @param merchantUid
 	 * @param conn
 	 * @return
 	 */
 	public int completeDelivery(Delivery del, String merchantUid, Connection conn) throws Exception {
-		
-		int result =0;
+
+		int result = 0;
 		try {
-			
+
 			String sql = prop.getProperty("completeDelivery");
-			
+
 			/*
 			 * 
-			 * 	update delivery
-		set 
-		ZIP_CODE = ?,
-		ADDRESS1 = ?,
-		ADDRESS2 = ?,
-		RECEIVER_NAME=?,
-		DELIVERY_STATUS_CD = ?,
-		DELIVERY_MESSAGE=?
-		where delivery_no = ?
+			 * update delivery set ZIP_CODE = ?, ADDRESS1 = ?, ADDRESS2 = ?,
+			 * RECEIVER_NAME=?, DELIVERY_STATUS_CD = ?, DELIVERY_MESSAGE=? where delivery_no
+			 * = ?
 			 * 
 			 * 
 			 * 
 			 * 
-			 * */
-			
-			
+			 */
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, del.getZipCode());
 			pstmt.setString(2, del.getAddress1());
 			pstmt.setString(3, del.getAddress2());
@@ -431,51 +427,81 @@ public class OrderDAO {
 			pstmt.setInt(6, del.getDeliveryStatusCode());
 			pstmt.setString(7, del.getDeliveryMessage());
 			pstmt.setString(8, merchantUid);
-			
+
 			result = pstmt.executeUpdate();
-			
-			
+
 		} finally {
 			close(pstmt);
 
 		}
 
-		
-		
 		return result;
 	}
 
-	/**주문정보 update로 완성시키는 메소드
+	/**
+	 * 주문정보 update로 완성시키는 메소드
+	 * 
 	 * @param merchantUid
 	 * @param orderNoIntArr
 	 * @param conn
 	 * @return
 	 */
-	public int completeOrder(String merchantUid, int orderNo, Connection conn) throws Exception{
-		
-		int result =0;
-		
+	public int completeOrder(String merchantUid, int orderNo, Connection conn) throws Exception {
+
+		int result = 0;
+
 		try {
-			
+
 			String sql = prop.getProperty("completeOrder");
 
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, merchantUid);
 			pstmt.setInt(2, orderNo);
-			
+
 			result = pstmt.executeUpdate();
-			
+
 		} finally {
 			close(pstmt);
 
-
 		}
 
-		
-		
 		return result;
 	}
 
+	public List<Address> getAddress(int loginMemberNo, Connection conn) throws Exception {
+
+		List<Address> resultList = new ArrayList<Address>();
+
+		try {
+
+			String sql = prop.getProperty("getAddress");
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginMemberNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Address tmp = new Address();
+				tmp.setAddressNo(rs.getInt("ADDRESS_NO"));
+				tmp.setAddressName(rs.getString("ADDRESS_NM"));
+				tmp.setZipCode(rs.getString("ZIP_CODE"));
+				tmp.setAddress1(rs.getString("ADDRESS1"));
+				tmp.setAddress2(rs.getString("ADDRESS2"));
+				tmp.setIsDefault(rs.getString("DEFAULT_ADDRESS"));
+				tmp.setAddrPhone(rs.getString("ADDRESS_PHONE"));
+				tmp.setReceiverName(rs.getString("ADDR_RECEIVER_NM"));
+				resultList.add(tmp);
+			}
+
+		} finally {
+
+			close(rs);
+			close(pstmt);
+		}
+
+		return resultList;
+	}
 
 }

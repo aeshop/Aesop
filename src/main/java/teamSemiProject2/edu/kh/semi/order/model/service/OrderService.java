@@ -349,4 +349,23 @@ public class OrderService {
 		return result;
 	}
 
+	/** 생각해보니 이걸 먼저 진행할 껄 그랬음, 기본배송지도 Y가 N보다 후순위라는걸 고려하면 얼마든지 구할수 있었는데....
+	 * @param loginMemberNo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Address> getAddress(int loginMemberNo) throws Exception {
+
+		List<Address> result = null;
+		
+		conn=getConnection();
+		
+		
+		result = dao.getAddress(loginMemberNo,conn);
+		
+		
+		close(conn);
+		return result;
+	}
+
 }

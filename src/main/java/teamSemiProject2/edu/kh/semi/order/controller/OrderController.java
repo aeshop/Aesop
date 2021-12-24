@@ -164,6 +164,18 @@ public class OrderController extends HttpServlet {
 					path="/WEB-INF/views/order/payment.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
+				} else if (command.equals("addrPop")) {
+					
+					List<Address> addrList = service.getAddress(loginMemberNo);
+					
+					req.setAttribute("addrList", addrList);
+					
+					path="/WEB-INF/views/order/addrPopUp.jsp";
+					
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
+					
+					
 				}
 
 			} else {// post방식 처리

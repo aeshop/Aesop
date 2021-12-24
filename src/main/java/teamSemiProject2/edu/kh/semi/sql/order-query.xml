@@ -86,13 +86,11 @@
 		where ORDER_NO = ?
 	</entry>
 
-	<entry key="getOrderItem1">
-		select
-		o.order_no,p.product_no,p.product_nm,p.product_price,p.product_discount,o.product_amount
-		from p_order o
-		join p_product p
-		on(o.product_no = p.product_no)
-		where o.order_no = ?
+	<entry key="getAddress">
+		select * 
+		from address 
+		where member_no = ?
+		order by default_address desc
 	</entry>
 	<entry key="getOrderItem2">
 		OR o.order_no = ?

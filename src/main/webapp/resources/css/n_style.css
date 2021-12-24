@@ -481,3 +481,72 @@ footer {
 #n-discount-table td:nth-of-type(1) {
     width: 150px;
 }
+
+
+/* 배송지 팝업창 */
+
+#addr-popup-container {
+    width: 770px;
+}
+
+#addr-popup-title {
+    color: #fff;
+    background-color: rgb(68, 68, 68);
+    padding: 15px;
+    font-weight: bold;
+}
+
+#addr-caution-container {
+    width: 770px;
+    margin: 0 auto;
+    margin-top: 30px;
+    border: 1px solid black;
+    font-size: 0.8em;
+}
+
+#caution-title {
+    background-color: rgb(236, 236, 236);
+    padding: 10px;
+    font-weight: bold;
+}
+
+#caution-content {
+    padding: 10px 15px;
+    line-height: 9px;
+}
+
+#caution-content p {
+    color: rgb(126, 126, 126);
+}
+
+#addr-list {
+    margin-top: 15px;
+}
+
+#addr-list table {
+    border: solid 1px black;
+    width: 770px;
+    margin: 0 auto;
+}
+
+#addr-list table th {
+    background-color: rgb(236, 236, 236);
+    border: solid 1px rgb(236, 236, 236);
+    border-bottom: solid 1px black;
+}
+
+#addr-list th {
+    font-weight: normal;
+}
+
+#addr-manage {
+    margin-top: 10px;
+    border-top: 1px solid black;
+    background-color: rgb(236, 236, 236);
+    padding: 15px;
+    text-align: center;
+}
+
+.addressName {
+    font-size: 0.7em;
+}

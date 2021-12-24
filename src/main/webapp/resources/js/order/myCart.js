@@ -263,6 +263,11 @@ function orderSelectedProduct() {
             orderQueryString += ("&orderNo=" + orderCheckBox[i].value);
         }
     }
+    if (orderQueryString === "") {
+        alert("선택된 상품이 없습니다.");
+        return;
+    }
+
     location.href = '/teamSemiProject2/order/orderAll?' + orderQueryString;
 
 }

@@ -34,8 +34,8 @@
         <form id="n-order-frm" action="">
 
 
-
-
+<%-- <input type="hidden" id="logMemNo" value="${sessionScope.loginMember.memberNo}">
+ --%>
 
             <div id="n-membership-benefit-wrapper">
                 <div class="n-infomation">
@@ -219,7 +219,7 @@
                                 <label for="sameaddr1">새로운 배송지</label>
                           
 
-                                <span><img src="${contextPath}/resources/images/order/btn_address.gif" alt="주소록 버튼"></span>
+                                <span><img src="${contextPath}/resources/images/order/btn_address.gif" id="addrInfo" onclick="getAddrInfo()" alt="주소록 버튼"></span>
 
                             </td>
                         </tr>
@@ -314,7 +314,6 @@
 
 
 
-    <p>아임 서포트 결제 모듈 테스트 해보기</p>
     <div><img src="${contextPath}/resources/images/order/btn_place_order.gif" id="check_module"></div>
 
 
