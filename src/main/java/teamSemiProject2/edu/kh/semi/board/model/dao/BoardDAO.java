@@ -314,7 +314,7 @@ public class BoardDAO {
 			pstmt.setString(2, search);
 			rs = pstmt.executeQuery();
 			
-			System.out.println(sql);
+			
 			
 			int count = pagination.getListCount() -(pagination.getCurrentPage()-1) * pagination.getLimit();  
 			while(rs.next()) {

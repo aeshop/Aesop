@@ -66,11 +66,11 @@
 						</tr>
 
 						<jsp:include page="../reply.jsp"></jsp:include>
+						
 					</tbody>
 				</table>
 			</div>
 
-			<a href="list?c=${param.c}&cp=${param.cp }" class="tSBKF">목록으로</a>
 			<div
 				class="xans-element- xans-board xans-board-commentpackage-1002 xans-board-commentpackage xans-board-1002 ">
 

@@ -43,6 +43,7 @@
 	padding: 0px 12px;
 	background-color: rgb(39, 38, 44);
 	color: #D8D9D3;
+	margin-right: 5px;
 }
 
 button:hover, [type=button]:hover {

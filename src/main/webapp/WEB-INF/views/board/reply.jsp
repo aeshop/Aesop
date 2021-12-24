@@ -24,16 +24,16 @@ let beforeReplyRow;
 </script>
 
 <script src="${contextPath}/resources/js/board/reply.js"></script>
-<div id="reply-area ">
+<div id="mcBorder">
 	<!-- 댓글 작성 부분 -->
-	<div class="replyWrite">
+	<div class="replyWrite" id="mcBorder">
 		<table align="center">
 			<tr>
-				<td id="replyContentArea">
-					<textArea rows="3" id="replyContent"></textArea>
+				<td id="mcBorder">
+					<textArea style="width:850px;"rows="5" id="replyContent"></textArea>
 				</td>
-				<td id="replyBtnArea">
-					<button class="btn btn-primary"  onclick="addReply()">
+				<td id="mcBorder">
+					<button class="tSBKF" style="width:100px; height:70px; font-size: 1.2rem;"  onclick="addReply()">
 						댓글<br>등록
 					</button>
 				</td>
@@ -57,14 +57,15 @@ let beforeReplyRow;
 					
 					<c:if test="${reply.memberNo == loginMember.memberNo}">
 						<div class="replyBtnArea">
-							<button class="btn btn-primary btn-sm ml-1" onclick="showUpdateReply(${reply.replyNo}, this)">수정</button>
-							<button class="btn btn-primary btn-sm ml-1" onclick="deleteReply(${reply.replyNo})">삭제</button>
+							<button class="tSBKF" onclick="showUpdateReply(${reply.replyNo}, this)">수정</button>
+							<button class="tSBKF" onclick="deleteReply(${reply.replyNo})">삭제</button>
 						</div>
 					</c:if>
 				</li>
 			</c:forEach>
 		</ul>
 	</div>
+	<a href="list?c=${param.c}&cp=${param.cp }" class="tSBKF" style="margin:10px; text-decoration:none">목록으로</a>
 </div>
 
 

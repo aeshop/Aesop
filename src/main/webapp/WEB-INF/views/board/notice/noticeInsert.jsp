@@ -12,7 +12,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <title>게시글 등록</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/boardInsert.css">
-
 </head>
 
 <body>
@@ -27,9 +26,9 @@
 
 			<%-- 카테고리 --%>
 			<div class="mb-2">
-				<label class="input-group-addon mr-3 insert-label">카테고리</label> 
+				<label class="input-group-addon mr-5 insert-label" style="padding-right: 30px;">카테고리:</label> 
 				<select
-					class="custom-select" id="categoryCode" name="categoryCode"
+					class="custom-select tSBKF" id="categoryCode" name="categoryCode"
 					style="width: 150px;">
 
 					<c:forEach items="${category}" var="c">
@@ -37,7 +36,7 @@
 					</c:forEach>
 
 				</select>
-				<select id="reviewImg">
+				<select id="reviewImg" class="tSBKF">
 					<c:forEach items="${product}" var="p">
 						<option value="${p.productNo}" title="${contextPath}${p.categoryName}">${p.productName}</option>
 						
@@ -45,20 +44,20 @@
 				</select>
 			</div>
 
-			<div class="form-inline mb-2">
-				<label class="input-group-addon mr-3 insert-label">제목</label> <input
+			<div class="form-inline mb-2" >
+				<label class="input-group-addon mr-3 insert-label" style="padding-bottom: 10px;">제목</label> <input
 					placeholder=" 제목을 입력해주세요." type="text" class="form-control"
 					id="boardTitle" name="boardTitle" size="70">
 			</div>
 
-			<div class="form-inline mb-2">
-				<label class="input-group-addon mr-3 insert-label">작성자</label>
+			<div class="form-inline mb-2" >
+				<label class="input-group-addon mr-3 insert-label" style="padding-bottom: 10px;">작성자</label>
 				<h5 class="my-0" id="writer">${loginMember.memberName }</h5>
 			</div>
 
 
 			<div class="form-inline mb-2">
-				<label class="input-group-addon mr-3 insert-label">작성일</label>
+				<label class="input-group-addon mr-3 insert-label" style="padding-bottom: 10px;">작성일</label>
 				<h5 class="my-0" id="today"></h5>
 			</div>
 
@@ -67,15 +66,15 @@
 
 			<div class="form-group">
 
-				<textarea rows="30" cols="120" placeholder=" 내용을 입력 해주세요 "
+				<textarea rows="20" cols="106" placeholder=" 내용을 입력 해주세요 "
 					name="boardContent"></textarea>
 			</div>
 			<input type="hidden" name="c" value="${param.c}">
 			
 
 			<div class="text-center">
-				<button type="submit" class="btn btn-primary">등록</button>
-				<button type="button" class="btn btn-primary" onclick="location.href='list?c=${param.c}'">목록으로</button>
+				<button type="submit" class="tSBKF">등록</button>
+				<button type="button" class="tSBKF" onclick="location.href='list?c=${param.c}'">목록으로</button>
 			</div>
 
 
