@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.rowset.JoinRowSet;
+
 import teamSemiProject2.edu.kh.semi.delivery.model.vo.Delivery;
 import teamSemiProject2.edu.kh.semi.member.model.dao.MemberDAO;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
@@ -171,8 +173,6 @@ public class OrderService {
 
 		Address defaultAddr = dao.getPrimaryAddress(loginMemberNo, conn);
 
-
-
 		// order ArrayList, defaultAddress를 맵에 담음
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -203,24 +203,24 @@ public class OrderService {
 			// 1. 주문 수량 조절: update - 실패시 예외 반환
 			downStock(orderNoArr, loginMemberNo, conn);
 
-			//2. 가격 계산 : select를 여러번 수행해서 값 계산 : 제품가격*(1-할인율)*주문수량 을 주문번호 길이만큼 반복
-			
-			long totalPrice = getTotalPrice(orderNoArr,loginMemberNo,conn);
-			
-			//3. 배송번호 생성 : 배송 번호를 만들고, 그게 중복레코드가 있는지를 체크한 다음에, 있으면 주문취소 없으면 레코드 삽입
+			// 2. 가격 계산 : select를 여러번 수행해서 값 계산 : 제품가격*(1-할인율)*주문수량 을 주문번호 길이만큼 반복
+
+			long totalPrice = getTotalPrice(orderNoArr, loginMemberNo, conn);
+
+			// 3. 배송번호 생성 : 배송 번호를 만들고, 그게 중복레코드가 있는지를 체크한 다음에, 있으면 주문취소 없으면 레코드 삽입
 
 			// 배송 번호는 날짜 - 배송카운트 +1 의 형태이다
 			// 3.1 배송카운트를 얻어옴
 			int todayDeliCount = dao.todayDeliCount(conn);
-			
+
 			SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 			Date time = new Date();
 			String dateString = sf.format(time);
 
 			// 3.2 나머지 자리는 0으로 채워진 6자리 배송카운트+1를 만듬
 			String deliveryNo = String.format("%s-%06d", dateString, todayDeliCount + 1);
-			
-			//3.3 혹시 삽입이 안되는 상황이 되는지 알기 위해 이미 같은 배송번호를 쓰는 레코드가 있는지 조회함
+
+			// 3.3 혹시 삽입이 안되는 상황이 되는지 알기 위해 이미 같은 배송번호를 쓰는 레코드가 있는지 조회함
 			boolean deliNoDupCheck = dao.deliNoDupCheck(deliveryNo, conn);
 			int insertCheck = 0;
 
@@ -229,7 +229,8 @@ public class OrderService {
 
 				if (insertCheck > 0) {
 					commit(conn);
-					// 수량 조절하고(update), 가격 계산하고, 배송코드 만들고, insert해서 가격을 포함한 새로운 레코드 만드는데까지 성공하면 commit;
+					// 수량 조절하고(update), 가격 계산하고, 배송코드 만들고, insert해서 가격을 포함한 새로운 레코드 만드는데까지 성공하면
+					// commit;
 				} else {
 					rollback(conn);
 				}
@@ -238,13 +239,12 @@ public class OrderService {
 				// 있으면 null 반환
 				return null;
 			}
-			
-			
+
 			resultMap = new HashMap<String, String>();
-			//총가격, 배송번호 반환
+			// 총가격, 배송번호 반환
 			resultMap.put("deliveryNo", deliveryNo);
-			resultMap.put("totalPrice", totalPrice+"");
-			
+			resultMap.put("totalPrice", totalPrice + "");
+
 		} finally {
 
 			close(conn);
@@ -255,18 +255,19 @@ public class OrderService {
 
 	private long getTotalPrice(String[] orderNoArr, int loginMemberNo, Connection conn) throws Exception {
 		long result = 0;
-		//가격 계산을 한다음 그 값을 가지고올지, 가지고 와서 가격 계산을 할지 
+		// 가격 계산을 한다음 그 값을 가지고올지, 가지고 와서 가격 계산을 할지
 		for (int i = 0; i < orderNoArr.length; i++) {
 			int orderNo = Integer.parseInt(orderNoArr[i]);
 
 			result += dao.getTotalPrice(orderNo, loginMemberNo, conn);
-			
+
 		}
-		
-		if(result<50000) result+=2500;
+
+		if (result < 50000)
+			result += 2500;
 //여기까지 하면 전체 상품의 계산은 완료되고 추가적으로 멤버의 할인율만큼 할인을 해줘야 한다
-	result*=	dao.getMember(loginMemberNo,conn).getMemberGradeDiscount();
-		
+		result *= dao.getMember(loginMemberNo, conn).getMemberGradeDiscount();
+
 		return result;
 	}
 
@@ -281,7 +282,9 @@ public class OrderService {
 
 	}
 
-	/** 배송번호 조회
+	/**
+	 * 배송번호 조회
+	 * 
 	 * @param merchantUid
 	 * @param loginMemberNo
 	 * @return
@@ -289,13 +292,56 @@ public class OrderService {
 	public Delivery getDelivery(String merchantUid, int loginMemberNo) throws Exception {
 
 		Delivery result = null;
-		
+
 		conn = getConnection();
+
+		result = dao.getDelivery(merchantUid, loginMemberNo, conn);
+
+		close(conn);
+
+		return result;
+	}
+
+	public int completeDelOrder(Delivery del, String merchantUid,int [] orderNoIntArr) throws Exception {
+		int result = 0;
+		conn = getConnection();
+
+		//배송 테이블에 배송 정보 최종 업데이트
+		result = dao.completeDelivery(del,merchantUid,conn);
 		
-		result = dao.getDelivery(merchantUid,loginMemberNo,conn);
+		if(result <0) {
+			rollback(conn); return 0;
+		}
+		//해당 배송과 연결될 주문 테이블들 업데이트
+		
+		result = completeOrder(merchantUid,orderNoIntArr,conn);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
 		
 		close(conn);
-		
+		return result;
+	}
+
+	private int completeOrder(String merchantUid, int[] orderNoIntArr,Connection conn) throws Exception {
+
+		int result = 0;
+		for(int i =0; i<orderNoIntArr.length;i++){
+			
+			result = dao.completeOrder(merchantUid,orderNoIntArr[i],conn);
+			
+			if(result >0) {
+				continue;
+			} else {
+				rollback(conn);
+				break;
+			}
+			
+		}
 		
 		return result;
 	}

@@ -40,6 +40,7 @@
             <div id="n-membership-benefit-wrapper">
                 <div class="n-infomation">
                     <div class="n-membership">혜택정보</div>
+                    <%-- --%>
                     <div class="n-membership"><span id="n-membership-id">${sessionScope.loginMember.memberName}</span>님은, [<span id="n-membership-rank">${sessionScope.loginMember.memberGradeName}</span>] 회원이십니다. <br>
                     구매금액의 <span id="n-membership-rate"><fmt:parseNumber value="${1-sessionScope.loginMember.memberGradeDiscount}" integerOnly="true"/></span>%을 할인 받으실 수 있습니다.</div>
 
@@ -51,7 +52,6 @@
             <div id="n-shipping-wrapper">
 
                 <div class="n-order-row">
-                <%--결제 페이지에 들어가는 즉시 controller는 DB와 연결해서 주문번호를 생성하고 받아옴 20211223-000123 이런 형태 --%>
                     <div>국내배송상품 주문내역</div>
                     <p><img src="${contextPath}/resources/images/order/btn_prev.gif" alt="이전페이지 버튼"></p>
 
@@ -139,12 +139,15 @@
 
                     <table class="n-order-table">
                         <tr>
+                        <%--주문자명:로그인 멤버 가져다 씀 --%>
                             <td>주문하시는 분<img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
                             <td>
                                 <div><input type="text" name="oName" size="10" value="${loginMember.memberName}" required></div>
                             </td>
                         </tr>
                         <tr>
+                                                <%--주문자 번호:로그인멤버 --%>
+                        
                             <td>휴대전화<img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
                             <td><select name="phone1" id="oPhone1" required>
                             <option value="010" selected>010</option>
@@ -165,6 +168,7 @@
 
 
 
+                                                <%--주문자 이메일: 가져다 씀 --%>
 
                             <td rowspan="3">이메일<img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
                             <td><input type="text" name="oEmail1" value='${fn:substringBefore(mEmail, "@")}'> @
@@ -222,18 +226,18 @@
                         <tr>
                             <td>받으시는 분<img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
                             <td>
-                                <input type="text" name="rName" size="10" value="${loginMember.memberName}">
+                                <input type="text" id="rName" name="rName" size="10" value="${loginMember.memberName}">
                             </td>
                         </tr>
                         <tr>
                             <td rowspan="3">주소<img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
-                            <td><input type="text" name="rZipcode" value="${defaultAddress.zipCode}"> <img src="${contextPath}/resources/images/order/btn_zipcode.gif" alt="우편번호 버튼이미지"></td>
+                            <td><input type="text" id="rZipcode" name="rZipcode" value="${defaultAddress.zipCode}"> <img src="${contextPath}/resources/images/order/btn_zipcode.gif" alt="우편번호 버튼이미지"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="rAddr1" size="70" maxlength="100" value="${defaultAddress.address1}"><span class="n-addr">기본주소</span></td>
+                            <td><input type="text" id="rAddr1" name="rAddr1" size="70" maxlength="100" value="${defaultAddress.address1}"><span class="n-addr">기본주소</span></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="rAddr2" size="70" maxlength="100"  value="${defaultAddress.address1}"><span class="n-addr"></span>나머지주소(선택입력가능) <span style="color:red;">상세주소(동/호수)를 꼭 기입 바랍니다</span></span>
+                            <td><input type="text" id="rAddr2" name="rAddr2" size="70" maxlength="100"  value="${defaultAddress.address2}"><span class="n-addr"></span>나머지주소(선택입력가능) <span style="color:red;">상세주소(동/호수)를 꼭 기입 바랍니다</span></span>
                             </td>
 
                         </tr>
@@ -248,15 +252,15 @@
                           <option value="019">019</option>
                         </select> -
                       <c:set var="aPhone" value="${defaultAddress.addrPhone}"/>
-                                <input type="text" name="rPhone2" size="10" value="${fn:substring(aPhone, 4, 8)}"  required> -
-                                <input type="text" name="rPhone3" size="10"  value="${fn:substring(aPhone, 9, 13)}"  required></td>
+                                <input type="text" id="rPhone2"  name="rPhone2" size="10" value="${fn:substring(aPhone, 4, 8)}"  required> -
+                                <input type="text" id="rPhone3"  name="rPhone3" size="10"  value="${fn:substring(aPhone, 9, 13)}"  required></td>
 
                         </tr>
 
                         <tr>
                             <td>배송메세지</td>
                             <td colspan="2">
-                                <textArea name="rMessage" cols="160" rows="5">
+                                <textArea name="rMessage" id="rMessage" cols="160" rows="5">
 
                         </textArea>
                             </td>

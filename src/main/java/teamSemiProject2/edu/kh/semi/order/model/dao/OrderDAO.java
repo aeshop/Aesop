@@ -388,5 +388,91 @@ public class OrderDAO {
 		return result;
 	}
 
+	/**배송정보 update로 완성시키는 메소드
+	 * @param del
+	 * @param merchantUid
+	 * @param conn
+	 * @return
+	 */
+	public int completeDelivery(Delivery del, String merchantUid, Connection conn) throws Exception {
+		
+		int result =0;
+		try {
+			
+			String sql = prop.getProperty("completeDelivery");
+			
+			/*
+			 * 
+			 * 	update delivery
+		set 
+		ZIP_CODE = ?,
+		ADDRESS1 = ?,
+		ADDRESS2 = ?,
+		RECEIVER_NAME=?,
+		DELIVERY_STATUS_CD = ?,
+		DELIVERY_MESSAGE=?
+		where delivery_no = ?
+			 * 
+			 * 
+			 * 
+			 * 
+			 * */
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, del.getZipCode());
+			pstmt.setString(2, del.getAddress1());
+			pstmt.setString(3, del.getAddress2());
+			pstmt.setString(4, del.getReceiverName());
+			pstmt.setInt(5, del.getDeliveryStatusCode());
+			pstmt.setString(6, del.getDeliveryMessage());
+			pstmt.setString(7, merchantUid);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} finally {
+			close(pstmt);
+
+		}
+
+		
+		
+		return result;
+	}
+
+	/**주문정보 update로 완성시키는 메소드
+	 * @param merchantUid
+	 * @param orderNoIntArr
+	 * @param conn
+	 * @return
+	 */
+	public int completeOrder(String merchantUid, int orderNo, Connection conn) throws Exception{
+		
+		int result =0;
+		
+		try {
+			
+			String sql = prop.getProperty("completeOrder");
+
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, merchantUid);
+			pstmt.setInt(2, orderNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+
+
+		}
+
+		
+		
+		return result;
+	}
+
 
 }

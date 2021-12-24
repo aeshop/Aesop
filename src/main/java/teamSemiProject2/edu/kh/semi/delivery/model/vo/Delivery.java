@@ -87,6 +87,13 @@ public class Delivery {
 	public void setDeliveryMessage(String deliveryMessage) {
 		this.deliveryMessage = deliveryMessage;
 	}
+	@Override
+	public String toString() {
+		return "Delivery [deliveryNo=" + deliveryNo + ", memberNo=" + memberNo + ", zipCode=" + zipCode + ", address1="
+				+ address1 + ", address2=" + address2 + ", receiverName=" + receiverName + ", receiverPhone="
+				+ receiverPhone + ", deliveryDate=" + deliveryDate + ", deliveryStatusCode=" + deliveryStatusCode
+				+ ", deliveryPrice=" + deliveryPrice + ", deliveryMessage=" + deliveryMessage + "]";
+	}
 	
 	
 	

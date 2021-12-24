@@ -214,18 +214,38 @@ public class OrderController extends HttpServlet {
 					long importServerAmount =new ImportRecord().getImportAmount(impUid, accessToken);
 					System.out.println("아임포트에서 받아온 결제값:"+importServerAmount);
 					
-					//2-3) 저장된 가격이 서로 같으면 검증 완료 후 해당 배송 레코드에 상세정보(주소 등등) 집어넣음
+					//2-3) 저장된 가격이 서로 같으면 검증 완료 의미: 배송 레코드에 ajax로 전달받은 상세정보(주소 등등) 집어넣고
+					//order 테이블 해당 row들 결제완료로 상태코드수정, 배송번호 널에서 업데이트
 					if(myServerAmount==importServerAmount) {
 						
-						Delivery delivery = new Delivery();
+						Delivery del = new Delivery();
 						
 						System.out.println("일치");
 
 						
+						del.setMemberNo(loginMemberNo);
+						del.setZipCode(req.getParameter("dZipCode"));
+						del.setAddress1(req.getParameter("dAddress1"));
+						del.setAddress2(req.getParameter("dAddress2"));
+						del.setReceiverName(req.getParameter("dReceiverName"));
+						del.setReceiverPhone(req.getParameter("dReceiverPhone"));
+						//상태코드를 결제완료코드 = 배송준비중 로 바꾸기
+						del.setDeliveryStatusCode(502);
+						del.setDeliveryMessage(req.getParameter("dMessage"));		
 						
 						
+						//해당 배송번호로 업데이트할 주문들
+						String [] orderNoArr = req.getParameterValues("orderNoList[]");
+
 						
+						int [] orderNoIntArr = new int [orderNoArr.length];
 						
+						for(int i =0; i<orderNoArr.length;i++){
+							orderNoIntArr[i]= Integer.parseInt(orderNoArr[i]);
+														
+						}
+						
+						int result=service.completeDelOrder(del,merchantUid,orderNoIntArr);
 						
 					}else {
 						System.out.println("불일치");

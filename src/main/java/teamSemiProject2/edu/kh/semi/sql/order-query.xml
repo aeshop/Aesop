@@ -65,7 +65,24 @@
 		where delivery_no = ?
 		and member_no =?
 	</entry>
-
+<entry key="completeDelivery">
+		update delivery
+		set 
+		ZIP_CODE = ?,
+		ADDRESS1 = ?,
+		ADDRESS2 = ?,
+		RECEIVER_NAME=?,
+		DELIVERY_STATUS_CD = ?,
+		DELIVERY_MESSAGE=?
+		where delivery_no = ?
+	</entry>
+	
+	<entry key="completeOrder">
+		update order_1
+		set 
+		DELIVERY_NO = ?
+		where ORDER_NO = ?
+	</entry>
 
 	<entry key="getOrderItem1">
 		select

@@ -128,15 +128,17 @@ data: {
 */
 
 
-// const deliveryInfo = {
-//     dZipCode: document.querySelector('').value,
-//     dAddress1: document.querySelector('').value,
-//     dAddress2: document.querySelector('').value,
-//     dReceiverName: document.querySelector('').value,
-//     dReceiverPhone: document.querySelector('').value
+const deliveryInfo = {
 
+    dName: document.querySelector('#rName').value,
+    dZipCode: document.querySelector('#rZipcode').value,
+    dAddress1: document.querySelector('#rAddr1').value,
+    dAddress2: document.querySelector('#rAddr2').value,
+    dReceiverName: document.querySelector('#rName').value,
+    dReceiverPhone: document.querySelector('#rPhone1').value + "-" + document.querySelector('#rPhone2').value + "-" + document.querySelector('#rPhone3').value,
+    dMessage: document.querySelector('#rMessage').value
 
-// }
+}
 
 
 
@@ -264,10 +266,17 @@ $("#check_module").click(function() {
                 method: "POST",
                 data: {
                     imp_uid: rsp.imp_uid,
-                    merchant_uid: rsp.merchant_uid
+                    merchant_uid: rsp.merchant_uid,
 
+                    /* const deliveryInfo 에서 정보 빼와 담기 */
                     //추가적으로 배송관련 정보들을 보내야 한다.
-
+                    dZipCode: deliveryInfo.dZipCode,
+                    dAddress1: deliveryInfo.dAddress1,
+                    dAddress2: deliveryInfo.dAddress2,
+                    dReceiverName: deliveryInfo.deliveryName,
+                    dReceiverPhone: deliveryInfo.dReceiverPhone,
+                    dMessage: deliveryInfo.dMessage,
+                    orderNoList: orderNoArr
 
 
                 }
@@ -296,12 +305,14 @@ $("#check_module").click(function() {
 */
 
 
+
             }).done(function(data) { //AJAX done 함수는 요청이 성공하면 요청한 데이터가 done()메소드로 전달된다는 의미 data는 요청 데이터이다
                 // 가맹점 서버 결제 API 완료시 로직 : 여기가 뭔지 모르겠네 : - 아직은 후순위, 가상ㄱ좌 발급시 로직, 결제 성공시 로직 이런식으로 나뉨
                 //지금 중요한 것은 server단에서의 imp_uid,merchant_uid처리이다
 
                 console.log(data);
 
+                console.log(deliveryInfo);
 
 
             })
