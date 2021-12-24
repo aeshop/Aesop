@@ -66,5 +66,13 @@ public class MemberService {
 	}
 
 
+	public String findId(Member member) throws Exception{
+		Connection conn = getConnection();
+		String findId = dao.findId(member, conn);
+		close(conn);
+		return findId;
+	}
+
+
 
 }

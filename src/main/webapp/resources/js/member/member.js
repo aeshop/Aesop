@@ -178,7 +178,11 @@ function emailConfirm_check() {
 			}
 		})
 	}
-}
+};
+
+
+
+
 
 // 이름 유효성 검사
 	$("#name").on("input", function(){
@@ -242,6 +246,8 @@ $(".phone").on("input", function (e) {
   }
 
 });
+
+
 
 
 function validate() {

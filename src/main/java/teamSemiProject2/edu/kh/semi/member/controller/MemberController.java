@@ -216,7 +216,7 @@ public class MemberController extends HttpServlet {
 		         
 		     //    String host = "smtp.gmail.com";
 		         String user = "fbrhksgus2@gmail.com"; // 자신의  계정
-		         String password = "rhksgus0^^";// 자신의 네이버 패스워드
+		         String password = "rhksgus0^^";// 자신의 패스워드
 
 		         // 메일 받을 주소
 		         /* String to_email = m.getEmail(); */
@@ -273,9 +273,9 @@ public class MemberController extends HttpServlet {
 		            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(sendMail));
 
 		            // 메일 제목
-		            msg.setSubject("안녕하세요  상호명 인증 메일입니다.");
+		            msg.setSubject("안녕하십니까?  AESOP입니다.");
 		            // 메일 내용
-		            msg.setText("인증 번호는 :" + temp);
+		            msg.setText("인증 번호는 : " + temp + "입니다.");
 
 		            Transport.send(msg);
 		          
@@ -293,6 +293,46 @@ public class MemberController extends HttpServlet {
 			}
 			
 		}
+		
+		if(command.equals("findId")) {
+			
+			if (method.equals("GET")) {
+				path = "/WEB-INF/views/member/findId.jsp";
+				req.getRequestDispatcher(path).forward(req, resp);
+
+			}else if(method.equals("POST")) {
+				
+				String memberEmail = req.getParameter("email");
+				String memberName = req.getParameter("name");
+				
+				memberEmail = replaceParameter(memberEmail);
+
+				try {
+					MemberService service = new MemberService();
+					Member member = new Member(memberEmail, memberName);
+
+					String memberId = service.findId(member);
+
+					if (memberId != null) {
+						req.setAttribute("id", memberId);
+						
+						HttpSession session = req.getSession();
+						session.setAttribute("memberId", memberId);
+						
+					resp.sendRedirect(req.getContextPath());
+					}else {
+						System.out.println("실패");
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+
+				}
+				
+			}
+		}
+		
+		
 
 	}
 
