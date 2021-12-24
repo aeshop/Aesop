@@ -70,6 +70,7 @@
 		select
 		product_no,product_nm,product_img_path,product_img_nm from product
 		join product_img using(product_no)
+        where product_img_level=0
 	</entry>
 	<entry key="searchBoardList">
         SELECT * FROM
