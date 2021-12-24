@@ -45,15 +45,24 @@ public class BoardController extends HttpServlet {
 			int cp = req.getParameter("cp") == null ? 1 : Integer.parseInt(req.getParameter("cp"));
 			
 			if (command.equals("list")) {
-				int code = Integer.parseInt(req.getParameter("c"));
-				Pagination pagination = service.getPagination(cp,code);
-
-				List<Board> boardList = service.selectBoardList(pagination,code);
+				List<Board> boardList = null;
+				if(req.getParameter("c") == null) {
+					String searchKey = req.getParameter("search_key");
+					String search = req.getParameter("search");
+					boardList = service.searchBoardList(searchKey,search);
+					
+				}else {
+					
+					int code = Integer.parseInt(req.getParameter("c"));
+					Pagination pagination = service.getPagination(cp,code);
+					
+					 boardList = service.selectBoardList(pagination,code);
+					
+					req.setAttribute("gubun", boardList.get(0).getCategoryName());
+					req.setAttribute("pagination", pagination);
+				}
 				
-				req.setAttribute("gubun", boardList.get(0).getCategoryName());
-				req.setAttribute("pagination", pagination);
 				req.setAttribute("boardList", boardList);
-				
 				path = "/WEB-INF/views/board/notice/noticeList.jsp";
 				dispatcher = req.getRequestDispatcher(path);
 				dispatcher.forward(req, resp);

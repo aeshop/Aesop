@@ -112,4 +112,13 @@ public class BoardService {
 		return product;
 	}
 
+	public List<Board> searchBoardList(String searchKey, String search) throws Exception{
+		
+		Connection conn = getConnection();
+		List<Board> board = dao.searchBoardList(searchKey,search,conn);
+		close(conn);
+		
+		return board;
+	}
+
 }

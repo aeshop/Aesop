@@ -270,6 +270,42 @@ public class BoardDAO {
 
 
 
+	public List<Board> searchBoardList(String searchKey, String search, Connection conn) throws Exception{
+		
+		List<Board> board = new ArrayList<Board>();
+		
+		try {
+			String sql = prop.getProperty("searchBoardList");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchKey);
+			pstmt.setString(2, search);
+			rs = pstmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				Board board2 = new Board();
+			
+				board2.setBoardNo(rs.getInt("BOARD_NO"));
+				board2.setBoardTitle(rs.getString("BOARD_TITLE"));
+				board2.setMemberName(rs.getString("MEMBER_NAME"));
+				board2.setReadCount(rs.getInt("READ_COUNT"));
+				board2.setCategoryName(rs.getString("CATEGORY_NM"));
+				board2.setBoardStatusName(rs.getString("BD_STATUS_NM"));
+				board2.setCreateDate(rs.getString("CREATE_DT"));
+				
+				// 리스트에 담기
+				board.add(board2);
+			}
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return board;
+	}
+
+
+
 
 	
 	

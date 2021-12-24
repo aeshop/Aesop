@@ -18,7 +18,7 @@
 			<div class="banner">
 				<div class="alpa">
 
-			
+
 					<h1 style="font-size: 64px; color: #ffffff">Forums (${gubun})</h1>
 				</div>
 
@@ -98,62 +98,62 @@
 					</table>
 					<br>
 					<br>
-					<fieldset class="boardSearch">
+					<form>
+						<fieldset class="boardSearch">
 
-						<select id="search_key" name="search_key" class="tSBKF">
-							<option value="subject">제목</option>
-							<option value="content">내용</option>
-							<option value="writer_name">글쓴이</option>
-							<option value="member_id">아이디</option>
-							<option value="nick_name">별명</option>
-						</select> <input id="button" name="search" class="inputTypeText tSBKF" placeholder="" value=""
-							type="text">
-						<button class="tSBKF">찾기</button>
+							<select id="search_key" name="search_key" class="tSBKF">
+								<option value="board_title">제목</option>
+								<option value="board_content">내용</option>
+								<option value="">글쓴이</option>
+							</select> <input id="button" name="search" class="inputTypeText tSBKF" placeholder=""
+								value="" type="text">
+							<button class="tSBKF">찾기</button>
 
-					</fieldset>
+						</fieldset>
+					</form>
+					<%-- 로그인이 되어있는 경우에만 글쓰기 버튼 노출 --%>
+						<c:if test="${!empty loginMember }">
+							<button type="button" class="tSBKF" id="insertBtn"
+								onclick="location.href = '${contextPath}/board/notice/insert?c=${param.c}';">글쓰기</button>
+						</c:if>
 				</div>
 				<!-- 버튼-->
 			</div>
 
-			<%-- 로그인이 되어있는 경우에만 글쓰기 버튼 노출 --%>
-				<c:if test="${!empty loginMember }">
-					<button type="button" class="tSBKF" id="insertBtn"
-						onclick="location.href = '${contextPath}/board/notice/insert?c=${param.c}';">글쓰기</button>
-				</c:if>
 
 
-				<%---------------------- Pagination ----------------------%>
+			<%---------------------- Pagination ----------------------%>
 
 
-					<div class="my-5">
-						<ul class="pagination">
+				<div class="my-5">
+					<ul class="pagination">
 
 
-							<c:if test="${pagination.startPage != 1 }">
-								<li><a class="page-link" href="list?cp=1">&lt;&lt;</a></li>
-								<li><a class="page-link" href="list?cp=${pagination.prevPage}">&lt;</a></li>
+						<c:if test="${pagination.startPage != 1 }">
+							<li><a class="page-link" href="list?cp=1">&lt;&lt;</a></li>
+							<li><a class="page-link" href="list?cp=${pagination.prevPage}">&lt;</a></li>
+						</c:if>
+
+						<%-- 페이지네이션 번호 목록 --%>
+							<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1" var="i">
+								<c:choose>
+									<c:when test="${i == pagination.currentPage}">
+										<li><a class="page-link" style="color: black; font-weight: bold;">${i}</a>
+										</li>
+									</c:when>
+
+									<c:otherwise>
+										<li><a class="page-link" href="list?cp=${i}">${i}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+
+							<c:if test="${pagination.endPage != pagination.maxPage }">
+								<li><a class="page-link" href="list?cp=${pagination.nextPage}">&gt;</a></li>
+								<li><a class="page-link" href="list?cp=${pagination.maxPage }">&gt;&gt;</a></li>
 							</c:if>
-
-							<%-- 페이지네이션 번호 목록 --%>
-								<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1" var="i">
-									<c:choose>
-										<c:when test="${i == pagination.currentPage}">
-											<li><a class="page-link" style="color: black; font-weight: bold;">${i}</a>
-											</li>
-										</c:when>
-
-										<c:otherwise>
-											<li><a class="page-link" href="list?cp=${i}">${i}</a></li>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-
-								<c:if test="${pagination.endPage != pagination.maxPage }">
-									<li><a class="page-link" href="list?cp=${pagination.nextPage}">&gt;</a></li>
-									<li><a class="page-link" href="list?cp=${pagination.maxPage }">&gt;&gt;</a></li>
-								</c:if>
-						</ul>
-					</div>
+					</ul>
+				</div>
 
 
 

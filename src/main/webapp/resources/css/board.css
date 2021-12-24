@@ -280,3 +280,7 @@ input:focus, select:focus, textarea:focus {
 select {
 	height: 2.35rem;
 }
+
+#insertBtn{
+	float:right;
+}

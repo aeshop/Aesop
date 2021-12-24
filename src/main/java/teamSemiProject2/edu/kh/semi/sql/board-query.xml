@@ -68,4 +68,12 @@
 		product_no,product_nm,product_img_path,product_img_nm from product
 		join product_img using(product_no)
 	</entry>
+	<entry key="searchBoardList">
+        SELECT * FROM
+		(SELECT ROWNUM RNUM, A.*
+		FROM (select
+		* from board
+		join member using(member_no) WHERE ? like '%' || ? || '%' ORDER BY
+		BOARD_NO DESC) A)
+	</entry>
 </properties>

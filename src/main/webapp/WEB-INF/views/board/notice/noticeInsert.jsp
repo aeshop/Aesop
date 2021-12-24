@@ -16,7 +16,6 @@
 </head>
 
 <body>
-
 	<div class="container my-5">
 
 		<h1>게시글 등록</h1>
@@ -72,7 +71,7 @@
 					name="boardContent"></textarea>
 			</div>
 
-
+			<input type="hidden" name="c" value="${param.c }">
 
 			<div class="text-center">
 				<button type="submit" class="btn btn-primary">등록</button>
