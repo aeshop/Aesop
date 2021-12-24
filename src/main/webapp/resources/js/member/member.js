@@ -4,7 +4,8 @@ var checkObj = {
 	email: false,
 	pwd1: false,
 	pwd2: false,
-	phone3: false
+	phone3: false,
+	emailConfirm: false
 };
 
 $("#id").on("input", function() {
@@ -97,11 +98,12 @@ $("#pwd1").on("input", function(){
 // 이메일 유효성 검사
 document.getElementById("email").addEventListener("input", function() {
 	const inputEmail = document.getElementById("email").value;
+	const inputEmailConfirm = document.getElementById("emailConfirm").value;
 	const regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
 	const checkEmail = document.getElementById("checkEmail");
 
 	if (inputEmail.length == 0) {
-		checkEmail.innerText = "";;
+		checkEmail.innerText = "";
 		checkObj.email = false;
 
 	} else{
@@ -114,7 +116,9 @@ document.getElementById("email").addEventListener("input", function() {
 						
 					if (result == 0) {
 						checkEmail.innerText = "";
-		
+						$("#emailConfirm_btn").css("display", "inline-block");
+							
+
 							checkObj.email = true;
 						} else {
 							$("#checkEmail").text("중복된 이메일입니다.").css("color", "rgb(146 26 255)");
@@ -136,6 +140,45 @@ document.getElementById("email").addEventListener("input", function() {
 	}
 });
 
+// 이메일 인증 검사
+// $("#emailCheck_btn").on("click", function(){
+// 	if(checkObj.email == true){
+// 		emailConfirm_check();
+// 	}
+
+// });
+
+// 이메일 인증 함수
+function emailConfirm_check() {
+	const inputEmailConfirm = document.getElementById("email").value;
+	$("#emailConfirm").css("display", "block");
+	if(inputEmailConfirm.length == 0){
+		inputEmailConfirm.text("");
+		checkObj.emailConfirm = false;
+	}else{
+		$.ajax({
+			url: "emailConfirm",
+			type: "GET",
+			data: {"inputEmailConfirm": inputEmailConfirm},
+			
+			success: function(result){
+				$("#emailConfirm").on("input",function(){
+					if (result == $("#emailConfirm").val()){
+					
+						$("#checkEmail2").text("인증이 확인되었습니다.").css("color", "rgb(146 26 255)");
+						checkObj.emailConfirm = true;
+					}else{
+						$("#emailConfirm_btn").css("display", "none");
+						$("#checkEmail2").text("잘못된 인증 번호입니다. 다시 확인해주세요.").css("color", "rgb(146 26 255)");
+						checkObj.emailConfirm = false;
+					}
+				});
+			},error:function(e){
+				console.log(e);
+			}
+		})
+	}
+}
 
 // 이름 유효성 검사
 	$("#name").on("input", function(){
@@ -219,6 +262,9 @@ function validate() {
 				case "email":
 					msg = "이메일이 유효하지 않습니다.";
 					break;
+				case "emailConfirm":
+					msg = "이메일 인증이 유효하지 않습니다.";
+					break;
 				case "name":
 					msg = "이름이 유효하지 않습니다.";
 					break;
@@ -240,4 +286,4 @@ function validate() {
 
 		}
 	}
-}
+};
