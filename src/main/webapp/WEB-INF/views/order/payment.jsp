@@ -315,7 +315,7 @@
 
 
     <p>아임 서포트 결제 모듈 테스트 해보기</p>
-    <div id="check_module"><img src="${contextPath}/resources/images/order/"></div>
+    <div><img src="${contextPath}/resources/images/order/btn_place_order.gif" id="check_module"></div>
 
 
 

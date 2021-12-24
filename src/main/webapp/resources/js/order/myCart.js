@@ -211,15 +211,22 @@ function deleteSelectedOrder() {
 
 }
 //전체 물품 체크 하는 함수
-function checkAll() {
+function checkAll(e) {
+
+
+    const chkStatus = e.checked;
     const chkBoxArr = document.querySelectorAll('.n-order-chk');
     for (const iterator of chkBoxArr) {
-        iterator.checked = true;
+        iterator.checked = chkStatus;
     }
 }
 
 function deleteAll() {
-    checkAll();
+    const chkBoxArr = document.querySelectorAll('.n-order-chk');
+    for (const iterator of chkBoxArr) {
+        iterator.checked = true;
+    }
+
     deleteSelectedOrder();
 }
 

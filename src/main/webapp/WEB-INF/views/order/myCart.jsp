@@ -50,7 +50,7 @@
 		<table class="n-cart-table">
 			<thead>
 				<tr>
-					<th><input type="checkbox" onclick="checkAll()"></th>
+					<th><input type="checkbox" onclick="checkAll(this)"></th>
 					<th>이미지</th>
 					<th>상품정보</th>
 					<th>판매가</th>
@@ -153,7 +153,7 @@
 	<!-- 주문버튼 -->
 	<div class="n-order-btn-wrapper">
 		<div>
-			<button class="btn btn-primary" onclick="orderAll()">전체상품주문</button>
+			<button class="btn btn-primary" onclick="orderAll(this)">전체상품주문</button>
 			<button class="btn btn-secondary" onclick="orderSelectedProduct()">선택상품주문</button>
 		</div>
 
