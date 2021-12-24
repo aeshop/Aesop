@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
 
     <!-------------------------------------------------- 낙희 --------------------------------->
     <!-- main 1페이지 -->
     <!-- content -->
+    
+    
+    
+    <c:set var="addrList" value="${sessionScope.addrList[param.idx]}"/>
     <div class="content">
-      <form>
+      <form method="POST" action="addr/edit" onsubmit="return addrUpdateValidate();" name="registerForm">
           <div class="addr-register-box">
               <table class="addr-register-table" >
                   <colgroup>
@@ -19,7 +25,7 @@
                           <img src="${contextPath}/resources/images/cnh/images/icon_required.gif">
                       </th>
                       <td>
-                          <input type="text" id="addr-name">
+                          <input type="text" id="addr-name" value="${addrList.addrName }" name="addrName">
                       </td>
                   </tr>
                   <tr>
@@ -28,7 +34,7 @@
                           <img src="${contextPath}/resources/images/cnh/images/icon_required.gif">
                       </th>
                       <td>
-                          <input type="text" id="recipient-name">
+                          <input type="text" id="recipient-name" value="${addrList.addrReceiverName }" name="addrReceiverName">
                       </td>
                   </tr>
                   <tr>
@@ -37,20 +43,21 @@
                           <img src="${contextPath}/resources/images/cnh/images/icon_required.gif">
                       </th>
                       <td>
-                          <input type="text" id="sample6_postcode" placeholder="우편번호">
-                          <input type="button" class="postcode-btn" onclick="sample6_execDaumPostcode()" value="우편번호"><br>
-                          <input type="text" id="sample6_address" placeholder="주소"><br>
-                          <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                          <input type="text" id="sample6_postcode" placeholder="우편번호" value="${addrList.zipCode }" name="zipCode">
+                          <input type="button" class="postcode-btn" onclick="sample6_execDaumPostcode()" value="우편번호" ><br>
+                          <input type="text" id="sample6_address" placeholder="주소" value="${addrList.address1}" name="address1"><br>
+                          <input type="text" id="sample6_detailAddress" placeholder="상세주소" value="${addrList.address2}" name="address2">
                           <!-- <input type="text" id="sample6_extraAddress" placeholder="참고항목"> -->
                       </td>
                   </tr>
                   <tr>
                       <th>
+                      <c:set var="ph" value="${fn:split(addrList.addrPhone, '-') }"/>
                           휴대전화
                           <img src="${contextPath}/resources/images/cnh/images/icon_required.gif">
                       </th>
                       <td>
-                          <select>
+                          <select id="phone1" name="aPhone">
                               <option value="010">010</option>
                               <option value="011">011</option>
                               <option value="016">016</option>
@@ -59,14 +66,14 @@
                               <option value="019">019</option>
                           </select>
                           -
-                          <input type="text" id="phone2" maxlength="4">
+                          <input type="text" id="phone2" maxlength="4" value="${ph[1] }" name="aPhone">
                           -
-                          <input type="text" id="phone3" maxlength="4">
+                          <input type="text" id="phone3" maxlength="4" value="${ph[2] }" name="aPhone">
                       </td>
                   </tr>
                   <tr class="default-addr">
                       <td colspan="2">
-                          <input type="checkbox" id="default-check">
+                          <input type="checkbox" id="default-check" name="defaultCheck">
                           <label for="default-check">기본 배송지로 저장</label>
                       </td>
                   </tr>
@@ -74,10 +81,10 @@
           </div>
           <div class="addr-register-btn">
               <span>
-                  <a href="#"> <!-- 등록 버튼 -->
-                      <img src="${contextPath}/resources/images/cnh/images/btn_address_register2.gif">
-                  </a>
-                  <a href="#"> <!-- 취소 버튼 -->
+                   <!-- 등록 버튼 -->
+                      <img src="${contextPath}/resources/images/cnh/images/btn_address_register2.gif" id="register">
+                  
+                  <a href="${contextPath}/myPage/addr"> <!-- 취소 버튼 -->
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_cancel.gif">
                   </a>
               </span>
@@ -98,5 +105,46 @@
 
   <!-- footer include -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+<script>
+$(function(){
+	const ph0 ="${ph[0]}";
+	
+	$("#phone1 > option").each(function(index, item){
+		
+		if(ph0 == item.innerText){
+			item.setAttribute("selected", true);
+		}
+	});
+});
+
+
+document.getElementById("register").addEventListener("onclick", function(){
+	document.forms["registerForm"].submit();
+	
+});
+
+
+
+</script>
+
+<%-- session에 message 속성이 존재하는 경우 alert 창으로 해당 내용을 출력 --%>
+<c:if test="${ !empty sessionScope.message }">
+	<script>
+	$(function(){
+		alert("${message}");
+	})
+		// EL 작성 시 scope를 지정하지 않으면
+		// page -> request -> session -> applicaiton 순서로 검색하여
+		// 일치하는 속성이 있으면 출력
+	</script>
+	
+	<%-- message 1회 출력 후 session에서 제거 --%>
+	<c:remove var="message" scope="session"/>
+
+</c:if>
+
+<script src="${contextPath}/resources/js/member/updateMember.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>

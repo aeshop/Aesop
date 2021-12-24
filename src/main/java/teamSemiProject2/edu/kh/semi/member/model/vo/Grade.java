@@ -4,7 +4,7 @@ public class Grade {
 	
 	private int memberGradeNo;
 	private String memberGradeName;
-	private int memberGradeDiscount;
+	private double memberGradeDiscount;
 	private int memberPurchaseAmount;
 	
 	private String leftMoney;
@@ -29,11 +29,11 @@ public class Grade {
 		this.memberGradeName = memberGradeName;
 	}
 
-	public int getMemberGradeDiscount() {
+	public double getMemberGradeDiscount() {
 		return memberGradeDiscount;
 	}
 
-	public void setMemberGradeDiscount(int memberGradeDiscount) {
+	public void setMemberGradeDiscount(double memberGradeDiscount) {
 		this.memberGradeDiscount = memberGradeDiscount;
 	}
 

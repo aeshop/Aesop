@@ -8,7 +8,7 @@ public class Member {
    private String memberPw;
    private String memberEmail;
    private String memberName;
-   private int memberBirthday;
+   private String memberBirthday;
    private String memberPhone;
    private Date enrollDate;
    private int statusCode;
@@ -20,7 +20,7 @@ public class Member {
    public Member() {
    }
 
-   public Member(int memberNo, String memberId, String memberEmail, String memberName, int memberBirthday,
+   public Member(int memberNo, String memberId, String memberEmail, String memberName, String memberBirthday,
          String memberPhone, Date enrollDate, int statusCode, int gradeCode, String memberGradeName,
          double memberGradeDiscount) {
       super();
@@ -77,11 +77,11 @@ public class Member {
       this.memberName = memberName;
    }
 
-   public int getMemberBirthday() {
+   public String getMemberBirthday() {
       return memberBirthday;
    }
 
-   public void setMemberBirthday(int memberBirthday) {
+   public void setMemberBirthday(String memberBirthday) {
       this.memberBirthday = memberBirthday;
    }
 

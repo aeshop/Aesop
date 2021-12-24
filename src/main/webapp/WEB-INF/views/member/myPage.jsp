@@ -26,17 +26,27 @@
                   등급 혜택
               </div>
               <div class="accrual-rate">
-                  할인율 
-                  ${ Math.floor((1 - sessionScope.loginMember.memberGradeDiscount) *100) } <!-- 1 - memberGradeDiscount *100 -->
-                  %
+                  현재 등급의 할인율이
+                 <strong>${ Math.floor((1 - sessionScope.loginMember.memberGradeDiscount) *100) } <!-- 1 - memberGradeDiscount *100 -->
+                  % </strong> 입니다. 아래 <strong>‘멤버십 등급별 혜택 보기’</strong>로 혜택을 확인해 보세요!
               </div>
+      
               <div class="grade-bar">
                   <div class="bar"> 
                       <div class="graph" id="myGrp" style="width: 20%;"></div>
                   </div> 
               </div>
               <div class="grade-guide">
-                  <span>${sessionScope.grade.leftMoney }</span>
+              
+              <c:choose>
+              	<c:when test="${empty sessionScope.grade.leftMoney}">
+              		${sessionScope.grade.memberPurchaseAmount}원
+              	</c:when>
+              	<c:otherwise>
+                  <span>${sessionScope.grade.leftMoney }원 </span>
+              	</c:otherwise>
+              </c:choose>
+              
                   추가 구매시 다음달
                   <span>${sessionScope.grade.memberGradeName }</span>
                   달성

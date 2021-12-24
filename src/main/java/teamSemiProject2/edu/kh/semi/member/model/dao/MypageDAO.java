@@ -151,10 +151,7 @@ public class MypageDAO {
 				grade.setMemberGradeName(rs.getString("MEMBER_GRADE_NAME"));
 				grade.setMemberPurchaseAmount(rs.getInt("MEMBER_PURCHASE_AMOUNT"));
 				grade.setLeftMoney(rs.getString("남은금액"));
-				grade.setTotalPrice(rs.getInt("TOTAL_PRICE"));
-				grade.setMemberGradeNo(rs.getInt("MEMBER_GRADE_NO"));
-				grade.setMemberGradeDiscount(rs.getInt("MEMBER_GRADE_DISCOUNT"));
-				
+				grade.setMemberGradeDiscount(rs.getDouble("MEMBER_GRADE_DISCOUNT"));
 			}
 			
 		}finally {
@@ -188,12 +185,16 @@ public class MypageDAO {
 				
 				AddrList addr = new AddrList();
 				
+				
+				addr.setAddrNo(rs.getInt("ADDRESS_NO"));
 				addr.setAddrName(rs.getString("ADDRESS_NM"));
-				addr.setAddrReceiverName(rs.getString("ADDR_RECEIVER_NM"));
-				addr.setAddrPhone(rs.getString("ADDRESS_PHONE"));
 				addr.setZipCode(rs.getString("ZIP_CODE"));
 				addr.setAddress1(rs.getString("ADDRESS1"));
 				addr.setAddress2(rs.getString("ADDRESS2"));
+				addr.setDefaultAddress(rs.getString("DEFAULT_ADDRESS"));
+				addr.setMemberNo(memberNo);
+				addr.setAddrPhone(rs.getString("ADDRESS_PHONE"));
+				addr.setAddrReceiverName(rs.getString("ADDR_RECEIVER_NM"));
 				
 				addrList.add(addr);
 				
@@ -205,6 +206,77 @@ public class MypageDAO {
 		}
 		
 		return addrList;
+	}
+
+
+	/**  기본배송지 DAO
+	 * @param memberNo
+	 * @param conn 
+	 * @return defaultAddr
+	 * @throws Exception
+	 */
+	public AddrList selectDefaultAddr(int memberNo, Connection conn) throws Exception {
+		AddrList defaultAddr = null;
+		
+		try {
+			String sql = prop.getProperty("selectDefaultAddr");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memberNo);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				defaultAddr = new AddrList();
+				
+				defaultAddr.setZipCode(rs.getString("ZIP_CODE"));
+				defaultAddr.setAddress1(rs.getString("ADDRESS1"));
+				defaultAddr.setAddress2(rs.getString("ADDRESS2"));
+				
+				
+			}
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return defaultAddr;
+	}
+
+
+	/** 배송지 수정 DAO
+	 * @param updateAddr
+	 * @param conn
+	 * @return result( 1:성공, 0:실패)
+	 * @throws Exception
+	 */
+	public int updateDeliveryAddr(AddrList updateAddr, Connection conn)  throws Exception{
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("updateDeliveryAddr");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, updateAddr.getAddrName());
+			pstmt.setString(2, updateAddr.getAddrReceiverName());
+			pstmt.setString(3, updateAddr.getZipCode());
+			pstmt.setString(4, updateAddr.getAddress1());
+			pstmt.setString(5, updateAddr.getAddress2());
+			pstmt.setString(6, updateAddr.getAddrPhone());
+			pstmt.setInt(7, updateAddr.getAddrNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	   
 	   

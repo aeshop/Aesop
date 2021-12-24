@@ -7,7 +7,7 @@ public class AddrList {
 	private String zipCode;
 	private String address1;
 	private String address2;
-	private char defaultAddress;
+	private String defaultAddress;
 	private int memberNo;
 	private String addrPhone;
 	private String addrReceiverName;
@@ -55,11 +55,11 @@ public class AddrList {
 		this.address2 = address2;
 	}
 
-	public char getDefaultAddress() {
+	public String getDefaultAddress() {
 		return defaultAddress;
 	}
 
-	public void setDefaultAddress(char defaultAddress) {
+	public void setDefaultAddress(String defaultAddress) {
 		this.defaultAddress = defaultAddress;
 	}
 

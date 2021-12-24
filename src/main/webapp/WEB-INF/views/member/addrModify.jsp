@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
 
@@ -12,14 +13,14 @@
           <table class="addr-table">
               <colgroup>
                   <col style="width: 30px;">
-                  <col style="width: 100px;">
+                  <col style="width: 150px;">
                   <col style="width: 120px;">
                   <col style="width: 250px;">
-                  <col style="width: 620px;">
+                  <col style="width: 570px;">
                   <col style="width: 80px;">
               </colgroup>
               <thead>
-                  <tr>
+               <tr>
                       <th>
                           <span>
                               <input type="checkbox">
@@ -41,33 +42,47 @@
 				              </tbody> 
               			</c:when>
               			<c:otherwise>
-			              <tbody class="addr-list"> 
-			                  <tr>
+			              <tbody class="addr-list">
+			             
+			              	<c:forEach items="${sessionScope.addrList}" var="addr" varStatus="vs">
+			                   <tr>
 			                      <td>
 			                          <input type="checkbox">
 			                      </td>
 			                      <td>
-			                          ${sessionScope.addrList.addrName }
+			                    	<c:choose>
+			                    		<c:when test="${addr.defaultAddress == 'N' }">
+			                    			${addr.addrName }
+			                    		</c:when>
+			                    		<c:otherwise>
+					                      	<img src="${contextPath}/resources/images/cnh/images/ico_addr_default.gif">
+					                   		${addr.addrName }
+			                    		</c:otherwise>
+			                    	</c:choose>
 			                      </td>
 			                      <td>
-			                          <span>${sessionScope.addrList.addrReceiverName }</span>
+			                          <span>${addr.addrReceiverName }</span>
 			                      </td>
 			                      <td>
-			                          <span>${sessoinScope.addrList.addrPhone }</span>
+			                          <span>${addr.addrPhone }</span>
 			                      </td>
 			                      <td class="addr">
 			                          (
-			                          <span> ${sessoinScope.addrList.zipCode } </span>
+			                          <span> ${addr.zipCode } </span>
 			                          )
-			                          <span>${sessoinScope.addrList.address1 }</span> 
-			                          <span>${ sessoinScope.addrList.address2}</span>   
+			                          <span>${addr.address1 }</span> 
+			                          <span>${ addr.address2}</span>   
 			                      </td>
 			                      <td>
-			                          <a href="${contextPath}/myPage/addr/edit">
+			                          <a href="${contextPath}/myPage/addr/edit?idx=${vs.index}">
 			                              <img src="${contextPath}/resources/images/cnh/images/btn_address_modify.gif">
 			                          </a>
+			                          
 			                      </td>
 			                  </tr>
+			              	
+			              	
+			              	</c:forEach>
 			              </tbody>
               				
               			</c:otherwise>
@@ -75,13 +90,15 @@
               	
           </table>
           <div class="addr-btn">
-              <span class="addr-btn1">
-                  <a href="#none"> <!-- 등록된 주소록이 없을시 .displaynone-->
-                      <img src="${contextPath}/resources/images/cnh/images/btn_address_delete.gif">
-                  </a>
-              </span>
+              <c:if test="${!empty sessionScope.addrList}">
+              		<span class="addr-btn1" >
+	              	 <a href="#none"> <!-- 등록된 주소록이 없을시 .displaynone-->
+	                      <img src="${contextPath}/resources/images/cnh/images/btn_address_delete.gif" >
+	                  </a>
+             		 </span>
+              	</c:if>
               <span class="addr-btn2">
-                  <a href="${contextPath}/myPage/addr/Register">
+                  <a href="${contextPath}/myPage/addr/Register" id="addrRegisterBtn" onclick="addrRegister();">
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_register.gif">
                   </a>
               </span>
@@ -102,6 +119,19 @@
 
   <!-- footer include -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+<script>
+
+function addrRegister(){
+	if( ${fn:length(sessionScope.addrList)} == 10){
+		alert("배송지는 최대 10개까지만 등록할 수 있습니다.");
+		
+		document.getElementById("addrRegisterBtn").setAttribute('href',' # ');
+
+	}
+}
+	
+</script>
 	
 </body>
 </html>

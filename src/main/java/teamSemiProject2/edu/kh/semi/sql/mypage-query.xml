@@ -32,5 +32,48 @@
 	OR ORDER_STATUS_NM LIKE '%환불'
 	ORDER BY 5 DESC, 1 DESC
 	</entry>
+	
+	<!-- 로그인한 회원의 누적 금액에 따라 업그레이드되는 등급 조회 -->
+	<entry key="selectGrade">
+	SELECT MEMBER_GRADE_NAME, MEMBER_PURCHASE_AMOUNT, MEMBER_GRADE_DISCOUNT,
+    (MEMBER_PURCHASE_AMOUNT - (SELECT SUM(TOTAL_PRICE) FROM DELIVERY D
+                                JOIN ORDER_1 O USING(DELIVERY_NO)
+                                WHERE ORDER_STATUS_CD = 402
+                                AND D.MEMBER_NO = ? )) "남은금액"
+	FROM MEMBER_GRADE
+	WHERE MEMBER_GRADE_NO  = (SELECT MEMBER_GRADE_NO FROM MEMBER WHERE MEMBER_NO = ?) - 1 
+	</entry>
+	
+	
+	<!--  배송지 목록 조회 -->
+	<entry key="selectAddrList">
+	SELECT ADDRESS_NO, ADDRESS_NM, ADDR_RECEIVER_NM, ADDRESS_PHONE, ZIP_CODE, ADDRESS1, ADDRESS2, DEFAULT_ADDRESS
+	FROM ADDRESS
+	JOIN MEMBER USING(MEMBER_NO)
+	WHERE MEMBER_NO = ?
+	</entry>
+	
+	<!-- 회원 정보 수정에서 로그인한 회원이 기본배송지로 체크한 주소 조회하기 -->
+	<entry key="selectDefaultAddr">
+	SELECT ZIP_CODE, ADDRESS1, ADDRESS2 FROM ADDRESS
+	WHERE MEMBER_NO = ?
+	AND DEFAULT_ADDRESS =  'Y'
+	</entry>
+	
+	<!--  배송지 수정  -->
+	<entry key="updateDeliveryAddr">
+	UPDATE ADDRESS SET 
+	ADDRESS_NM = ?,
+	ADDR_RECEIVER_NM = ?,
+	ZIP_CODE = ?,
+	ADDRESS1 = ?,
+	ADDRESS2 = ?,
+	ADDRESS_PHONE = ?
+	WHERE ADDRESS_NO = ?
+	</entry>
+	
+	
+	
+	
 
 </properties>

@@ -84,4 +84,42 @@ public class MypageService {
 		return addrList;
 	}
 
+
+
+	/** 기본 배송지 조회 service
+	 * @param memberNo
+	 * @return defaultAddr
+	 * @throws Exception
+	 */
+	public AddrList selectDefaultAddr(int memberNo) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		AddrList defaultAddr = dao.selectDefaultAddr(memberNo, conn);
+		
+		close(conn);
+		
+		return defaultAddr;
+	}
+
+
+
+	/** 배송지 수정
+	 * @param updateAddr
+	 * @return result (1: 성공, 0:실패)
+	 * @throws Exception
+	 */
+	public int updateDeliveryAddr(AddrList updateAddr) throws Exception{
+		Connection conn = getConnection();
+		
+		int result = dao.updateDeliveryAddr(updateAddr, conn);
+		
+		if(result> 0) commit(conn);
+		else 		  rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
 }
