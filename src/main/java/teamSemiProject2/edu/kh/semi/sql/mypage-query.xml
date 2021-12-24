@@ -14,6 +14,7 @@
 	JOIN ORDER_STATUS USING(ORDER_STATUS_CD)
 	WHERE O.MEMBER_NO = ?
 	AND PRODUCT_IMG_LEVEL=0
+	ORDER BY 5 DESC, 1 DESC
 	</entry>
 	
 	<!-- 로그인한 회원의 취소/교환/환불 내역 조회 (수정필요) -->
@@ -29,6 +30,7 @@
 	AND ORDER_STATUS_NM LIKE '%취소'
 	OR ORDER_STATUS_NM LIKE '%교환'
 	OR ORDER_STATUS_NM LIKE '%환불'
+	ORDER BY 5 DESC, 1 DESC
 	</entry>
 
 </properties>

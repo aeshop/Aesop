@@ -36,9 +36,9 @@
                   </div> 
               </div>
               <div class="grade-guide">
-                  <span>2원</span>
+                  <span>${sessionScope.grade.leftMoney }</span>
                   추가 구매시 다음달
-                  <span>브론즈</span>
+                  <span>${sessionScope.grade.memberGradeName }</span>
                   달성
               </div>
               <div class="member-benefit">
@@ -58,7 +58,10 @@
                               <img src="${contextPath}/resources/images/cnh/images/myicon_01.png"> 주문/배송현황
                               <span class="count-icon">
                                   <span>
-                                      <span class="count">1</span>
+                                  
+	                                      <span class="count">1</span>
+                                  		
+                                  	
                                   </span>
                               </span>
                           </a>

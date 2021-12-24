@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import teamSemiProject2.edu.kh.semi.member.model.service.MemberService;
 import teamSemiProject2.edu.kh.semi.member.model.service.MypageService;
+import teamSemiProject2.edu.kh.semi.member.model.vo.AddrList;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Grade;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.member.model.vo.OrderList;
 
@@ -36,31 +38,39 @@ public class MypageController extends HttpServlet{
 		HttpSession session = req.getSession();
 		
 		
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		int memberNo = loginMember.getMemberNo();
 			
+		MypageService service = new MypageService();
 			
 			// 마이페이지
 			if(command.equals("")) {
 				if(method.equals("GET")) {
 					
 					// 최근 주문내역 조회
-					Member loginMember = (Member)session.getAttribute("loginMember");
-					
-					int memberNo = loginMember.getMemberNo();
-					
-					
 					try {
-						MypageService service = new MypageService();
 
 						List<OrderList> orderList = service.selectOrderList(memberNo);
 						
 						session.setAttribute("orderList", orderList);
 						
 						
-						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					
+					// 로그인한 회원의 누적 금액에 따라 업그레이드되는 등급 조회
+					try {
+						
+						Grade grade = service.selectGrade(memberNo);
+						
+						session.setAttribute("grade", grade);
+					
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
 					
 					
 					path = "/WEB-INF/views/member/myPage.jsp";
@@ -74,19 +84,16 @@ public class MypageController extends HttpServlet{
 				if(method.equals("GET")) {
 					
 					
-					Member loginMember = (Member)session.getAttribute("loginMember");
-					
-					int memberNo = loginMember.getMemberNo();
-					
 					
 					try {
-						MypageService service = new MypageService();
 
 						List<OrderList> orderList = service.selectOrderList(memberNo);
 						
 						session.setAttribute("orderList", orderList);
 						
+						List<OrderList> orderStatusList = service.selectOrderStatus(memberNo);
 						
+						session.setAttribute("orderStatusList", orderStatusList);
 						
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -104,14 +111,9 @@ public class MypageController extends HttpServlet{
 			}else if(command.equals("orderStatus")) {
 				if(method.equals("GET")) {
 					
-					Member loginMember = (Member)session.getAttribute("loginMember");
-					
-					int memberNo = loginMember.getMemberNo();
 					
 					try {
 						
-						MypageService service = new MypageService();
-
 						List<OrderList> orderStatusList = service.selectOrderStatus(memberNo);
 						
 						session.setAttribute("orderStatusList", orderStatusList);
@@ -126,9 +128,22 @@ public class MypageController extends HttpServlet{
 					dispatcher.forward(req, resp);
 				}
 				
+				
 			// 등록된 배송지 목록 조회
 			}else if(command.equals("addr")) {
 				if(method.equals("GET")) {
+					
+					try {
+						
+						List<AddrList> addrList = service.selectAddrList(memberNo);
+						
+						session.setAttribute("addrList", addrList);
+						
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+					
 					path = "/WEB-INF/views/member/addrModify.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
@@ -153,6 +168,22 @@ public class MypageController extends HttpServlet{
 			// 회원정보 수정
 			}else  if(command.equals("updateMember")){
 				if(method.equals("GET")) {
+					
+					
+					// 로그인한 회원의 누적 금액에 따라 업그레이드되는 등급의 할인율 조회에 필요한 데이터..
+					try {
+						
+						Grade grade = service.selectGrade(memberNo);
+						
+						session.setAttribute("grade", grade);
+					
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+					
+					
+					
 					path = "/WEB-INF/views/member/updateMember.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);

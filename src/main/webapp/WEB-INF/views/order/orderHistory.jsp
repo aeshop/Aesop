@@ -84,13 +84,13 @@
                   			<td class="order-num">
                     			  ${o.deliveryDt}
                     		  <p style="margin: 0;">
-                       		  <a href="#">${o.deliveryNo}</a> 
+                       		 	 <a href="#">${o.deliveryNo}</a> 
                     	 	  </p>
-                      <!--  주문 취소 버튼 ( 배송 준비중일 경우에만 보이게 설정 )-->
-                      <a href="#" class="displaynone">
-                          <img src="${contextPath}/resources/images/cnh/images/btn_order_cancel.gif">
-                      </a>
-                  </td>
+                    	    <!--  주문 취소 버튼 ( 배송 준비중일 경우에만 보이게 설정 )-->
+                   		     <a href="#" class="displaynone">
+                         		 <img src="${contextPath}/resources/images/cnh/images/btn_order_cancel.gif">
+                    	 	 </a>
+                		  </td>
                   <td class="order-product-img">
                       <img src="${o.productImgPath}">
                   </td>
@@ -101,9 +101,9 @@
                           </strong>
                       </a>
                   </td>
-                  <td>1</td>
+                  <td>${o.orderAmount}</td>
                   <td class="order-product-price">
-                      <strong> ${o.productPrice } </strong>
+                      <strong> ${o.productPrice} </strong>
                   </td>
                   <td class="order-status">
                       <p> ${o.orderStatusName} </p>

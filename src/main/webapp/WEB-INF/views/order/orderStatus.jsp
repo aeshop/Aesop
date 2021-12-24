@@ -99,7 +99,7 @@
                           </strong>
                       </a>
                   </td>
-                  <td>1</td>
+                  <td>${os.orderAmount }</td>
                   <td class="order-product-price">
                       <strong> ${os.productPrice } </strong>
                   </td>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
 
     <!-------------------------------------------------- 낙희 --------------------------------->
@@ -30,39 +32,47 @@
                       <th>수정</th>
                   </tr>
               </thead>
-              <tbody> <!-- 등록된 주소 없을경우 : class="displaynone" 추가하여 안보이게 할 예정-->
-                  <tr>
-                      <td colspan="6" class="addr-message" >등록된 주소가 없습니다.</td>
-                  </tr>
-              </tbody> 
-              <tbody class="addr-list"> <!-- 등록된 주소 있을 경우 -->
-                  <tr>
-                      <td>
-                          <input type="checkbox">
-                      </td>
-                      <td>
-                          집
-                      </td>
-                      <td>
-                          <span>이솝</span>
-                      </td>
-                      <td>
-                          <span>010-1111-1111</span>
-                      </td>
-                      <td class="addr">
-                          (
-                          <span> 06183 </span>
-                          )
-                          <span>서울특별시 강남구 도곡로57길 12 (역삼동)</span> 
-                          <span>역삼2차아이파크</span>   
-                      </td>
-                      <td>
-                          <a href="${contextPath}/myPage/addr/edit">
-                              <img src="${contextPath}/resources/images/cnh/images/btn_address_modify.gif">
-                          </a>
-                      </td>
-                  </tr>
-              </tbody>
+              		<c:choose>
+              			<c:when test="${empty sessionScope.addrList}">
+			              	 <tbody> 
+				                  <tr>
+				                      <td colspan="6" class="addr-message" >등록된 주소가 없습니다.</td>
+				                  </tr>
+				              </tbody> 
+              			</c:when>
+              			<c:otherwise>
+			              <tbody class="addr-list"> 
+			                  <tr>
+			                      <td>
+			                          <input type="checkbox">
+			                      </td>
+			                      <td>
+			                          ${sessionScope.addrList.addrName }
+			                      </td>
+			                      <td>
+			                          <span>${sessionScope.addrList.addrReceiverName }</span>
+			                      </td>
+			                      <td>
+			                          <span>${sessoinScope.addrList.addrPhone }</span>
+			                      </td>
+			                      <td class="addr">
+			                          (
+			                          <span> ${sessoinScope.addrList.zipCode } </span>
+			                          )
+			                          <span>${sessoinScope.addrList.address1 }</span> 
+			                          <span>${ sessoinScope.addrList.address2}</span>   
+			                      </td>
+			                      <td>
+			                          <a href="${contextPath}/myPage/addr/edit">
+			                              <img src="${contextPath}/resources/images/cnh/images/btn_address_modify.gif">
+			                          </a>
+			                      </td>
+			                  </tr>
+			              </tbody>
+              				
+              			</c:otherwise>
+              		</c:choose>
+              	
           </table>
           <div class="addr-btn">
               <span class="addr-btn1">

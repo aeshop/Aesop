@@ -13,26 +13,26 @@
               <div id="my-grade-message">
                   <p class="grade-mesage" >저희 쇼핑몰을 이용해 주셔서 감사합니다. 
                   <strong>
-                      <span>${sessionScope.loginMember.memberName }</span> <!-- ajax -->
+                      <span>${sessionScope.loginMember.memberName }</span> 
                   </strong>
                   님은
                   <strong>
                       [
-                      <span>${sessionScope.loginMember.memberGradeName }</span> <!-- ajax -->
+                      <span>${sessionScope.loginMember.memberGradeName }</span> 
                       ]
                   </strong>
                   회원이십니다.
                   </p>
                   <p class="grade-mesage">
                       <strong>
-                          <span> 10000원 이상</span> <!-- ajax -->
+                          <span> 10000원 이상</span>
                       </strong>
                       구매시
                       <strong>
-                          <span>${sessionScope.loginMember.memberGradeDiscount}</span> <!-- ajax -->
+                          <span>${ Math.floor((1 - sessionScope.grade.memberGradeDiscount) *100) } </span> 
                           %
                       </strong>
-                      을 추가적립 받으실 수 있습니다.
+                      을 할인받으실 수 있습니다.
                   </p>
               </div>
           </div>
@@ -145,9 +145,7 @@
                                       <img src="${contextPath}/resources/images/cnh/images/icon_required.gif">
                                   </th>
                                   <td>
-                                      <input type="text" id="birth_year" value="">년 <!-- value에 loginMember에 담긴 생년월일 불러오기-->
-                                      <input type="text" id="birth_month" value="">월
-                                      <input type="text" id="birth_day" value="">일
+                                      <input type="date" id="birth_year" value="2021-01-01">
                                   </td>
                               </tr>
                           </tbody>
