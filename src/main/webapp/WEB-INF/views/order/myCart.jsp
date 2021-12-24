@@ -96,7 +96,7 @@
 
 					</c:if>	
 						<td ><span class="orderPrice"></span>원</td>
-					<td class="n-cart-btns"><a href="" onclick=""><img src="${contextPath}/resources/images/order/btn_order_p.png" alt="주문하기버튼img"></a> 
+					<td class="n-cart-btns"><a onclick="doOrder()"><img src="${contextPath}/resources/images/order/btn_order_p.png" alt="주문하기버튼img"></a> 
 					<a onclick="deleteOrder()"><img src="${contextPath}/resources/images/order/btn_delete2.gif"alt="삭제버튼img"></a></td>
 				</tr>
 				

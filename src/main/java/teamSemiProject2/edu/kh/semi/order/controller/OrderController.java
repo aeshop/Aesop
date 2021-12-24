@@ -100,7 +100,7 @@ public class OrderController extends HttpServlet {
 
 					int orderNo = Integer.parseInt(req.getParameter("orderNo"));
 
-					int result = service.deleteOrder(orderNo, (int) session.getAttribute("loginMemberNo"));
+					int result = service.deleteOrder(orderNo, loginMemberNo);
 
 					if (result == 1) {
 						message = "정상적으로 삭제되었습니다.";

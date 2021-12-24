@@ -178,6 +178,18 @@ function deleteOrder() {
 
 }
 
+/*
+선택 상품 주문 doOrder()
+*/
+
+function doOrder() {
+    const orderNo = event.target.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
+    location.href = '/teamSemiProject2/order/orderAll?' + "orderNo=" + orderNo;
+
+}
+
+
+
 /*선택상품 여러개의 삭제 : 
 
 또는 getParameterValue로 받을 수 있도록 queryString을 조작, 또는 post방식으로 보내도록 조작
