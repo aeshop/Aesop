@@ -11,9 +11,50 @@ productDetail..jsp 수정 부탁
 */
 
 
+
+//가격 변동 에 따라서 계산하는 함수
+document.querySelector('#inputAmount').addEventListener('change', showPrice);
+
 function showPrice() {
-    const originPrice = (Number)(document.querySelector('originPrice').innerText.replaceAll(/[,원]/g, ''));
-    const salePrice = (Number)(document.querySelector('salePrice').innerText.replaceAll(/[,원]/g, ''));
+    //원래 가격, 할인 가격을 JSP로 계산된 부분에서 가져옴
+    const originPrice = (Number)(document.querySelector('#originPrice').innerText.replaceAll(/[,원]/g, ''));
+    const salePrice = (Number)(document.querySelector('#salePrice').innerText.replaceAll(/[,원]/g, ''));
+
+
+
+
+    //가격 변동에 직접적 영향을 미치는 element
+    const amount = document.querySelector('#inputAmount');
+
+
+    if (amount.value == 0) {
+        alert('0 이하로 수량을 내릴 수 없습니다.');
+        amount.value = 1;
+        return;
+    }
+
+    //가격에 따라 가변적인 엘리먼트
+
+    //배송비
+    const shipment = document.querySelector('#shipment');
+
+    const calOriginPrice = document.querySelector('#calculatedOriginPrice');
+    const calPrice = document.querySelector('#calculatedPrice');
+    const calAmount = document.querySelector('#calculatedAmount');
+
+    const calOp = originPrice * (Number)(amount.value);
+    const calSp = salePrice * (Number)(amount.value);
+    if (calSp >= 50000) {
+        shipment.innerText = "무료";
+    } else {
+        shipment.innerText = "2,500원";
+    }
+
+    calOriginPrice.innerText = calOp.toLocaleString('ko-KR') + "원";
+
+    calPrice.innerText = calSp.toLocaleString('ko-KR') + "원";
+
+    calAmount.innerText = amount.value;
 
 
 }

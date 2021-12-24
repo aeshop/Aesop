@@ -28,7 +28,7 @@
               <span id="salePrice">${formatedDiscountedPrice}원</span> <!-- 상품금액 * 할인율 -->
               <span id="originPrice">${formatedPrice}원</span> <!-- 상품금액, originPrice display: none 추가 -->
             
-              <div id="discountRate">${product.discount*100}%</div> <!-- 할인율 0일경우 #salePrice에 수식 X, discountRate display: none 추가 -->
+              <div id="discountRate"><fmt:formatNumber value="${product.discount*100}" pattern="#" />%</div> <!-- 할인율 0일경우 #salePrice에 수식 X, discountRate display: none 추가 -->
             
             
             </div>
@@ -68,10 +68,10 @@
                    		</p> -->
                       </td>
                       <td>
-                        <input type="number" id="productAmount" value="1">
+                        <input type="number" id="inputAmount" value="1">
                       </td>
                       <td>
-                        <span>${formatedPrice}원</span> <!-- 상품금액(정가)-->
+                        <span id="calculatedOriginPrice">${formatedPrice}원</span> <!-- 상품금액(정가)-->
                       </td>
                       <td>
                         <a href="#none"> <!-- 삭제 -->
@@ -145,8 +145,8 @@
 		<!--  js 파일에서 사용을위한 script-->
 		
 		<script>
-		const loginMemberNo = ${loginMember.memberNo};
-		</script>
+/* 		const loginMemberNo = ${loginMember.memberNo};
+ */		</script>
 		
 		
 	
