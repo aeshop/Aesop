@@ -176,7 +176,7 @@
 				                              </a>
 				                          </td>
 				                          <td class="order-price">
-				                              <strong>${o.productPrice}</strong>
+				                              <strong>${o.productPrice * o.orderAmount}</strong>
 				                              
 				                          </td>
                       					</tr>
