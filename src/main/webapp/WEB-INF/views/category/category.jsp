@@ -7,7 +7,7 @@
 
 
           
-<jsp:include page="../common/header_n.jsp"></jsp:include>
+<jsp:include page="../common/r_header.jsp"></jsp:include>
 
 <jsp:include page="../common/sidebar_n.jsp"></jsp:include>
 
