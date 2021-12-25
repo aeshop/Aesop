@@ -1,12 +1,12 @@
 @charset "UTF-8";
-/************************ 최낙희 css ********************/
-/* content */
+        /************************ 최낙희 css ********************/
+    /* content */
 .content{
     /* border: 1px solid black; */
     box-sizing: border-box;
     width: 1200px;
     float: left;
-    margin: 90px 90px 50px 300px;
+    margin: 90px 90px 130px 300px;
 }
 
 /* grade */
@@ -59,13 +59,6 @@
     margin: 0 0 0 0;
 }
 
-.accrual-rate{
-    padding: 5px 0 0 0;
-    font-size: 13.5px;
-    font-weight: 400;
-    letter-spacing: -1px;
-   margin-bottom: 10px;
-}
 
 .grade-bar{
     padding: 10px 0;
@@ -171,14 +164,13 @@
 .myShopping_activity img{
 
     width: 67px;
-    margin-top: 20px;
 }
 
 .myShopping_activity a{
     text-decoration: none;
     /* color: black; */
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .myShopping_activity p{
@@ -210,7 +202,6 @@
     font-size:  14px;
     padding : 18px 0;
     border-bottom: 1px solid black;
-    text-align: center;
 }
 
 .mypage-table td{
@@ -280,5 +271,216 @@
     font-size: 10px;
     line-height: 23px;
     right: 25px;
+
+}
+
+/******************** orderHistory.html *********************/
+/* 주문/배송현황 페이지 추가 CSS */
+
+.order-title {
+    width: 100%;
+    background-color: #eee;
+    padding-left: 0;
+    border: 1px solid #cbcdce;
+    border-bottom-color: black;
+    float: left;
     
 }
+
+
+.order-title > li{
+    list-style: none;
+    float: left;
+    
+    background-color: #eee;
+}
+
+
+.order-title > .selected a{
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    font-weight: bold;
+}
+.order-title > li > a {
+    text-decoration: none;
+    border: 1px solid #cbcdce;
+    color: #707070;
+    display: block;
+    width: 199px;
+    text-align: center;
+    padding: 12px 5px ;
+    font-size: 12px;
+
+    
+}
+
+
+/* 주문 상태 및 기간 조회 form*/
+
+.status-select{
+    border: 5px solid #e8e8e8;
+    padding: 20px;
+    margin: 0;
+
+}
+
+/* 주문 상태 조회 */
+.select-form{
+    height: 24px;
+    width: 170px;
+    border: 1px solid #d5d5d5;
+    font-size: 12px;
+}
+
+
+
+.select-bar ul li{
+    font-size: 12px;
+}
+
+.select-bar ul{
+    color: #939393;
+    margin-top: 16px;
+}
+
+
+.list-title{
+    font-size: 13px;
+    font-weight: bold;
+    margin: 40px 0 10px 10px;
+}
+
+
+.order-li-pagination{
+    margin: 30px 0;
+    text-align: center;
+}
+
+.order-pagination{
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    padding : 10px 0;
+}
+
+.order-process{
+    padding-top: 8px;
+}
+
+.order-process img{
+    width: 100%;
+}
+
+
+
+/* 주문 상품 정보 테이블 */
+
+.order-list{
+    border: 1px solid #d7d5d5;
+    border-collapse : collapse;
+    font-size: 12px;
+
+}
+
+.order-list th{
+    border-left: 1px solid #e9e9e9;
+    margin: 0;
+    padding: 10px 0 10px;
+    background: #fbfafa;
+    color: #353535;
+    border-bottom: 1px solid #d9d9d9;
+    text-align: center;
+}
+
+
+.order-list tbody td{
+    text-align: center;
+    padding: 10px 0;
+    
+}
+
+
+.order-product-img img {
+    width: 80px;
+}
+
+.order-status p {
+    color: #008bcc;
+    font-weight: bold;
+}
+
+    
+/******************** addrModify.html *********************/
+/* 배송지 수정 페이지*/
+
+.addr-table{ 
+    border-collapse : collapse;
+    font-size: 12px;
+    text-align: center;
+    color: #353535;
+    margin: 30px 0 0 0;
+}
+
+.addr-table th{
+    padding: 11px 0 10px;
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.addr-message{
+    border: 1px solid #d7d5d5;
+    font-weight: bold;
+    color: #757575;
+    padding: 50px 0;
+}
+
+.addr-list td{
+    padding: 8px 0 7px 0;
+}
+
+.addr{
+    text-align: left;
+}
+
+/* 선택주소록 삭제, 배송지등록 버튼 영역*/
+.addr-btn{
+    padding: 10px 0;
+}
+
+.addr-btn2{
+    float: right;
+}
+
+/* 배송주소록 유의사항 */
+
+.addr-notice{
+    border: 1px solid #d6d4d4;
+    margin: 20px 0;
+    line-height: 18px;
+}
+
+.addr-notice h3{
+    background: #fbfbfb;
+    color: #101010;
+    font-size: 12px;
+    border-bottom: 1px solid #e8e7e7;
+    padding: 9px 0 6px 10px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.addr-notice ol{
+    padding-left: 30px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.addr-notice ol li{
+    padding: 0;
+    margin: 0 10px;
+    font-size: 12px;
+    color: #707070;
+    list-style: initial;
+}
+
