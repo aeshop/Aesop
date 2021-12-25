@@ -78,15 +78,16 @@
 					<tr>
 					<td><input type="hidden" value="${index.orderNo}"><input type="checkbox" class="n-order-chk" value="${index.orderNo}"></td>
 					<td><img src="${contextPath}${index.thumnailImgPath}${index.thumnailImgName}" alt="썸네일이미지"></td>
-					<td><a href="">${index.productName}</a></td>
+					<td>
+					<a href="">${index.productName}</a></td>
 					<c:set var="price" value="${(1-index.productDiscount) *index.productPrice}"/>
-					
 					
  					
  					<td class="proPrice" width="100px;"><fmt:formatNumber value="${price}" maxFractionDigits="3"/>원</td>
 
 					<td><span> <span class="n-qty-change"> 
-					<input type="text" class="n-qty-no proAmount" value="${index.orderAmount}"> 
+					<input type="text" class="n-qty-no proAmount" value="${index.orderAmount}">
+					<input type="hidden" value ="${index.productStock}"> 
 					<a onclick="amountUp(this)"><img src="${contextPath}/resources/images/order/btn_quantity_up.gif"alt="수량Up버튼"></a>
 				    <a onclick="amountDown(this)"><img src="${contextPath}/resources/images/order/btn_quantity_down.gif"alt="수량Down버튼"></a>
 						</span></span></td>

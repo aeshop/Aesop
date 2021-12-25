@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.net.ssl.CertPathTrustManagerParameters;
+
 import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.delivery.model.vo.Delivery;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
@@ -66,6 +68,7 @@ public class OrderDAO {
 				tmp.setProductName(rs.getString("PRODUCT_NM"));
 				tmp.setProductPrice(rs.getInt("PRODUCT_PRICE"));
 				tmp.setProductDiscount(rs.getDouble("DISCOUNT"));
+				tmp.setProductStock(rs.getInt("STOCK"));
 				tmp.setThumnailImgPath(rs.getString("PRODUCT_IMG_PATH"));
 				tmp.setThumnailImgName(rs.getString("PRODUCT_IMG_NM"));
 

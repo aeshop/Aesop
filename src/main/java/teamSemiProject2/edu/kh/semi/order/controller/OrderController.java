@@ -295,7 +295,7 @@ public class OrderController extends HttpServlet {
 				/*
 				 * 
 				 *  1. 선택한 order들에 의한 product 재고 삭감 복구
-            		2. 선택한 order들의 상태코드 변경
+            		2. 선택한 order들의 상태코드 변경//안해도 됨
             		3. 해당 배송의 상태코드 변경
 				 * 
 				 * 

@@ -410,21 +410,13 @@ int flag = 0;
 		if(result<=0) {
 			rollback(conn);
 			break;
-		} else {//재고 복구 성공시
-			//2. 선택한 order의 상태 코드 변경(결제취소 = 403)
+		} 
 
-			result =	dao.cancelOrder(orderNo,conn);
-
-			if(result<=0) {
-				rollback(conn);
-				break;
-			}	
-		}
 			
 		
 		}
 	
-		//3. 윗부분을 모두 성공했을 때 해당 배송의 상태코드 변경 - update 배송취소 = 505
+		//3. 윗부분을 모두 성공했을 때 해당 배송의 상태코드 변경 - update 결제파기 = 506
 
 		if(result>0) {
 			result = dao.cancelDelivery(deliveryNo,conn);
