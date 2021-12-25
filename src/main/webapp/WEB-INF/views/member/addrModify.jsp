@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/sidebar_n.jsp"/>
 
     <!-------------------------------------------------- 낙희 --------------------------------->
     <!-- main 1페이지 -->
