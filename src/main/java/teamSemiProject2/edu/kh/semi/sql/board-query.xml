@@ -44,6 +44,10 @@
 		WHERE BOARD_NO = ?
 		AND BD_STATUS_CD != 702
 	</entry>
+	<entry key="deleteboard">
+		UPDATE BOARD SET BD_STATUS_CD = 702
+		WHERE BOARD_NO = ?
+	</entry>
 
 	<!-- 조회수 증가 -->
 	<entry key="increaseReadCount">
