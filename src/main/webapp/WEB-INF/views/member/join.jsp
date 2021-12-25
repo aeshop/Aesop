@@ -2,28 +2,32 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/member/member.css">
 <jsp:include page="../common/r_header.jsp" />
 
-<div class="login_wrap">
-	<div id="login">
-		<div class="login_container">
-			<div class="login_container_form">
-				<div class="login_title">회원가입</div>
-				<fieldset>
-					<div class="login_form">
-						<div class="login_form_input">
-							<a href="signup">회원가입</a>
-							<a href=""></a>
-						</div>
-					</div>
-				</fieldset>
-			</div>
+<div class="join_wrap">
+    <div id="join">
+      <div class="join_container">
+        <div class="join_container_form">
+          <div class="join_title">회원가입</div>
+          <fieldset>
+            <div class="join_form">
+              <div class="join_form_input" style="padding: 30px 0;">
+                <button type="button" class="join_btn" style="margin-bottom: 15px;"
+                onclick="location.href='${contextPath}/member/signup'">일반 회원가입</button>
+                <button type="button" class="join_btn">카카오 회원가입</button>
+                
+              </div>
+              
+            </div>
+          </fieldset>
+        </div>
 
 
-			<div class="login_container_img"></div>
-		</div>
-	</div>
+        <div class="join_container_img" style="border: 1px solid black;">
 
-</div>
+        </div>
+      </div>
+    </div>
 
+  </div>
 
 
 <!-- footer -->
