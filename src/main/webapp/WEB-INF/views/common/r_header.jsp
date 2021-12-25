@@ -98,7 +98,6 @@
 							<button type="button" onclick="location.href='${contextPath}/member/join'">JOIN</button>
 						</c:when>
 						<c:otherwise>
-							<button type="button">LOGOUT</button>
 							<button type="button" onclick="location.href='${contextPath}/myPage'">
 								<i class="far fa-user"></i>
 							</button>

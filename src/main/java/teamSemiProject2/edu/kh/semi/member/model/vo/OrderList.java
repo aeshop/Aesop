@@ -14,66 +14,104 @@ public class OrderList {
 	
 	
 	public OrderList() {
-		// TODO Auto-generated constructor stub
 	}
+
 
 	public Date getDeliveryDt() {
 		return deliveryDt;
 	}
 
+
 	public void setDeliveryDt(Date deliveryDt) {
 		this.deliveryDt = deliveryDt;
 	}
+
+
+
 
 	public String getProductImgPath() {
 		return productImgPath;
 	}
 
+
+
+
 	public void setProductImgPath(String productImgPath) {
 		this.productImgPath = productImgPath;
 	}
+
+
+
 
 	public String getProductName() {
 		return productName;
 	}
 
+
+
+
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
+
+
 
 	public int getOrderAmount() {
 		return orderAmount;
 	}
 
+
+
+
 	public void setOrderAmount(int orderAmount) {
 		this.orderAmount = orderAmount;
 	}
+
+
+
 
 	public String getDeliveryNo() {
 		return deliveryNo;
 	}
 
+
+
+
 	public void setDeliveryNo(String deliveryNo) {
 		this.deliveryNo = deliveryNo;
 	}
+
+
+
 
 	public int getProductPrice() {
 		return productPrice;
 	}
 
+
+
+
 	public void setProductPrice(int productPrice) {
 		this.productPrice = productPrice;
 	}
-	
-	
+
+
+
 
 	public String getOrderStatusName() {
 		return orderStatusName;
 	}
 
+
+
+
 	public void setOrderStatusName(String orderStatusName) {
 		this.orderStatusName = orderStatusName;
 	}
+
+
+
 
 	@Override
 	public String toString() {
@@ -82,7 +120,6 @@ public class OrderList {
 				+ productPrice + ", orderStatusName=" + orderStatusName + "]";
 	}
 
-	
 	
 	
 	
