@@ -8,15 +8,11 @@
 
 // 전역 변수로 댓글 관련 기능에 사용될 변수를 미리 선언
 // -> 이 때 JSP에서만 사용 가능한 EL 값을 전역 변수로 선언하면
-//    아래 쪽에 추가된 js파일에서 사용 가능
-
-const contextPath = "${contextPath}";
+// 
 
 // 로그인한 회원의 회원 번호, 비로그인 시 "" (빈문자열)
 const loginMemberNo = "${loginMember.memberNo}";
 
-// 현재 게시글 번호
-const boardNo = ${board.boardNo};
 
 // 수정 전 댓글 요소를 저장할 변수 (댓글 수정 시 사용)
 let beforeReplyRow;
