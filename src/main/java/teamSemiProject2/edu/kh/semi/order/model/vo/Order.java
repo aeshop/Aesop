@@ -13,6 +13,8 @@ public class Order {
 	private String productName;
 	private int productPrice;
 	private double productDiscount;
+	//제품 수량
+	private int productStock;
 	//제품이미지 : 0번
 	private String thumnailImgPath;
 	private String thumnailImgName;
@@ -110,15 +112,25 @@ public class Order {
 	public void setProductDiscount(double productDiscount) {
 		this.productDiscount = productDiscount;
 	}
+	
+	
+	public int getProductStock() {
+		return productStock;
+	}
+	public void setProductStock(int productStock) {
+		this.productStock = productStock;
+	}
 	@Override
 	public String toString() {
 		return "Order [orderNo=" + orderNo + ", memberNo=" + memberNo + ", productNo=" + productNo + ", orderAmount="
 				+ orderAmount + ", orderStatusCode=" + orderStatusCode + ", deliveryNo=" + deliveryNo + ", productName="
 				+ productName + ", productPrice=" + productPrice + ", productDiscount=" + productDiscount
-				+ ", thumnailImgPath=" + thumnailImgPath + ", thumnailImgName=" + thumnailImgName + ", memberName="
-				+ memberName + ", memberGradeName=" + memberGradeName + ", memberDiscount=" + memberDiscount + "]";
+				+ ", productStock=" + productStock + ", thumnailImgPath=" + thumnailImgPath + ", thumnailImgName="
+				+ thumnailImgName + ", memberName=" + memberName + ", memberGradeName=" + memberGradeName
+				+ ", memberDiscount=" + memberDiscount + "]";
 	}
-	
+
+
 
 
 	

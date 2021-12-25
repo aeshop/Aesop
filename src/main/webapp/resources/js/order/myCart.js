@@ -88,8 +88,14 @@ function calculatePrice() {
 //수량 변환 함수
 function amountUp(et) {
     const orderAmount = et.parentNode.parentNode.firstElementChild.firstElementChild;
+    const productStock = et.parentNode.parentNode.firstElementChild.firstElementChild.nextElementSibling;
+
+    if (orderAmount.value == productStock.value) {
+        alert('재고 이상의 상품을 구매할 수 없습니다.');
+        return;
+    }
+
     orderAmount.value = (Number)(orderAmount.value) + 1;
-    console.log(et);
 
     const nF = amountChanged.bind(et);
     nF();
@@ -106,7 +112,6 @@ function amountDown(et) {
     }
 
     orderAmount.value = (Number)(orderAmount.value) - 1;
-    // console.log(et);
 
     const nF = amountChanged.bind(et);
     nF();
@@ -143,7 +148,7 @@ function amountChanged() {
         },
         success: function(result) {
             if (result == 1) {
-                alert("수량변경완료");
+                // alert("수량변경완료");
                 calculatePrice();
             }
         },

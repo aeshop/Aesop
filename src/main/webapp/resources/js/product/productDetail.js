@@ -32,6 +32,12 @@ function showPrice() {
         amount.value = 1;
         return;
     }
+    if (amount.value > document.querySelector('#productStock').value) {
+        alert('재고 이상으로 수량을 올릴 수 없습니다.');
+        amount.value = 1;
+        showPrice();
+        return;
+    }
 
     //가격에 따라 가변적인 엘리먼트
 

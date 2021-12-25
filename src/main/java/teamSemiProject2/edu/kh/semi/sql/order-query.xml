@@ -109,10 +109,10 @@ SET stock = stock + (SELECT order_amount FROM order_1 WHERE order_no = ?)
 WHERE product_no = (SELECT product_no FROM order_1 WHERE order_no = ?)
 </entry>
 <entry key="cancelOrder">
-UPDATE ORDER_1 SET ORDER_STATUS_CD =403 WHERE ORDER_NO = ?
+UPDATE ORDER_1 SET ORDER_STATUS_CD =400 WHERE ORDER_NO = ?
 </entry>
 <entry key="cancelDelivery">
-UPDATE delivery SET DELIVERY_STATUS_CD = 505 WHERE DELIVERY_NO = ?
+UPDATE delivery SET DELIVERY_STATUS_CD = 506 WHERE DELIVERY_NO = ?
 </entry>
 
 
