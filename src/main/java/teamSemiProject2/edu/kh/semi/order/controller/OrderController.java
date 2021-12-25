@@ -1,9 +1,15 @@
 package teamSemiProject2.edu.kh.semi.order.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +20,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
+
+import teamSemiProject2.edu.kh.semi.common.ImportAccessToken;
+import teamSemiProject2.edu.kh.semi.common.ImportRecord;
+import teamSemiProject2.edu.kh.semi.delivery.model.vo.Delivery;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.order.model.service.OrderService;
 import teamSemiProject2.edu.kh.semi.order.model.vo.Order;
 
@@ -45,15 +61,14 @@ public class OrderController extends HttpServlet {
 
 		OrderService service = new OrderService();
 
-		session.setAttribute("loginMemberNo", 9);
-		session.setAttribute("loginMemberName", "테스트용계정");
-		session.setAttribute("loginMemberGradeName", "브론즈");
-		session.setAttribute("loginMemberDiscount", 0.99);
+		Member loginMember = (Member) session.getAttribute("loginMember");
+
+		int loginMemberNo = loginMember.getMemberNo();
 
 		try {
 
 			if (method.equals("GET")) {// get방식 처리
-				if (command.equals("view")) {// 장바구니 홈페이지로 이동
+				if (command.equals("view")) {// 장바구니 페이지로 이동
 
 					/*
 					 * 원래는 로그인한 상태에서 들어가게 되서 로그인이 되어있지 않으면, 로그인이 필요한 서비스입니다. 메세지가 confirm으로 나오고 로그인
@@ -66,17 +81,16 @@ public class OrderController extends HttpServlet {
 					 * 내 회원번호와 맞는 주문 테이블 row를 가지고 와야 한다.
 					 */
 
-					// 현재 테스트용 계정의 회원번호: 9
-					int loginMemberNo = 9;
+					//로그인 번호로 장바구니 테이블 조회 후 진행한다
 					List<Order> oList = service.getOrder(loginMemberNo);
 
+				
+					
 					
 					req.setAttribute("orderList", oList);
 					// 사실 회원정보는 세션에 다 있는데 받아올 필요가 있었을까? - order query를 다시 짜야 한다.(가격, 할인율 가져와야함) +
 					// 지금은 Session안에 정보를 강제로 집어넣기
 					req.setAttribute("orderCount", oList.size());
-
-
 
 					path = "/WEB-INF/views/order/myCart.jsp";
 					dispatcher = req.getRequestDispatcher(path);
@@ -86,7 +100,7 @@ public class OrderController extends HttpServlet {
 
 					int orderNo = Integer.parseInt(req.getParameter("orderNo"));
 
-					int result = service.deleteOrder(orderNo, (int) session.getAttribute("loginMemberNo"));
+					int result = service.deleteOrder(orderNo, loginMemberNo);
 
 					if (result == 1) {
 						message = "정상적으로 삭제되었습니다.";
@@ -102,14 +116,14 @@ public class OrderController extends HttpServlet {
 				} else if (command.equals("deleteAll")) {
 
 					String[] orderNoArr = req.getParameterValues("orderNo");
-//					System.out.println(Arrays.toString(arr));
+
 					//[4, 3] : 정상적으로 보내지는 것을 확인했다 이제 지우면 된다
 					/*
 					 * String 배열을 int배열로 변환: parseInt말고 다른 수식이 필요함, 그냥 service에서 DAO 여러번 보내면서 변경하는걸로...
 					 * 
 					 * */
-					
-					int result = service.deleteAll(orderNoArr,(int) session.getAttribute("loginMemberNo"));
+
+					int result = service.deleteAll(orderNoArr,loginMemberNo);
 					
 					if (result == 1) {
 						message = "정상적으로 체크된 물품이 삭제되었습니다.";
@@ -123,22 +137,45 @@ public class OrderController extends HttpServlet {
 					
 					
 				}else if (command.equals("orderAll")) {
+					//결제 페이지로 데이터 전달: 선택된 상품(주문), 사용자정보, 주소록의 기본 주소, 배송번호(20121101-1234) 
+					
 					
 					String[] orderNoArr = req.getParameterValues("orderNo");
-					//orderNoArr의 길이에 따라 다른 SQL구문을 사용할 예정, 또는, getOrder로 다 받아오고, orderNo가 존재하지 않으면 출력에서 제외한다?
-					//List.contains()의 override? 
+				
+ 
 					
-					List<Order> oList = service.orderAll(orderNoArr,(int) session.getAttribute("loginMemberNo"));
+					Map<String,Object> resultMap = service.orderAll(orderNoArr,loginMemberNo);
 					//oList에는 없는 체크되지 않은 주문를 제외한 주문row들이 옴
 					
-//					List<Address> aList = service.getAddress(loginMemberNo);
+					//회원번호 + 선택된 상품번호들을 전달해서 선택된 상품목록, 주소록의 기본주소, 배송번호 를 맵의 형태로 받아옴
+				
 					
+					ArrayList oList = (ArrayList) resultMap.get("orderList");
+					Address defaultAddress = (Address) resultMap.get("defaultAddress");
+					//배송번호는 ajax로 요청하고 받아올 것이다.
+					
+					//어트리뷰트에 넣고 진행함
 					req.setAttribute("orderList", oList);
 					req.setAttribute("orderCount", oList.size());
-//					req.setAttribute("addressList", aList);
+
+					req.setAttribute("defaultAddress", defaultAddress);
+					
+					//결제 페이지에 정보를 보냄
 					path="/WEB-INF/views/order/payment.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
+				} else if (command.equals("addrPop")) {
+					
+					List<Address> addrList = service.getAddress(loginMemberNo);
+					
+					req.setAttribute("addrList", addrList);
+					
+					path="/WEB-INF/views/order/addrPopUp.jsp";
+					
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
+					
+					
 				}
 
 			} else {// post방식 처리
@@ -147,17 +184,160 @@ public class OrderController extends HttpServlet {
 					// ajax는 req dispatcher forward를 사용하지 않는다.
 					int orderNo = Integer.parseInt(req.getParameter("orderNo"));
 					int orderAmount = Integer.parseInt(req.getParameter("orderAmount"));
-					int loginMemberNo = (Integer) session.getAttribute("loginMemberNo");
+					
 					int result = service.amountChange(orderAmount, orderNo, loginMemberNo);
 					resp.getWriter().print(result);
 
+				} else if(command.equals("beforeImport")) {
+					
+					try {
+						//payment페이지에 있는 주문번호들 배열로 받아옴
+						String [] orderNoArr = req.getParameterValues("orderNoList[]");
+				
+						
+						Map<String, String> resultMap = service.beforeImport(orderNoArr,loginMemberNo);
+						//AJAX로 맵 반환함
+
+						resp.getWriter().print(new Gson().toJson(resultMap));
+						
+						
+					} catch (Exception e) {//수량 부족으로 체크 제약조건 위배할 경우
+
+						e.printStackTrace();
+						
+						if(e instanceof SQLException) {
+							SQLException se = (SQLException) e;
+							if(se.getErrorCode()==2290) {//캐치 조건에 어긋날시에
+								
+							System.out.println("수량이 부족합니다.");
+							Map<String, String> resultMap = new HashMap<String, String>();
+							resultMap.put("stCode", "199");
+							resp.getWriter().print(new Gson().toJson(resultMap));
+
+							}
+						}
+					
+					
+					}
+			
+
+
 				}
+				
+				else if(command.equals("validation")) {
+					/* 아임포트 실행직전 내 서버에 저장된 값과 아임포트 서버에 넘어간 값 비교검증
+					* 1. 내 서버에 저장된 가격은 delivery table에서 merchant_uid로 받아옴
+					* 2. 아임포트 서버에 저장된 가격은 엑세스 토큰을 받고 결제번호 imp_uid로 조회해서 파싱
+					*
+					 * */
+					//1. 결제번호 주문번호를 아임포트 실행 성공 후 ajax에서 추출하기
+										
+					String impUid = req.getParameter("imp_uid");
+					//결제 번호
+					String merchantUid = req.getParameter("merchant_uid");
+					//배송 번호
+					
+					
+					//1. 내 서버에 저장된 가격 가져오기
+					long myServerAmount = service.getDelivery(merchantUid, loginMemberNo).getDeliveryPrice();
+					
+					//2. 아임포트에 저장된 가격 가져오기
+					//2-1)액세스 토큰 받아옴
+					
+					String accessToken = new ImportAccessToken().getAccessToken();
+					//2-2) 저장된 가격 가져옴					
+					long importServerAmount =new ImportRecord().getImportAmount(impUid, accessToken);
+//					System.out.println("아임포트에서 받아온 결제값:"+importServerAmount);
+					
+					//2-3) 저장된 가격이 서로 같으면 검증 완료 의미: 배송 레코드에 ajax로 전달받은 상세정보(주소 등등) 집어넣고
+					//order 테이블 해당 row들 결제완료로 상태코드수정, 배송번호 널에서 업데이트
+					if(myServerAmount==importServerAmount) {
+						
+						Delivery del = new Delivery();
+						
+						
+						del.setMemberNo(loginMemberNo);
+						del.setDeliveryNo(merchantUid);
+						del.setZipCode(req.getParameter("dZipCode"));
+						del.setAddress1(req.getParameter("dAddress1"));
+						del.setAddress2(req.getParameter("dAddress2"));
+						del.setReceiverName(req.getParameter("dReceiverName"));
+						del.setReceiverPhone(req.getParameter("dReceiverPhone"));
+						//상태코드를 결제완료코드 = 배송준비중 로 바꾸기
+						del.setDeliveryStatusCode(502);
+						del.setDeliveryMessage(req.getParameter("dMessage"));		
+						
+						System.out.println(del);
+						
+						//해당 배송번호로 업데이트할 주문들
+						String [] orderNoArr = req.getParameterValues("orderNoList[]");
+
+						
+						int [] orderNoIntArr = new int [orderNoArr.length];
+						
+						for(int i =0; i<orderNoArr.length;i++){
+							orderNoIntArr[i]= Integer.parseInt(orderNoArr[i]);
+														
+						}
+						
+//						int result=service.completeDelOrder(del,merchantUid,orderNoIntArr);
+						int result=service.completeDelOrder(del,orderNoIntArr);
+						
+					}else {
+						System.out.println("불일치");
+						throw new Exception("아임포트 값과 서버 값이 서로 다름");
+					}
+					
+					
+				}
+				
+				//아임포트 결제 취소시 서버 DB 조작
+				/*
+				 * 
+				 *  1. 선택한 order들에 의한 product 재고 삭감 복구
+            		2. 선택한 order들의 상태코드 변경
+            		3. 해당 배송의 상태코드 변경
+				 * 
+				 * 
+				 * 
+				 * */
+				
+				else if(command.equals("payCancel")) {
+					String [] orderNoArr = req.getParameterValues("orderNoList[]");
+					String deliveryNo = req.getParameter("merchant_uid");
+					
+					
+					
+					int result = service.payCancel(orderNoArr,deliveryNo);
+					
+					String ajaxMsg;
+					if(result>0) {
+						ajaxMsg = "결제 취소 후 취소작업에 성공함";
+
+						System.out.println(ajaxMsg);
+
+					}else {
+						ajaxMsg = "결제 취소 후 취소작업에서 문제 발생";
+
+						System.out.println(ajaxMsg);
+
+					}
+					
+				resp.getWriter().print(ajaxMsg);
+					
+					
+				}
+
+				
 
 			}
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
+			
+		
+			
 
 		}
 

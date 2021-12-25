@@ -22,9 +22,7 @@ public class MemberDAO {
       try {
          prop = new Properties();
 
-         String filePath = MemberDAO.class.getResource("/teamSemiProject2/edu/kh/semi/sql/member-query.xml")
-               .getPath();
-
+         String filePath = MemberDAO.class.getResource("/teamSemiProject2/edu/kh/semi/sql/member-query.xml").getPath();
          prop.loadFromXML(new FileInputStream(filePath));
       } catch (Exception e) {
          e.printStackTrace();
@@ -140,6 +138,29 @@ public class MemberDAO {
       }
 
       return result;
+   }
+
+   
+   public String findId(Member member, Connection conn) throws Exception{
+      String findId = null;
+      
+      try {
+         String sql = prop.getProperty("findId");
+         pstmt = conn.prepareStatement(sql);
+         pstmt.setString(1, member.getMemberEmail());
+         pstmt.setString(2, member.getMemberName());
+         
+         rs = pstmt.executeQuery();
+         if (rs.next()) {
+
+            findId = rs.getString("MEMBER_ID");
+
+         }
+      } finally {
+         close(rs);
+         close(pstmt);
+      }
+      return findId;
    }
 
 

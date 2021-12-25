@@ -15,14 +15,39 @@ public class Member {
    private int gradeCode;
 
    private String memberGradeName;
-   private double memberGradeDiscount;
+   private Double memberGradeDiscount;
 
    public Member() {
    }
+   
+   
+   // 회원가입 
+   public Member(String memberId, String memberPw, String memberEmail, String memberName, String memberBirthday,
+         String memberPhone) {
+      super();
+      this.memberId = memberId;
+      this.memberPw = memberPw;
+      this.memberEmail = memberEmail;
+      this.memberName = memberName;
+      this.memberBirthday = memberBirthday;
+      this.memberPhone = memberPhone;
+   }
+   
+   
 
+
+   // 아이디 조회용
+   public Member(String memberEmail, String memberName) {
+      super();
+      this.memberEmail = memberEmail;
+      this.memberName = memberName;
+   }
+
+
+   // 회원 정보
    public Member(int memberNo, String memberId, String memberEmail, String memberName, String memberBirthday,
          String memberPhone, Date enrollDate, int statusCode, int gradeCode, String memberGradeName,
-         double memberGradeDiscount) {
+         Double memberGradeDiscount) {
       super();
       this.memberNo = memberNo;
       this.memberId = memberId;
@@ -125,11 +150,11 @@ public class Member {
       this.memberGradeName = memberGradeName;
    }
 
-   public double getMemberGradeDiscount() {
+   public Double getMemberGradeDiscount() {
       return memberGradeDiscount;
    }
 
-   public void setMemberGradeDiscount(double memberGradeDiscount) {
+   public void setMemberGradeDiscount(Double memberGradeDiscount) {
       this.memberGradeDiscount = memberGradeDiscount;
    }
 

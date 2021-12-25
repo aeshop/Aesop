@@ -5,8 +5,12 @@
 
 	<entry key="getListCount">
 		SELECT COUNT(*) FROM BOARD
-		WHERE BD_STATUS_CD != 702 AND CATEGORY_CD = ?
+		NATURAL JOIN member
+		WHERE BD_STATUS_CD != 702
+		AND CATEGORY_CD = ?
 	</entry>
+	
+	
 	<entry key="selectBoardList">
 		SELECT * FROM
 		(SELECT ROWNUM RNUM, A.*
@@ -14,7 +18,8 @@
 		FROM BOARD_LIST
 		WHERE BD_STATUS_CD != 702
 		AND CATEGORY_CD = ?
-		ORDER BY BOARD_NO DESC) A)
+		ORDER BY
+		BOARD_NO DESC) A)
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	<entry key="selectBoard">
@@ -47,5 +52,32 @@
 		WHERE
 		BOARD_NO = ?
 	</entry>
-
+	<entry key="selectCategory">
+		SELECT * FROM BOARD_CATEGORY
+	</entry>
+	<entry key="nextBoardNo">
+		SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+	</entry>
+	<entry key="insertBoard">
+		INSERT INTO BOARD(
+		BOARD_NO,BOARD_TITLE,BOARD_CONTENT,CREATE_DT,
+		READ_COUNT,BD_STATUS_CD,CATEGORY_CD,MEMBER_NO)
+		VALUES
+		(?, ?, ?, DEFAULT,
+		0, 701, ?,?)
+	</entry>
+	<entry key="selectProduct">
+		select
+		product_no,product_nm,product_img_path,product_img_nm from product
+		join product_img using(product_no)
+        where product_img_level=0
+	</entry>
+	<entry key="searchBoardList">
+        SELECT * FROM
+		(SELECT ROWNUM RNUM, A.*
+		FROM (select
+		* from board NATURAL JOIN BOARD_CATEGORY
+		join member using(member_no) 
+		WHERE CATEGORY_CD = ?  
+	</entry>
 </properties>

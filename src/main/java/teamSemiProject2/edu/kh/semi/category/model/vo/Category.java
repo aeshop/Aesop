@@ -2,7 +2,9 @@ package teamSemiProject2.edu.kh.semi.category.model.vo;
 
 public class Category {
 
-	private int categoryNo;
+	private int categoryNo1;
+	private int categoryNo2;
+
 	private String categoryName;
 	private int currentCategoryNo;
 	
@@ -10,17 +12,26 @@ public class Category {
 		super();
 
 	}
-	public Category(int categoryNumber, String categoryName) {
+	public int getCategoryNo1() {
+		return categoryNo1;
+	}
+	public void setCategoryNo1(int categoryNo1) {
+		this.categoryNo1 = categoryNo1;
+	}
+	public int getCategoryNo2() {
+		return categoryNo2;
+	}
+	public void setCategoryNo2(int categoryNo2) {
+		this.categoryNo2 = categoryNo2;
+	}
+	
+	public Category(int categoryNo1, String categoryName) {
 		super();
-		this.categoryNo = categoryNumber;
+		this.categoryNo1 = categoryNo1;
 		this.categoryName = categoryName;
 	}
-	public int getCategoryNo() {
-		return categoryNo;
-	}
-	public void setCategoryNo(int categoryNumber) {
-		this.categoryNo = categoryNumber;
-	}
+	
+	
 	public String getCategoryName() {
 		return categoryName;
 	}
