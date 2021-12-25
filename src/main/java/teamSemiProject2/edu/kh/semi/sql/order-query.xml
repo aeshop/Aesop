@@ -12,7 +12,7 @@
 	</entry>
 	<entry key="deleteOrder">
 
-UPDATE order_1 SET order_status_cd = 403 WHERE order_no = ? AND member_no = ?
+UPDATE order_1 SET order_status_cd = 406 WHERE order_no = ? AND member_no = ?
 </entry>
 	<!-- 로그인 (탈퇴 회원 제외) -->
 	<entry key="amountDown">
