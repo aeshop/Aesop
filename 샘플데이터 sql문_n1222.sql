@@ -11,7 +11,7 @@ BEGIN
     FOR I IN 1..20 LOOP
         INSERT INTO product
         VALUES(SEQ_product_NO.NEXTVAL,
-                SEQ_product_NO.CURRVAL || '번째 제품_샘플데이터_'||(select category_nm from product_category where category_no = 312),
+                SEQ_product_NO.CURRVAL || '번째 제품_샘플데이터_'||(select category_nm from product_category where category_no2 = 312),
                 10000,
                 0, 0, 312,1002);
     END LOOP;

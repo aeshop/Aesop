@@ -122,3 +122,20 @@ SELECT * FROM BOARD_CATEGORY;
 
 SELECT * FROM REPLY;
 SELECT * FROM REPLY_STATUS;
+
+
+
+
+
+
+-----------------update
+
+--품절상품인지 아닌지 조사하는 쿼리문
+update product 
+set pro_status_no = (
+    select decode(stock,0,1002,1001) 
+    from product 
+    where product_no = (select product_no from order_1 where order_no = 186)
+) 
+where product_no 
+= (select product_no from order_1 where order_no = 186)

@@ -14,8 +14,8 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>aesop</title>
 <!-- 공용 CSS -->
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/common/r_common.css">
+<link rel="stylesheet"	href="${contextPath}/resources/css/common/r_common.css">
+<link rel="stylesheet"	href="${contextPath}/resources/css/productDetail.css">
 
 <!-- bootstrap -->
 <link

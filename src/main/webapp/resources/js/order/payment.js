@@ -30,6 +30,8 @@ data: {
             두  서버의 값을 비교해서 검증이 성공하면 결제 정보를 데이터베이스에 저장
 
 */
+
+//이 코드는 프론트단, 버튼을 클릭했을때 화면에 결제창이 뜨고 amount만큼의 돈이 표시가 된다.
 $("#check_module").click(function() {
     var IMP = window.IMP; // 생략가능
     IMP.init('imp63937946');
@@ -37,17 +39,7 @@ $("#check_module").click(function() {
     // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
     IMP.request_pay({
         pg: 'inicis', // version 1.1.0부터 지원.
-        /*
-        'kakao':카카오페이,
-        html5_inicis':이니시스(웹표준결제)
-        'nice':나이스페이
-        'jtnet':제이티넷
-        'uplus':LG유플러스
-        'danal':다날
-        'payco':페이코
-        'syrup':시럽페이
-        'paypal':페이팔
-        */
+
         pay_method: 'card',
         // pay_method: 'trans',
         /*
@@ -64,14 +56,14 @@ $("#check_module").click(function() {
         위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
         참고하세요.
         나중에 포스팅 해볼게요.
-        
+        3-1에 써놓음
         //
 
         */
         name: '주문명:결제테스트',
         //결제창에서 보여질 이름
-        amount: 25000,
-        //가격
+        amount: 100,
+        //가격 
         buyer_email: 'iamport@siot.do',
         buyer_name: '구매자이름',
         buyer_tel: '010-1234-5678',
@@ -91,6 +83,14 @@ $("#check_module").click(function() {
             msg += '상점 거래ID : ' + rsp.merchant_uid;
             msg += '결제 금액 : ' + rsp.paid_amount;
             msg += '카드 승인번호 : ' + rsp.apply_num;
+
+
+            //여기에  결제 성공 여부에 따른 처리 로직이 작성되야 한다
+
+
+
+
+
         } else {
             var msg = '결제에 실패하였습니다.';
             msg += '에러내용 : ' + rsp.error_msg;
@@ -98,3 +98,26 @@ $("#check_module").click(function() {
         alert(msg);
     });
 });
+
+/* 
+1. 버튼에 click 이벤트가 발생했을때, 익명 함수를 실행한다, 
+2. 부여받은 가맹점식별코드 적고, 결제정보 객체를 인수로 하는 request_pay함수를 실행한다
+3. 결제정보 객체에는 요금, 등이 담겨있고, 주문번호는 내가 생성해야 된다.
+3-1. IMP.request_pay({}) 함수를 실행하기 전에, 서버에서 데이터베이스에 주문 레코드를 생성해서 주문번호를
+param.merchant_uid에 지정하기를 권장한다 라고 한다
+
+즉 먼저 주문번호를 생성하고, 그 주문번호를 은행 번호표처럼 사용하라는 뜻이다. 
+널디처럼 보여주고 싶으면 이렇게 할뿐만 아니라 아예 주문번호 레코드부터 생성하고
+ 이걸 추가한다음에 update로 레코드를 계속 수정해 나가야 할듯?
+ 그러니까 구매 버튼 누르자 마자 가장 먼저 해야 할 일이 3-1인 것
+
+ 4. 결제 성공시, 결제 실패시에 대응하는 함수가 실행된다 
+ 블로그 예제는 클라이언트 단과 i'mport 서버에 기록이 남는 방식을 사용했고
+ 
+ 5. 나는 여기에 더해서 내 서버 즉 DB에 기록을 남기고, 그 기록을 i'mport 서버와 검증해서 맞으면 결제완료로
+ 아니면 추가적인 조치를 취하는 로직을 만들어야 된다.
+ 
+
+
+
+*/

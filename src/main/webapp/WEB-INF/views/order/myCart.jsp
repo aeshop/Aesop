@@ -9,7 +9,7 @@
 
 
 
-<jsp:include page="../common/header_n.jsp"></jsp:include>
+<jsp:include page="../common/r_header.jsp" />
 
 <jsp:include page="../common/sidebar_n.jsp"></jsp:include>
 
@@ -22,7 +22,7 @@
 			
 			</head>
 
-<fmt:parseNumber value="${100*(1-sessionScope.loginMemberDiscount)}" var="discountRate" integerOnly="true"/>
+<fmt:parseNumber value="${100*(1-sessionScope.loginMember.memberGradeDiscount)}" var="discountRate" integerOnly="true"/>
 
 <div id="n-order-container">
 
@@ -30,8 +30,8 @@
 		<div class="n-infomation">
 			<div class="n-membership">혜택정보</div>
 			<div class="n-membership">
-				<span id="n-membership-id">${sessionScope.loginMemberName}</span>님은, [<span
-					id="n-membership-rank">${sessionScope.loginMemberGradeName}</span>] 회원이십니다. <br>구매금액의
+				<span id="n-membership-id">${sessionScope.loginMember.memberName}</span>님은, [<span
+					id="n-membership-rank">${sessionScope.loginMember.memberGradeName}</span>] 회원이십니다. <br>구매금액의
 				<span id="n-membership-rate">${discountRate}</span>%을 할인 받으실 수 있습니다.
 			</div>
 
@@ -50,7 +50,7 @@
 		<table class="n-cart-table">
 			<thead>
 				<tr>
-					<th><input type="checkbox" onclick="checkAll()"></th>
+					<th><input type="checkbox" id="allChk" onchange="checkAll(this)"></th>
 					<th>이미지</th>
 					<th>상품정보</th>
 					<th>판매가</th>
@@ -96,7 +96,7 @@
 
 					</c:if>	
 						<td ><span class="orderPrice"></span>원</td>
-					<td class="n-cart-btns"><a href="" onclick=""><img src="${contextPath}/resources/images/order/btn_order_p.png" alt="주문하기버튼img"></a> 
+					<td class="n-cart-btns"><a onclick="doOrder()"><img src="${contextPath}/resources/images/order/btn_order_p.png" alt="주문하기버튼img"></a> 
 					<a onclick="deleteOrder()"><img src="${contextPath}/resources/images/order/btn_delete2.gif"alt="삭제버튼img"></a></td>
 				</tr>
 				
@@ -153,7 +153,7 @@
 	<!-- 주문버튼 -->
 	<div class="n-order-btn-wrapper">
 		<div>
-			<button class="btn btn-primary" onclick="orderAll()">전체상품주문</button>
+			<button class="btn btn-primary" onclick="orderAll(this)">전체상품주문</button>
 			<button class="btn btn-secondary" onclick="orderSelectedProduct()">선택상품주문</button>
 		</div>
 
@@ -164,5 +164,5 @@
 </div>
 
 
-<jsp:include page="../common/footer_n.jsp"></jsp:include>
+<jsp:include page="../common/r_footer.jsp" />
 <script type="text/javascript" src="${contextPath}/resources/js/order/myCart.js"></script>

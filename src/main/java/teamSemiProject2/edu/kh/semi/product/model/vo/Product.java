@@ -143,6 +143,14 @@ public class Product {
 	public void setImgList(List<ProductImage> imgList) {
 		this.imgList = imgList;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Product [productNo=" + productNo + ", productName=" + productName + ", price=" + price + ", discount="
+				+ discount + ", stock=" + stock + ", categoryNo=" + categoryNo + ", statusNo=" + statusNo
+				+ ", categoryName=" + categoryName + ", statusName=" + statusName + ", imgList=" + imgList + "]";
+	}
 	
 	
 	
