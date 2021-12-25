@@ -3,6 +3,8 @@
 <jsp:include page="../common/r_header.jsp" />
 
 <div class="signup_wrap">
+
+	<jsp:include page="../common/sidebar_n.jsp" />
     <form class="signup_form" method="post" name="signUpForm" action="${contextPath}/member/signup" onsubmit="return Validate();">
       <h2>회원가입</h2>
       <div class="join_step">
@@ -50,7 +52,7 @@
           <span id="checkName" class="validity-msg"></span>
         </div>
         <div class="signup_input">
-          <input id="birthday" name="birthday" type="date" required>
+          <input id="birthday" name="birthday" type="date" min="1921-01-01" max="2020-12-31" required>
           <span id="checkBirthday" class="validity-msg"></span>
         </div>
         <div class="signup_input signup_input_arr" style="border: 1px solid rgb(201 201 201);">

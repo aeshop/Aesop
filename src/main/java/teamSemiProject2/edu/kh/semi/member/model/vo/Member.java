@@ -43,6 +43,14 @@ public class Member {
 		this.memberName = memberName;
 	}
 
+	// 비밀번호 조회용
+	public Member(String memberId, String memberEmail, String memberName) {
+		super();
+		this.memberId = memberId;
+		this.memberEmail = memberEmail;
+		this.memberName = memberName;
+	}
+
 
 	// 회원 정보
 	public Member(int memberNo, String memberId, String memberEmail, String memberName, String memberBirthday,
@@ -61,6 +69,8 @@ public class Member {
 		this.memberGradeName = memberGradeName;
 		this.memberGradeDiscount = memberGradeDiscount;
 	}
+
+	
 
 	public int getMemberNo() {
 		return memberNo;

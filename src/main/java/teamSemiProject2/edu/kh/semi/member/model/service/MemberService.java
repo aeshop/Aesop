@@ -74,5 +74,13 @@ public class MemberService {
 	}
 
 
+	public String findPw(Member member) throws Exception{
+		Connection conn = getConnection();
+		String findPw = dao.findPw(member, conn);
+		close(conn);
+		return findPw;
+	}
+
+
 
 }

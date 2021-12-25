@@ -3,6 +3,8 @@
 <jsp:include page="../common/r_header.jsp" />
 
 <div class="login_wrap">
+
+	<jsp:include page="../common/sidebar_n.jsp" />
 	<form id="login" method="post" action="${contextPath}/member/login" onsubmit="return loginValidate()" >
 		<div class="login_container">
 			<div class="login_container_form">
@@ -16,7 +18,7 @@
 						<button type="submit" class="login_btn">로그인</button>
 						<div class="typeLogin">
 							<a href="findId">아이디찾기</a> 
-							<a href="#">비밀번호찾기</a>
+							<a href="findPw">비밀번호찾기</a>
 						</div>
 					</div>
 				</fieldset>

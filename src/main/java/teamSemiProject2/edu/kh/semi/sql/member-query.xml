@@ -48,6 +48,7 @@
 		select member_pw from member
 		where member_id = ?
 		and member_name = ?
+		and member_email = ?
 		and member_status_no = 101
 	</entry>
 	

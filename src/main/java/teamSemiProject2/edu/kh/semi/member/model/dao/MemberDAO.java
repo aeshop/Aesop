@@ -163,5 +163,26 @@ public class MemberDAO {
 		return findId;
 	}
 
+	public String findPw(Member member, Connection conn) throws Exception{
+		String findPw = null;
+		
+		try {
+			String sql = prop.getProperty("findPw");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member.getMemberId());
+			pstmt.setString(2, member.getMemberName());
+			pstmt.setString(3, member.getMemberEmail());
+			
+			rs= pstmt.executeQuery();
+			if(rs.next()) {
+				findPw=rs.getString("MEMBER_PW");
+			}
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return findPw;
+	}
+
 
 }
