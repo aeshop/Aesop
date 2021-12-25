@@ -82,7 +82,9 @@
           <div class="addr-register-btn">
               <span>
                    <!-- 등록 버튼 -->
+                   <a href="${contextPath}/myPage/addr">
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_register2.gif" id="register">
+                   </a>
                   
                   <a href="${contextPath}/myPage/addr"> <!-- 취소 버튼 -->
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_cancel.gif">
