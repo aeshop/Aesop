@@ -160,7 +160,7 @@ data: {
 
 const deliveryInfo = {
 
-    dName: document.querySelector('#rName').value,
+
     dZipCode: document.querySelector('#rZipcode').value,
     dAddress1: document.querySelector('#rAddr1').value,
     dAddress2: document.querySelector('#rAddr2').value,
@@ -208,8 +208,14 @@ $("#check_module").click(function() {
         async: false,
 
         success: function(result) { //json으로 넘어옴 : 에이젝스가 자바스크립트 코드의 실행보다 느리기 때문에 발생하는 일이다 
-            deliveryNo = result.deliveryNo;
-            totalPrice = result.totalPrice;
+            if (result.stCode == 200) {
+                deliveryNo = result.deliveryNo;
+                totalPrice = result.totalPrice;
+            } else if (result.stCode == 199) {
+                alert("제품 재고 부족으로 결제를 취소합니다.");
+                location.href = '/teamSemiProject2/order/view';
+            }
+
 
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -283,6 +289,9 @@ $("#check_module").click(function() {
             */
     }, function(rsp) {
         console.log(rsp);
+
+        //rsp 안에 success 프로퍼티가 true, false로 결제 성공, 결제 실패&취소 여부를 알려줌
+
         if (rsp.success) {
             var msg = '결제가 완료되었습니다.';
             msg += '고유ID : ' + rsp.imp_uid;
@@ -303,7 +312,7 @@ $("#check_module").click(function() {
                     dZipCode: deliveryInfo.dZipCode,
                     dAddress1: deliveryInfo.dAddress1,
                     dAddress2: deliveryInfo.dAddress2,
-                    dReceiverName: deliveryInfo.deliveryName,
+                    dReceiverName: deliveryInfo.dReceiverName,
                     dReceiverPhone: deliveryInfo.dReceiverPhone,
                     dMessage: deliveryInfo.dMessage,
                     orderNoList: orderNoArr
@@ -356,10 +365,51 @@ $("#check_module").click(function() {
 
 
         } else {
-            var msg = '결제에 실패하였습니다.';
-            msg += '에러내용 : ' + rsp.error_msg;
+
+
+            /* 결제취소시의 내 서버 DB를 조작할 내용
+            1. 선택한 order들에 의한 재고 삭감 복구
+            2. 선택한 order들의 상태코드 변경
+            3. 해당 배송의 상태코드 변경
+
+            order배열, 배송 코드를 서버로 보내주어야 한다.
+
+             같은 페이지 내에서 작업후 메세지를 보여주어야하니까 ajax, 끝나고 메세지를 보여주고 싶으므로 동기 방식
+
+            */
+
+            $.ajax({
+                url: "/teamSemiProject2/order/payCancel",
+
+
+                method: "POST",
+                data: {
+                    //배송코드
+                    merchant_uid: rsp.merchant_uid,
+                    //주문코드 배열
+                    orderNoList: orderNoArr
+
+                },
+                success: function(result) {
+                    var msg = '결제에 실패하였습니다.   ' + result;
+                    // msg += '에러내용 : ' + rsp.error_msg;
+                    alert(msg);
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("ajax 통신 중 오류 발생");
+                    console.log(jqXHR.responseText);
+                }
+
+
+            });
+
+
+
+
+
+
         }
-        alert(msg);
     });
 });
 

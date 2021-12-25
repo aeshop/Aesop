@@ -141,7 +141,7 @@ alter table product_category add constraint PK_PRODUCT_CATEGORY_2 primary key(CA
 
 select  floor(category_no1/10)  from product_category;
 
-
+--제품진열페이지 제품카테고리별로 진열하는 페이지네이션
 	SELECT * FROM
 		(
 		SELECT ROWNUM rnum ,A.*
@@ -152,7 +152,7 @@ select  floor(category_no1/10)  from product_category;
         WHERE c.category_no2 BETWEEN 300 AND 400
 		ORDER BY p.pro_status_no,p.product_no DESC) A)
 		WHERE rnum BETWEEN 1 AND 10;
-
+--
 SELECT ROWNUM rnum ,A.*
 		FROM(
 		SELECT p.* , c.category_nm

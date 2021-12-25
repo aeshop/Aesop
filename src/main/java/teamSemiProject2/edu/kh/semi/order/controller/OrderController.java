@@ -189,14 +189,37 @@ public class OrderController extends HttpServlet {
 					resp.getWriter().print(result);
 
 				} else if(command.equals("beforeImport")) {
-					//payment페이지에 있는 주문번호들 배열로 받아옴
-					String [] orderNoArr = req.getParameterValues("orderNoList[]");
-			
 					
-					Map<String, String> resultMap = service.beforeImport(orderNoArr,loginMemberNo);
-					//AJAX로 맵 반환함
+					try {
+						//payment페이지에 있는 주문번호들 배열로 받아옴
+						String [] orderNoArr = req.getParameterValues("orderNoList[]");
+				
+						
+						Map<String, String> resultMap = service.beforeImport(orderNoArr,loginMemberNo);
+						//AJAX로 맵 반환함
 
-					resp.getWriter().print(new Gson().toJson(resultMap));
+						resp.getWriter().print(new Gson().toJson(resultMap));
+						
+						
+					} catch (Exception e) {//수량 부족으로 체크 제약조건 위배할 경우
+
+						e.printStackTrace();
+						
+						if(e instanceof SQLException) {
+							SQLException se = (SQLException) e;
+							if(se.getErrorCode()==2290) {//캐치 조건에 어긋날시에
+								
+							System.out.println("수량이 부족합니다.");
+							Map<String, String> resultMap = new HashMap<String, String>();
+							resultMap.put("stCode", "199");
+							resp.getWriter().print(new Gson().toJson(resultMap));
+
+							}
+						}
+					
+					
+					}
+			
 
 
 				}
@@ -234,6 +257,7 @@ public class OrderController extends HttpServlet {
 						
 						
 						del.setMemberNo(loginMemberNo);
+						del.setDeliveryNo(merchantUid);
 						del.setZipCode(req.getParameter("dZipCode"));
 						del.setAddress1(req.getParameter("dAddress1"));
 						del.setAddress2(req.getParameter("dAddress2"));
@@ -256,7 +280,8 @@ public class OrderController extends HttpServlet {
 														
 						}
 						
-						int result=service.completeDelOrder(del,merchantUid,orderNoIntArr);
+//						int result=service.completeDelOrder(del,merchantUid,orderNoIntArr);
+						int result=service.completeDelOrder(del,orderNoIntArr);
 						
 					}else {
 						System.out.println("불일치");
@@ -265,6 +290,45 @@ public class OrderController extends HttpServlet {
 					
 					
 				}
+				
+				//아임포트 결제 취소시 서버 DB 조작
+				/*
+				 * 
+				 *  1. 선택한 order들에 의한 product 재고 삭감 복구
+            		2. 선택한 order들의 상태코드 변경
+            		3. 해당 배송의 상태코드 변경
+				 * 
+				 * 
+				 * 
+				 * */
+				
+				else if(command.equals("payCancel")) {
+					String [] orderNoArr = req.getParameterValues("orderNoList[]");
+					String deliveryNo = req.getParameter("merchant_uid");
+					
+					
+					
+					int result = service.payCancel(orderNoArr,deliveryNo);
+					
+					String ajaxMsg;
+					if(result>0) {
+						ajaxMsg = "결제 취소 후 취소작업에 성공함";
+
+						System.out.println(ajaxMsg);
+
+					}else {
+						ajaxMsg = "결제 취소 후 취소작업에서 문제 발생";
+
+						System.out.println(ajaxMsg);
+
+					}
+					
+				resp.getWriter().print(ajaxMsg);
+					
+					
+				}
+
+				
 
 			}
 
@@ -272,12 +336,7 @@ public class OrderController extends HttpServlet {
 
 			e.printStackTrace();
 			
-			if(e instanceof SQLException) {
-				SQLException se = (SQLException) e;
-				if(se.getErrorCode()==1) {//캐치 조건에 어긋날시에
-					//리다이렉트 시도
-				}
-			}
+		
 			
 
 		}

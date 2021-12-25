@@ -46,6 +46,16 @@
 		product_no = (SELECT product_no FROM order_1 WHERE order_no = ? AND
 		member_no = ?)
 	</entry>
+	<entry key="checkStock">
+		update product 
+		set pro_status_no = (
+    	select decode(stock,0,1002,1001) 
+    	from product 
+    	where product_no = (select product_no from order_1 where order_no = ?)
+		) 
+		where product_no 
+		= (select product_no from order_1 where order_no = ?)
+	</entry>
 	<entry key="getMember">
 		select * from member join member_grade using(member_grade_no) WHERE member_no = ?
 	</entry>
@@ -90,11 +100,19 @@
 		select * 
 		from address 
 		where member_no = ?
-		order by default_address desc
+		order by default_address DESC
 	</entry>
-	<entry key="getOrderItem2">
-		OR o.order_no = ?
-	</entry>
+<entry key="restoreStock">
+UPDATE product 
+SET stock = stock + (SELECT order_amount FROM order_1 WHERE order_no = ?)
+WHERE product_no = (SELECT product_no FROM order_1 WHERE order_no = ?)
+</entry>
+<entry key="cancelOrder">
+UPDATE ORDER_1 SET ORDER_STATUS_CD =403 WHERE ORDER_NO = ?
+</entry>
+<entry key="cancelDelivery">
+UPDATE delivery SET DELIVERY_STATUS_CD = 505 WHERE DELIVERY_NO = ?
+</entry>
 
 
 

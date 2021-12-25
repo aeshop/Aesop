@@ -149,12 +149,7 @@
 <jsp:include page="../common/r_footer.jsp"/>
   
   
-		<!--  js 파일에서 사용을위한 script-->
-		
-		<script>
-/* 		const loginMemberNo = ${loginMember.memberNo};
- */		</script>
-		
+	
 		
 	
 	<script type="text/javascript" src="${contextPath}/resources/js/product/productDetail.js"></script>

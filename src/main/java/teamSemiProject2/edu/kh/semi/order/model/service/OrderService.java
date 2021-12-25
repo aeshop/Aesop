@@ -203,7 +203,8 @@ public class OrderService {
 
 		conn = getConnection();
 		try {
-			// 1. 주문 수량 조절: update - 실패시 예외 반환
+			// 1. 주문 수량 조절: 제품 테이블 update - 실패시 예외 반환
+			//1-2. 제품 상태코드(품절,정상) 확인 후 변경: 제품 테이블 update
 			downStock(orderNoArr, loginMemberNo, conn);
 
 			// 2. 가격 계산 : select를 여러번 수행해서 값 계산 : 제품가격*(1-할인율)*주문수량 을 주문번호 길이만큼 반복
@@ -244,9 +245,10 @@ public class OrderService {
 			}
 
 			resultMap = new HashMap<String, String>();
-			// 총가격, 배송번호 반환
+			// 모두 성공했으면 더 진행해도 된다는 status property=200와 총가격, 배송번호 반환
 			resultMap.put("deliveryNo", deliveryNo);
 			resultMap.put("totalPrice", totalPrice + "");
+			resultMap.put("stCode", "200");
 
 		} finally {
 
@@ -274,15 +276,28 @@ public class OrderService {
 		return result;
 	}
 
+	/**재고 감소후 품절 유무 확인
+	 * @param orderNoArr
+	 * @param loginMemberNo
+	 * @param conn
+	 * @throws Exception
+	 */
 	private void downStock(String[] orderNoArr, int loginMemberNo, Connection conn) throws Exception {
-
+int flag = 0;
 		for (int i = 0; i < orderNoArr.length; i++) {
 			int orderNo = Integer.parseInt(orderNoArr[i]);
 
-			int result = dao.downStock(orderNo, loginMemberNo, conn);
+			
+		flag =	dao.downStock(orderNo, loginMemberNo, conn);
 
+		if(flag >0) {
+			dao.checkStock(orderNo,conn);
+			flag=0;
+		} else {
+			rollback(conn); return;
 		}
-
+			
+		}
 	}
 
 	/**
@@ -305,19 +320,19 @@ public class OrderService {
 		return result;
 	}
 
-	public int completeDelOrder(Delivery del, String merchantUid,int [] orderNoIntArr) throws Exception {
+	public int completeDelOrder(Delivery del, int [] orderNoIntArr) throws Exception {
 		int result = 0;
 		conn = getConnection();
 
 		//배송 테이블에 배송 정보 최종 업데이트
-		result = dao.completeDelivery(del,merchantUid,conn);
+		result = dao.completeDelivery(del,conn);
 		
 		if(result <0) {
 			rollback(conn); return 0;
 		}
 		//해당 배송과 연결될 주문 테이블들 업데이트
 		
-		result = completeOrder(merchantUid,orderNoIntArr,conn);
+		result = completeOrder(del.getDeliveryNo(),orderNoIntArr,conn);
 		
 		if(result >0) {
 			commit(conn);
@@ -365,6 +380,67 @@ public class OrderService {
 		
 		
 		close(conn);
+		return result;
+	}
+
+	/**아임포트 결제 취소시 서버 DB 조작
+	 * 
+	 *  *  1. 선택한 order들에 의한 product 재고 삭감 복구 - update
+         2. 선택한 order들의 상태코드 변경 - update
+         3. 해당 배송의 상태코드 변경 - update
+	 * 
+	 * 
+	 * 
+	 * @param orderNoArr
+	 * @param deliveryNo
+	 * @return
+	 */
+	public int payCancel(String[] orderNoArr, String deliveryNo) throws Exception{
+
+		conn=getConnection();
+		
+		int result = 0;
+		//1. 선택한 order들에 의한 product 재고 삭감 복구 & 품절유무 체크
+		for(int i =0; i<orderNoArr.length;i++){
+			
+			int orderNo = Integer.parseInt(orderNoArr[i]);
+			
+		result =	dao.restoreStock(orderNo,conn);
+		dao.checkStock(orderNo, conn);
+		if(result<=0) {
+			rollback(conn);
+			break;
+		} else {//재고 복구 성공시
+			//2. 선택한 order의 상태 코드 변경(결제취소 = 403)
+
+			result =	dao.cancelOrder(orderNo,conn);
+
+			if(result<=0) {
+				rollback(conn);
+				break;
+			}	
+		}
+			
+		
+		}
+	
+		//3. 윗부분을 모두 성공했을 때 해당 배송의 상태코드 변경 - update 배송취소 = 505
+
+		if(result>0) {
+			result = dao.cancelDelivery(deliveryNo,conn);
+			
+			if(result>0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		}
+		
+	
+		
+		close(conn);
+		
+		
 		return result;
 	}
 

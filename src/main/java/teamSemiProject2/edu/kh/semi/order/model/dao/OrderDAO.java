@@ -303,6 +303,26 @@ public class OrderDAO {
 
 		return 1;
 	}
+	
+	public void checkStock(int orderNo, Connection conn) throws Exception{
+
+		try {
+			String sql = prop.getProperty("checkStock");
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, orderNo);
+			pstmt.setInt(2, orderNo);
+
+			pstmt.executeUpdate();
+			
+			
+		} finally {
+
+close(pstmt);
+		}
+		
+	}
+	
 
 	public long getTotalPrice(int orderNo, int loginMemberNo, Connection conn) throws SQLException {
 		long result = 0;
@@ -398,7 +418,7 @@ public class OrderDAO {
 	 * @param conn
 	 * @return
 	 */
-	public int completeDelivery(Delivery del, String merchantUid, Connection conn) throws Exception {
+	public int completeDelivery(Delivery del, Connection conn) throws Exception {
 
 		int result = 0;
 		try {
@@ -426,7 +446,7 @@ public class OrderDAO {
 
 			pstmt.setInt(6, del.getDeliveryStatusCode());
 			pstmt.setString(7, del.getDeliveryMessage());
-			pstmt.setString(8, merchantUid);
+			pstmt.setString(8, del.getDeliveryNo());
 
 			result = pstmt.executeUpdate();
 
@@ -503,5 +523,108 @@ public class OrderDAO {
 
 		return resultList;
 	}
+
+	/** 제품재고복구
+	 * @param orderNo
+	 * @param conn
+	 * @return
+	 * @throws Exception
+	 */
+	public int restoreStock(int orderNo, Connection conn) throws Exception {
+
+	
+
+
+		int result = 0;
+
+		try {
+
+			String sql = prop.getProperty("restoreStock");
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, orderNo);
+			pstmt.setInt(2, orderNo);
+
+			result = pstmt.executeUpdate();
+
+		} finally {
+			close(pstmt);
+
+		}
+
+		return result;
+	
+		
+	
+	
+	}
+
+	/** 선택한 order의 상태 코드 변경(결제취소 = 403)
+	 * @param orderNo
+	 * @param conn
+	 * @return
+	 * @throws Exception
+	 */
+	public int cancelOrder(int orderNo, Connection conn) throws Exception {
+
+	
+
+
+		int result = 0;
+
+		try {
+
+			String sql = prop.getProperty("cancelOrder");
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, orderNo);
+
+			result = pstmt.executeUpdate();
+
+		} finally {
+			close(pstmt);
+
+		}
+
+		return result;
+	
+		
+	
+	
+	}
+
+	/**- update 배송취소 = 505
+	 * @param deliveryNo
+	 * @param conn
+	 * @return
+	 * @throws Exception
+	 */
+	public int cancelDelivery(String deliveryNo, Connection conn) throws Exception  {
+
+		int result = 0;
+
+		try {
+
+			String sql = prop.getProperty("cancelDelivery");
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, deliveryNo);
+
+			result = pstmt.executeUpdate();
+
+		} finally {
+			close(pstmt);
+
+		}
+
+		return result;
+	
+		
+	}
+
+
 
 }

@@ -42,7 +42,7 @@
                     <div class="n-membership">혜택정보</div>
                     <%-- --%>
                     <div class="n-membership"><span id="n-membership-id">${sessionScope.loginMember.memberName}</span>님은, [<span id="n-membership-rank">${sessionScope.loginMember.memberGradeName}</span>] 회원이십니다. <br>
-                    구매금액의 <span id="n-membership-rate"><fmt:parseNumber value="${1-sessionScope.loginMember.memberGradeDiscount}" integerOnly="true"/></span>%을 할인 받으실 수 있습니다.</div>
+                    구매금액의 <span id="n-membership-rate"><fmt:parseNumber value="${100*(1-sessionScope.loginMember.memberGradeDiscount)}" integerOnly="true"/></span>%을 할인 받으실 수 있습니다.</div>
 
                 </div>
             </div>
@@ -326,7 +326,7 @@
 
     </div>
 
-<jsp:include page="../common/r_header.jsp" />
+<jsp:include page="../common/r_footer.jsp" />
 
 
 <%-- <jsp:include page="../common/footer_n.jsp"></jsp:include>
