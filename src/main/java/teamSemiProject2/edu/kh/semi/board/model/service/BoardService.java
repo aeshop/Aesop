@@ -163,14 +163,13 @@ public class BoardService {
 		return product;
 	}
 
-//	public List<Board> searchBoardList(String searchKey, String search) throws Exception{
-//		
-//		Connection conn = getConnection();
-//		List<Board> board = dao.searchBoardList(searchKey,search,conn);
-//		close(conn);
-//		
-//		return board;
-//	}
+	public int deleteBoard(int boardNo) throws Exception{
+		Connection conn = getConnection();
+		int result = dao.deleteBoard(boardNo,conn);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		return result;
+	}
 
 
 

@@ -15,7 +15,13 @@
 </head>
 <body>
 	<div id="contents">
+<script>
+	
+const contextPath = "${contextPath}";
 
+// 현재 게시글 번호
+const boardNo = ${board.boardNo};
+</script>
 		<!-- 글 내용-->
 		<form id="BoardDelForm" name="" action="" method="post" target="_self">
 			<div class="ec-base-table typeWrite">
@@ -58,9 +64,10 @@
 							<th scope="row" id="mcBorder">비밀번호</th>
 							<td id="mcBorder"><input id="password" name="password"
 								fw-filter="" fw-label="비밀번호" fw-msg=""
-								onkeydown="if (event.keyCode == 13 || event.which == 13) { return false; }"
-								value="" type="password"> <span
-								class="ec-base-help txtInfo">수정 및 삭제하려면 비밀번호를 입력하세요.</span></td>
+								
+								value="" type="password">
+
+							</td>
 
 
 						</tr>
@@ -84,6 +91,12 @@
 			</div>
 
 		</form>
+
+		
+		<button class="tSBKF" onclick="deleteBoard(${param.no})">게시글 삭제</button>
+		<script src="${contextPath}/resources/js/board/boardView.js"></script>
+
+	
 		<form action="#" method="POST" name="requestForm">
 			<input type="hidden" name="cp" value="${param.cp }"> <input
 				type="hidden" name="no" value="${param.no }">

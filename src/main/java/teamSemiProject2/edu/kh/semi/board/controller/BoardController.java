@@ -43,6 +43,7 @@ public class BoardController extends HttpServlet {
 			BoardService service = new BoardService();
 
 			int cp = req.getParameter("cp") == null ? 1 : Integer.parseInt(req.getParameter("cp"));
+			
 			if (command.equals("list")) {
 				Pagination pagination =null;
 				List<Board> boardList = null;
@@ -107,7 +108,15 @@ public class BoardController extends HttpServlet {
 					resp.sendRedirect("list");
 				}
 			}
-			
+			else if(command.equals("delete")) {
+				
+				int boardNo = Integer.parseInt(req.getParameter("no"));
+				int result = service.deleteBoard(boardNo);
+				
+				
+				resp.getWriter().print(result);
+				
+			}
 			else if (command.equals("insert")) {
 			
 				
