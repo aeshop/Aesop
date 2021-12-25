@@ -15,7 +15,8 @@
 						</div>
 						<button type="submit" class="login_btn">로그인</button>
 						<div class="typeLogin">
-							<a href="#">아이디찾기</a> <a href="#">비밀번호찾기</a>
+							<a href="findId">아이디찾기</a> 
+							<a href="#">비밀번호찾기</a>
 						</div>
 					</div>
 				</fieldset>
@@ -32,6 +33,7 @@
 
 <!-- footer -->
 <jsp:include page="../common/r_footer.jsp" />
+<script src="${contextPath}/resources/js/member/member.js"></script>
 
 
 </body>

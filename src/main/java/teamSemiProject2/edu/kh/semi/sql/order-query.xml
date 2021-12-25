@@ -11,8 +11,9 @@
 		AND member_no = ?
 	</entry>
 	<entry key="deleteOrder">
-		UPDATE order_1 SET order_status_cd = 403 WHERE order_no = ? AND member_no =
-		?</entry>
+
+UPDATE order_1 SET order_status_cd = 403 WHERE order_no = ? AND member_no = ?
+</entry>
 	<!-- 로그인 (탈퇴 회원 제외) -->
 	<entry key="amountDown">
 		UPDATE p_order SET product_amount = product_amount-1

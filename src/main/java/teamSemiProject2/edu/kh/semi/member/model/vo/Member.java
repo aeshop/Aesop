@@ -33,6 +33,16 @@ public class Member {
 		this.memberPhone = memberPhone;
 	}
 
+	
+	
+
+
+	// 아이디 조회용
+	public Member(String memberEmail, String memberName) {
+		super();
+		this.memberEmail = memberEmail;
+		this.memberName = memberName;
+	}
 
 
 	// 회원 정보
