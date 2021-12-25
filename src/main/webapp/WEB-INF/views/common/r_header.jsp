@@ -47,14 +47,15 @@
 	  <link rel="stylesheet" href="${contextPath}/resources/css/myPageBoard.css">
 </head>
 
-<body>
+<body >
 	<header id="carousel">
 		<!-- Bootstrap Carousel-->
 		<div id="carouselExampleDark" class="carousel carousel-dark slide"
 			data-bs-ride="carousel">
-			<div class="carousel-inner">
+			<div class="carousel-inner" style="text-align:center; line-height:40px;">
 				<div class="carousel-item active" data-bs-interval="5500">
-					11111111111111111111111111</div>
+				전 구매 무료 배송과 선물포장 혜택을 즐겨보세요.
+  			    </div>
 				<div class="carousel-item" data-bs-interval="5500">
 					222222222222222222222222222</div>
 				<div class="carousel-item" data-bs-interval="5500">
@@ -71,15 +72,14 @@
 						<img src="${contextPath}/resources/images/cnh/images/logo.png" style="width: 100px;">
 					 </a>
 				</div>
+				
+				
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item"><a class="nav-link" href="#">Category1
-							<!-- <span class="visually-hidden">(current)</span> -->
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Category2</a>
+					<li class="nav-item"><a class="nav-link" href="https://www.aesop.com/kr/r/philosophy-to-design/">디자인</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Category3</a>
+					<li class="nav-item"><a class="nav-link" href="https://www.aesop.com/kr/r/about/">브랜드스토리</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Category4</a>
+					<li class="nav-item"><a class="nav-link" href="#">게시판</a>
 					</li>
 
 				</ul>
@@ -87,7 +87,7 @@
 					<input class="form-control me-sm-2" type="text"
 						placeholder="Search" style="border-bottom: 2px solid black;">
 					<button type="button" class="r-form-control-button">
-						<i class="fas fa-search" style="font-size: 44px;"></i>
+						<i class="fas fa-search" ></i>
 					</button>
 
 					<c:choose>

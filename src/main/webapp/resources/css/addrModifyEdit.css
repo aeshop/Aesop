@@ -13,7 +13,7 @@
 .myshopMain{
     border: 1px solid #e0e0e0;
     box-sizing: border-box;
-    height: 200px;
+    height: 220px;
     padding: 20px 0px 20px 0px;
     margin-bottom: 35px;
 }
@@ -38,13 +38,13 @@
     float: left;
     width: calc(100% - 760px);
     border-right: 1px solid #e0e0e0;
-    height: 158px;
+    height: 170px;
 }
 
 .grade-detail{
-    padding: 2px 80px;
+    padding: 5px 84px;
     float: left;
-    width: 550px;
+    width: 724px;
     height: 158px;
 }
 
@@ -82,8 +82,8 @@
 
 .member-benefit{
     padding-top: 10px;
-    padding-left: 100px;
-    width: 350px;
+    padding-left: 99px;
+    width: 430px;
 }
 
 .member-benefit a{
@@ -100,6 +100,10 @@
 
 
 /* myshopping */
+
+.my-title, .my-title2{
+	margin-top: 30px;
+}
 
 .side{
     width: 250px;

@@ -68,6 +68,10 @@ html,
     #logo_href {
       font-size: 24px;
       color: #000;
+      position: fixed;
+      z-index: 9999;
+   	  top: 66px;
+      left: 30px;
     }
 
     .d-flex {
@@ -90,7 +94,7 @@ html,
       background-color: black;
       color: white;
       z-index : 5000;
-      opacity:0.6;
+     /* opacity:0.6; */
       height : 40px
     }
 
@@ -104,7 +108,9 @@ html,
       width: 100%;
     }
 
-    .main_container_1,
+    .main_container_1{
+     height: 930px;
+    }
     .main_container_2,
     .main_container_3,
     .main_container_4 {
@@ -129,6 +135,7 @@ html,
       width: 30%;
     }
 
+/* 수정 필요 (nh)*/
     .main_container_2_slide_right > div:nth-child(1){
       height: 65%; width: 100%; border: 1px solid blue;
     }
@@ -201,10 +208,16 @@ html,
     }
 
     /* sidebar CSS */
+    
+    
     .sidebar {
       border: none;
       width: 190px;
-      height: 850px;
+      	 height: 100%;	
+      background-color: rgba( 255, 255, 255, 0.2 );
+     	 top: 0;
+   		 padding-top: 100px;
+   		 z-index: 5000;
     }
 
     .sidebar_ul {
@@ -227,6 +240,7 @@ html,
       font-size: 19px;
       font-weight: normal;
       color: #000;
+      text-decoration: none;
 
     }
 
@@ -377,4 +391,26 @@ html,
       text-align: center;
       display: flex;
 
+    }
+    
+    
+    /* 추가 */
+    #carousel{
+      position: sticky;
+      top: 0;
+      background-color: black;
+      color: white;
+      z-index: 6000;
+    }
+
+    a{
+      color: black;
+    }
+
+    .navbar-nav{
+      margin-left: 210px;
+    }
+    
+    .displaynone{
+    display:  none;
     }
