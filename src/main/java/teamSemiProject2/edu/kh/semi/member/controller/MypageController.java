@@ -158,12 +158,15 @@ public class MypageController extends HttpServlet{
 			}else if(command.equals("addr/edit")){
 				if(method.equals("GET")) {
 					
+					System.out.println(4);
 					
 					path = "/WEB-INF/views/member/addrModifyEdit.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
 				
 				}else {//post
+					
+					System.out.println(3);
 					
 					// 파라미터 얻어오기
 					String addrName = req.getParameter("addrName");
@@ -194,7 +197,7 @@ public class MypageController extends HttpServlet{
 					// "주소번호"를 session에 있는 addrList에서 얻어오기 (addrNo)
 					AddrList addrList = (AddrList)session.getAttribute("addrList");
 					
-					updateAddr.setAddrNo( addrList.getAddrNo());
+					updateAddr.setAddrNo( addrList.getAddrNo() );
 					
 					try {
 						int result = service.updateDeliveryAddr(updateAddr);

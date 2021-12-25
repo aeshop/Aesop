@@ -13,7 +13,7 @@
     
     <c:set var="addrList" value="${sessionScope.addrList[param.idx]}"/>
     <div class="content">
-      <form method="POST" action="addr/edit" onsubmit="return addrUpdateValidate();" name="registerForm">
+      <form method="POST" action="addr/edit" onsubmit="return addrUpdateValidate();" id="registerForm">
           <div class="addr-register-box">
               <table class="addr-register-table" >
                   <colgroup>
@@ -83,9 +83,9 @@
           <div class="addr-register-btn">
               <span>
                    <!-- 등록 버튼 -->
-                   <a href="${contextPath}/myPage/addr">
+                  
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_register2.gif" id="register">
-                   </a>
+                   
                   
                   <a href="${contextPath}/myPage/addr"> <!-- 취소 버튼 -->
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_cancel.gif">
@@ -109,6 +109,7 @@
   <!-- footer include -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+<!-- 폰 번호 저장 -->
 <script>
 $(function(){
 	const ph0 ="${ph[0]}";
@@ -121,9 +122,9 @@ $(function(){
 	});
 });
 
-
-document.getElementById("register").addEventListener("onclick", function(){
-	document.forms["registerForm"].submit();
+// 등록 버튼 눌렀을 시.. 제출
+document.getElementById("register").addEventListener("click", function(){
+	document.getElementById("registerForm").submit();
 	
 });
 
