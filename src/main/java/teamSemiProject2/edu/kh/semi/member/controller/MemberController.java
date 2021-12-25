@@ -47,7 +47,6 @@ public class MemberController extends HttpServlet {
 
 		String path = null;
 		RequestDispatcher dispatcher = null;
-		HttpSession session = req.getSession();
 		req.setCharacterEncoding("UTF-8");
 
 		// 마이페이지
