@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/sidebar_n.jsp"/>
 
     <!-------------------------------------------------- 낙희 --------------------------------->
     <!-- main 1페이지 -->

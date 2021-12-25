@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/sidebar_n.jsp"/>
 
     <!-- main 1페이지 -->
     <!-- content -->
