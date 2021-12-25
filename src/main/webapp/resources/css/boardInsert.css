@@ -24,22 +24,22 @@ img{
 
 
 .container {
-	width: 1000px;
+	width: 800px;
 	margin: 0 auto;
 }
 
 .form-group {
-	width: 1000px;
+	width: 800px;
 	margin: 0 auto;
 }
 
 .text-center {
-	width: 1000px;
+	width: 800px;
 	margin: 0 auto;
 }
 
 div {
-	padding: 10px;
+	padding-top: 10px;
 }
 
 input {
@@ -84,7 +84,7 @@ hr {
 	color: #D8D9D3;
 }
 
-button:hover, [type=button]:hover {
+button:hover, [type=button]:hover, select:hover {
 	transform: translate3d(0, 2px, 0);
 	box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.3);
 }
@@ -99,4 +99,21 @@ button:focus, [type=button]:focus {
 button:active, [type=button]:active {
 	border-color: rgba(0, 0, 0, 0.2);
 	transition: none;
+}
+
+
+.fgmkt{
+border:5px double #353535;
+border-radius: 12px;
+padding:4px;
+margin-top:10px;
+}
+
+.trekjhj{
+	display:inline-block;
+	margin-right:240px;
+}
+
+.trekjhj , .trekjhj > *{
+	display:inline-block;
 }

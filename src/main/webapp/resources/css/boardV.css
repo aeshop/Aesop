@@ -15,6 +15,10 @@
 	z-index: 1;
 }
 
+.nodragon{
+	
+float:right;
+}
 .ec-base-table table {
 	z-index: 2; background-color : rgba( 255, 255, 255, 0.918);
 	position: relative;
@@ -97,4 +101,7 @@ body, code {
 #mcBorder{
 	border : 1px solid #F9CF93;
 	
+}
+.zeta{
+	padding: 15px 15px 15px 10px;
 }

@@ -6,11 +6,12 @@
 	<entry key="getListCount">
 		SELECT COUNT(*) FROM BOARD
 		NATURAL JOIN member
-		WHERE BD_STATUS_CD != 702
+		WHERE
+		BD_STATUS_CD != 702
 		AND CATEGORY_CD = ?
 	</entry>
-	
-	
+
+
 	<entry key="selectBoardList">
 		SELECT * FROM
 		(SELECT ROWNUM RNUM, A.*
@@ -34,7 +35,7 @@
 		MODIFY_DT,
 		CATEGORY_CD, CATEGORY_NM,
 		READ_COUNT,
-		BD_STATUS_NM
+		BD_STATUS_NM,PRODUCT_SCORE,PRODUCT_NO
 		FROM BOARD
 		JOIN MEMBER USING(MEMBER_NO)
 		JOIN BOARD_CATEGORY
@@ -44,7 +45,7 @@
 		WHERE BOARD_NO = ?
 		AND BD_STATUS_CD != 702
 	</entry>
-	<entry key="deleteboard">
+	<entry key="deleteBoard">
 		UPDATE BOARD SET BD_STATUS_CD = 702
 		WHERE BOARD_NO = ?
 	</entry>
@@ -70,18 +71,35 @@
 		(?, ?, ?, DEFAULT,
 		0, 701, ?,?)
 	</entry>
+	<entry key="insertBoardReview">
+		INSERT INTO BOARD(
+		BOARD_NO,BOARD_TITLE,BOARD_CONTENT,CREATE_DT,
+		READ_COUNT,BD_STATUS_CD,CATEGORY_CD,MEMBER_NO,PRODUCT_SCORE,PRODUCT_NO)
+		VALUES
+		(?, ?, ?, DEFAULT,
+		0, 701, ?,?,?,?)
+	</entry>
 	<entry key="selectProduct">
 		select
 		product_no,product_nm,product_img_path,product_img_nm from product
 		join product_img using(product_no)
-        where product_img_level=0
+		where product_img_level=0
+		and product_no in(select distinct product_no from order_1 where member_no
+		= ? and order_status_cd=402)
 	</entry>
 	<entry key="searchBoardList">
-        SELECT * FROM
+		SELECT * FROM
 		(SELECT ROWNUM RNUM, A.*
 		FROM (select
-		* from board NATURAL JOIN BOARD_CATEGORY
-		join member using(member_no) 
-		WHERE CATEGORY_CD = ?  
+		* from board NATURAL JOIN
+		BOARD_CATEGORY
+		join member using(member_no)
+		WHERE CATEGORY_CD = ?
+	</entry>
+	<entry key="imgSearch">
+	select product_img_path,product_img_nm from board
+        natural join product 
+        natural join product_img
+        where product_img_level=0 and board_no=?
 	</entry>
 </properties>

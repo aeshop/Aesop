@@ -164,7 +164,8 @@ public class BoardDAO {
 				board.setCategoryName(rs.getString("CATEGORY_NM"));
 				board.setReadCount(rs.getInt("READ_COUNT"));
 				board.setBoardStatusName(rs.getString("BD_STATUS_NM"));
-				
+				board.setProductScore(rs.getInt("PRODUCT_SCORE"));
+				board.setProductNo(rs.getInt("PRODUCT_NO"));
 			}
 			
 		}finally {
@@ -271,7 +272,7 @@ public class BoardDAO {
 
 
 
-	public List<Product> selectProduct(Connection conn) throws Exception{
+	public List<Product> selectProduct(int memberNo, Connection conn) throws Exception{
 		
 		List<Product> product = new ArrayList<Product>();
 		
@@ -279,7 +280,7 @@ public class BoardDAO {
 			
 			String sql = prop.getProperty("selectProduct");
 			pstmt = conn.prepareStatement(sql);
-			
+			pstmt.setInt(1, memberNo);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -287,7 +288,7 @@ public class BoardDAO {
 				pdt.setProductNo(rs.getInt(1));
 				pdt.setProductName(rs.getString(2));
 				pdt.setCategoryName(rs.getString(3)+rs.getString(4));
-	
+				
 				
 				product.add(pdt);
 			}
@@ -356,6 +357,58 @@ public class BoardDAO {
 		}
 		
 		return result;
+	}
+
+
+
+	public int insertBoardReview(Board board, Connection conn) throws Exception{
+		int result = 0;
+		try {
+			String sql = prop.getProperty("insertBoardReview");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, board.getBoardNo());
+			
+			pstmt.setString(2, board.getBoardTitle());
+			pstmt.setString(3, board.getBoardContent());
+			pstmt.setInt(4, board.getCategoryCode());
+			pstmt.setInt(5, board.getMemberNo());
+			pstmt.setInt(6, board.getProductScore());
+			pstmt.setInt(7, board.getProductNo());
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+	public String imgSearch(int boardNo, Connection conn) throws Exception{
+		
+		String img = "";
+		
+		try {
+			String sql = prop.getProperty("imgSearch");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				img = rs.getString(1)+rs.getString(2);
+			
+			}
+			
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return img;
 	}
 
 

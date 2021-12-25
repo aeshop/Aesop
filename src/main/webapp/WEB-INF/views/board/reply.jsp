@@ -26,7 +26,7 @@ let beforeReplyRow;
 		<table align="center">
 			<tr>
 				<td id="mcBorder">
-					<textArea style="width:850px;"rows="5" id="replyContent"></textArea>
+					<textArea style="width:850px; resize: none;"rows="5" id="replyContent"></textArea>
 				</td>
 				<td id="mcBorder">
 					<button class="tSBKF" style="width:100px; height:70px; font-size: 1.2rem;"  onclick="addReply()">
