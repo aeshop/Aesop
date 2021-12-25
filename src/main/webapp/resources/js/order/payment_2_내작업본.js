@@ -94,6 +94,16 @@ function getAddrInfo() {
 
 
 
+function clearAddr() {
+
+}
+
+
+
+
+
+
+
 /*
 결제관련 비즈니스 로직
 
@@ -158,17 +168,6 @@ data: {
 */
 
 
-const deliveryInfo = {
-
-
-    dZipCode: document.querySelector('#rZipcode').value,
-    dAddress1: document.querySelector('#rAddr1').value,
-    dAddress2: document.querySelector('#rAddr2').value,
-    dReceiverName: document.querySelector('#rName').value,
-    dReceiverPhone: document.querySelector('#rPhone1').value + "-" + document.querySelector('#rPhone2').value + "-" + document.querySelector('#rPhone3').value,
-    dMessage: document.querySelector('#rMessage').value
-
-}
 
 
 
@@ -186,6 +185,30 @@ $("#check_module").click(function() {
         orderNoArr.push(orderNoTags[i].value);
 
     }
+
+    //결제 위해 화면 정보 긁어옴
+    const deliveryInfo = {
+
+
+        dZipCode: document.querySelector('#rZipcode').value,
+        dAddress1: document.querySelector('#rAddr1').value,
+        dAddress2: document.querySelector('#rAddr2').value,
+        dReceiverName: document.querySelector('#rName').value,
+        dReceiverPhone: document.querySelector('#rPhone1').value + "-" + document.querySelector('#rPhone2').value + "-" + document.querySelector('#rPhone3').value,
+        dMessage: document.querySelector('#rMessage').value
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     //주문번호를 전달하고, 비즈니스 로직 이후에 배송번호(20121123-000000)을 받아오는 AJAX
     /*2-3) 로직 : 1. orderNo 주문테이블의 수량만큼 제품 테이블에서 감소, 실패시 재고부족 메세지 

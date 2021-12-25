@@ -215,7 +215,7 @@
                             <td colspan="2">
                                 <input type="radio" id="sameaddr0" name="addr" value="sameaddr0" checked>
                                 <label for="sameaddr0">주문자 정보와 동일</label>
-                                <input type="radio" id="sameaddr1" name="addr" value="sameaddr1">
+                                <input type="radio" id="sameaddr1" name="addr" value="sameaddr1" onclick="addrClear()">
                                 <label for="sameaddr1">새로운 배송지</label>
                           
 
