@@ -11,8 +11,11 @@ import java.util.Properties;
 
 import teamSemiProject2.edu.kh.semi.board.model.vo.Board;
 import teamSemiProject2.edu.kh.semi.board.model.vo.BoardImage;
+import teamSemiProject2.edu.kh.semi.board.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.board.model.vo.Pagination;
 import teamSemiProject2.edu.kh.semi.category.model.dao.CategoryDAO;
+import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
+import teamSemiProject2.edu.kh.semi.product.model.vo.ProductImage;
 public class BoardDAO {
 
 	PreparedStatement pstmt = null;
@@ -60,7 +63,39 @@ public class BoardDAO {
 	}
 
 
+	// 검색 조건을 만족하는 전체 게시글 수 조회
+	public int getListCount(Connection conn, int code, String condition, String search) throws Exception{
+		
+		int listCount = 0;
+		
+		try {
 
+			String sql = prop.getProperty("getListCount") + condition;
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, code);
+			pstmt.setString(2, search);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+
+
+	
+	
 	public List<Board> selectBoardList(Pagination pagination, Connection conn, int code) throws Exception{
 		List<Board> boardList = new ArrayList<Board>(); 
 		
@@ -157,6 +192,150 @@ public class BoardDAO {
 		
 		
 		return result;
+	}
+
+
+
+	public List<Category> selectCategory(Connection conn) throws Exception{
+		
+		List<Category> category = new ArrayList<Category>();
+		
+		try {
+			String sql = prop.getProperty("selectCategory");
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Category gory = new Category();
+		
+				gory.setCategoryCode(rs.getInt(1));
+				gory.setCategoryName(rs.getString(2));
+				category.add(gory);
+			}
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return category;
+	}
+
+
+
+	public int nextBoardNo(Connection conn) throws Exception{
+		
+		int boardNo = 0;
+		try {
+			String sql = prop.getProperty("nextBoardNo");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				boardNo = rs.getInt(1);
+			}
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return boardNo;
+	}
+
+
+
+	public int insertBoard(Board board, Connection conn) throws Exception{
+		
+		int result = 0;
+		try {
+			String sql = prop.getProperty("insertBoard");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, board.getBoardNo());
+			
+			pstmt.setString(2, board.getBoardTitle());
+			pstmt.setString(3, board.getBoardContent());
+			pstmt.setInt(4, board.getCategoryCode());
+			pstmt.setInt(5, board.getMemberNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+	public List<Product> selectProduct(Connection conn) throws Exception{
+		
+		List<Product> product = new ArrayList<Product>();
+		
+		try {
+			
+			String sql = prop.getProperty("selectProduct");
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Product pdt = new Product();
+				pdt.setProductNo(rs.getInt(1));
+				pdt.setProductName(rs.getString(2));
+				pdt.setCategoryName(rs.getString(3)+rs.getString(4));
+	
+				
+				product.add(pdt);
+			}
+			
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return product;
+	}
+
+
+
+	public List<Board> selectSearchList(Pagination pagination,Connection conn, int code,String condition,String search) throws Exception{
+		
+		List<Board> board = new ArrayList<Board>();
+		
+		try {
+			String sql = prop.getProperty("searchBoardList") + condition + " ORDER BY BOARD_NO DESC) A)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, code);
+			pstmt.setString(2, search);
+			rs = pstmt.executeQuery();
+			
+			
+			
+			int count = pagination.getListCount() -(pagination.getCurrentPage()-1) * pagination.getLimit();  
+			while(rs.next()) {
+				Board board2 = new Board();
+				board2.setViewNo(count--);
+				board2.setBoardNo(rs.getInt("BOARD_NO"));
+				board2.setBoardTitle(rs.getString("BOARD_TITLE"));
+				board2.setMemberName(rs.getString("MEMBER_NAME"));
+				board2.setReadCount(rs.getInt("READ_COUNT"));
+				board2.setCategoryName(rs.getString("CATEGORY_NM"));
+				board2.setBoardStatusCode(rs.getInt("BD_STATUS_CD"));
+				board2.setCreateDate(rs.getString("CREATE_DT"));
+				// 리스트에 담기
+				board.add(board2);
+			}
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return board;
 	}
 
 

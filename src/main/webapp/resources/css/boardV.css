@@ -94,3 +94,7 @@ body, code {
 	background-color: #F9CF93;
 	color: white;
 }
+#mcBorder{
+	border : 1px solid #F9CF93;
+	
+}
