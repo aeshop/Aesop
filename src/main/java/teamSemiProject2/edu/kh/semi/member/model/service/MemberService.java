@@ -66,21 +66,13 @@ public class MemberService {
 	}
 
 
-
-	/** 아이디로 회원 정보 검색
-	 * @param inputId
-	 * @return member(null 조회결과 없음)
-	 * @throws Exception
-	 */
-	public Member idSearch(String inputId) throws Exception{
-		
-		Connection conn = getConnection(); // DBCP에서 커넥션 얻어오기
-		
-		Member member = dao.idSearch(inputId, conn);
-		
-		close(conn); // 사용 완료된 커넥션을 DBCP에 반환
-		
-		return member;
+	public String findId(Member member) throws Exception{
+		Connection conn = getConnection();
+		String findId = dao.findId(member, conn);
+		close(conn);
+		return findId;
 	}
+
+
 
 }

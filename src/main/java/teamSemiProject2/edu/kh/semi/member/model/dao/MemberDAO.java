@@ -22,9 +22,7 @@ public class MemberDAO {
 		try {
 			prop = new Properties();
 
-			String filePath = MemberDAO.class.getResource("/teamSemiProject2/edu/kh/semi/sql/member-query.xml")
-					.getPath();
-
+			String filePath = MemberDAO.class.getResource("/teamSemiProject2/edu/kh/semi/sql/member-query.xml").getPath();
 			prop.loadFromXML(new FileInputStream(filePath));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,14 +92,6 @@ public class MemberDAO {
 		return result;
 	}
 
-	/**
-	 * 아이디 중복 확인
-	 * 
-	 * @param inputId
-	 * @param conn
-	 * @return result (1 중복, 0 사용 가능)
-	 * @throws Exception
-	 */
 	public int idDupCheck(String inputId, Connection conn) throws Exception {
 
 		int result = 0;
@@ -127,14 +117,6 @@ public class MemberDAO {
 		return result;
 	}
 
-	/**
-	 * 이메일 중복 체크
-	 * 
-	 * @param inputEmail
-	 * @param conn
-	 * @return result(1 중복, 0 사용 가능)
-	 * @throws Exception
-	 */
 	public int emailDupCheck(String inputEmail, Connection conn) throws Exception {
 
 		int result = 0;
@@ -158,44 +140,28 @@ public class MemberDAO {
 		return result;
 	}
 
-	/**
-	 * 아이디로 회원 정보 검색
-	 * 
-	 * @param inputId
-	 * @param conn
-	 * @return member
-	 * @throws Exception
-	 */
-	public Member idSearch(String inputId, Connection conn) throws Exception {
-
-		Member member = null;
-
+	
+	public String findId(Member member, Connection conn) throws Exception{
+		String findId = null;
+		
 		try {
-			String sql = prop.getProperty("idSearch");
-
+			String sql = prop.getProperty("findId");
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, inputId);
-
+			pstmt.setString(1, member.getMemberEmail());
+			pstmt.setString(2, member.getMemberName());
+			
 			rs = pstmt.executeQuery();
-
 			if (rs.next()) {
-				member = new Member();
 
-				member.setMemberId(inputId);
-
-				member.setMemberName(rs.getString(1));
-				member.setMemberPhone(rs.getString(2));
-				member.setMemberEmail(rs.getString(3));
-				member.setMemberBirthday(rs.getString(4));
+				findId = rs.getString("MEMBER_ID");
 
 			}
-
 		} finally {
 			close(rs);
 			close(pstmt);
 		}
-
-		return member;
+		return findId;
 	}
+
 
 }
