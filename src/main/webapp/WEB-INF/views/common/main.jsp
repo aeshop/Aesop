@@ -12,23 +12,27 @@
 	<!-- main 1페이지 -->
 	<div class="main_container_1">
 		<!-- Bootstrap Carousel-->
-					<div class="carousel-inner">
-						<div class="carousel-item active main_container_slide" data-interval="true">test11111</div>
-						<div class="carousel-item main_container_slide" data-interval="true">
-							test22222</div>
-						<div class="carousel-item main_container_slide" data-interval="true">
-							test33333</div>
-						<button class="carousel-control-prev" type="button"
-							data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Previous</span>
-						</button>
-						<button class="carousel-control-next" type="button"
-							data-bs-target="#carouselExampleDark" data-bs-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Next</span>
-						</button>
-					</div>
+		<div id="main_container_2_slide_left_carousel"
+			class="carousel carousel-dark slide" data-bs-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active main_container_slide"
+					data-interval="true">test11111</div>
+				<div class="carousel-item main_container_slide" data-interval="true">
+					test22222</div>
+				<div class="carousel-item main_container_slide" data-interval="true">
+					test33333</div>
+				<button class="carousel-control-prev" type="button"
+					data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button"
+					data-bs-target="#carouselExampleDark" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</div>
 	</div>
 	<div style="padding: 40px 0; border: none;"></div>
 
@@ -70,7 +74,7 @@
 						</button>
 					</div>
 				</div>
-				
+
 				<div class="main_container_2_slide_left_desc">
 					<h4>test X test11111</h4>
 					<p>test test test1111</p>
@@ -150,14 +154,26 @@
 						VIDEO</span>
 				</h3>
 				<div style="height: 400px;">
-					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/o7L-3ZOhVsY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-					</iframe>
+					<iframe width="100%" height="100%"
+						src="https://www.youtube.com/embed/o7L-3ZOhVsY"
+						title="YouTube video player" frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen> </iframe>
 				</div>
 				<div
 					style="display: flex; flex-direction: row; justify-content: center;">
-					<div style="width: 25%; height: 140px;"><img src="${contextPath}/resources/images/common/youtube_img1.png" style="width:100%; height:100%;"></div>
-					<div style="width: 25%; height: 140px;"><img src="${contextPath}/resources/images/common/youtube_img2.png" style="width:100%; height:100%;"></div>
-					<div style="width: 25%; height: 140px;"><img src="${contextPath}/resources/images/common/youtube_img3.png" style="width:100%; height:100%;"></div>
+					<div style="width: 25%; height: 140px;">
+						<img src="${contextPath}/resources/images/common/youtube_img1.png"
+							style="width: 100%; height: 100%;">
+					</div>
+					<div style="width: 25%; height: 140px;">
+						<img src="${contextPath}/resources/images/common/youtube_img2.png"
+							style="width: 100%; height: 100%;">
+					</div>
+					<div style="width: 25%; height: 140px;">
+						<img src="${contextPath}/resources/images/common/youtube_img3.png"
+							style="width: 100%; height: 100%;">
+					</div>
 				</div>
 			</div>
 
