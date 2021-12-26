@@ -349,7 +349,6 @@ public class MemberController extends HttpServlet {
 
 					Member member = service.memberinfo(memberId, memberName, memberEmail);
 
-					System.out.println(member);
 					if (member != null) {
 
 						if (member.getStatusCode() == 101) {
@@ -357,6 +356,8 @@ public class MemberController extends HttpServlet {
 							session.setAttribute("member", member);
 							session.setMaxInactiveInterval(1000);
 
+							System.out.println(member);
+							
 							path = "/WEB-INF/views/member/updatePw.jsp";
 							req.getRequestDispatcher(path).forward(req, resp);
 						} else { // 탈퇴회원 로그인
