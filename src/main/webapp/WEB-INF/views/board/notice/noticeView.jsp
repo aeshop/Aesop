@@ -7,6 +7,7 @@
 		<head>
 			<meta charset="UTF-8">
 			<jsp:include page="../../common/r_header.jsp" />
+			<jsp:include page="../../common/sidebar_n.jsp" />
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<title></title>
 
@@ -69,21 +70,23 @@
 												</c:if>
 												
 												<img style="width: 20%;" alt=""
-														src="${contextPath}${img}"> (여기에 상품 이미지 나옴 ㅇ.ㅇ)
+														src="${contextPath}${img}">
 												<p>${board.boardContent}</p>
 											</div>
 										</div>
 									</td>
 								</tr>
-								<tr class="attach displaynone" id="mcBorder">
+								<tr class="attach" id="mcBorder">
 									<th scope="row" id="mcBorder">첨부파일</th>
 									<td id="mcBorder"></td>
 								</tr>
-								<tr class="displaynone " id="mcBorder">
+								<tr id="mcBorder">
+									<c:if test="${loginMember.memberNo eq board.memberNo}">
 									
 									<td id="mcBorder" colspan="2" >
 											<button class="tSBKF nodragon" onclick="deleteBoard(no1);" >게시글 삭제</button>
 									</td>
+									</c:if>
 
 
 								</tr>

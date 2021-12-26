@@ -210,10 +210,6 @@ a {
 	margin: auto;
 }
 
-ul>li {
-	display: inline;
-}
-
 .tSBKF {
 	-webkit-box-align: center;
 	align-items: center;
