@@ -146,15 +146,19 @@ public class BoardController extends HttpServlet {
 					int categoryCode = Integer.parseInt(req.getParameter("categoryCode"));
 					
 					int star = Integer.parseInt(req.getParameter("star"));
-					int productNo = Integer.parseInt(req.getParameter("reviewImg"));
 					Board board = new Board();
+					
+					if(req.getParameter("reviewImg")!=null) {
+						int productNo = Integer.parseInt(req.getParameter("reviewImg"));
+						board.setProductNo(productNo);
+						
+					}
 					board.setBoardTitle(boardTitle);
 					board.setBoardContent(boardContent);
 					board.setCategoryCode(categoryCode);
 					board.setMemberNo(memberNo);
 					
 					board.setProductScore(star);
-					board.setProductNo(productNo);
 					
 					int result = service.insertBoard(board);
 					if (result > 0) {

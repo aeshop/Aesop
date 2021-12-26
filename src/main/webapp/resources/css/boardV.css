@@ -13,6 +13,7 @@
 	width: 1000px;
 	margin: auto;
 	z-index: 1;
+	margin-top:20px;
 }
 
 .nodragon{
@@ -104,4 +105,5 @@ body, code {
 }
 .zeta{
 	padding: 15px 15px 15px 10px;
+	height: 300px;
 }
