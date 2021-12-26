@@ -159,7 +159,7 @@
 		</div>
 
 		<p>
-			<button class="btn btn-outline-secondary">쇼핑계속하기</button>
+			<button class="btn btn-outline-secondary" onclick='location.href="${contextPath}/category/view"'>쇼핑계속하기</button>
 		</p>
 	</div>
 </div>
