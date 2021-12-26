@@ -56,6 +56,7 @@
 		and member_email = ?
 		and member_status_no = 101
 	</entry>
+<<<<<<< HEAD
 
 	<!-- 회원 비밀번호 변경 -->
 	<entry key="updatePw">
@@ -65,3 +66,8 @@
 	</entry>
 
 </properties>
+=======
+	
+	
+</properties>
+>>>>>>> origin/CNH

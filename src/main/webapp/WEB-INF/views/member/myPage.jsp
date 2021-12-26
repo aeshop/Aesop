@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
+<jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/sidebar_n.jsp"/>
 
     <!-------------------------------------------------- 낙희 --------------------------------->
     <!-- main 1페이지 -->
@@ -11,32 +16,45 @@
           <div class="grade">
               <div class="grade-text">
                   <strong>
-                      <span class="member-name">ddd</span>
-                      크루
+                      <span class="member-name">${sessionScope.loginMember.memberName}</span>
+                      회원
                   </strong>
                   님은
                   <br>
-                  <span class="grade-name">아이언</span>
+                  <span class="grade-name">${sessionScope.loginMember.memberGradeName}</span>
                   등급입니다.
               </div>
           </div>
           <div class="grade-detail">
               <div class="grade-detail-text">
-                  <span>아이언</span>
+                  <span>${sessionScope.loginMember.memberGradeName}</span>
                   등급 혜택
               </div>
               <div class="accrual-rate">
-                  적립율 1%
+                  현재 등급의 할인율이
+                 <strong>${ Math.floor((1 - sessionScope.loginMember.memberGradeDiscount) *100) } <!-- 1 - memberGradeDiscount *100 -->
+                  % </strong> 입니다. 아래 <strong>‘멤버십 등급별 혜택 보기’</strong>로 혜택을 확인해 보세요!
               </div>
+      
               <div class="grade-bar">
                   <div class="bar"> 
                       <div class="graph" id="myGrp" style="width: 20%;"></div>
                   </div> 
               </div>
               <div class="grade-guide">
-                  <span>2원</span>
+              
+			  <c:choose>
+              	<c:when test="${empty sessionScope.grade.leftMoney}">
+              		<%-- ${sessionScope.grade.memberPurchaseAmount}원 --%>
+              		<fmt:formatNumber value="${sessionScope.grade.memberPurchaseAmount}" groupingUsed="true"/>원
+              	</c:when>
+              	<c:otherwise>
+                  <span><fmt:formatNumber value="${sessionScope.grade.leftMoney}" groupingUsed="true"/>원 </span>
+              	</c:otherwise>
+              </c:choose>
+              
                   추가 구매시 다음달
-                  <span>브론즈</span>
+                  <span>${sessionScope.grade.memberGradeName }</span>
                   달성
               </div>
               <div class="member-benefit">
@@ -52,34 +70,37 @@
                   </div>
                   <ul>
                       <li>
-                          <a href="orderHistory_cnh.html">
-                              <img src="${contextPath}/resources/images/myicon_01.png"> 주문/배송현황
+                          <a href="${contextPath}/myPage/orderHistory">
+                              <img src="${contextPath}/resources/images/cnh/images/myicon_01.png"> 주문/배송현황
                               <span class="count-icon">
                                   <span>
-                                      <span class="count">1</span>
+                                  
+	                                      <span class="count">1</span>
+                                  		
+                                  	
                                   </span>
                               </span>
                           </a>
                       </li>
                       <li>
-                          <a href="#">
-                              <img src="${contextPath}/resources/images/myicon_02.png"> 취소/교환/반품 내역
+                          <a href="${contextPath}/myPage/orderStatus">
+                              <img src="${contextPath}/resources/images/cnh/images/myicon_02.png"> 취소/교환/반품 내역
                               <span class="count-icon">
                                   <span class="count">1</span>
                               </span>
                           </a>
                       </li>
                       <li>
-                          <a href="#">
-                              <img src="${contextPath}/resources/images/wish_icon.png"> 장바구니
+                          <a href="${contextPath}/order/view">
+                              <img src="${contextPath}/resources/images/cnh/images/wish_icon.png"> 장바구니
                               <span class="count-icon">
                                   <span class="count">1</span>
                               </span>
                           </a>
                       </li>
                       <li>
-                          <a href="addrModify_cnh.html">
-                              <img src="${contextPath}/resources/images/myicon_03.png"> 배송지 수정
+                          <a href="${contextPath}/myPage/addr">
+                              <img src="${contextPath}/resources/images/cnh/images/myicon_03.png"> 배송지 수정
                           </a>
                       </li>
                   </ul>
@@ -90,25 +111,25 @@
                   <table style="width: 250px;">
                       <tr>
                           <td>
-                              <a href="updateMember_cnh.html">
+                              <a href="${contextPath}/myPage/updateMember">
                                   <p>
-                                      <img src="${contextPath}/resources/images/myinfo.png">
+                                      <img src="${contextPath}/resources/images/cnh/images/myinfo.png">
                                   </p>
                                   <p>회원정보 수정</p>
                               </a>
                           </td>
                           <td>
-                              <a href="/aesop_MyPage/mypageBoard_cnh.html">
+                              <a href="${contextPath}/myPage/myPageBoard">
                                   <p>
-                                      <img src="${contextPath}/resources/images/board.png">
+                                      <img src="${contextPath}/resources/images/cnh/images/board.png">
                                   </p>
                                   <p>게시물 관리</p>
                               </a>
                           </td>
                           <td>
-                              <a href="/aesop_MyPage/mypageBoard_cnh.html">
+                              <a href="${contextPath}/myPage/myPageBoard">
                                   <p>
-                                      <img src="${contextPath}/resources/images/qna.png">
+                                      <img src="${contextPath}/resources/images/cnh/images/qna.png">
                                   </p>
                                   <p>문의 내역</p>
                               </a>
@@ -131,34 +152,55 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr>
-                          <td class="order-date"> 2021-12-28</td>
-                          <td class="order-img"> 
-                              <a href="#">
-                                  <img src="${contextPath}/resources/images/product1.webp">
-                              </a>
-                          </td>
-                          <td class="order-product">
-                              <a href="#">
-                                  <strong>레버런스 아로마틱 핸드 워시</strong>
-                              </a>
-                          </td>
-                          <td class="order-quantity">1</td>
-                          <td class="order-no">
-                              <a href="#"> <!-- 주문상세 내역 페이지로 이동-->
-                                  20211211-0003782
-                              </a>
-                          </td>
-                          <td class="order-price">
-                              <strong>49,000원</strong>
-                          </td>
-                      </tr>
+                  		<!--  로그인한 멤버의 주문내역이 없는경우, 아닌경우 -->
+                  			<c:choose>
+                  				<c:when test="${empty sessionScope.orderList}">
+                  					<tr>
+	                      			<td colspan=6> 주문내역이 없습니다.
+	                    		    </tr>
+                  				</c:when>
+                  				<c:otherwise>
+			                  		<c:forEach items="${sessionScope.orderList}" var="o" begin="0" end="4">
+                  						<tr>
+				                          <td class="order-date"> ${o.deliveryDt}</td>
+				                          <td class="order-img"> 
+				                              <a href="#">
+				                                  <img src="${o.productImgPath}">
+				                              </a>
+				                          </td>
+				                          <td class="order-product">
+				                              <a href="#">
+				                                  <strong>${o.productName }</strong>
+				                              </a>
+				                          </td>
+				                          <td class="order-quantity">${o.orderAmount }</td>
+				                          <td class="order-no">
+				                              <a href="#"> <!-- 주문상세 내역 페이지로 이동-->
+				                                  ${o.deliveryNo }
+				                              </a>
+				                          </td>
+				                          <td class="order-price">
+				                              <strong>
+				                              	<fmt:formatNumber value="${o.productPrice * o.orderAmount}" groupingUsed="true"/> 원
+				                              </strong>
+				                              
+				                          </td>
+                      					</tr>
+			                  		</c:forEach>
+                  				</c:otherwise>
+                  			</c:choose>
+                  		
+	                 	 
+
+                     
+                      
+                  
                   </tbody>
               </table>
               <div class="order-more"> <!-- 최근 주문 더보기 -->
-                  <a href="#"> <!-- 주문/배송현황 > 주문내역조회 html로 이동-->
+                  <a href="${contextPath}/myPage/orderHistory"> <!-- 주문/배송현황 > 주문내역조회 html로 이동-->
                       더보기
-                      <img src="${contextPath}/resources/images/more.png">
+                      <img src="${contextPath}/resources/images/cnh/images/more.png">
                   </a>
               </div>
           </div>
@@ -167,6 +209,7 @@
 
 <!-- footer include -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
 
 
 </body>

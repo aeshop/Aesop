@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${contextPath}/resources/css/member/member.css">
 <jsp:include page="../common/r_header.jsp" />
+<jsp:include page="/WEB-INF/views/common/sidebar_n.jsp"/>
 
 <div class="login_wrap">
 
@@ -25,7 +26,12 @@
 			</div>
 
 
-			<div class="login_container_img"></div>
+			<div class="login_container_img">
+			
+				<img src="https://storage.oneslist.com/assets/2021/10/19155932/aesop-pe.jpg"
+					style="width:800px; padding: 100px 0;"
+				> 
+			</div>
 		</div>
 	</form>
 

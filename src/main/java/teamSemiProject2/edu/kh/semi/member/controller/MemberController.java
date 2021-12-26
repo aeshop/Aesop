@@ -47,16 +47,21 @@ public class MemberController extends HttpServlet {
 		String path = null;
 		String message = null;
 		RequestDispatcher dispatcher = null;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/CNH
 		req.setCharacterEncoding("UTF-8");
 
 		// 마이페이지
 		if (command.equals("myPage")) {
 			if (method.equals("GET")) {
 				path = "/WEB-INF/views/member/myPage.jsp";
-				req.getRequestDispatcher(path).forward(req, resp);
+				dispatcher = req.getRequestDispatcher(path);
+				dispatcher.forward(req, resp);
 			}
 		}
+		
 
 		// 마이페이지 끝 ****************************************************
 
@@ -64,6 +69,7 @@ public class MemberController extends HttpServlet {
 		if (command.equals("login")) {
 			if (method.equals("GET")) {
 				path = "/WEB-INF/views/member/login.jsp";
+
 				req.getRequestDispatcher(path).forward(req, resp);
 			} else {
 				HttpSession session = req.getSession();
@@ -71,11 +77,13 @@ public class MemberController extends HttpServlet {
 				String memberId = req.getParameter("memberId");
 				String memberPw = req.getParameter("memberPw");
 
+
 				memberId = replaceParameter(memberId);
 				try {
 					MemberService service = new MemberService();
 
 					Member loginMember = service.login(memberId, memberPw);
+
 
 					if (loginMember != null) {
 
@@ -96,6 +104,7 @@ public class MemberController extends HttpServlet {
 					e.printStackTrace();
 				}
 
+
 			}
 
 		}
@@ -110,6 +119,7 @@ public class MemberController extends HttpServlet {
 				resp.sendRedirect(req.getContextPath());
 			}
 		}
+
 
 		// 조인(회원가입 폼 전 페이지) **************************************
 		else if (command.equals("join")) {
@@ -405,6 +415,7 @@ public class MemberController extends HttpServlet {
 
 			}
 		}
+
 
 	}
 

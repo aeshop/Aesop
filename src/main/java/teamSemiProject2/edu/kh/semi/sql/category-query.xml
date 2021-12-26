@@ -6,7 +6,7 @@
 		SELECT * FROM PRODUCT_CATEGORY ORDER BY CATEGORY_NO2 ASC
 	</entry>
 	<entry key="getPageCount">
-		SELECT count(*) FROM PRODUCT
+		SELECT count(*) FROM PRODUCT WHERE PRODUCT_CATEGORY BETWEEN ? AND ?
 	</entry>
 	<entry key="getProduct">
 	SELECT * FROM
@@ -20,6 +20,24 @@
 		ORDER BY p.pro_status_no,p.product_no DESC) A)
 		WHERE rnum BETWEEN ? AND ?
 	</entry>
+		<!-- 로그인 		
+ order by 8, 2 desc; : 최신순 정렬
+ order by 8, 3 asc; : 가나다순 정렬
+ order by 8, 4 asc; : 낮은가격순 정렬 - 계산된 걸로 해야함
+ order by 8, 4 desc; : 높은가격순 정렬 - 계산된 걸로 해야함
+		-->
+	<entry key="sortMethod1">
+		ORDER BY 8, 2 DESC
+	</entry>
+	<entry key="sortMethod2">
+		ORDER BY 8, 3 ASC
+	</entry>
+	<entry key="sortMethod3">
+		ORDER BY 8 ASC, PRODUCT_PRICE * (1-DISCOUNT) ASC
+	</entry>
+	<entry key="sortMethod4">
+ 		ORDER BY 8 ASC, PRODUCT_PRICE * (1-DISCOUNT) DESC
+ 	</entry>
 	<entry key="getProductImageList">
 		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO=?
 	</entry>

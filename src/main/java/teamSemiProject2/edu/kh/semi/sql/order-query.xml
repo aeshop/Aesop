@@ -3,12 +3,15 @@
 <properties>
 	<!-- 회원 번호로 주문정보 받아오기 -->
 	<entry key="getOrder">
-		SELECT * FROM V_ORDER_INFO WHERE MEMBER_NO = ? ORDER BY order_no DESC
+		SELECT * FROM V_ORDER_INFO WHERE MEMBER_NO = ? ORDER
+		BY order_no DESC
 	</entry>
 	<entry key="amountChange">
-		UPDATE order_1 SET order_amount = ? WHERE order_no = ? AND member_no = ?
+		UPDATE order_1 SET order_amount = ? WHERE order_no = ?
+		AND member_no = ?
 	</entry>
 	<entry key="deleteOrder">
+
 UPDATE order_1 SET order_status_cd = 403 WHERE order_no = ? AND member_no = ?
 </entry>
 	<!-- 로그인 (탈퇴 회원 제외) -->
@@ -16,20 +19,101 @@ UPDATE order_1 SET order_status_cd = 403 WHERE order_no = ? AND member_no = ?
 		UPDATE p_order SET product_amount = product_amount-1
 		WHERE order_no = ?
 	</entry>
-	<entry key="getAddr">
-		SELECT * FROM p_address
-		WHERE member_no = ?
+	<entry key="getPrimaryAddress">
+		SELECT *
+		FROM address
+		WHERE member_no= ?
+		AND default_address='Y'
 	</entry>
-	<entry key="getOrderItem1">
-		select o.order_no,p.product_no,p.product_nm,p.product_price,p.product_discount,o.product_amount
-		from p_order o
-		join p_product p
-		on(o.product_no = p.product_no)
-        where o.order_no = ?
+	<entry key="todayDeliCount">
+		SELECT count(*)
+		FROM delivery
+		WHERE DELIVERY_DT between TRUNC(SYSDATE) and TRUNC(SYSDATE+1)
 	</entry>
-	<entry key="getOrderItem2">
-		OR o.order_no = ?
+	<entry key="insertDeliNo">
+		INSERT INTO DELIVERY
+		VALUES( ?, ?, null, null, null, null, null, DEFAULT, 500,?,null)
 	</entry>
+
+	<entry key="deliNoDupCheck">
+		SELECT *
+		FROM delivery
+		WHERE DELIVERY_NO = ?
+	</entry>
+	<entry key="downStock">
+		UPDATE product SET stock = stock - (SELECT
+		order_amount FROM order_1 WHERE order_no = ? AND member_no = ?)
+		WHERE
+		product_no = (SELECT product_no FROM order_1 WHERE order_no = ? AND
+		member_no = ?)
+	</entry>
+	<entry key="checkStock">
+		update product 
+		set pro_status_no = (
+    	select decode(stock,0,1002,1001) 
+    	from product 
+    	where product_no = (select product_no from order_1 where order_no = ?)
+		) 
+		where product_no 
+		= (select product_no from order_1 where order_no = ?)
+	</entry>
+	<entry key="getMember">
+		select * from member join member_grade using(member_grade_no) WHERE member_no = ?
+	</entry>
+	<entry key="getTotalPrice">
+		SELECT p.PRODUCT_PRICE *(1-p.DISCOUNT) *
+		o.ORDER_AMOUNT FROM product p JOIN order_1 o on (p.product_no =
+		o.product_no)
+		WHERE o.order_no = ? AND o.member_no = ?
+	</entry>
+	<entry key="getDelivery">
+		select
+		DELIVERY_NO,member_no,zip_code,address1,address2
+		,receiver_name,receiver_phone,To_char(delivery_dt,'yyyy-MM-dd')
+		DELIVERY_DT
+		,delivery_status_cd,total_price,DELIVERY_MESSAGE
+		from delivery
+		where delivery_no = ?
+		and member_no =?
+	</entry>
+<entry key="completeDelivery">
+		update delivery
+		set 
+		ZIP_CODE = ?,
+		ADDRESS1 = ?,
+		ADDRESS2 = ?,
+		RECEIVER_NAME=?,
+		RECEIVER_PHONE=?,
+		DELIVERY_STATUS_CD = ?,
+		DELIVERY_MESSAGE=?
+		where delivery_no = ?
+	</entry>
+	
+	<entry key="completeOrder">
+		update order_1
+		set 
+		DELIVERY_NO = ?,
+		ORDER_STATUS_CD = 401
+		where ORDER_NO = ?
+	</entry>
+
+	<entry key="getAddress">
+		select * 
+		from address 
+		where member_no = ?
+		order by default_address DESC
+	</entry>
+<entry key="restoreStock">
+UPDATE product 
+SET stock = stock + (SELECT order_amount FROM order_1 WHERE order_no = ?)
+WHERE product_no = (SELECT product_no FROM order_1 WHERE order_no = ?)
+</entry>
+<entry key="cancelOrder">
+UPDATE ORDER_1 SET ORDER_STATUS_CD =400 WHERE ORDER_NO = ?
+</entry>
+<entry key="cancelDelivery">
+UPDATE delivery SET DELIVERY_STATUS_CD = 506 WHERE DELIVERY_NO = ?
+</entry>
 
 
 
