@@ -173,6 +173,29 @@ public class BoardController extends HttpServlet {
 					resp.sendRedirect(path);
 				}
 			}
+			
+			else if(command.equals("updateBoard")) {
+				
+				int memberNo = ((Member) session.getAttribute("loginMember")).getMemberNo();
+				
+					
+
+					List<Product> product = service.selectProduct(memberNo);
+					
+					
+					
+				
+				
+				int boardNo = Integer.parseInt(req.getParameter("no"));
+				Board board = service.updateView(boardNo);
+				List<Category> category = service.selectCategory();
+				req.setAttribute("product", product);
+				req.setAttribute("board", board);
+				req.setAttribute("category", category);
+				path = "/WEB-INF/views/board/notice/boardUpdate.jsp";
+				dispatcher = req.getRequestDispatcher(path);
+				dispatcher.forward(req, resp);
+			}
 			else if(command.equals("update")) {
 				
 				session = req.getSession();
@@ -187,30 +210,38 @@ public class BoardController extends HttpServlet {
 				// 로그인한 회원 번호
 				int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
 				
+
+				int star = Integer.parseInt(req.getParameter("star"));
 				Board board = new Board();
+				
+				if(req.getParameter("reviewImg")!=null) {
+					int productNo = Integer.parseInt(req.getParameter("reviewImg"));
+					board.setProductNo(productNo);
+					
+				}
 				board.setBoardTitle(boardTitle);
 				board.setBoardContent(boardContent);
 				board.setCategoryCode(categoryCode);
 				board.setMemberNo(memberNo);
 				board.setBoardNo(boardNo);
-				
+				board.setProductScore(star);
 			
 				
-				// 게시글 수정 서비스 호출 후 결과 반환 받기
-//				int result = service.updateBoard(board);
-//				
-//				
-//				if(result > 0) { // 수정 성공
-//					message = "게시글이 수정되었습니다.";
-//					path = "view?no=" + boardNo + "&cp=" + req.getParameter("cp");
-//							
-//				}else { // 수정 실패
-//					
-//					message = "게시글 수정 실패";
-//					path = req.getHeader("referer") + "?no=" + boardNo;
-//				
-//					
-//				}
+				 
+				int result = service.updateBoard(board);
+				
+				
+				if(result > 0) { // 수정 성공
+					message = "게시글이 수정되었습니다.";
+					path = "view?no=" + boardNo + "&cp=" + req.getParameter("cp")+"&c="+board.getCategoryCode();
+							
+				}else { // 수정 실패
+					
+					message = "게시글 수정 실패";
+					path = req.getHeader("referer") + "?no=" + boardNo+"&c="+req.getParameter("c");
+				
+					
+				}
 				
 				session.setAttribute("message", message);
 				resp.sendRedirect(path);

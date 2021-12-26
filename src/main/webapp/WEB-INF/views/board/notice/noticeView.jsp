@@ -18,7 +18,7 @@
 			<div id="contents">
 			
 				<!-- 글 내용-->
-				<form id="BoardDelForm" name="" action="" method="post" target="_self">
+				
 					<div class="ec-base-table typeWrite">
 						<table id="mcBorder" summary="">
 
@@ -60,20 +60,16 @@
 								</tr>
 								<tr>
 									<td colspan="2" id="mcBorder">
-
-										<div class="detail">
-											<div class="fr-view fr-view-article zeta">
+										<c:if test="${not empty img}">
+											<img style="width: 20%;" src="${contextPath}${img}"/>
+										
+										</c:if>
 												<c:if test="${param.c eq '803'}">
-
 													<img style="width: 20%;" alt="관리자"
-														src="${contextPath}/resources/images/board/관리자.jpg">
+													src="${contextPath}/resources/images/board/관리자.jpg">
 												</c:if>
-												
-												<img style="width: 20%;" alt=""
-														src="${contextPath}${img}">
 												<p>${board.boardContent}</p>
-											</div>
-										</div>
+											
 									</td>
 								</tr>
 								<tr class="attach" id="mcBorder">
@@ -84,7 +80,8 @@
 									<c:if test="${loginMember.memberNo eq board.memberNo}">
 									
 									<td id="mcBorder" colspan="2" >
-											<button class="tSBKF nodragon" onclick="deleteBoard(no1);" >게시글 삭제</button>
+										<button class="tSBKF nodragon" onclick="deleteBoard(no1);" >게시글 삭제</button>
+										<button class="tSBKF nodragon" onclick="updateBoard();" >게시글 수정</button>
 									</td>
 									</c:if>
 
@@ -107,6 +104,14 @@
 						</div>
 					</div>
 
+				
+
+				<form action="#" method="POST" name="requestForm">
+					<input type="hidden" name="cp" value="${param.cp }"> 
+					<input type="hidden" name="no"
+						value="${param.no }">
+						<input type="hidden" name="c"
+						value="${param.c }">
 				</form>
 					<script>
 						const boardNo = ${board.boardNo};
@@ -118,10 +123,7 @@
 				<script src="${contextPath}/resources/js/board/boardView.js"></script>
 
 
-				<form action="#" method="POST" name="requestForm">
-					<input type="hidden" name="cp" value="${param.cp }"> <input type="hidden" name="no"
-						value="${param.no }">
-				</form>
+	
 			</div>
 		</body>
 

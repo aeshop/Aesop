@@ -194,17 +194,7 @@ a {
 	text-decoration: none;
 	color: inherit;
 }
-a:hover, a:focus { animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; } 
-@keyframes rainbowLink {     
- 0% { color: #ff2a2a; }
- 15% { color: #ff7a2a; }
- 30% { color: #ffc52a; }
- 45% { color: #43ff2a; }
- 60% { color: #2a89ff; }
- 75% { color: #202082; }
- 90% { color: #6b2aff; } 
- 100% { color: #e82aff; }
-}
+
 .centerV {
 	width: 1000px;
 	margin: 0 auto;
@@ -242,21 +232,24 @@ a:hover, a:focus { animation-duration: 3s; animation-name: rainbowLink; animatio
 	padding: 0px 12px;
 	background-color: rgb(39, 38, 44);
 	color: #D8D9D3;
+	border-color: #BEBFC1;
+	border-style: solid;
+	border-width: 2px;
 }
 
-button:hover, [type=button]:hover {
+.tSBKF:hover {
 	transform: translate3d(0, 2px, 0);
 	box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.3);
 }
 
-button:focus, [type=button]:focus {
+.tSBKF:focus {
 	border-color: #41403e;
 	border-style: solid;
 	border-width: 2px;
 	box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3);
 }
 
-button:active, [type=button]:active {
+.tSBKF:active {
 	border-color: rgba(0, 0, 0, 0.2);
 	transition: none;
 }
@@ -277,11 +270,6 @@ input, select, textarea {
 	padding: 0.5rem;
 }
 
-input:focus, select:focus, textarea:focus {
-	border-color: #BEBFC1;
-	border-style: solid;
-	border-width: 2px;
-}
 
 select {
 	height: 2.35rem;

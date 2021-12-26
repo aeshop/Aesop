@@ -37,11 +37,13 @@
 		READ_COUNT,
 		BD_STATUS_NM,PRODUCT_SCORE,PRODUCT_NO
 		FROM BOARD
-		JOIN MEMBER USING(MEMBER_NO)
+		JOIN MEMBER
+		USING(MEMBER_NO)
 		JOIN BOARD_CATEGORY
 		USING(CATEGORY_CD)
 		JOIN
-		BD_STATUS USING(BD_STATUS_CD)
+		BD_STATUS
+		USING(BD_STATUS_CD)
 		WHERE BOARD_NO = ?
 		AND BD_STATUS_CD != 702
 	</entry>
@@ -84,22 +86,42 @@
 		product_no,product_nm,product_img_path,product_img_nm from product
 		join product_img using(product_no)
 		where product_img_level=0
-		and product_no in(select distinct product_no from order_1 where member_no
+		and
+		product_no in(select distinct product_no from order_1 where member_no
 		= ? and order_status_cd=401)
-	</entry>	
+	</entry>
 	<entry key="searchBoardList">
 		SELECT * FROM
 		(SELECT ROWNUM RNUM, A.*
 		FROM (select
-		* from board NATURAL JOIN
+		*
+		from board NATURAL JOIN
 		BOARD_CATEGORY
 		join member using(member_no)
 		WHERE CATEGORY_CD = ?
 	</entry>
 	<entry key="imgSearch">
-	select product_img_path,product_img_nm from board
-        natural join product 
-        natural join product_img
-        where product_img_level=0 and board_no=?
+		select product_img_path,product_img_nm from board
+		natural join product
+		natural join product_img
+		where product_img_level=0 and board_no=?
+	</entry>
+	<entry key="updateBoard">
+		UPDATE BOARD SET
+		BOARD_TITLE = ?,
+		BOARD_CONTENT = ?,
+		CATEGORY_CD = ?,
+		MODIFY_DT = SYSDATE
+		WHERE BOARD_NO = ?
+	</entry>
+	<entry key="updateBoardReview">
+		UPDATE BOARD SET
+		BOARD_TITLE = ?,
+		BOARD_CONTENT = ?,
+		CATEGORY_CD = ?,
+		PRODUCT_SCORE =?,
+		PRODUCT_NO =?,
+		MODIFY_DT = SYSDATE
+		WHERE BOARD_NO = ?
 	</entry>
 </properties>
