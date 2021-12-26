@@ -88,7 +88,7 @@
             <!-- Bootstrap Carousel-->
             <div class="carousel-inner">
               <div class="carousel-item active main_slide_2" data-interval="false">
-                test11111
+              	 <img src="">
               </div>
               <div class="carousel-item main_slide_2" data-interval="false">
                 test22222
