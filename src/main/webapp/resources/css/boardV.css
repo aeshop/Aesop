@@ -13,8 +13,13 @@
 	width: 1000px;
 	margin: auto;
 	z-index: 1;
+	margin-top:20px;
 }
 
+.nodragon{
+	
+float:right;
+}
 .ec-base-table table {
 	z-index: 2; background-color : rgba( 255, 255, 255, 0.918);
 	position: relative;
@@ -97,4 +102,8 @@ body, code {
 #mcBorder{
 	border : 1px solid #F9CF93;
 	
+}
+.zeta{
+	padding: 15px 15px 15px 10px;
+	height: 300px;
 }

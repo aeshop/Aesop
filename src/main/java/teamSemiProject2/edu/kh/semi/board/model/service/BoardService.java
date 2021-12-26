@@ -144,21 +144,27 @@ public class BoardService {
 		
 		String content = board.getBoardContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
 		board.setBoardContent(content);
-		
-		
-		int result = dao.insertBoard(board,conn);
+		int result = 0;
+		if(board.getCategoryCode()==801) {
+			
+			result = dao.insertBoardReview(board,conn);
+		} else {
+			result = dao.insertBoard(board,conn);
+			
+		}
 		if(result >0) {
 			commit(conn);
 			result = boardNo;
 		}
 		else rollback(conn);
+		close(conn);
 		return result;
 	}
 
-	public List<Product> selectProduct() throws Exception{
+	public List<Product> selectProduct(int memberNo) throws Exception{
 		
 		Connection conn = getConnection();
-		List<Product> product = dao.selectProduct(conn);
+		List<Product> product = dao.selectProduct(memberNo,conn);
 		close(conn);
 		return product;
 	}
@@ -168,7 +174,15 @@ public class BoardService {
 		int result = dao.deleteBoard(boardNo,conn);
 		if(result>0) commit(conn);
 		else rollback(conn);
+		close(conn);
 		return result;
+	}
+
+	public String imgSearch(int boardNo) throws Exception{
+		Connection conn = getConnection();
+		String img = dao.imgSearch(boardNo,conn);
+		close(conn);
+		return img;
 	}
 
 

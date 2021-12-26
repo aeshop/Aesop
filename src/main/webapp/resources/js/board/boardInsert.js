@@ -46,9 +46,11 @@
 		if(this.value != "801"){
 			document.getElementById("reviewImg").style.visibility ="hidden";
 			$(".dd *,reviewImg_msdd *,reviewImg_msddHolder *,#reviewImg_title *,#reviewImg *").css('border-color','white').css('visibility', 'hidden');
+			$(".rvrv").css('visibility','hidden');
 		}
 		else {			
 			document.getElementById("reviewImg").style.visibility = "visible";
 			$(".dd *, reviewImg_msdd *, reviewImg_msddHolder *,#reviewImg_title *,#reviewImg *").css('border-color','#adb5bd').css('visibility', 'visible');
+			$(".rvrv").css('visibility','visible');
 		}
 	});
