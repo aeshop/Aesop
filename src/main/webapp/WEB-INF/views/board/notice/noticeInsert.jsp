@@ -66,8 +66,8 @@
 							<input placeholder=" 제목을 입력해주세요." type="text" class="fgmkt" id="boardTitle"
 								name="boardTitle" size="40">
 							<label class="rvrv input-group-addon mr-3 insert-label"
-								style="padding-bottom: 19px;">　　평점　</label>
-							<select name="star" class="tSBKF rvrv">
+							<c:if test="${ empty product}">style="visibility: hidden;</c:if> " >　　평점　</label>
+							<select name="star" class="tSBKF rvrv" <c:if test="${ empty product}">style="visibility: hidden;</c:if> ">
 
 								<option value="1">★☆☆☆☆</option>
 								<option value="2">★★☆☆☆</option>
