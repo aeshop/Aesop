@@ -289,6 +289,47 @@ public class CategoryDAO {
 		return pList;
 	}
 
+	public List<Product> searchKeyword(String keyword, Connection conn)  throws Exception {
+
+		List<Product> pList = new ArrayList<Product>();
+
+		try {
+			String sql = prop.getProperty("searchKeyword");
+
+
+			
+			pstmt = conn.prepareStatement(sql);
+		
+
+			
+
+		
+
+			// 카테고리별로 검색조건 앵커
+			pstmt.setString(1, keyword);
+		rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Product tmp = new Product();
+				tmp.setProductNo(rs.getInt("PRODUCT_NO"));
+				tmp.setProductName(rs.getString("PRODUCT_NM"));
+				tmp.setPrice(rs.getInt("PRODUCT_PRICE"));
+				tmp.setDiscount(rs.getDouble("DISCOUNT"));
+				tmp.setStock(rs.getInt("STOCK"));
+				tmp.setCategoryNo(rs.getInt("PRODUCT_CATEGORY"));//311 312 등이 온다
+				tmp.setStatusNo(rs.getInt("PRO_STATUS_NO"));
+				tmp.setCategoryName(rs.getString("CATEGORY_NM"));
+
+				pList.add(tmp);
+			}
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return pList;
+	}
+
 	
 
 }

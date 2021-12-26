@@ -99,6 +99,30 @@ public class CategoryService {
 
 
 
+	public List<Product> searchKeyword(String keyword) throws Exception {
+		conn = getConnection();
+		
+		List<Product> pList = dao.searchKeyword(keyword,conn);
+		
+		
+		
+		//제품이 가진 이미지 경로정보를 제품 클래스에 추가
+		for (Product product : pList) {
+			List<ProductImage> imgList = dao.getProductImageList(product.getProductNo(),conn);
+			
+			product.setImgList(imgList);
+		}
+		
+		
+		
+		close(conn);
+		
+		
+		return pList;
+	}
+
+
+
 
 
 }

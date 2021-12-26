@@ -106,7 +106,32 @@ public class CategoryController extends HttpServlet {
 				
 				
 				
+				} else if (command.equals("search")) {
+					
+					
+					String keyword = req.getParameter("keyword");
+					
+					List<Product> pList = null;
+					pList=service.searchKeyword(keyword);
+					
+					
+					req.setAttribute("productList", pList);
+					
+					//카테고리 페이지로 요청위임 경로설정
+					path = "/WEB-INF/views/category/category.jsp";
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
+					
+					
 				}
+				
+				
+				
+				
+				
+				
+				
+				
 			} else {//method 방식이 post 
 				
 				

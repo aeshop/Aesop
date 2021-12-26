@@ -20,7 +20,25 @@
 		ORDER BY p.pro_status_no,p.product_no DESC) A)
 		WHERE rnum BETWEEN ? AND ?
 	</entry>
-		<!-- 로그인 		
+	
+	<entry key="getProduct22">
+	SELECT B.* FROM
+        (SELECT ROWNUM rnum,A.* FROM  (
+			SELECT product_no,product_nm, product_price,discount,stock,product_category,pro_status_no,category_nm, AVG(product_score), COUNT(product_score)
+			FROM(
+				SELECT p.* , c.category_nm, NVL(b.product_score,0) product_score
+				FROM product p
+				JOIN product_category c ON(p.product_category = c.category_no2)
+       			LEFT JOIN board b ON(p.product_no = b.board_no)
+        		WHERE c.category_no2 BETWEEN 300 AND 399
+			ORDER BY p.pro_status_no,p.product_no DESC)
+        GROUP BY product_no,product_nm,product_price,discount,stock,product_category,pro_status_no,category_nm)A)B
+        WHERE rnum  BETWEEN 1 AND 10	
+	</entry>
+	
+	
+	
+		<!--  		
  order by 8, 2 desc; : 최신순 정렬
  order by 8, 3 asc; : 가나다순 정렬
  order by 8, 4 asc; : 낮은가격순 정렬 - 계산된 걸로 해야함
