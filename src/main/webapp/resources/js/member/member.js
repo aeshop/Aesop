@@ -296,7 +296,6 @@ $(".phone").on("input", function (e) {
 
 
 
-
 function validate() {
 	for (const key in checkObj) {
 

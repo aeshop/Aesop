@@ -11,7 +11,24 @@
 
 	<!-- main 1페이지 -->
 	<div class="main_container_1">
-		<a>test</a>
+		<!-- Bootstrap Carousel-->
+					<div class="carousel-inner">
+						<div class="carousel-item active main_container_slide" data-interval="true">test11111</div>
+						<div class="carousel-item main_container_slide" data-interval="true">
+							test22222</div>
+						<div class="carousel-item main_container_slide" data-interval="true">
+							test33333</div>
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#carouselExampleDark" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+					</div>
 	</div>
 	<div style="padding: 40px 0; border: none;"></div>
 
@@ -52,8 +69,8 @@
 							<span class="visually-hidden">Next</span>
 						</button>
 					</div>
-
 				</div>
+				
 				<div class="main_container_2_slide_left_desc">
 					<h4>test X test11111</h4>
 					<p>test test test1111</p>
@@ -138,9 +155,9 @@
 				</div>
 				<div
 					style="display: flex; flex-direction: row; justify-content: center;">
-					<div style="width: 25%; height: 120px;">1</div>
-					<div style="width: 25%; height: 120px;">2</div>
-					<div style="width: 25%; height: 120px;">3</div>
+					<div style="width: 25%; height: 140px;"><img src="${contextPath}/resources/images/common/youtube_img1.png" style="width:100%; height:100%;"></div>
+					<div style="width: 25%; height: 140px;"><img src="${contextPath}/resources/images/common/youtube_img2.png" style="width:100%; height:100%;"></div>
+					<div style="width: 25%; height: 140px;"><img src="${contextPath}/resources/images/common/youtube_img3.png" style="width:100%; height:100%;"></div>
 				</div>
 			</div>
 
