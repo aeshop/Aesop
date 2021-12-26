@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
 <jsp:include page="/WEB-INF/views/common/sidebar_n.jsp"/>
 
-    <!-------------------------------------------------- 낙희 --------------------------------->
     <!-- main 1페이지 -->
     <!-- content -->
     <div class="content">
-      <form>
+      <form method="POST" action="Register" onsubmit="return addrRegisterValidate();" id="rForm">
+      <input type="hidden" name="addrNo">
           <div class="addr-register-box">
               <table class="addr-register-table" >
                   <colgroup>
@@ -20,7 +23,7 @@
                           <img src="${contextPath}/resources/images/cnh/images/icon_required.gif">
                       </th>
                       <td>
-                          <input type="text" id="addr-name">
+                          <input type="text" id="addr-name" name="addrName">
                       </td>
                   </tr>
                   <tr>
@@ -29,7 +32,7 @@
                           <img src="${contextPath}/resources/images/cnh/images/icon_required.gif">
                       </th>
                       <td>
-                          <input type="text" id="recipient-name">
+                          <input type="text" id="recipient-name" name="addrReceiverName">
                       </td>
                   </tr>
                   <tr>
@@ -38,10 +41,10 @@
                           <img src="${contextPath}/resources/images/cnh/images/icon_required.gif">
                       </th>
                       <td>
-                          <input type="text" id="sample6_postcode" placeholder="우편번호">
+                          <input type="text" id="sample6_postcode" placeholder="우편번호" name="zipCode">
                           <input type="button" class="postcode-btn" onclick="sample6_execDaumPostcode()" value="우편번호"><br>
-                          <input type="text" id="sample6_address" placeholder="주소"><br>
-                          <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                          <input type="text" id="sample6_address" placeholder="주소" name="address1"><br>
+                          <input type="text" id="sample6_detailAddress" placeholder="상세주소" name="address2">
                           <!-- <input type="text" id="sample6_extraAddress" placeholder="참고항목"> -->
                       </td>
                   </tr>
@@ -51,7 +54,7 @@
                           <img src="${contextPath}/resources/images/cnh/images/icon_required.gif">
                       </th>
                       <td>
-                          <select>
+                          <select id="phone1" name="aPhone">
                               <option value="010">010</option>
                               <option value="011">011</option>
                               <option value="016">016</option>
@@ -60,9 +63,9 @@
                               <option value="019">019</option>
                           </select>
                           -
-                          <input type="text" id="phone2" maxlength="4">
+                          <input type="text" id="phone2" maxlength="4" name="aPhone">
                           -
-                          <input type="text" id="phone3" maxlength="4">
+                          <input type="text" id="phone3" maxlength="4"  name="aPhone">
                       </td>
                   </tr>
                   <tr class="default-addr">
@@ -75,8 +78,9 @@
           </div>
           <div class="addr-register-btn">
               <span>
-                  <a href="#"> <!-- 등록 버튼 -->
-                      <img src="${contextPath}/resources/images/cnh/images/btn_address_register2.gif">
+                  <!-- 등록 버튼 -->
+                  <a style="cursor:pointer;">
+                      <img src="${contextPath}/resources/images/cnh/images/btn_address_register2.gif" id="reg">
                   </a>
                   <a href="${contextPath}/myPage/addr"> <!-- 취소 버튼 -->
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_cancel.gif">
@@ -99,6 +103,32 @@
     
       <!-- footer include -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+<!-- 폰 번호 저장 -->
+<script>
+$(function(){
+	const ph0 ="${ph[0]}";
+	
+	$("#phone1 > option").each(function(index, item){
+		
+		if(ph0 == item.innerText){
+			item.setAttribute("selected", true);
+		}
+	});
+});
+
+// 등록 버튼 눌렀을 시.. 제출
+document.getElementById("reg").addEventListener("click", function(){
+	//document.getElementById("registerForm").submit();
+	
+	$("#rForm").attr("method", "POST");
+	document.getElementById("rForm").submit();
+	
+});
+
+
+
+</script>
 
 
 <script src="${contextPath}/resources/js/member/updateMember.js"></script>

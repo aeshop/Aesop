@@ -1,13 +1,6 @@
 @charset "UTF-8";
         /************************ 최낙희 css ********************/
     /* content */
-.content{
-    /* border: 1px solid black; */
-    box-sizing: border-box;
-    width: 1200px;
-    float: left;
-    margin: 90px 90px 130px 300px;
-}
 
 /* grade */
 .myshopMain{

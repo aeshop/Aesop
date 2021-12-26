@@ -169,11 +169,7 @@
     <div class="copyright" id="copyright">
       <div class="copyright_content">
         <div class="com_info">
-          <div class="logo_b">
-            <a href="#" id="logo_href">
-              Aesop
-            </a>
-          </div>
+          
           <div class="com_info_content">
             <p>Copyright &copy; KH Information Educational Institute A-Class</p>
           </div>

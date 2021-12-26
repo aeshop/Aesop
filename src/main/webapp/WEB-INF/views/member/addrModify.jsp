@@ -100,9 +100,8 @@
                     </span>
                  </c:if>
               <span class="addr-btn2">
-                  <a id="addrRegisterBtn" style="cursor:pointer;" onclick="addrRegister();" >
-<%--                   <a href="${contextPath}/myPage/addr/Register" id="addrRegisterBtn" onclick="addrRegister();">
- --%>                      <img src="${contextPath}/resources/images/cnh/images/btn_address_register.gif">
+                  <a style="cursor:pointer;">
+                      <img src="${contextPath}/resources/images/cnh/images/btn_address_register.gif" onclick="addrRegister()">
                   </a>
               </span>
           </div>
@@ -126,14 +125,14 @@
 <script type="text/javascript" src="${contextPath}/resources/js/member/myPage/addrModify.js"></script>
 <!-- <script>
 
-function addrRegister(){
+ function addrRegister(){
    if( ${fn:length(sessionScope.addrList)} == 10){
       alert("배송지는 최대 10개까지만 등록할 수 있습니다.");
       
       document.getElementById("addrRegisterBtn").setAttribute('href',' # ');
 
    }
-}
+} 
    
 </script> -->
    

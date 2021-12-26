@@ -57,7 +57,14 @@
                   달성
               </div>
               <div class="member-benefit">
-                  <a href="#">멤버십 등급별 혜택 보기</a>
+                  <a id="modal" style="cursor:pointer;">멤버십 등급별 혜택 보기</a>
+                  
+                  <div class="n_modal">
+                  	<div class="modal_content" title="클리갛면 창이 닫힙니다.">
+                  	  <img src="${contextPath}/resources/images/cnh/images/mypage_pop.png">
+                  	</div>
+                  </div>
+                  
               </div>
           </div>
       </div>
@@ -71,14 +78,15 @@
                       <li>
                           <a href="${contextPath}/myPage/orderHistory">
                               <img src="${contextPath}/resources/images/cnh/images/myicon_01.png"> 주문/배송현황
+                              <c:if test="${!empty sessionScope.result }">
                               <span class="count-icon">
                                   <span>
-                                  
-	                                      <span class="count">1</span>
-                                  		
-                                  	
+	                                    <span class="count">
+				 							${sessioinScope.result}
+										</span>
                                   </span>
                               </span>
+                              </c:if>
                           </a>
                       </li>
                       <li>
@@ -168,7 +176,7 @@
 				                              </a>
 				                          </td>
 				                          <td class="order-product">
-				                              <a href="#">
+				                              <a href="${contextPath}/product/productDetail?productNo=${sessionScope.product.productNo}">
 				                                  <strong>${o.productName }</strong>
 				                              </a>
 				                          </td>
@@ -207,8 +215,8 @@
   </div>
 
 <!-- footer include -->
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-
+<jsp:include page="/WEB-INF/views/common/r_footer.jsp"/>
+<script type="text/javascript" src="${contextPath}/resources/js/member/myPage/modal.js"></script>
 
 
 </body>

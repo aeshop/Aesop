@@ -58,6 +58,13 @@ public class MypageController extends HttpServlet{
 						
 						session.setAttribute("orderList", orderList);
 						
+						// 카운트넘버(최근 2일이내 주문내역 조회)
+						
+						int result = service.selectCountNum(memberNo);
+						
+						session.setAttribute("result", result);
+						
+						
 						
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -161,7 +168,7 @@ public class MypageController extends HttpServlet{
 			}else if(command.equals("addr/edit")){
 				if(method.equals("GET")) {
 					
-					System.out.println(4);
+//					System.out.println(4);
 					
 					path = "/WEB-INF/views/member/addrModifyEdit.jsp";
 					dispatcher = req.getRequestDispatcher(path);
@@ -169,7 +176,7 @@ public class MypageController extends HttpServlet{
 				
 				}else {//post
 					
-					System.out.println(3);
+//					System.out.println(3);
 					
 					// 파라미터 얻어오기
 					int idx = Integer.parseInt( req.getParameter("idx") );
@@ -239,7 +246,58 @@ public class MypageController extends HttpServlet{
 					path = "/WEB-INF/views/member/addrRegister.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
-				}		
+				
+				}else {//post
+					
+					
+					// 파라미터 얻어오기
+					String addrName = req.getParameter("addrName");
+					String addrReceiverName = req.getParameter("addrReceiverName");
+					String zipCode = req.getParameter("zipCode");
+					String address1 = req.getParameter("address1");
+					String address2 = req.getParameter("address2");
+					
+					String[] aPhone = req.getParameterValues("aPhone");
+					String addrPhone = String.join("-", aPhone);
+					
+					String defaultCheck = req.getParameter("defaultCheck");
+					
+					// 객체에 저장
+					AddrList registerAddr = new AddrList();
+					
+					registerAddr.setAddrName(addrName);
+					registerAddr.setAddrReceiverName(addrReceiverName);
+					registerAddr.setZipCode(zipCode);
+					registerAddr.setAddress1(address1);
+					registerAddr.setAddress2(address2);
+					registerAddr.setAddrPhone(addrPhone);
+					registerAddr.setDefaultAddress(defaultCheck);
+					registerAddr.setMemberNo(memberNo);
+					
+					try {
+						int result = service.registerDeliveryAddr(registerAddr);
+						
+						
+						if(result > 0) { //등록 성공시
+							session.setAttribute("message", "해당 배송지가 등록되었습니다.");
+							
+						
+						}else { // 등록 실패 시
+							session.setAttribute("message", "해당 배송지 등록 실패");
+						}
+						
+						// 배송지 목록 페이지로 재요청
+						resp.sendRedirect("../addr");
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+					
+				}
+				
+				
+				
+				
 				// 체크된 주소록 삭제
 			} else if (command.equals("addr/delete")) {
 				if (method.equals("POST")) {

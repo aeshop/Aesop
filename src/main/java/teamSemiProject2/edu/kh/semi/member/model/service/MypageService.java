@@ -205,4 +205,48 @@ public class MypageService {
 		return result;
 	}
 
+
+
+	/** 배송지 등록 Service
+	 * @param registerAddr
+	 * @return result(1:성공 , 0:실패)
+	 * @throws Exception
+	 */
+	public int registerDeliveryAddr(AddrList registerAddr) throws Exception {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.registerDeliveryAddr(registerAddr, conn);
+		
+		if(result> 0) commit(conn);
+		else 		  rollback(conn);
+		
+		close(conn);
+		
+		return result;
+		
+		
+		
+	}
+
+
+
+	/** 주문내역 카운트
+	 * @param memberNo
+	 * @return result(1:성공, 0 :실패)
+	 * @throws Exception
+	 */
+	public int selectCountNum(int memberNo) throws Exception {
+		Connection conn = getConnection();
+		
+		int result = dao.selectCountNum(memberNo, conn);
+		
+		if(result> 0) commit(conn);
+		else 		  rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
 }

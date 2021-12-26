@@ -59,6 +59,19 @@
     right: -33px;
     font-size: 13px;
 	}	
+	
+	#closeWin{
+		    position: relative;
+    right: -180px;
+    bottom: 55px;
+    color: gray;
+    background: none;
+    border: 1px solid gray;
+
+
+	}
+	
+	
 	</style>
 </head>
 <body>
@@ -74,7 +87,12 @@
 		<a href="${contextPath}/product/productDetail?productNo=82" style="text-decoration:none; color:black;">제품 상세 보기 　　　　　　　　>
 		</a>
 	</div>
+	<button id="closeWin"  onclick="closeWin()">X</button>
 
-  
+  <script>
+  	function closeWin() {
+    	window.close();        
+	}
+  </script>
 </body>
 </html>
