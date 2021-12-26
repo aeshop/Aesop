@@ -17,9 +17,6 @@
 		AND PRODUCT_IMG_LEVEL=0
 		and order_status_cd in (401,402,403,404,405)
 		ORDER BY 5 DESC, 1 DESC
-		
-		
-		
 	</entry>
 
 	<!-- 로그인한 회원의 취소/교환/환불 내역 조회 (수정필요) -->
@@ -79,6 +76,41 @@
 		ADDRESS2 = ?,
 		ADDRESS_PHONE = ?
 		WHERE ADDRESS_NO = ?
+	</entry>
+	
+	<!-- 회원정보 수정 1: 회원정보-->
+	<entry key="updateMember">
+		UPDATE MEMBER 
+		SET
+		MEMBER_PW = ?,
+		MEMBER_EMAIL = ?,
+		MEMBER_NAME = ?,
+		MEMBER_PHONE = ?,
+		MEMBER_BIRTHDAY = ?
+		WHERE MEMBER_NO = ?
+	</entry>
+		<!-- 회원정보 수정 2: 주소-->	
+	<entry key="updateDefaultAddr">
+		UPDATE ADDRESS 
+		SET
+		ZIP_CODE = ?,
+		ADDRESS1 = ?,
+		ADDRESS2 = ?
+		WHERE MEMBER_NO = ? 
+		AND DEFAULT_ADDRESS = 'Y'		
+	</entry>
+			<!-- 회원탈퇴: 102: 탈퇴 유저-->		
+	<entry key="secession">
+		UPDATE MEMBER
+		SET
+		MEMBER_STATUS_NO = 102
+		WHERE MEMBER_NO = ? 
+	</entry>
+<!-- 체크된 주소 지우기  -->			
+	<entry key="delCheckedAddr">
+		DELETE FROM ADDRESS 
+		WHERE ADDRESS_NO = ?
+		AND  MEMBER_NO = ?
 	</entry>
 
 

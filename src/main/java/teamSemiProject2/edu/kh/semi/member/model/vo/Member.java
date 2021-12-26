@@ -16,7 +16,8 @@ public class Member {
 
    private String memberGradeName;
    private Double memberGradeDiscount;
-
+   //회원과 주소는 밀접한 관계를 가지고 있어서, 기본 주소 담을 자리는 만듬
+   private Address defaultAddress;
    public Member() {
    }
    
@@ -158,7 +159,19 @@ public class Member {
       this.memberGradeDiscount = memberGradeDiscount;
    }
 
-   @Override
+   
+   
+   public Address getDefaultAddress() {
+	return defaultAddress;
+}
+
+
+public void setDefaultAddress(Address defaultAddress) {
+	this.defaultAddress = defaultAddress;
+}
+
+
+@Override
    public String toString() {
       return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw + ", memberEmail="
             + memberEmail + ", memberName=" + memberName + ", memberBirthday=" + memberBirthday + ", memberPhone="

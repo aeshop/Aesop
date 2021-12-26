@@ -9,7 +9,9 @@ import java.util.List;
 import teamSemiProject2.edu.kh.semi.member.model.dao.MypageDAO;
 import teamSemiProject2.edu.kh.semi.member.model.vo.AddrList;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Grade;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.member.model.vo.OrderList;
+import teamSemiProject2.edu.kh.semi.order.model.dao.OrderDAO;
 
 public class MypageService {
 	
@@ -119,6 +121,87 @@ public class MypageService {
 		
 		close(conn);
 		
+		return result;
+	}
+	
+	/**
+	 * 1.회원정보 갱신, + 2.기본주소가 존재하고, 회원이 수정페이지에서 주소 입력했다면 기본주소 갱신 + 3.갱신된 회원의 정보 들고와서
+	 * 세션에 담기
+	 * 
+	 * @param tmp
+	 * @return int
+	 */
+	public int updateMemberInfo(Member tmp) throws Exception {
+		int result = 0;
+
+		Connection conn = getConnection();
+
+		result = dao.updateMember(tmp, conn);
+
+		// 회원정보 수정,
+		if (result > 0 && tmp.getDefaultAddress() != null) {
+			// 만약 사용자가 기본 주소록 있으면 주소록 수정
+			if (new OrderDAO().getPrimaryAddress(tmp.getMemberNo(), conn) != null) {
+				result = 0;
+				result = dao.updateDefaultAddr(tmp.getDefaultAddress(), conn);
+			}
+
+			if (result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		} else if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		return result;
+	}
+
+	public int secession(int memberNo) throws Exception {
+
+		int result = 0;
+
+		Connection conn = getConnection();
+
+		result = dao.secession(memberNo, conn);
+
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+		return result;
+	}
+
+	public int delCheckedAddr(String[] addrNo, int loginMemberNo) throws Exception {
+		int result = 0;
+
+		Connection conn = getConnection();
+
+		for (int i = 0; i < addrNo.length; i++) {
+
+			int no = Integer.parseInt(addrNo[i]);
+
+			result = dao.delCheckedAddr(no, loginMemberNo, conn);
+
+			if (result <= 0) {
+				rollback(conn);
+				break;
+			}
+		}
+
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+
 		return result;
 	}
 

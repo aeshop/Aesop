@@ -12,7 +12,9 @@ import java.util.List;
 import java.util.Properties;
 
 import teamSemiProject2.edu.kh.semi.member.model.vo.AddrList;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Grade;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.member.model.vo.OrderList;
 
 public class MypageDAO {
@@ -279,6 +281,94 @@ public class MypageDAO {
 		return result;
 	}
 	   
-	   
+	public int updateMember(Member tmp, Connection conn) throws Exception {
+
+		int result = 0;
+		try {
+			String sql = prop.getProperty("updateMember");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tmp.getMemberPw());
+			pstmt.setString(2, tmp.getMemberEmail());
+			pstmt.setString(3, tmp.getMemberName());
+			pstmt.setString(4, tmp.getMemberPhone());
+			pstmt.setString(5, tmp.getMemberBirthday());
+			pstmt.setInt(6, tmp.getMemberNo());
+
+			result = pstmt.executeUpdate();
+		} finally {
+
+			close(pstmt);
+
+		}
+
+		return result;
+	}
+
+	
+	public int updateDefaultAddr(Address deAddr, Connection conn) throws Exception {
+
+		int result = 0;
+		try {
+			String sql = prop.getProperty("updateDefaultAddr");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, deAddr.getZipCode());
+			pstmt.setString(2, deAddr.getAddress1());
+			pstmt.setString(3, deAddr.getAddress2());
+			pstmt.setInt(4, deAddr.getMemberNo());
+
+			result = pstmt.executeUpdate();
+		} finally {
+
+			close(pstmt);
+
+		}
+
+		return result;
+	}
+
+	public int secession(int memberNo, Connection conn) throws Exception {
+		int result = 0;
+
+		try {
+
+			String sql = prop.getProperty("secession");
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, memberNo);
+
+			result = pstmt.executeUpdate();
+
+		} finally {
+			close(pstmt);
+
+		}
+
+		return result;
+	}
+
+	public int delCheckedAddr(int no, int loginMemberNo, Connection conn) throws Exception {
+
+		int result = 0;
+
+		try {
+
+			String sql = prop.getProperty("delCheckedAddr");
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, no);
+			pstmt.setInt(2, loginMemberNo);
+
+			result = pstmt.executeUpdate();
+
+		} finally {
+			close(pstmt);
+
+		}
+
+		return result;
+	}
+
 
 }

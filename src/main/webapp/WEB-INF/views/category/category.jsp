@@ -68,15 +68,17 @@
                             </ul>
 
                         </div>
-                        <!-- 정렬방식 네비게이션 바 미완성: 나중에 도전할 예정 -->
+                        <!-- 정렬방식 네비게이션 바 미완성: 나중에 도전할 예정 : 정렬방식으로 나오긴하는데, 어떤걸 클릭했는지 보여주는 효과를 내고싶음 -->
                         <div id="n-sort-navbar">
+                        <div id="n-sort-wrapper">
+                           
                             <ul id="n-sort-ul">
-                                <li><a href="#">신상품</a></li>
-                                <li><a href="#">상품명</a></li>
-                                <li><a href="#">낮은가격</a></li>
-                                <li><a href="#">높은가격</a></li>
+                                <li><a href="view?cate=${category[0].currentCategoryNo}&sort_method=1">신상품</a></li>
+                                <li><a href="view?cate=${category[0].currentCategoryNo}&sort_method=2">상품명</a></li>
+                                <li><a href="view?cate=${category[0].currentCategoryNo}&sort_method=3">낮은가격</a></li>
+                                <li><a href="view?cate=${category[0].currentCategoryNo}&sort_method=4">높은가격</a></li>
                             </ul>
-
+						</div>
                         </div>
                     </div>
                   <!-- 소분류 네비게이션 바, 및 페이지네이션: 테스트 필요-->

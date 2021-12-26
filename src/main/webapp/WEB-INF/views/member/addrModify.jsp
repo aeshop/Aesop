@@ -24,7 +24,7 @@
                <tr>
                       <th>
                           <span>
-                              <input type="checkbox">
+                              <input type="checkbox" id="addr-chk" onchange="checkSub(this)">
                           </span>
                       </th>
                       <th>배송지명</th>
@@ -93,14 +93,15 @@
           <div class="addr-btn">
               <c:if test="${!empty sessionScope.addrList}">
               		<span class="addr-btn1" >
-	              	 <a href="#none"> <!-- 등록된 주소록이 없을시 .displaynone-->
-	                      <img src="${contextPath}/resources/images/cnh/images/btn_address_delete.gif" >
+	              	 <a style="cursor:pointer;"> <!-- 등록된 주소록이 없을시 .displaynone-->
+	                      <img src="${contextPath}/resources/images/cnh/images/btn_address_delete.gif" onclick="delChkAddr()" >
 	                  </a>
              		 </span>
               	</c:if>
               <span class="addr-btn2">
-                  <a href="${contextPath}/myPage/addr/Register" id="addrRegisterBtn" onclick="addrRegister();">
-                      <img src="${contextPath}/resources/images/cnh/images/btn_address_register.gif">
+                  <a id="addrRegisterBtn" style="cursor:pointer;" onclick="addrRegister();" >
+<%--                   <a href="${contextPath}/myPage/addr/Register" id="addrRegisterBtn" onclick="addrRegister();">
+ --%>                      <img src="${contextPath}/resources/images/cnh/images/btn_address_register.gif">
                   </a>
               </span>
           </div>
@@ -121,7 +122,8 @@
   <!-- footer include -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
-<script>
+<script type="text/javascript" src="${contextPath}/resources/js/member/myPage/addrModify.js"></script>
+<!-- <script>
 
 function addrRegister(){
 	if( ${fn:length(sessionScope.addrList)} == 10){
@@ -132,7 +134,7 @@ function addrRegister(){
 	}
 }
 	
-</script>
+</script> -->
 	
 </body>
 </html>

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import teamSemiProject2.edu.kh.semi.member.model.service.MemberService;
 import teamSemiProject2.edu.kh.semi.member.model.service.MypageService;
 import teamSemiProject2.edu.kh.semi.member.model.vo.AddrList;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Grade;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.member.model.vo.OrderList;
@@ -36,6 +37,8 @@ public class MypageController extends HttpServlet{
 		RequestDispatcher dispatcher = null;
 		
 		HttpSession session = req.getSession();
+		
+		String message;
 		
 		
 		Member loginMember = (Member)session.getAttribute("loginMember");
@@ -236,6 +239,23 @@ public class MypageController extends HttpServlet{
 					path = "/WEB-INF/views/member/addrRegister.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
+				}		
+				// 체크된 주소록 삭제
+			} else if (command.equals("addr/delete")) {
+				if (method.equals("POST")) {
+
+					try {
+						String[] addrNo = req.getParameterValues("addrNoList[]");
+
+						int loginMemberNo = loginMember.getMemberNo();
+
+						int result = service.delCheckedAddr(addrNo, loginMemberNo);
+
+						resp.getWriter().print(result);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
 				}
 			
 				
@@ -275,6 +295,64 @@ public class MypageController extends HttpServlet{
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
 				}
+				
+				else {// POST 방식
+
+					// 회원정보 수정 후에 세션을 다시 받아와야 한다? 이게 가능한가?
+//					System.out.println("데이터가 post로 전달");
+//						System.out.println(req.getParameter("userName"));
+
+					// post전달 완료 req에 제대로 담겨오는지 확인, 완료
+					try {
+
+						Member tmp = new Member();
+						tmp.setMemberNo(loginMember.getMemberNo());
+						tmp.setMemberPw(req.getParameter("pwd1")); // 암호화 제대로 거쳤는지 확인 필요: wrapper가 작동 안되고 있음
+
+						tmp.setMemberName(req.getParameter("userName"));
+						String[] phoneNums = req.getParameterValues("phone");
+						String phone = String.join("-", phoneNums);
+						tmp.setMemberPhone(phone);
+						tmp.setMemberBirthday(req.getParameter("birth_year"));
+						String[] eMails = req.getParameterValues("eMail");
+						String email = String.join("@", eMails);
+						tmp.setMemberEmail(email);
+
+						// 주소는 기본 주소록을 찾고, update 시켜주는 형식이어야 한다. 회원번호가 일치하고 Y로 된 주소록을 찾으면 된다는 의미이다.
+						String zipCode = req.getParameter("zipCode");
+						String addr1 = req.getParameter("address1");
+						Address addr = null;
+						if (zipCode != null && addr1 != null) {
+							addr = new Address();
+							addr.setMemberNo(loginMember.getMemberNo());
+							addr.setZipCode(zipCode);
+							addr.setAddress1(addr1);
+							addr.setAddress2(req.getParameter("address2"));
+						}
+						if (addr != null) {
+							tmp.setDefaultAddress(addr);
+						}
+
+						int result = service.updateMemberInfo(tmp);
+						// 회원정보 수정이 성공하면 회원정보 다시한번 받아오기
+						if (result > 0) {
+							message = "회원정보 수정이 완료되었습니다.";
+							loginMember = new MemberService().login(loginMember.getMemberId(), req.getParameter("pwd1"));
+							session.setAttribute("loginMember", loginMember);
+						} else {
+							message = "회원정보 수정이 실패하였습니다.";
+						}
+
+						session.setAttribute("message", message);
+						path = "/WEB-INF/views/member/myPage.jsp";
+						dispatcher = req.getRequestDispatcher(path);
+						dispatcher.forward(req, resp);
+					} catch (Exception e) {
+
+						e.printStackTrace();
+					}
+
+				}
 			
 				
 			// 게시글 관리/ 문의내역 관리
@@ -284,7 +362,24 @@ public class MypageController extends HttpServlet{
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
 				}
+						// 회원탈퇴
+			} else if (command.equals("secession")) {
+				if (method.equals("GET")) {
+					try {
+						int result = service.secession(loginMember.getMemberNo());
+		
+						if (result > 0) {
+							session.invalidate();
+							path = req.getContextPath();
+							resp.sendRedirect(path);
+						}
+		
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 			}
+			
 	}
 	
 	@Override
