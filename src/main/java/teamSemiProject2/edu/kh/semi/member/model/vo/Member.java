@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Member {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private int memberNo;
 	private String memberId;
 	private String memberPw;
@@ -177,6 +178,9 @@ public class Member {
 				+ ", memberGradeName=" + memberGradeName + ", memberGradeDiscount=" + memberGradeDiscount + "]";
 	}
 =======
+=======
+
+>>>>>>> 17c1f7f43f7ce7a393af0e6c13fb143c179cd02b
    private int memberNo;
    private String memberId;
    private String memberPw;
@@ -339,7 +343,10 @@ public class Member {
 	return defaultAddress;
 }
 
+<<<<<<< HEAD
 >>>>>>> origin/CNH
+=======
+>>>>>>> 17c1f7f43f7ce7a393af0e6c13fb143c179cd02b
 
 public void setDefaultAddress(Address defaultAddress) {
 	this.defaultAddress = defaultAddress;

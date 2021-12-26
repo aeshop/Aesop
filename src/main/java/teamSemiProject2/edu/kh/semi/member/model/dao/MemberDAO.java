@@ -165,6 +165,9 @@ public class MemberDAO {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 17c1f7f43f7ce7a393af0e6c13fb143c179cd02b
 
 	public Member findPw(String memberId, String memberName, String memberEmail, Connection conn) throws Exception{
 		Member member = null;
@@ -237,6 +240,12 @@ public class MemberDAO {
 
 
 }
+<<<<<<< HEAD
 =======
 }
 >>>>>>> origin/CNH
+=======
+
+}
+
+>>>>>>> 17c1f7f43f7ce7a393af0e6c13fb143c179cd02b

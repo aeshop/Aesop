@@ -48,9 +48,12 @@ public class MemberController extends HttpServlet {
 		String message = null;
 		RequestDispatcher dispatcher = null;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> origin/CNH
+=======
+>>>>>>> 17c1f7f43f7ce7a393af0e6c13fb143c179cd02b
 		req.setCharacterEncoding("UTF-8");
 
 		// 마이페이지

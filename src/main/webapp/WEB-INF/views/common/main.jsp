@@ -7,6 +7,7 @@
 
 <!-- 메인 화면 이미지 -->
 <<<<<<< HEAD
+<<<<<<< HEAD
 <div class="main_container" style="border: 1px solid black;">
 	<jsp:include page="sidebar_n.jsp" />
 
@@ -196,6 +197,8 @@
 		</div>
 	</div>
 =======
+=======
+>>>>>>> 17c1f7f43f7ce7a393af0e6c13fb143c179cd02b
 <div class="main_container" >
 	<div class="sidebar_wrapper">
 
@@ -413,13 +416,17 @@
 
       </div>
     </div>
+<<<<<<< HEAD
 >>>>>>> origin/CNH
+=======
+>>>>>>> 17c1f7f43f7ce7a393af0e6c13fb143c179cd02b
 
 
 
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -429,6 +436,9 @@
 =======
   </div>
 >>>>>>> origin/CNH
+=======
+</div>
+>>>>>>> 17c1f7f43f7ce7a393af0e6c13fb143c179cd02b
 
 <!-- footer -->
 <jsp:include page="r_footer.jsp" />
