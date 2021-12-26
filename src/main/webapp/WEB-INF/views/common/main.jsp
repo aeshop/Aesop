@@ -1,5 +1,5 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- header -->
@@ -193,49 +193,64 @@
 
 
     <!-- main 4페이지 -->
-    <div class="main_container_4">
-      <div style="height: 742px; margin-left: 110px; margin-top: 30px; display: flex; flex-direction: row; ">
-        <div style="width: 45%; height: 710px;">
-          <h3 class="Black_Border_Heading Common_Margin"><span style="text-decoration:  2.5px underline black;">AESOP
-              VIDEO</span></h3>
-          <div style="height: 300px; margin-bottom: 100px;">youtube</div>
-          <div style="display: flex; flex-direction: row; justify-content: center;">
-            <div style="width: 25%; height: 120px;">1</div>
-            <div style="width: 25%; height: 120px;">2</div>
-            <div style="width: 25%; height: 120px;">3</div>
-          </div>
-        </div>
+<div class="main_container_4">
+      <div
+         style="height: 742px; margin-left: 110px; margin-top: 30px; display: flex; flex-direction: row;">
+         <div style="width: 45%; height: 710px;">
+            <h3 class="Black_Border_Heading Common_Margin">
+               <span style="text-decoration: 2.5px underline black;">AESOP
+                  VIDEO</span>
+            </h3>
+            <div style="height: 400px;">
+               <iframe width="100%" height="100%"
+                  src="https://www.youtube.com/embed/o7L-3ZOhVsY"
+                  title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen> </iframe>
+            </div>
+            <div
+               style="display: flex; flex-direction: row; justify-content: center;">
+               <div style="width: 25%; height: 140px;">
+                  <img src="${contextPath}/resources/images/common/youtube_img1.png"
+                     style="width: 100%; height: 100%;">
+               </div>
+               <div style="width: 25%; height: 140px;">
+                  <img src="${contextPath}/resources/images/common/youtube_img2.png"
+                     style="width: 100%; height: 100%;">
+               </div>
+               <div style="width: 25%; height: 140px;">
+                  <img src="${contextPath}/resources/images/common/youtube_img3.png"
+                     style="width: 100%; height: 100%;">
+               </div>
+            </div>
+         </div>
 
 
-        <div style="width: 45%; height: 710px;">
-          <h3 class="Black_Border_Heading Common_Margin">
-            <span style="text-decoration: 2.5px underline black;">
-              WHO IS AESOP?
-            </span>
-          </h3>
-          <div style="height: 600px;  display: flex; flex-direction: row; flex-wrap: wrap;">
-            <div style="width: 43%;"></div>
-            <div style="width: 43%;"></div>
-            <div style="width: 43%;"></div>
-            <div style="width: 43%;"></div>
-          </div>
-        </div>
+         <div style="width: 45%; height: 710px;">
+            <h3 class="Black_Border_Heading Common_Margin">
+               <span style="text-decoration: 2.5px underline black;"> WHO
+                  IS AESOP? </span>
+            </h3>
+            <div
+               style="height: 600px; display: flex; flex-direction: row; flex-wrap: wrap;">
+               <div style="width: 43%;"></div>
+               <div style="width: 43%;"></div>
+               <div style="width: 43%;"></div>
+               <div style="width: 43%;"></div>
+            </div>
+         </div>
 
       </div>
-    </div>
+   </div>
 
 
 
 
 
 
-
-
-
-
-  </div>
+</div>
 
 <!-- footer -->
-<jsp:include page="r_footer.jsp"/>
+<jsp:include page="r_footer.jsp" />
 </body>
 </html>

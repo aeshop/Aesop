@@ -10,6 +10,7 @@
     <!-------------------------------------------------- 낙희 --------------------------------->
     <!-- main 1페이지 -->
     <div class="content">
+    
       <div class="myshopMain">
           <div class="grade">
               <div class="grade-text">
