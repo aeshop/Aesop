@@ -109,7 +109,7 @@ html,
     }
 
     .main_container_1{
-     height: 930px;
+     height: 1100px;
     }
     .main_container_2,
     .main_container_3,
@@ -224,6 +224,8 @@ html,
       padding: 43px 0 0 34px;
 
     }
+    
+    
 
     .sidebar_categoty {
       margin: 23.3px 0;
@@ -237,10 +239,20 @@ html,
     }
 
     .sidebar_categoty>div a {
-      font-size: 19px;
+      font-size: 17px;
       font-weight: normal;
       color: #000;
       text-decoration: none;
+
+    }
+    
+    .sidebar_categoty>div a:hover {
+      font-size: 17px;
+      font-weight: normal;
+      color: white;
+      text-decoration: none;
+      background-color: black;
+      font-weight: bold;
 
     }
 
@@ -408,9 +420,58 @@ html,
     }
 
     .navbar-nav{
-      margin-left: 210px;
+     /* margin-left: 210px;*/
+     color: rgba(0,0,0,.7);
+     font-size: 15px;
     }
     
     .displaynone{
     display:  none;
     }
+    
+    
+    
+    
+    /* 메인 1 */
+    
+    #txt{
+	
+		position: relative;
+	    border: 1px solid;
+	    border-color: rgba(51, 51, 51, 0.2);
+	    width: 240px;
+	    height: 65px;
+	    float: left;
+	    right: -24px;
+	    bottom: -63px;
+	    font-size: 14px;
+	    text-align: left;
+	    line-height: 4.5;
+	    padding-left: 20px;
+	}
+	
+	#txt:hover{
+		cursor: pointer;
+		transform:scale(1.1); 
+		-webkit-transform:scale(1.05); 
+	}
+	
+	#m_title, #m_content{
+	z-index: 6000;
+    position: relative;
+	}
+		
+	#m_title{
+	font-size: 30px;
+    font-weight: bold;
+    bottom: -37px;
+    right: -27px;
+    font-weight:bold;
+    }
+		
+	#m_content{
+	bottom: -44px;
+    right: -33px;
+    font-size: 13px;
+	}	
+    

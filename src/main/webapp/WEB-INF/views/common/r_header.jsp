@@ -57,7 +57,7 @@
 				전 구매 무료 배송과 선물포장 혜택을 즐겨보세요.
   			    </div>
 				<div class="carousel-item" data-bs-interval="5500">
-					222222222222222222222222222</div>
+					이솝 멤버십 등급별 혜택 보기</div>
 				<div class="carousel-item" data-bs-interval="5500">
 					33333333333333333333333333333</div>
 			</div>
@@ -85,7 +85,10 @@
 				</ul>
 				<div class="d-flex">
 					<input class="form-control me-sm-2" type="text"
-						placeholder="Search" style="border-bottom: 2px solid black;">
+						placeholder="Search" style="border-bottom: 1px solid black;
+   													border-radius: 0;
+												    background-color: rgba( 255, 255, 255, 0.2 );
+												    font-size: 14px;">
 					<button type="button" class="r-form-control-button">
 						<i class="fas fa-search" ></i>
 					</button>

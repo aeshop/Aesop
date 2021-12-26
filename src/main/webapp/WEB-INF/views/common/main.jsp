@@ -33,7 +33,7 @@
 	           
 	        
 	           <c:when  test="${vs.index==categorySize-1}">
-	           <div><a href="#">${item.categoryName}</a></div>
+	           <div><a href="${contextPath}/category/view?cate=${item.categoryNo2}">${item.categoryName}</a></div>
 	        	</li>    
 	          </c:when>
 	          
@@ -45,7 +45,7 @@
 	          </c:when>
 	          
 	          <c:otherwise>
-	                    <div><a href="#">${item.categoryName}</a></div>
+	                    <div><a href="${contextPath}/category/view?cate=${item.categoryNo2}">${item.categoryName}</a></div>
 	          </c:otherwise>
 	          
 	          </c:choose>
@@ -62,11 +62,9 @@
     <!-- main 1페이지 -->
     <div class="main_container_1">
     <img src="${contextPath}/resources/images/cnh/images/kakao.png" style="display:none;" onload="window.open('/teamSemiProject2/pop','','width=537px, height=682px')">
-      <div>
-      	 <video autoplay muted style="width: 100%;">
+      	 <video autoplay muted loop style="width: 100%;">
       		 <source src="https://player.vimeo.com/external/638938995.hd.mp4?s=11da203a3eb6cefd91f8fbf6af2dacc20d102060&amp;profile_id=175" type="video/mp4">
     	 </video>
-      </div>
     </div>
     <div style="padding: 40px 0; border: none;"></div>
 

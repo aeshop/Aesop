@@ -46,7 +46,7 @@
     position: relative;
 	}
 		
-	#title{
+	#m_title{
 	font-size: 30px;
     font-weight: bold;
     bottom: -37px;
@@ -54,7 +54,7 @@
     font-weight:bold;
     }
 		
-	#content{
+	#m_content{
 	bottom: -44px;
     right: -33px;
     font-size: 13px;
@@ -63,15 +63,15 @@
 </head>
 <body>
 	<img src="${contextPath}/resources/images/cnh/images/popimg.png" >
-		<span id="title" >
+		<span id="m_title" >
 		스킨케어 키트 <br>
 		</span>
-		<span id="content">
+		<span id="m_content">
 		스킨, 바디, 홈 케어 제품의 엄선된 셀렉션으로 <br>
 		선물을 받는 다양한 분들에게 즐거움을 선사하세요.
 		</span>
 	<div id="txt">
-		<a href="#" style="text-decoration:none; color:black;">제품 상세 보기 　　　　　　　　>
+		<a href="${contextPath}/product/productDetail?productNo=82" style="text-decoration:none; color:black;">제품 상세 보기 　　　　　　　　>
 		</a>
 	</div>
 
