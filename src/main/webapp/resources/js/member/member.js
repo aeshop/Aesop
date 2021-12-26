@@ -5,8 +5,12 @@ var checkObj = {
 	pwd1: false,
 	pwd2: false,
 	phone3: false,
-	emailConfirm: false
+	emailConfirm: false,
+	newPwd1: false,
+	newPwd2: false
 };
+
+
 
 $("#id").on("input", function() {
 	const regExp = /^[a-zA-Z0-9]{6,12}$/;
@@ -51,7 +55,6 @@ $("#id").on("input", function() {
 
 
 // 비밀번호 유효성 검사
-//document.getElementById("pwd1").addEventListener("input", function() {
 $("#pwd1").on("input", function(){
 	const inputPw = $("#pwd1").val();
 	const regExp = /^[a-zA-Z\d\!\@\#\-\_]{4,12}$/;
@@ -248,6 +251,49 @@ $(".phone").on("input", function (e) {
 });
 
 
+// 비밀번호 유효성 검사
+
+// $("#newPwd1").on("input", function(){
+// 	const inputPw = $(this).val();
+// 	const regExp = /^[a-zA-Z\d\!\@\#\-\_]{4,12}$/;
+
+// 	if (inputPw.length == 0) {
+// 		$("#checkPwd1").text("변경하실 비밀번호를 작성해주세요.");
+
+// 		checkObj.newPwd1 = false;
+// 	} else if (regExp.test(inputPw)) {
+// 		$("#checkPwd1").text("");
+
+// 		checkObj.newPwd1 = true;
+
+// 		$("#newPwd1,  #newPwd2").on("input", function() {
+// 			const newPwd1 = $("#newPwd1").val();
+// 			const newPwd2 = $("#newPwd2").val();
+
+// 			if (pwd11.trim() == "" && pwd22.trim() == "") {
+// 				$("#checkPwd1, #checkPwd2").text("");
+
+// 				checkObj.newPwd2 = false;
+
+// 			} else if (newPwd1 == newPwd2) {
+// 				$("#checkPwd2").text("비밀번호가 일치합니다.").css("color", "rgb(146 26 255)");
+
+// 				checkObj.newPwd2 = true;
+
+// 			} else {
+// 				$("#checkPwd2").text("비밀번호가 불일치합니다.").css("color", "rgb(146 26 255)");
+
+// 				checkObj.newPwd2 = false;
+// 			}
+// 		});
+
+// 	} else {
+// 		$("#checkPwd1").text("비밀번호는 영문,숫자,특수문자(!,@,#,-,_)포함 4 ~ 12글자로 작성해주세요.").css("color","rgb(146 26 255)");
+
+// 		checkObj.newPwd1 = false;
+// 	}
+// });
+
 
 
 function validate() {
@@ -274,9 +320,14 @@ function validate() {
 				case "name":
 					msg = "이름이 유효하지 않습니다.";
 					break;
-				
 				case "phone3":
 					msg = "전화번호가 유효하지 않습니다. ";
+					break;
+				case "newPwd1":
+					msg = "비밀번호가 유효하지 않습니다. ";
+					break;
+				case "newPwd2":
+					msg = "비밀번호가 일치하지 않습니다. ";
 					break;
 				
 			}

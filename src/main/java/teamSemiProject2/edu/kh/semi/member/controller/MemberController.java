@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
@@ -46,6 +45,7 @@ public class MemberController extends HttpServlet {
 		String command = uri.substring((contextPath + "/member/").length());
 
 		String path = null;
+		String message = null;
 		RequestDispatcher dispatcher = null;
 		req.setCharacterEncoding("UTF-8");
 
@@ -84,16 +84,17 @@ public class MemberController extends HttpServlet {
 					if (loginMember != null) {
 
 						if (loginMember.getStatusCode() == 101) {
-							
+
 							session.setAttribute("loginMember", loginMember);
 							session.setMaxInactiveInterval(3000);
 
 							resp.sendRedirect(req.getContextPath());
-						} else { // 로그인 실패
-							session.setAttribute("message", "아이디 또는 비밀번호를 확인해주세요.");
-
+						} else { // 탈퇴회원 로그인
+							session.setAttribute("message", "탈퇴한 회원입니다.");
 						}
 
+					} else { // 로그인 실패
+						session.setAttribute("message", "아이디 또는 비밀번호를 확인해주세요.");
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -122,8 +123,6 @@ public class MemberController extends HttpServlet {
 				path = "/WEB-INF/views/member/join.jsp";
 				req.getRequestDispatcher(path).forward(req, resp);
 
-			} else {
-				// post
 			}
 		}
 
@@ -155,13 +154,14 @@ public class MemberController extends HttpServlet {
 
 					int result = service.signUp(member);
 
-					String message = null;
 					if (result > 0) {
 						message = "회원가입에 성공하셨습니다.";
-
 						session.setAttribute("message", message);
 
 						resp.sendRedirect(req.getContextPath());
+					} else {
+						session.setAttribute("message", "회원가입에 실패하셨습니다.");
+
 					}
 
 				} catch (Exception e) {
@@ -213,104 +213,101 @@ public class MemberController extends HttpServlet {
 				}
 			}
 		}
-		
+
 		// ########### 이메일 인증 검사
-		else if(command.equals("emailConfirm")) {
-			if(method.equals("GET")) {
+		else if (command.equals("emailConfirm")) {
+			if (method.equals("GET")) {
 				String sendMail = req.getParameter("inputEmailConfirm");
-		         System.out.println("보낼 이메일 주소입니다 :" +sendMail);
-		         
-		     //    String host = "smtp.gmail.com";
-		         String user = "fbrhksgus2@gmail.com"; // 자신의  계정
-		         String password = "rhksgus0^^";// 자신의 패스워드
+				System.out.println("보낼 이메일 주소입니다 :" + sendMail);
 
-		         // 메일 받을 주소
-		         /* String to_email = m.getEmail(); */
-		     //    String to_email = sendMail;
+				// String host = "smtp.gmail.com";
+				String user = "fbrhksgus2@gmail.com"; // 자신의 계정
+				String password = "rhksgus0^^";// 자신의 패스워드
 
-		         // SMTP 서버 정보를 설정한다.
-		         Properties props = new Properties();
-		              
-		          props.put("mail.transport.protocol", "smtp");
-		          props.put("mail.smtp.host", "smtp.gmail.com");
-		          props.put("mail.smtp.port", "587");
-		          props.put("mail.smtp.auth", "true");
-		       
-		          props.put("mail.smtp.quitwait", "false");
-		          props.put("mail.smtp.socketFactory.port", "587");
-		          props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		          props.put("mail.smtp.socketFactory.fallback", "true");
-		          props.put("mail.smtp.starttls.enable","true");
+				// 메일 받을 주소
+				/* String to_email = m.getEmail(); */
+				// String to_email = sendMail;
 
+				// SMTP 서버 정보를 설정한다.
+				Properties props = new Properties();
 
-		         // 인증 번호 생성기
-		         StringBuffer temp = new StringBuffer();
-		         Random rnd = new Random();
-		         for (int i = 0; i < 10; i++) {
-		            int rIndex = rnd.nextInt(3);
-		            switch (rIndex) {
-		            case 0:
-		               // a-z
-		               temp.append((char) ((int) (rnd.nextInt(26)) + 97));
-		               break;
-		            case 1:
-		               // A-Z
-		               temp.append((char) ((int) (rnd.nextInt(26)) + 65));
-		               break;
-		            case 2:
-		               // 0-9
-		               temp.append((rnd.nextInt(10)));
-		               break;
-		            }
-		         }
-		         String AuthenticationKey = temp.toString();
-		         System.out.println(AuthenticationKey);
+				props.put("mail.transport.protocol", "smtp");
+				props.put("mail.smtp.host", "smtp.gmail.com");
+				props.put("mail.smtp.port", "587");
+				props.put("mail.smtp.auth", "true");
 
-		         Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-		            protected PasswordAuthentication getPasswordAuthentication() {
-		               return new PasswordAuthentication(user, password);
-		            }
-		         });
+				props.put("mail.smtp.quitwait", "false");
+				props.put("mail.smtp.socketFactory.port", "587");
+				props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+				props.put("mail.smtp.socketFactory.fallback", "true");
+				props.put("mail.smtp.starttls.enable", "true");
 
-		         // email 전송
-		         try {
-		            MimeMessage msg = new MimeMessage(session);
-		            msg.setFrom(new InternetAddress(user, "상호명"));
-		            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(sendMail));
+				// 인증 번호 생성기
+				StringBuffer temp = new StringBuffer();
+				Random rnd = new Random();
+				for (int i = 0; i < 10; i++) {
+					int rIndex = rnd.nextInt(3);
+					switch (rIndex) {
+					case 0:
+						// a-z
+						temp.append((char) ((int) (rnd.nextInt(26)) + 97));
+						break;
+					case 1:
+						// A-Z
+						temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+						break;
+					case 2:
+						// 0-9
+						temp.append((rnd.nextInt(10)));
+						break;
+					}
+				}
+				String AuthenticationKey = temp.toString();
+				System.out.println(AuthenticationKey);
 
-		            // 메일 제목
-		            msg.setSubject("안녕하십니까?  AESOP입니다.");
-		            // 메일 내용
-		            msg.setText("인증 번호는 : " + temp + "입니다.");
+				Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(user, password);
+					}
+				});
 
-		            Transport.send(msg);
-		          
+				// email 전송
+				try {
+					MimeMessage msg = new MimeMessage(session);
+					msg.setFrom(new InternetAddress(user, "AESOP"));
+					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(sendMail));
 
-		            resp.getWriter().print(temp);
-		            
-		         } catch (Exception e) {
-		            e.printStackTrace();// TODO: handle exception
-		         }
-		         HttpSession saveKey = req.getSession();
-		         saveKey.setAttribute("AuthenticationKey", AuthenticationKey);
-		         
-		         
-		         
+					// 메일 제목
+					msg.setSubject("안녕하십니까?  AESOP입니다.");
+					// 메일 내용
+					msg.setText("인증 번호는 : " + temp + "입니다.");
+
+					Transport.send(msg);
+
+					resp.getWriter().print(temp);
+
+				} catch (Exception e) {
+					e.printStackTrace();// TODO: handle exception
+				}
+				HttpSession saveKey = req.getSession();
+				saveKey.setAttribute("AuthenticationKey", AuthenticationKey);
+
 			}
-			
+
 		}
-		
-		if(command.equals("findId")) {
-			
+
+		// 아이디 찾기
+		if (command.equals("findId")) {
+
 			if (method.equals("GET")) {
 				path = "/WEB-INF/views/member/findId.jsp";
 				req.getRequestDispatcher(path).forward(req, resp);
 
-			}else if(method.equals("POST")) {
-				
+			} else if (method.equals("POST")) {
+
 				String memberEmail = req.getParameter("email");
 				String memberName = req.getParameter("name");
-				
+
 				memberEmail = replaceParameter(memberEmail);
 
 				try {
@@ -318,27 +315,102 @@ public class MemberController extends HttpServlet {
 					Member member = new Member(memberEmail, memberName);
 
 					String memberId = service.findId(member);
+					HttpSession session = req.getSession();
 
 					if (memberId != null) {
 						req.setAttribute("id", memberId);
-						
-						HttpSession session = req.getSession();
 						session.setAttribute("memberId", memberId);
-						
-					resp.sendRedirect(req.getContextPath());
-					}else {
-						System.out.println("실패");
+
+						resp.sendRedirect(req.getContextPath());
+					} else {
+						message = "회원정보를 다시 한번 확인해주세요.";
+						session.setAttribute("message", message);
 					}
 
 				} catch (Exception e) {
 					e.printStackTrace();
 
 				}
-				
+
 			}
 		}
-		
-		
+		// 비밀번호 찾기
+		if (command.equals("findPw")) {
+
+			if (method.equals("GET")) {
+				path = "/WEB-INF/views/member/findPw.jsp";
+				req.getRequestDispatcher(path).forward(req, resp);
+
+			} else{
+				HttpSession session = req.getSession();
+				// POST
+				String memberId = req.getParameter("memberId");
+				String memberName = req.getParameter("memberName");
+				String memberEmail = req.getParameter("memberEmail");
+
+				memberId = replaceParameter(memberId);
+				memberEmail = replaceParameter(memberEmail);
+				try {
+					MemberService service = new MemberService();
+
+					Member member = service.memberinfo(memberId, memberName, memberEmail);
+
+					if (member != null) {
+
+						if (member.getStatusCode() == 101) {
+
+							session.setAttribute("member", member);
+							session.setMaxInactiveInterval(1000);
+
+							System.out.println(member);
+							
+							path = "/WEB-INF/views/member/updatePw.jsp";
+							req.getRequestDispatcher(path).forward(req, resp);
+						} else { // 탈퇴회원 로그인
+							session.setAttribute("message", "탈퇴한 회원입니다.");
+						}
+
+					} else { 
+						session.setAttribute("message", "회원정보를 확인해주세요.");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+
+		// 비밀번호 변경
+		if (command.equals("updatePw")) {
+			if (method.equals("POST")) {
+				path = "/WEB-INF/views/member/updatePw.jsp";
+				req.getRequestDispatcher(path).forward(req, resp);
+				
+				HttpSession session = req.getSession();
+				String memberPw = req.getParameter("newPwd1");
+				String memberId = (String) session.getAttribute("member");
+				System.out.println(memberId);
+				try {
+
+					int result = new MemberService().updatePw( memberPw, memberId);
+
+					if (result > 0) {
+						
+						message = "비밀번호가 수정되었습니다.";
+						resp.sendRedirect(req.getContextPath());
+					} else {
+						
+						message = "비밀번호가 일치하지 않습니다.";
+						path = "updatePw";
+					}
+					req.getSession().setAttribute("message", message);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
 
 
 	}

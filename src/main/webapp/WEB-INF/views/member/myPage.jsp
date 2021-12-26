@@ -10,6 +10,8 @@
     <!-------------------------------------------------- 낙희 --------------------------------->
     <!-- main 1페이지 -->
     <div class="content">
+    
+	<jsp:include page="../common/sidebar_n.jsp" />
       <div class="myshopMain">
           <div class="grade">
               <div class="grade-text">
