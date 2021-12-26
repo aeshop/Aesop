@@ -56,11 +56,6 @@
 		and member_email = ?
 		and member_status_no = 101
 	</entry>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 17c1f7f43f7ce7a393af0e6c13fb143c179cd02b
-
 	<!-- 회원 비밀번호 변경 -->
 	<entry key="updatePw">
 		update member set
@@ -71,11 +66,3 @@
 	
 	
 </properties>
-<<<<<<< HEAD
-=======
-	
-	
-</properties>
->>>>>>> origin/CNH
-=======
->>>>>>> 17c1f7f43f7ce7a393af0e6c13fb143c179cd02b
