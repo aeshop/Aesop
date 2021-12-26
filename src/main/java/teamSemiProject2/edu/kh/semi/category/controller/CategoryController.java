@@ -9,10 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import teamSemiProject2.edu.kh.semi.category.model.service.CategoryService;
 import teamSemiProject2.edu.kh.semi.category.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.category.model.vo.Pagination;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
 
 @WebServlet("/category/*")
@@ -31,6 +33,10 @@ public class CategoryController extends HttpServlet {
 		String contextPath = req.getContextPath();
 		String command = uri.substring((contextPath + "/category/").length());
 
+		HttpSession session = req.getSession();
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		
 		
 		String path = null;
 		RequestDispatcher dispatcher = null;
@@ -67,9 +73,14 @@ public class CategoryController extends HttpServlet {
 				//전체 카테고리 정보는 항상 보여지고 있는 상태, 클릭한것만 검정불 들어오고  가져온 상태에서, 세부 카테고리는 안보임
 				//널디와 이솝의 제품페이지 차이점이 널디는 큰 카테고리 안 세부 카테고리가 없고 이솝은 있다는 것
 				
-				//소 카테고리 도전: jsp로 태그들을 만들고, 거기 안에 링크들을 부여하면 된다, 큰 카테고리 아래 지역에 div 만듬: 
-				//소 카테고리의 경우에는 자기것만 보여야 하므로, between 물음표가 자기에서 자기로 끝나야 한다
+				//소 분류
+				//소분류의 경우에는 자기것만 보여야 하므로, between 물음표가 자기에서 자기로 끝나야 한다
 				List<Category> cList = service.getCategory();
+				
+				//sort_method= 1(최신),2(상품명),3(낮,가),4(높,가),5
+				String sm = req.getParameter("sort_method");
+				
+				int sortMethod = sm!=null?Integer.parseInt(sm):1;
 				
 				for(Category cate : cList){
 					cate.setCurrentCategoryNo(categoryNo);					
@@ -78,8 +89,11 @@ public class CategoryController extends HttpServlet {
 				req.setAttribute("category", cList);
 				
 				//DB의 얻어올 정보는 제품 정보 List<Product>와,  pagination 정보:페이지네이션 객체이고, pagination객체를 먼저 얻어와야한다
-				Pagination pagination = service.getPagination(cp);				
-				List<Product> pList = service.getProduct(pagination,categoryNo);
+//				Pagination pagination = service.getPagination(cp);				
+				Pagination pagination = service.getPagination(cp,categoryNo);				
+				//페이지네이션 계산이 다 끝난 객체와 입력된 파라미터들을 전달
+//				List<Product> pList = service.getProduct(pagination,categoryNo);
+				List<Product> pList = service.getProduct(pagination,categoryNo,sortMethod);
 				
 				
 				req.setAttribute("pagination", pagination);

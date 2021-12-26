@@ -4,9 +4,14 @@ import static teamSemiProject2.edu.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import teamSemiProject2.edu.kh.semi.category.model.vo.Category;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
+import teamSemiProject2.edu.kh.semi.order.model.dao.OrderDAO;
+import teamSemiProject2.edu.kh.semi.order.model.vo.Order;
 import teamSemiProject2.edu.kh.semi.product.model.dao.ProductDAO;
 import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
 import teamSemiProject2.edu.kh.semi.product.model.vo.ProductImage;
@@ -76,6 +81,93 @@ public class ProductService {
 		
 		
 		return result;
+	}
+
+	public Product getProductDetail(int productNo) throws Exception{
+
+		
+		Product result = null;
+		conn = getConnection();
+		
+		result = dao.getProduct(productNo,conn);
+		
+		result.setImgList(dao.getProductImg(productNo,conn)); 
+		
+		close(conn);
+		
+
+		return result;
+	}
+
+	public int addCart(int productNo, int amount, int loginMemberNo) throws Exception {
+
+		int result = 0;
+		
+		conn = getConnection();
+		
+		
+		result = dao.addCart(productNo,amount,loginMemberNo,conn);
+		
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		
+		
+		close(conn);
+		
+		
+		return result;
+		
+		
+		
+		
+	}
+
+	/** 가장 최근의 내 주문(목록형식)  + 기본주소 들고오기  
+	 * @param productNo
+	 * @param amount
+	 * @param loginMemberNo
+	 * @return order정보 1개 담긴 리스트 : 결제 페이지로 반환
+	 * @throws Exception
+	 */
+	public Map<String,Object> buyNow(int loginMemberNo) throws Exception{
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+	
+		
+		conn = getConnection();
+		
+
+		List<Order> oList = getFirstOrder(loginMemberNo,conn);
+		
+		Address defaultAddress = new OrderDAO().getPrimaryAddress(loginMemberNo,conn);
+		resultMap.put("orderList", oList);
+		resultMap.put("defaultAddress", defaultAddress);
+		
+		
+		} finally {
+			close(conn);
+		}
+		
+		
+		
+		return resultMap;
+	}
+
+	private List<Order> getFirstOrder(int loginMemberNo,Connection conn) throws Exception {
+		List<Order> oList = null;
+		
+
+		oList=dao.getFirstOrder(loginMemberNo,conn);
+		
+		
+		
+		return oList;
 	}
 	
 	

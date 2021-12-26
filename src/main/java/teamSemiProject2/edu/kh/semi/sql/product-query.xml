@@ -15,6 +15,25 @@ INSERT INTO PRODUCT VALUES (?,?,?,?,?,?,1001)
 	<entry key="insertImg">
 INSERT INTO PRODUCT_IMG VALUES (seq_product_img_no.nextval,?,?,?,?)
 	</entry>
+		<entry key="getProduct">
+		SELECT * FROM PRODUCT where product_no = ?
+	</entry>
+		<entry key="getProductImg">
+		SELECT * FROM PRODUCT_IMG where product_no = ? order by product_img_level
+	</entry>
+	<entry key="addCart">
+	insert into order_1 values(seq_order_no.nextval,?,?,?,400,null)
+	</entry>
+	<entry key="getNewOrderNo">
+	select seq_order_no.nextval from dual
+	</entry>
+	
+	<entry key="getFirstOrder">
+	select * from
+(SELECT * FROM V_ORDER_INFO WHERE MEMBER_NO = ?
+	ORDER BY order_no DESC) A
+    where ROWNUM = 1
+		</entry>
 	
 
 </properties>

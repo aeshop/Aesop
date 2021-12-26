@@ -1,0 +1,121 @@
+@charset "UTF-8";
+/* 배송주소록 유의사항 */
+
+.addr-notice{
+    border: 1px solid #d6d4d4;
+    margin: 20px 0;
+    line-height: 18px;
+}
+
+.addr-notice h3{
+    background: #fbfbfb;
+    color: #101010;
+    font-size: 12px;
+    border-bottom: 1px solid #e8e7e7;
+    padding: 9px 0 6px 10px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.addr-notice ol{
+    padding-left: 30px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.addr-notice ol li{
+    padding: 0;
+    margin: 0 10px;
+    font-size: 12px;
+    color: #707070;
+    list-style: initial;
+}
+
+
+/******************** addrRegister.html *********************/
+/* 배송지 등록 페이지*/
+#phone2, #phone3{
+    width: 60px;
+    height: 18px;
+    padding: 2px 4px;
+}
+
+.addr-register-table{
+    border-collapse : collapse;
+    font-size: 12px;
+    margin-top: 30px;
+}
+
+
+.addr-register-table th{
+    border: 1px solid #d9d9d9;
+    text-align: left;
+    padding: 11px 0 10px 18px;
+    color: #353535;
+}
+
+.addr-register-table th:first-child{
+    border-left: 0;
+}
+
+
+.addr-register-table td{
+    padding: 8px 10px 7px;
+    border: 1px solid #d9d9d9;
+    border-right: 0;
+}
+
+input[type="text"] {
+    border: 1px solid #d5d5d5;
+    box-sizing: initial
+}
+
+.addr-register-table select{
+    border: 1px solid #d5d5d5;
+    height: 24px;
+    width: 60px;
+    font-size: 100%;
+}
+
+#recipient-name, #addr-name {
+    padding: 2px 4px;
+    width: 180px;
+    height: 18px;
+
+}
+
+#sample6_address, #sample6_detailAddress{
+    width: 450px;
+    height: 18px;
+    margin: 5px 0 0;
+    padding: 2px 4px;
+}
+
+#sample6_postcode{
+    width: 60px;
+    height: 18px;
+    padding: 2px 4px;
+}
+
+.postcode-btn{
+    background-color: rgb(240, 241, 241);
+    border: 1px solid #9c9c9c;
+    border-radius: 10%;
+    padding: 2px 10px;
+}
+
+.default-addr td{
+    border: 0;
+}
+
+.default-addr{
+    text-align: right;
+
+}
+
+
+.addr-register-btn span{
+    display:inline-block;
+    padding: 10px 0;
+    margin-left: 994px;
+}

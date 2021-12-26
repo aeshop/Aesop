@@ -37,7 +37,7 @@ JOIN product_img pi ON (p.product_no = pi.product_no)
 WHERE o.order_status_cd = 400 AND pi.product_img_level=0
 );
 --사용법
-SELECT * FROM V_ORDER_INFO WHERE MEMBER_NO = 9 ORDER BY order_no DESC;
+SELECT * FROM V_ORDER_INFO WHERE MEMBER_NO = 26 ORDER BY order_no DESC;
 
 --수량변경(up)
 
@@ -141,7 +141,7 @@ alter table product_category add constraint PK_PRODUCT_CATEGORY_2 primary key(CA
 
 select  floor(category_no1/10)  from product_category;
 
-
+--제품진열페이지 제품카테고리별로 진열하는 페이지네이션
 	SELECT * FROM
 		(
 		SELECT ROWNUM rnum ,A.*
@@ -151,12 +151,17 @@ select  floor(category_no1/10)  from product_category;
 		JOIN product_category c ON(p.product_category = c.category_no2)
         WHERE c.category_no2 BETWEEN 300 AND 400
 		ORDER BY p.pro_status_no,p.product_no DESC) A)
-		WHERE rnum BETWEEN 10 AND 20;
-
-	SELECT p.* , c.category_nm
+		WHERE rnum BETWEEN 1 AND 10;
+--
+SELECT ROWNUM rnum ,A.*
+		FROM(
+		SELECT p.* , c.category_nm
 		FROM product p
 		JOIN product_category c ON(p.product_category = c.category_no2)
-        WHERE c.category_no2 BETWEEN 300 AND 400;
+        WHERE c.category_no2 BETWEEN 300 AND 400
+		ORDER BY p.pro_status_no,p.product_no DESC) A;
+
+
 
 select * from product_category;
 

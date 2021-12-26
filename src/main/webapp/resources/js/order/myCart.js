@@ -1,4 +1,6 @@
 /* 
+Cart 장바구니 관련 JS
+
 JS는 화면에 뿌려진 것으로 계산하기 때문에 태그 안의 내용의 쉼표나 원을 빼고,
 숫자로 바꿔주고 계산을진행해야한다
 
@@ -86,8 +88,14 @@ function calculatePrice() {
 //수량 변환 함수
 function amountUp(et) {
     const orderAmount = et.parentNode.parentNode.firstElementChild.firstElementChild;
+    const productStock = et.parentNode.parentNode.firstElementChild.firstElementChild.nextElementSibling;
+
+    if (orderAmount.value == productStock.value) {
+        alert('재고 이상의 상품을 구매할 수 없습니다.');
+        return;
+    }
+
     orderAmount.value = (Number)(orderAmount.value) + 1;
-    console.log(et);
 
     const nF = amountChanged.bind(et);
     nF();
@@ -104,7 +112,6 @@ function amountDown(et) {
     }
 
     orderAmount.value = (Number)(orderAmount.value) - 1;
-    // console.log(et);
 
     const nF = amountChanged.bind(et);
     nF();
@@ -141,12 +148,12 @@ function amountChanged() {
         },
         success: function(result) {
             if (result == 1) {
-                alert("수량변경완료");
+                // alert("수량변경완료");
                 calculatePrice();
             }
         },
         error: function() {
-            alert("수량up과정에서 오류 발생");
+            alert("수량변경과정에서 오류 발생");
         }
 
     });
@@ -176,6 +183,18 @@ function deleteOrder() {
 
 }
 
+/*
+선택 상품 주문 doOrder()
+*/
+
+function doOrder() {
+    const orderNo = event.target.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
+    location.href = '/teamSemiProject2/order/orderAll?' + "orderNo=" + orderNo;
+
+}
+
+
+
 /*선택상품 여러개의 삭제 : 
 
 또는 getParameterValue로 받을 수 있도록 queryString을 조작, 또는 post방식으로 보내도록 조작
@@ -186,7 +205,7 @@ function deleteOrder() {
 3. 화면을 reload함 : 다시 새로고침하는 효과를 요청주소를 보내고 거기서 redirect하는 방식으로 했음
 */
 
-function deleteSelectedOrder() {
+function deleteSelectedOrder(message) {
     // console.log('deleteSelectedOrder');
     const orderCheckBox = document.querySelectorAll('.n-order-chk');
 
@@ -195,30 +214,43 @@ function deleteSelectedOrder() {
     for (let i = 0; i < orderCheckBox.length; i++) {
         if (orderCheckBox[i].checked) {
             deleteQueryString += ("&orderNo=" + orderCheckBox[i].value);
+            orderNoArr.push(orderCheckBox[i].value);
         }
     }
-    // console.log(orderNoArr);
+    if (orderNoArr.length == 0) {
+        alert('선택된 상품이 없습니다.');
+        return;
+    }
 
     //post로 보낼것인지,아니면 parameter로 보낼수도 있나? 그냥 get방식으로 보내기로
-
-    const deleteConfirm = confirm('선택하신 상품들을 삭제하시겠습니까?');
+    if (message == null) {
+        message = '선택하신 상품들을 삭제하시겠습니까?';
+    }
+    const deleteConfirm = confirm(message);
 
     if (deleteConfirm) {
         location.href = '/teamSemiProject2/order/deleteAll?' + deleteQueryString;
     }
 
 }
-//전체 물품 체크 하는 함수
-function checkAll() {
+//전체 물품 체크,체크해제 하는 함수
+function checkAll(e) {
+
+
+    const chkStatus = e.checked;
     const chkBoxArr = document.querySelectorAll('.n-order-chk');
     for (const iterator of chkBoxArr) {
-        iterator.checked = true;
+        iterator.checked = chkStatus;
     }
 }
 
 function deleteAll() {
-    checkAll();
-    deleteSelectedOrder();
+    const chkBoxArr = document.querySelectorAll('.n-order-chk');
+    for (const iterator of chkBoxArr) {
+        iterator.checked = true;
+    }
+
+    deleteSelectedOrder('전체 상품을 삭제하시겠습니까?');
 }
 
 
@@ -230,16 +262,34 @@ function deleteAll() {
 //선택상품 주문버튼 클릭
 function orderSelectedProduct() {
     const orderCheckBox = document.querySelectorAll('.n-order-chk');
-    const orderNoArr = new Array();
     let orderQueryString = "";
     for (let i = 0; i < orderCheckBox.length; i++) {
         if (orderCheckBox[i].checked) {
             orderQueryString += ("&orderNo=" + orderCheckBox[i].value);
         }
     }
+    if (orderQueryString === "") {
+        alert("선택된 상품이 없습니다.");
+        return;
+    }
+
     location.href = '/teamSemiProject2/order/orderAll?' + orderQueryString;
 
 }
 
 
 //전체상품주문 버튼 클릭
+function orderAll() {
+    // document.querySelector('#allChk').checked = true;
+    //가장 상단의 체크박스를 change한다고 해서 다른 함수가 실행되지는 않는다
+
+    const chk = document.querySelectorAll('input[type="checkbox"]');
+
+    for (const iterator of chk) {
+        iterator.checked = true;
+    }
+
+
+    orderSelectedProduct();
+
+}

@@ -22,11 +22,19 @@ public class Board {
 	private String categoryName;
 	private String boardStatusName;
 	private String productName;
-	
+	private int productScore;
 	// 해당 게시글 이미지 목록을 저장할 필드
 	private List<BoardImage> imgList;
 	
 	public Board(){}
+
+	public int getProductScore() {
+		return productScore;
+	}
+
+	public void setProductScore(int productScore) {
+		this.productScore = productScore;
+	}
 
 	public int getViewNo() {
 		return viewNo;

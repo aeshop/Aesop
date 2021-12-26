@@ -4,8 +4,6 @@
 
 <c:set var="contextPath"
 	value="${pageContext.servletContext.contextPath}" scope="application" />
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,8 +12,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>aesop</title>
 <!-- 공용 CSS -->
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/common/r_common.css">
+<link rel="stylesheet"	href="${contextPath}/resources/css/common/r_common.css">
+<link rel="stylesheet"	href="${contextPath}/resources/css/productDetail.css">
+
 
 <!-- bootstrap -->
 <link
@@ -33,18 +32,32 @@
 <link rel="stylesheet"
 	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
+
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/header.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/footer.css">
+
+	  <link rel="stylesheet" href="${contextPath}/resources/css/myPage.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/productDetail.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/orderHistory.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/addrModify.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/addrModifyEdit.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/addrRegister.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/updateMember.css">
+	  <link rel="stylesheet" href="${contextPath}/resources/css/myPageBoard.css">
 </head>
 
-<body>
+<body >
 	<header id="carousel">
 		<!-- Bootstrap Carousel-->
 		<div id="carouselExampleDark" class="carousel carousel-dark slide"
 			data-bs-ride="carousel">
-			<div class="carousel-inner">
+			<div class="carousel-inner" style="text-align:center; line-height:40px;">
 				<div class="carousel-item active" data-bs-interval="5500">
-					11111111111111111111111111</div>
+				전 구매 무료 배송과 선물포장 혜택을 즐겨보세요.
+  			    </div>
 				<div class="carousel-item" data-bs-interval="5500">
-					222222222222222222222222222</div>
+					이솝 멤버십 등급별 혜택 보기</div>
 				<div class="carousel-item" data-bs-interval="5500">
 					33333333333333333333333333333</div>
 			</div>
@@ -55,25 +68,29 @@
 		<div class="container-fluid">
 			<div class="collapse navbar-collapse" id="navbarColor03">
 				<div class="nav-logo">
-					<a href="${contextPath}" id="logo_href"> Aesop </a>
+					<a href="${contextPath}" id="logo_href"> 
+						<img src="${contextPath}/resources/images/cnh/images/logo.png" style="width: 100px;">
+					 </a>
 				</div>
+				
+				
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item"><a class="nav-link" href="#">Category1
-							<!-- <span class="visually-hidden">(current)</span> -->
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Category2</a>
+					<li class="nav-item"><a class="nav-link" href="https://www.aesop.com/kr/r/philosophy-to-design/">디자인</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Category3</a>
+					<li class="nav-item"><a class="nav-link" href="https://www.aesop.com/kr/r/about/">브랜드스토리</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Category4</a>
+					<li class="nav-item"><a class="nav-link" href="#">게시판</a>
 					</li>
 
 				</ul>
 				<div class="d-flex">
 					<input class="form-control me-sm-2" type="text"
-						placeholder="Search" style="border-bottom: 2px solid black;">
+						placeholder="Search" style="border-bottom: 1px solid black;
+   													border-radius: 0;
+												    background-color: rgba( 255, 255, 255, 0.2 );
+												    font-size: 14px;">
 					<button type="button" class="r-form-control-button">
-						<i class="fas fa-search" style="font-size: 44px;"></i>
+						<i class="fas fa-search" ></i>
 					</button>
 
 					<c:choose>
@@ -84,12 +101,12 @@
 							<button type="button" onclick="location.href='${contextPath}/member/join'">JOIN</button>
 						</c:when>
 						<c:otherwise>
+							<button type="button" onclick="location.href='${contextPath}/myPage'">
+								<i class="far fa-user"></i>
+							</button>
 							<button type="button"  onclick="location.href='${contextPath}/member/logout'">LOGOUT</button>
 						</c:otherwise>
 					</c:choose>
-					<button type="button">
-						<i class="far fa-user"></i>
-					</button>
 					<button type="button">
 						<i class="fas fa-shopping-cart"></i>
 					</button>
