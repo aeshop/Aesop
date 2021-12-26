@@ -34,70 +34,71 @@
                       <th>수정</th>
                   </tr>
               </thead>
-              		<c:choose>
-              			<c:when test="${empty sessionScope.addrList}">
-			              	 <tbody> 
-				                  <tr>
-				                      <td colspan="6" class="addr-message" >등록된 주소가 없습니다.</td>
-				                  </tr>
-				              </tbody> 
-              			</c:when>
-              			<c:otherwise>
-			              <tbody class="addr-list">
-			             
-			              	<c:forEach items="${sessionScope.addrList}" var="addr" varStatus="vs">
-			                   <tr>
-			                      <td>
-			                          <input type="checkbox">
-			                      </td>
-			                      <td>
-			                    	<c:choose>
-			                    		<c:when test="${addr.defaultAddress == 'N' }">
-			                    			${addr.addrName }
-			                    		</c:when>
-			                    		<c:otherwise>
-					                      	<img src="${contextPath}/resources/images/cnh/images/ico_addr_default.gif">
-					                   		${addr.addrName }
-			                    		</c:otherwise>
-			                    	</c:choose>
-			                      </td>
-			                      <td>
-			                          <span>${addr.addrReceiverName }</span>
-			                      </td>
-			                      <td>
-			                          <span>${addr.addrPhone }</span>
-			                      </td>
-			                      <td class="addr">
-			                          (
-			                          <span> ${addr.zipCode } </span>
-			                          )
-			                          <span>${addr.address1 }</span> 
-			                          <span>${ addr.address2}</span>   
-			                      </td>
-			                      <td>
-			                          <a href="${contextPath}/myPage/addr/edit?idx=${vs.index}">
-			                              <img src="${contextPath}/resources/images/cnh/images/btn_address_modify.gif">
-			                          </a>
-			                          
-			                      </td>
-			                  </tr>
-			              	
-			              	
-			              	</c:forEach>
-			              </tbody>
-              				
-              			</c:otherwise>
-              		</c:choose>
-              	
+                    <c:choose>
+                       <c:when test="${empty sessionScope.addrList}">
+                           <tbody> 
+                              <tr>
+                                  <td colspan="6" class="addr-message">등록된 주소가 없습니다.</td>
+                              </tr>
+                          </tbody> 
+                       </c:when>
+                       <c:otherwise>
+                       <tbody class="addr-list">
+                      
+                          <c:forEach items="${sessionScope.addrList}" var="addr" varStatus="vs">
+                            <tr>
+                               <td>
+                                   <input type="checkbox" class="addr-chk-sub">
+                                   <input type="hidden" class="addrNo" value = "${addr.addrNo}">                                   
+                               </td>
+                               <td>
+                                <c:choose>
+                                   <c:when test="${addr.defaultAddress == 'N' }">
+                                      ${addr.addrName }
+                                   </c:when>
+                                   <c:otherwise>
+                                        <img src="${contextPath}/resources/images/cnh/images/ico_addr_default.gif">
+                                        ${addr.addrName }
+                                   </c:otherwise>
+                                </c:choose>
+                               </td>
+                               <td>
+                                   <span>${addr.addrReceiverName }</span>
+                               </td>
+                               <td>
+                                   <span>${addr.addrPhone }</span>
+                               </td>
+                               <td class="addr">
+                                   (
+                                   <span> ${addr.zipCode } </span>
+                                   )
+                                   <span>${addr.address1 }</span> 
+                                   <span>${ addr.address2}</span>   
+                               </td>
+                               <td>
+                                   <a href="${contextPath}/myPage/addr/edit?idx=${vs.index}">
+                                       <img src="${contextPath}/resources/images/cnh/images/btn_address_modify.gif">
+                                   </a>
+                                   
+                               </td>
+                           </tr>
+                          
+                          
+                          </c:forEach>
+                       </tbody>
+                          
+                       </c:otherwise>
+                    </c:choose>
+                 
           </table>
           <div class="addr-btn">
               <c:if test="${!empty sessionScope.addrList}">
-              		<span class="addr-btn1" >
-	              	 <a style="cursor:pointer;"> <!-- 등록된 주소록이 없을시 .displaynone-->
-	                      <img src="${contextPath}/resources/images/cnh/images/btn_address_delete.gif" onclick="delChkAddr()" >
-	                  </a>
-             		 </span>
-              	</c:if>
+                    <span class="addr-btn1" >
+                     <a style="cursor:pointer;"> <!-- 등록된 주소록이 없을시 .displaynone-->
+                         <img src="${contextPath}/resources/images/cnh/images/btn_address_delete.gif" onclick="delChkAddr()" >
+                     </a>
+                    </span>
+                 </c:if>
               <span class="addr-btn2">
                   <a id="addrRegisterBtn" style="cursor:pointer;" onclick="addrRegister();" >
 <%--                   <a href="${contextPath}/myPage/addr/Register" id="addrRegisterBtn" onclick="addrRegister();">
@@ -126,15 +127,15 @@
 <!-- <script>
 
 function addrRegister(){
-	if( ${fn:length(sessionScope.addrList)} == 10){
-		alert("배송지는 최대 10개까지만 등록할 수 있습니다.");
-		
-		document.getElementById("addrRegisterBtn").setAttribute('href',' # ');
+   if( ${fn:length(sessionScope.addrList)} == 10){
+      alert("배송지는 최대 10개까지만 등록할 수 있습니다.");
+      
+      document.getElementById("addrRegisterBtn").setAttribute('href',' # ');
 
-	}
+   }
 }
-	
+   
 </script> -->
-	
+   
 </body>
 </html>
