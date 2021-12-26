@@ -45,6 +45,7 @@ public class MemberController extends HttpServlet {
 		String command = uri.substring((contextPath + "/member/").length());
 
 		String path = null;
+		String message = null;
 		RequestDispatcher dispatcher = null;
 
 		req.setCharacterEncoding("UTF-8");
@@ -88,7 +89,7 @@ public class MemberController extends HttpServlet {
 							session.setAttribute("message", "탈퇴한 회원입니다.");
 						}
 
-					}else { // 로그인 실패
+					} else { // 로그인 실패
 						session.setAttribute("message", "아이디 또는 비밀번호를 확인해주세요.");
 					}
 				} catch (Exception e) {
@@ -147,13 +148,12 @@ public class MemberController extends HttpServlet {
 
 					int result = service.signUp(member);
 
-					String message = null;
 					if (result > 0) {
 						message = "회원가입에 성공하셨습니다.";
 						session.setAttribute("message", message);
 
 						resp.sendRedirect(req.getContextPath());
-					}else {
+					} else {
 						session.setAttribute("message", "회원가입에 실패하셨습니다.");
 
 					}
@@ -268,7 +268,7 @@ public class MemberController extends HttpServlet {
 				// email 전송
 				try {
 					MimeMessage msg = new MimeMessage(session);
-					msg.setFrom(new InternetAddress(user, "상호명"));
+					msg.setFrom(new InternetAddress(user, "AESOP"));
 					msg.addRecipient(Message.RecipientType.TO, new InternetAddress(sendMail));
 
 					// 메일 제목
@@ -290,6 +290,7 @@ public class MemberController extends HttpServlet {
 
 		}
 
+		// 아이디 찾기
 		if (command.equals("findId")) {
 
 			if (method.equals("GET")) {
@@ -309,14 +310,13 @@ public class MemberController extends HttpServlet {
 
 					String memberId = service.findId(member);
 					HttpSession session = req.getSession();
-					String message = null;
 
 					if (memberId != null) {
 						req.setAttribute("id", memberId);
 						session.setAttribute("memberId", memberId);
 
 						resp.sendRedirect(req.getContextPath());
-					}else {
+					} else {
 						message = "회원정보를 다시 한번 확인해주세요.";
 						session.setAttribute("message", message);
 					}
@@ -328,46 +328,78 @@ public class MemberController extends HttpServlet {
 
 			}
 		}
-
+		// 비밀번호 찾기
 		if (command.equals("findPw")) {
 
 			if (method.equals("GET")) {
 				path = "/WEB-INF/views/member/findPw.jsp";
 				req.getRequestDispatcher(path).forward(req, resp);
 
-			} else if (method.equals("POST")) {
-
-				String memberId = req.getParameter("id");
-				String memberEmail = req.getParameter("email");
-				String memberName = req.getParameter("name");
+			} else{
+				HttpSession session = req.getSession();
+				// POST
+				String memberId = req.getParameter("memberId");
+				String memberName = req.getParameter("memberName");
+				String memberEmail = req.getParameter("memberEmail");
 
 				memberId = replaceParameter(memberId);
 				memberEmail = replaceParameter(memberEmail);
-
 				try {
 					MemberService service = new MemberService();
-					Member member = new Member(memberId, memberName, memberEmail);
 
-					String memberPw = service.findPw(member);
-					HttpSession session = req.getSession();
-					String message = null;
+					Member member = service.memberinfo(memberId, memberName, memberEmail);
 
-					if (memberPw != null) {
+					System.out.println(member);
+					if (member != null) {
 
-						req.setAttribute("memberPw", memberPw);
-						session.setAttribute("memberPw", memberPw);
-						
-						path = "/WEB-INF/views/member/updatePw.jsp";
-						req.getRequestDispatcher(path).forward(req, resp);
-					}else {
-						message = "회원정보를 다시 한번 확인해주세요.";
-						session.setAttribute("message", message);
+						if (member.getStatusCode() == 101) {
 
+							session.setAttribute("member", member);
+							session.setMaxInactiveInterval(1000);
+
+							path = "/WEB-INF/views/member/updatePw.jsp";
+							req.getRequestDispatcher(path).forward(req, resp);
+						} else { // 탈퇴회원 로그인
+							session.setAttribute("message", "탈퇴한 회원입니다.");
+						}
+
+					} else { 
+						session.setAttribute("message", "회원정보를 확인해주세요.");
 					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+
+		// 비밀번호 변경
+		if (command.equals("updatePw")) {
+			if (method.equals("POST")) {
+				path = "/WEB-INF/views/member/updatePw.jsp";
+				req.getRequestDispatcher(path).forward(req, resp);
+				
+				HttpSession session = req.getSession();
+				String memberPw = req.getParameter("newPwd1");
+				String memberId = (String) session.getAttribute("member");
+				System.out.println(memberId);
+				try {
+
+					int result = new MemberService().updatePw( memberPw, memberId);
+
+					if (result > 0) {
+						
+						message = "비밀번호가 수정되었습니다.";
+						resp.sendRedirect(req.getContextPath());
+					} else {
+						
+						message = "비밀번호가 일치하지 않습니다.";
+						path = "updatePw";
+					}
+					req.getSession().setAttribute("message", message);
 
 				} catch (Exception e) {
 					e.printStackTrace();
-
 				}
 
 			}

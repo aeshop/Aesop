@@ -74,12 +74,22 @@ public class MemberService {
 	}
 
 
-	public String findPw(Member member) throws Exception{
+
+	public int updatePw(String memberPw, String memberId) throws Exception{
 		Connection conn = getConnection();
-		String findPw = dao.findPw(member, conn);
+		int result = dao.updatePw(memberPw, memberId, conn);
 		close(conn);
-		return findPw;
+		return result;
 	}
+
+
+	public Member memberinfo(String memberId, String memberName, String memberEmail) throws Exception{
+		Connection conn = getConnection();
+		Member member = dao.memberInfo(memberId, memberName, memberEmail, conn);
+		close(conn);
+		return null;
+	}
+
 
 
 
