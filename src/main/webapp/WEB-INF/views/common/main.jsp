@@ -6,59 +6,65 @@
 <jsp:include page="r_header.jsp" />
 
 <!-- 메인 화면 이미지 -->
-<div class="main_container" style="border: 1px solid black;">
-    <div class="sidebar" style="position: fixed;">
-      <ul class="sidebar_ul">
-      
-      
-      <%--
-      application scope - category 순회하면서 데이터 표시 
-      category 는 300 = ALL 부터 하위 소분류까지 나열된 LIST
-      처음시작 = 
-      300=ALL: 사이드바, li 태그의 시작, 안보여주고 싶으므로 var status.index = 0인경우 li 태그만
-      
-      중간 list-item 변경: 소분류에서 대분류로 변할때  li태그가 닫히고 열림 + 대분류명 적음
-      
-      끝 = varStatus.index = 전체 리스트 크기 -1 일때 소분류명을 div안에 넣고 li 태그를 닫음
-	그외 = div 태그 안 소분류들
-      
-      --%>
-  <c:forEach items="${applicationScope.category}" var="item" varStatus="vs"> 
-          <c:choose>
-          <c:when  test="${vs.index==0}">
-        <li class="sidebar_categoty">  
-          </c:when>
-           
-        
-           <c:when  test="${vs.index==categorySize-1}">
-           <div><a href="#">${item.categoryName}</a></div>
-        	</li>    
-          </c:when>
-          
-            <c:when  test="${item.categoryNo2%10 eq 0}">
-                           	</li>                       
-                            <li class="sidebar_categoty">
-                             ${item.categoryName} 
-                                                        
-          </c:when>
-          
-          <c:otherwise>
-                    <div><a href="#">${item.categoryName}</a></div>
-          </c:otherwise>
-          
-          </c:choose>
-         
- 
-  </c:forEach>
-      
-     
-      
-      </ul>
-    </div>
+<div class="main_container" >
+	<div class="sidebar_wrapper">
+
+	    <div class="sidebar" style="position: fixed;">
+	    
+	      <ul class="sidebar_ul">
+	      
+	      <%--
+	      application scope - category 순회하면서 데이터 표시 
+	      category 는 300 = ALL 부터 하위 소분류까지 나열된 LIST
+	      처음시작 = 
+	      300=ALL: 사이드바, li 태그의 시작, 안보여주고 싶으므로 var status.index = 0인경우 li 태그만
+	      
+	      중간 list-item 변경: 소분류에서 대분류로 변할때  li태그가 닫히고 열림 + 대분류명 적음
+	      
+	      끝 = varStatus.index = 전체 리스트 크기 -1 일때 소분류명을 div안에 넣고 li 태그를 닫음
+		그외 = div 태그 안 소분류들
+	      
+	      --%>
+	  <c:forEach items="${applicationScope.category}" var="item" varStatus="vs"> 
+	          <c:choose>
+	          <c:when  test="${vs.index==0}">
+	       		 <li class="sidebar_categoty">  
+	          </c:when>
+	           
+	        
+	           <c:when  test="${vs.index==categorySize-1}">
+	           <div><a href="${contextPath}/category/view?cate=${item.categoryNo2}">${item.categoryName}</a></div>
+	        	</li>    
+	          </c:when>
+	          
+	            <c:when  test="${item.categoryNo2%10 eq 0}">
+	                           	</li>                       
+	                            <li class="sidebar_categoty">
+	                             ${item.categoryName} 
+	                                                        
+	          </c:when>
+	          
+	          <c:otherwise>
+	                    <div><a href="${contextPath}/category/view?cate=${item.categoryNo2}">${item.categoryName}</a></div>
+	          </c:otherwise>
+	          
+	          </c:choose>
+	         
+	 
+	  </c:forEach>
+	      
+	     
+	      
+	      </ul>
+	    </div>
+	</div>
 
     <!-- main 1페이지 -->
     <div class="main_container_1">
-      <a>test</a>
+    <img src="${contextPath}/resources/images/cnh/images/kakao.png" style="display:none;" onload="window.open('/teamSemiProject2/pop','','width=537px, height=682px')">
+      	 <video autoplay muted loop style="width: 100%;">
+      		 <source src="https://player.vimeo.com/external/638938995.hd.mp4?s=11da203a3eb6cefd91f8fbf6af2dacc20d102060&amp;profile_id=175" type="video/mp4">
+    	 </video>
     </div>
     <div style="padding: 40px 0; border: none;"></div>
 
@@ -82,7 +88,7 @@
             <!-- Bootstrap Carousel-->
             <div class="carousel-inner">
               <div class="carousel-item active main_slide_2" data-interval="false">
-                test11111
+              	 <img src="">
               </div>
               <div class="carousel-item main_slide_2" data-interval="false">
                 test22222

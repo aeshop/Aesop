@@ -13,7 +13,8 @@
     
     <c:set var="addrList" value="${sessionScope.addrList[param.idx]}"/>
     <div class="content">
-      <form method="POST" action="addr/edit" onsubmit="return addrUpdateValidate();" name="registerForm">
+      <form method="POST" action="edit" onsubmit="return addrUpdateValidate();" id="registerForm">
+      	<input type="hidden" name="idx" value="${param.idx}">
           <div class="addr-register-box">
               <table class="addr-register-table" >
                   <colgroup>
@@ -74,8 +75,15 @@
                   </tr>
                   <tr class="default-addr">
                       <td colspan="2">
-                          <input type="checkbox" id="default-check" name="defaultCheck">
-                          <label for="default-check">기본 배송지로 저장</label>
+                      <c:choose>
+	                       	<c:when test="${sessionScope.addrList[param.idx].defaultAddress == 'Y' }">
+		                          <input type="checkbox" id="default-check" name="defaultCheck" checked>
+	                       	</c:when>
+                       	<c:otherwise>
+                       			  <input type="checkbox" id="default-check" name="defaultCheck">
+                       	</c:otherwise>
+                      </c:choose>
+		                          <label for="default-check">기본 배송지로 저장</label>
                       </td>
                   </tr>
               </table>
@@ -83,9 +91,9 @@
           <div class="addr-register-btn">
               <span>
                    <!-- 등록 버튼 -->
-                   <a href="${contextPath}/myPage/addr">
+                  
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_register2.gif" id="register">
-                   </a>
+                   
                   
                   <a href="${contextPath}/myPage/addr"> <!-- 취소 버튼 -->
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_cancel.gif">
@@ -109,6 +117,7 @@
   <!-- footer include -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+<!-- 폰 번호 저장 -->
 <script>
 $(function(){
 	const ph0 ="${ph[0]}";
@@ -121,9 +130,12 @@ $(function(){
 	});
 });
 
-
-document.getElementById("register").addEventListener("onclick", function(){
-	document.forms["registerForm"].submit();
+// 등록 버튼 눌렀을 시.. 제출
+document.getElementById("register").addEventListener("click", function(){
+	//document.getElementById("registerForm").submit();
+	
+	$("#registerForm").attr("method", "POST");
+	document.getElementById("registerForm").submit();
 	
 });
 
@@ -146,6 +158,25 @@ document.getElementById("register").addEventListener("onclick", function(){
 	<c:remove var="message" scope="session"/>
 
 </c:if>
+
+
+<!-- 기본배송지 체크 js -->
+<script> 
+$(document).ready(function() { 
+	$("input:checkbox").on('click', function() { 
+		if ( $(this).prop('checked') ) { 
+//			$(this).parent().addClass("selected"); 
+			
+			
+		}else { 
+//			$(this).parent().removeClass("selected"); 
+		
+		} 
+			
+	}); 
+}); 
+</script>
+
 
 <script src="${contextPath}/resources/js/member/updateMember.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

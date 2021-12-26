@@ -158,6 +158,7 @@ public class MypageController extends HttpServlet{
 			}else if(command.equals("addr/edit")){
 				if(method.equals("GET")) {
 					
+					System.out.println(4);
 					
 					path = "/WEB-INF/views/member/addrModifyEdit.jsp";
 					dispatcher = req.getRequestDispatcher(path);
@@ -165,7 +166,10 @@ public class MypageController extends HttpServlet{
 				
 				}else {//post
 					
+					System.out.println(3);
+					
 					// 파라미터 얻어오기
+					int idx = Integer.parseInt( req.getParameter("idx") );
 					String addrName = req.getParameter("addrName");
 					String addrReceiverName = req.getParameter("addrReceiverName");
 					String zipCode = req.getParameter("zipCode");
@@ -192,9 +196,9 @@ public class MypageController extends HttpServlet{
 					
 					// 어떤 주소의 번호를 수정할지 구분하기 위한
 					// "주소번호"를 session에 있는 addrList에서 얻어오기 (addrNo)
-					AddrList addrList = (AddrList)session.getAttribute("addrList");
-					
-					updateAddr.setAddrNo( addrList.getAddrNo());
+					List<AddrList> addrList = (List<AddrList>)session.getAttribute("addrList");
+
+					updateAddr.setAddrNo( addrList.get(idx).getAddrNo() );
 					
 					try {
 						int result = service.updateDeliveryAddr(updateAddr);
@@ -203,20 +207,20 @@ public class MypageController extends HttpServlet{
 						if(result > 0) { //수정 성공시
 							session.setAttribute("message", "해당 배송지가 수정되었습니다.");
 							
-							addrList.setAddrName(addrName);
-							addrList.setAddrReceiverName(addrReceiverName);
-							addrList.setZipCode(zipCode);
-							addrList.setAddress1(address1);
-							addrList.setAddress2(address2);
-							addrList.setAddrPhone(addrPhone);
-							addrList.setDefaultAddress(defaultCheck);
+							addrList.get(idx).setAddrName(addrName);
+							addrList.get(idx).setAddrReceiverName(addrReceiverName);
+							addrList.get(idx).setZipCode(zipCode);
+							addrList.get(idx).setAddress1(address1);
+							addrList.get(idx).setAddress2(address2);
+							addrList.get(idx).setAddrPhone(addrPhone);
+							addrList.get(idx).setDefaultAddress(defaultCheck);
 						
 						}else { // 수정 실패 시
 							session.setAttribute("message", "해당 배송지 수정 실패");
 						}
 						
 						// 배송지 목록 페이지로 재요청
-						resp.sendRedirect("addr");
+						resp.sendRedirect("../addr");
 						
 					}catch(Exception e) {
 						e.printStackTrace();

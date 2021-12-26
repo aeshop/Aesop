@@ -7,14 +7,15 @@
 <%-- 	<jsp:include page="${contextPath}/WEB-INF/views/common/header.jsp"/>
  --%>	
 <jsp:include page="../common/r_header.jsp" />
+<jsp:include page="/WEB-INF/views/common/sidebar_n.jsp"/> <!-- 낙희추가 -->
 	
 	<!-- 메인 화면 이미지 -->
-	<!-------------------------------------------------- 낙희 --------------------------------->
     <!-- 제품상세 페이지 -->
     <div class="content">
       <div class="productDetailHeader">
         <div>
-          <img src="${contextPath}${product.imgList[0].imgPath}${product.imgList[0].imgName}">
+          <img src="${contextPath}${product.imgList[0].imgPath}${product.imgList[0].imgName}"
+          		style="width:500px">
           <div id="productInfo">
             <div>
             <input type="hidden" id="n-proNumber" value="${product.productNo}">

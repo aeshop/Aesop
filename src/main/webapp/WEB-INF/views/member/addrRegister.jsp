@@ -78,7 +78,7 @@
                   <a href="#"> <!-- 등록 버튼 -->
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_register2.gif">
                   </a>
-                  <a href="#"> <!-- 취소 버튼 -->
+                  <a href="${contextPath}/myPage/addr"> <!-- 취소 버튼 -->
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_cancel.gif">
                   </a>
               </span>
@@ -99,5 +99,9 @@
     
       <!-- footer include -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+
+<script src="${contextPath}/resources/js/member/updateMember.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>

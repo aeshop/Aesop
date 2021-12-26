@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
@@ -40,12 +41,13 @@
               </div>
               <div class="grade-guide">
               
-              <c:choose>
+			  <c:choose>
               	<c:when test="${empty sessionScope.grade.leftMoney}">
-              		${sessionScope.grade.memberPurchaseAmount}원
+              		<%-- ${sessionScope.grade.memberPurchaseAmount}원 --%>
+              		<fmt:formatNumber value="${sessionScope.grade.memberPurchaseAmount}" groupingUsed="true"/>원
               	</c:when>
               	<c:otherwise>
-                  <span>${sessionScope.grade.leftMoney }원 </span>
+                  <span><fmt:formatNumber value="${sessionScope.grade.leftMoney}" groupingUsed="true"/>원 </span>
               	</c:otherwise>
               </c:choose>
               
@@ -176,7 +178,9 @@
 				                              </a>
 				                          </td>
 				                          <td class="order-price">
-				                              <strong>${o.productPrice * o.orderAmount}</strong>
+				                              <strong>
+				                              	<fmt:formatNumber value="${o.productPrice * o.orderAmount}" groupingUsed="true"/> 원
+				                              </strong>
 				                              
 				                          </td>
                       					</tr>

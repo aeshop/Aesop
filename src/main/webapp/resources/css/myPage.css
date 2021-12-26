@@ -1,5 +1,26 @@
 @charset "UTF-8";
 /************************ 최낙희 css ********************/
+    /* 추가 */
+    #carousel{
+      position: sticky;
+      top: 0;
+      background-color: black;
+      color: white;
+      z-index: 6000;
+    }
+
+    a{
+      color: black;
+    }
+
+    .navbar-nav{
+      margin-left: 0px;
+    }
+    
+    .displaynone{
+    display:  none;
+    }
+
 /* content */
 .content{
     /* border: 1px solid black; */
