@@ -111,11 +111,16 @@
 							</span>
 						</span>
 					</td>
-					
-						<td width="100px;" rowspan="${orderCount}"><span class="n-shipCal">${ship}</span>원</td>		 <!-- 배송비 -->			
+					<c:if test="${vs.index==0}">
+					<td width="100px;" rowspan="${orderCount}"><span class="n-shipCal"><fmt:formatNumber value="${ship}" maxFractionDigits="3"/></span>원</td>		 <!-- 배송비 -->			
+					</c:if>
 
-						<td ><span></span>원</td> <!-- 할인금액 -->
-						<td ><span></span>원</td> <!--  합계  -->
+					<c:if test="${vs.index==0}">
+					<td width="100px;" rowspan="${orderCount}"><span><fmt:formatNumber value="${sum+ship- delivery.deliveryPrice}" maxFractionDigits="3"/></span>원</td>		 <!-- 할인 -->			
+					</c:if>
+
+
+						<td ><span><fmt:formatNumber value="${(1-i.productDiscount)*i.productPrice*i.orderAmount}" maxFractionDigits="3"/></span>원</td> <!--  합계  -->
 				</tr>
 					
 					
@@ -134,10 +139,11 @@
 				
 			</tbody>
 
-
+		<fmt:formatNumber var="sum2" value="${sum}" maxFractionDigits="3"/>
+		<fmt:formatNumber var="ship2" value="${ship}" maxFractionDigits="3"/>
 			<tfoot>
 			<tr><td colspan="5" style="text-align:left; padding-left: 20px;" >[기본배송]</td>
-				<td colspan="3" style="padding: 10px 0;">상품구매금액 <span class="n-proCal"></span>+ 배송비 <span class="n-shipCal"></span> = 합계 : <span class="n-sumCal"></span>원</td></tr>
+				<td colspan="3" style="padding: 10px 0;">상품구매금액 <span class="n-proCal"><fmt:formatNumber value="${sum}" maxFractionDigits="3"/></span>+ 배송비 <span class="n-shipCal"><fmt:formatNumber value="${ship}" maxFractionDigits="3"/></span> = 합계 : <span class="n-sumCal"><fmt:formatNumber value="${sum+ship}" maxFractionDigits="3"/></span>원</td></tr>
 				
 			</tfoot>
 		</table>
@@ -157,10 +163,10 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td><span class="n-proCal"></span>원</td> <!-- 총상품금액(원가) * 수량 -->
-					<td>+ <span class="n-shipCal"></span>원</td>  <!-- 총배송비-->
-					<td>- <span class="n-shipCal"></span>원</td> <!-- 총할인금액 (멤버등급별)-->
-					<td>=<span class="n-sumCal"></span>원</td> <!-- 총 결제금액 -->
+					<td><span class="n-proCal"></span>${sum2}원</td> <!-- 총상품금액(원가) * 수량 -->
+					<td>+ <span class="n-shipCal"></span>${ship2}원</td>  <!-- 총배송비-->
+					<td>- <span class="n-shipCal"></span><fmt:formatNumber value="${sum+ship- delivery.deliveryPrice}" maxFractionDigits="3"/>원</td> <!-- 총할인금액 (멤버등급별)-->
+					<td>=<span class="n-sumCal"></span><fmt:formatNumber value="${delivery.deliveryPrice}" maxFractionDigits="3"/>원</td> <!-- 총 결제금액 -->
 				</tr>
 			</tbody>
 

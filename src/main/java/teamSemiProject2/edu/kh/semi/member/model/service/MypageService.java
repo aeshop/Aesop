@@ -268,7 +268,7 @@ public class MypageService {
 		double sum = 0;
 		
 		for (OrderList orderList : oList) {
-			sum += orderList.getProductDiscount() * orderList.getProductPrice();
+			sum += (1- orderList.getProductDiscount()) * orderList.getProductPrice()*orderList.getOrderAmount();
 		}
 		int ship=0;
 		if(sum<50000) {
