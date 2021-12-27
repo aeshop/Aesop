@@ -1,11 +1,6 @@
 package teamSemiProject2.edu.kh.semi.product.controller;
 
 import java.io.IOException;
-
-import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
-import 	teamSemiProject2.edu.kh.semi.member.model.vo.Member;
-import teamSemiProject2.edu.kh.semi.order.model.vo.Order;
-
 import java.security.Provider.Service;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -23,9 +18,12 @@ import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 
-import teamSemiProject2.edu.kh.semi.common.MyRenamePolicy;
 import teamSemiProject2.edu.kh.semi.category.model.service.CategoryService;
 import teamSemiProject2.edu.kh.semi.category.model.vo.Category;
+import teamSemiProject2.edu.kh.semi.common.MyRenamePolicy;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
+import teamSemiProject2.edu.kh.semi.order.model.vo.Order;
 import teamSemiProject2.edu.kh.semi.product.model.service.ProductService;
 import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
 import teamSemiProject2.edu.kh.semi.product.model.vo.ProductImage;

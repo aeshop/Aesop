@@ -304,7 +304,7 @@
     $(function(){    
     	
         if(getCookie("divpop1") !="Y"){
-        	window.open('/teamSemiProject2/pop','','width=500%, height=682px')
+        	window.open('${contextPath}/pop','','width=500%, height=682px')
         }
     });
 </script>

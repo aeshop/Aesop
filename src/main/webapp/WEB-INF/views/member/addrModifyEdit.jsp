@@ -74,7 +74,7 @@
                   </tr>
                   <tr class="default-addr">
                       <td colspan="2">
-                      <c:choose>
+<%--                       <c:choose>
 	                       	<c:when test="${sessionScope.addrList[param.idx].defaultAddress == 'Y' }">
 		                          <input type="checkbox" id="default-check" name="defaultCheck" checked>
 	                       	</c:when>
@@ -83,7 +83,7 @@
                        	</c:otherwise>
                       </c:choose>
 		                          <label for="default-check">기본 배송지로 저장</label>
-                      </td>
+                       --%></td>
                   </tr>
               </table>
           </div>

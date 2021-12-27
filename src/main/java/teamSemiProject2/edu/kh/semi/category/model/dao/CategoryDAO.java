@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-
 import teamSemiProject2.edu.kh.semi.category.model.vo.Category;
 import teamSemiProject2.edu.kh.semi.category.model.vo.Pagination;
 import teamSemiProject2.edu.kh.semi.product.model.vo.Product;
@@ -26,8 +25,7 @@ public class CategoryDAO {
 	public CategoryDAO() {
 		try {
 			prop = new Properties();
-			String filePath = CategoryDAO.class.getResource("/teamSemiProject2/edu/kh/semi/sql/category-query.xml")
-					.getPath();
+			String filePath = CategoryDAO.class.getResource("/teamSemiProject2/edu/kh/semi/sql/category-query.xml").getPath();
 
 			prop.loadFromXML(new FileInputStream(filePath));
 		} catch (Exception e) {

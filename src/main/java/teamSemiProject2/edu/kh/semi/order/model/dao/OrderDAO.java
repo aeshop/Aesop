@@ -13,9 +13,9 @@ import java.util.Properties;
 
 import javax.net.ssl.CertPathTrustManagerParameters;
 
-import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.delivery.model.vo.Delivery;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.order.model.vo.Order;
 
 public class OrderDAO {

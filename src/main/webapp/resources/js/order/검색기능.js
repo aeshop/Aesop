@@ -10,7 +10,7 @@ function search() {
     const keyword = searchBar.value;
 
 
-    location.href = '/teamSemiProject2/category/search?keyword=' + keyword;
+    location.href = contextPath + '/category/search?keyword=' + keyword;
 
 
 

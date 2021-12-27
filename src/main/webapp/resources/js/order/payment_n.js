@@ -159,7 +159,7 @@ window.open(주소경로, 창 이름(딱히 안지을꺼면 ""), 창 옵션(넓�
 function getAddrInfo() {
 
 
-    window.open("/teamSemiProject2/order/addrPop", "", "width=800,height=600,left=200,top=200");
+    window.open(contextPath + "/order/addrPop", "", "width=800,height=600,left=200,top=200");
 
 
 }
@@ -291,7 +291,7 @@ $("#check_module").click(function() {
     let totalPrice;
     $.ajax({
 
-        url: "/teamSemiProject2/order/beforeImport",
+        url: contextPath + "/order/beforeImport",
         type: "post",
         data: { orderNoList: orderNoArr },
         dataType: "json",
@@ -303,7 +303,7 @@ $("#check_module").click(function() {
                 totalPrice = result.totalPrice;
             } else if (result.stCode == 199) {
                 alert("제품 재고 부족으로 결제를 취소합니다.");
-                location.href = '/teamSemiProject2/order/view';
+                location.href = contextPath + '/order/view';
             }
 
 
@@ -390,7 +390,7 @@ $("#check_module").click(function() {
             msg += '카드 승인번호 : ' + rsp.apply_num;
             //여기에  결제 성공 여부에 따른 처리 로직이 ajax로 작성되야 한다. 
             $.ajax({
-                url: "/teamSemiProject2/order/validation",
+                url: contextPath + "/order/validation",
                 //url은 controller로 보낼 주소
                 method: "POST",
                 data: {
@@ -427,7 +427,7 @@ $("#check_module").click(function() {
                 //: 근데 만들 시간이 없어서 그냥 마이페이지로 보내버림
 
 
-                location.href = '/teamSemiProject2/myPage';
+                location.href = contextPath + '/myPage';
 
             })
 
@@ -438,7 +438,7 @@ $("#check_module").click(function() {
 
 
             $.ajax({
-                url: "/teamSemiProject2/order/payCancel",
+                url: contextPath + "/order/payCancel",
 
 
                 method: "POST",

@@ -6,7 +6,7 @@ function addrRegister() {
         alert('배송지는 최대 10개까지만 등록할 수 있습니다.');
         return;
     } else {
-        location.href = '/teamSemiProject2/myPage/addr/Register';
+        location.href = contextPath + '/myPage/addr/Register';
     }
 
 
@@ -46,7 +46,7 @@ function delChkAddr() {
 
         $.ajax({
 
-            url: "/teamSemiProject2/myPage/addr/delete",
+            url: contextPath + "/myPage/addr/delete",
             type: "post",
             data: { addrNoList: chkAddrNo },
             success: function(result) {

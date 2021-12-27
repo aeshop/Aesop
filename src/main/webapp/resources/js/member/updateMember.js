@@ -139,7 +139,7 @@
 
      if (confirm('정말로 탈퇴하시겠습니까?')) {
 
-         location.href = '/teamSemiProject2/myPage/secession';
+         location.href = contextPath + '/myPage/secession';
      }
 
  }
