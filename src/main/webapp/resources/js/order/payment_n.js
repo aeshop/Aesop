@@ -409,29 +409,7 @@ $("#check_module").click(function() {
 
 
                 }
-                /*이걸 보내고 servlet에서는 하단의 것을 수행
 
-                1. 결제번호, 주문번호를 객체에서 추출하기 - 지금 파라미터 안얻어지는데 제이슨 파싱으로 접근해야하나?
-                2. 결제 정보 조회하기 - REST API access token을 발급받습니다. 라고 적힘
-                3. 결제 정보 검증 후 저장하기
-
-2. access 토큰 발급받기를 nodeJS 쪽은 나와있는데 servet쪽은 없음
-자바에서 요청시 access 토큰 발급 받는 과정
-
- curl  : client url을 의미한다 : api 정보를 기술한 것이라고 생각하면 될 것 같다. 이 양식에 맞춰서 작성해 주면 된다는 의미
-  curl  
-  -H "Content-Type: application/json" POST 
-  -d '{"imp_key": "REST API키", "imp_secret":"REST API Secret"}' https://api.iamport.kr/users/getToken
-
-
-2.1 액세스토큰 받을 변수, 액세스 토큰 받아올 요청 주소 입력
-
-결과값으로 오는 getPaymentData에서 정보를 빼내야 한다
-- 지금 access토큰 발급받기를 시도하지 않은 상태라, 어떤 것이 반환될지가 감이 안잡힌다.
-
-
-
-*/
 
 
 
@@ -458,16 +436,6 @@ $("#check_module").click(function() {
         } else {
 
 
-            /* 결제취소시의 내 서버 DB를 조작할 내용
-            1. 선택한 order들에 의한 재고 삭감 복구
-            2. 선택한 order들의 상태코드 변경
-            3. 해당 배송의 상태코드 변경
-
-            order배열, 배송 코드를 서버로 보내주어야 한다.
-
-             같은 페이지 내에서 작업후 메세지를 보여주어야하니까 ajax, 끝나고 메세지를 보여주고 싶으므로 동기 방식
-
-            */
 
             $.ajax({
                 url: "/teamSemiProject2/order/payCancel",
@@ -504,24 +472,7 @@ $("#check_module").click(function() {
     });
 });
 
-/* 
-다시한번 설명
 
-1. 버튼에 click 이벤트가 발생했을때, 익명 함수를 실행한다, 
-2. 부여받은 가맹점식별코드 적고, 결제정보 객체를 인수로 하는 request_pay함수를 실행한다
-3. 결제정보 객체에는 요금, 등이 담겨있고, 주문번호는 내가 생성해야 된다.
-3-1. IMP.request_pay({}) 함수를 실행하기 전에, 서버에서 데이터베이스에 주문 레코드를 생성해서 주문번호를
-param.merchant_uid에 지정하기를 권장한다 라고 한다
-
-즉 먼저 주문번호를 생성하고, 그 주문번호를 은행 번호표처럼 사용하라는 뜻이다. 
-널디처럼 보여주고 싶으면 이렇게 할뿐만 아니라 아예 주문번호 레코드부터 생성하고
- 이걸 추가한다음에 update로 레코드를 계속 수정해 나가야 할듯?
- 그러니까 구매 버튼 누르자 마자 가장 먼저 해야 할 일이 3-1인 것
-
- 4. 결제 성공시, 결제 실패시에 대응하는 함수가 실행된다 : 정확히는 결제 성공시 실패시가 아니라 imp_success 파라미터는 결제 프로세스 정상 종료 여부
- 이고, 클라이언트 상에서 하는 거기 때문에 위변조의 가능성이 있으므로 이 값으로 결제의 성공 여부를 판단해서는 안된다
-
- */
 
 function addrClear() {
     const addrInputs = document.querySelectorAll('#receiverInfo input');
