@@ -53,7 +53,7 @@
 
                 <div class="n-order-row">
                     <div>국내배송상품 주문내역</div>
-                    <p><img src="${contextPath}/resources/images/order/btn_prev.gif" alt="이전페이지 버튼"></p>
+                    <p> <a href="${contextPath}/order/view"><img src="${contextPath}/resources/images/order/btn_prev.gif" alt="이전페이지 버튼"></a></p>
 
                 </div>
             </div>
@@ -111,7 +111,7 @@
                     </tbody>
                     <tfoot>
                         <tr id="n-p-summery">
-                            <td>[기본배송]</td>
+                            <td></td>
                             <td colspan="6">상품구매금액 <span class="allProPrice"></span> + 배송비 <span class="shipPrice"></span> = 합계 : <span class="calPrice"></span>원 </td>
                         </tr>
                     </tfoot>
@@ -119,11 +119,7 @@
 
                 </table>
 
-                <div class="n-order-row n-delete">
-                    <div>선택상품을 <img src="${contextPath}/resources/images/order/btn_delete2.gif" alt="삭제하기 버튼"></div>
-                    <p><img src="${contextPath}/resources/images/order/btn_prev.gif" alt="이전페이지 버튼"></p>
-
-                </div>
+             
             </div>
 
 
@@ -173,7 +169,7 @@
                             <td rowspan="3">이메일<img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
                             <td><input type="text" name="oEmail1" value='${fn:substringBefore(mEmail, "@")}'> @
                                 <input type="text" name="oEmail2" value='${fn:substringAfter(mEmail, "@")}'>
-                                <select name="oEmail3">
+                                <select name="oEmail3" id="emailSelect">
                                 <option value="selected">이메일 선택</option>
                                 <option value="naver.com">naver.com</option>
                                 <option value="daum.net">daum.net</option>
@@ -207,7 +203,7 @@
                         <p><img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별">필수입력사항</p>
 
                     </div>
-                    <table class="n-order-table">
+                    <table class="n-order-table" id="receiverInfo">
                         <tr>
                             <td>
                                 <div>배송지 선택</div>
@@ -215,12 +211,13 @@
                             <td colspan="2">
                                 <input type="radio" id="sameaddr0" name="addr" value="sameaddr0" checked>
                                 <label for="sameaddr0">주문자 정보와 동일</label>
-                                <input type="radio" id="sameaddr1" name="addr" value="sameaddr1" onclick="addrClear()">
+                                      
+                                <input type="radio" id="sameaddr1" name="addr" value="sameaddr1" onchange="addrClear()">
                                 <label for="sameaddr1">새로운 배송지</label>
                           
 
                                 <span><img src="${contextPath}/resources/images/order/btn_address.gif" id="addrInfo" onclick="getAddrInfo()" alt="주소록 버튼"></span>
-
+<c:if test="${empty defaultAddress.zipCode}"> <span style="color:red;">주문자 기본 주소가 없습니다.</span></c:if>
                             </td>
                         </tr>
                         <tr>
@@ -231,14 +228,26 @@
                         </tr>
                         <tr>
                             <td rowspan="3">주소<img src="${contextPath}/resources/images/order/ico_required.gif" alt="required 빨간 별"></td>
-                            <td><input type="text" id="rZipcode" name="rZipcode" value="${defaultAddress.zipCode}"> <img src="${contextPath}/resources/images/order/btn_zipcode.gif" alt="우편번호 버튼이미지"></td>
-                        </tr>
+<%--                             <td><input type="text" id="rZipcode" name="rZipcode" value="${defaultAddress.zipCode}"> <img src="${contextPath}/resources/images/order/btn_zipcode.gif" alt="우편번호 버튼이미지"></td>
+ --%>                        </tr>
                         <tr>
-                            <td><input type="text" id="rAddr1" name="rAddr1" size="70" maxlength="100" value="${defaultAddress.address1}"><span class="n-addr">기본주소</span></td>
-                        </tr>
+<%--                             <td><input type="text" id="rAddr1" name="rAddr1" size="70" maxlength="100" value="${defaultAddress.address1}"><span class="n-addr">기본주소</span></td>
+ --%>                        </tr>
                         <tr>
-                            <td><input type="text" id="rAddr2" name="rAddr2" size="70" maxlength="100"  value="${defaultAddress.address2}"><span class="n-addr"></span>나머지주소(선택입력가능) <span style="color:red;">상세주소(동/호수)를 꼭 기입 바랍니다</span></span>
-                            </td>
+                        
+                        <!-- 다음 주소 api -->
+                            <td>
+                          <input type="text" id="sample6_postcode" placeholder="우편번호" value="${defaultAddress.zipCode}" name="zipCode">
+                          <input type="button" class="postcode-btn" onclick="sample6_execDaumPostcode()" value="우편번호" ><br>
+                          <input type="text" id="sample6_address" placeholder="주소" value="${defaultAddress.address1}" name="address1"><br>
+                          <input type="text" id="sample6_detailAddress" placeholder="상세주소" value="${defaultAddress.address2}" name="address2">
+                          <!-- <input type="text" id="sample6_extraAddress" placeholder="참고항목"> -->
+                      </td>
+                          <!-- 다음 주소 api:  이전 주소 EL들 옮기기 완료, 자스에서 name,id rZipcode, rAddr1, rAddr2 쓰는 애들 수정 필요  -->
+                        
+                        
+                            <%-- <td><input type="text" id="rAddr2" name="rAddr2" size="70" maxlength="100"  value="${defaultAddress.address2}"><span class="n-addr"></span>나머지주소(선택입력가능) <span style="color:red;">상세주소(동/호수)를 꼭 기입 바랍니다</span></span>
+                            </td> --%>
 
                         </tr>
                         <tr>
@@ -280,7 +289,7 @@
                     </div>
                     <table id="n-cal-table">
                         <tr>
-                            <td>총 주문 금액 <img src="${contextPath}/resources/images/order/btn_list.gif" alt="내역보기 이미지 버튼"></td>
+                            <td>총 주문 금액</td>
                             <td>총 할인 + 부가결제 금액</td>
                             <td>총 결제예정 금액</td>
                         </tr>
@@ -355,4 +364,9 @@ const pay_info = {
 
 <%--  <script type="text/javascript" src="${contextPath}/resources/js/order/payment.js"></script>
  --%> 
-<script type="text/javascript" src="${contextPath}/resources/js/order/payment_2_내작업본.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/order/payment_n.js"></script>
+
+
+<!-- 다음 주소 api 사용 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+

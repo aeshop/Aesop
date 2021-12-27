@@ -1,3 +1,75 @@
+document.querySelector('#emailSelect').addEventListener('change', function() {
+
+
+    if (this.value != 'etc') {
+        this.previousElementSibling.value = this.value;
+
+    } else {
+        this.previousElementSibling.value = '';
+        this.previousElementSibling.focus();
+    }
+
+});
+
+
+
+
+
+//다음 주소 api
+function sample6_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
+
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
+
+            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            if (data.userSelectedType === 'R') {
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if (data.buildingName !== '' && data.apartment === 'Y') {
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if (extraAddr !== '') {
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample6_postcode').value = data.zonecode;
+            document.getElementById("sample6_address").value = addr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("sample6_detailAddress").focus();
+        }
+    }).open();
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /* 
 화면에서 가격 계산 함수
  
@@ -94,14 +166,6 @@ function getAddrInfo() {
 
 
 
-function clearAddr() {
-
-}
-
-
-
-
-
 
 
 /*
@@ -111,10 +175,10 @@ function clearAddr() {
 1)payment 페이지가 로드가 되면 계산 함수(calculatePayment())를 호출
 1-1) 각각의 가격, 전체 가격 계산후 화면에 표시 - 완료
 
-2-0) 사용자가 결제 버튼을 누름 : import가 켜지기 전에 
-2-1) ajax로 주문번호,주문수량x, 전체 가격(totalPrice)x 를 전달(이 때문에, 결제 페이지에선 물품의 수량변경, 삭제가 불가능하다.)
-2-2) 변경 : 주문번호만 전달 : 주문수량 ,전체 가격을 화면에서 긁어와서 진행하면 헛점 발생 
-2-3) 주문번호만 전달하게되면 결제페이지에서도 삭제, 수량조절이 가능한데, 번거로워서 안함
+2-0) 사용자가 결제 버튼을 누름 : <<import가 켜지기 전에>> 
+2-1) ajax로 주문번호만을 (주문수량, 전체 가격(totalPrice) X) 를 전달
+2-2) 주문번호만 전달 : 주문수량 ,전체 가격을 화면에서 긁어와서 결제를 진행 시도하면 헛점 발생 : 개발자 도구로 주문금액을 내맘대로 바꾸기 가능 
+2-3) 주문번호만 전달하게되면 결제페이지에서도 삭제, 수량조절이 가능한데: (서버값을 바꾸는거라), 번거로워서 안함
 
 2-2) product table 수량변경 시도, 
 2-2-1) 재고부족 시 체크 제약조건 위배로 발생하는 SQLException 에러코드 받고 rollback, 재고부족 메세지로 응답
@@ -190,9 +254,12 @@ $("#check_module").click(function() {
     const deliveryInfo = {
 
 
-        dZipCode: document.querySelector('#rZipcode').value,
-        dAddress1: document.querySelector('#rAddr1').value,
-        dAddress2: document.querySelector('#rAddr2').value,
+        // dZipCode: document.querySelector('#rZipcode').value,
+        dZipCode: document.querySelector('#sample6_postcode').value,
+        // dAddress1: document.querySelector('#rAddr1').value,
+        dAddress1: document.querySelector('#sample6_address').value,
+        // dAddress2: document.querySelector('#rAddr2').value,
+        dAddress2: document.querySelector('#sample6_detailAddress').value,
         dReceiverName: document.querySelector('#rName').value,
         dReceiverPhone: document.querySelector('#rPhone1').value + "-" + document.querySelector('#rPhone2').value + "-" + document.querySelector('#rPhone3').value,
         dMessage: document.querySelector('#rMessage').value
@@ -228,7 +295,7 @@ $("#check_module").click(function() {
         type: "post",
         data: { orderNoList: orderNoArr },
         dataType: "json",
-        async: false,
+        async: false, //에이젝스 데이터 반환은 자바스크립트 코드의 실행보다 느리기 때문에 동기로 해두어야함 
 
         success: function(result) { //json으로 넘어옴 : 에이젝스가 자바스크립트 코드의 실행보다 느리기 때문에 발생하는 일이다 
             if (result.stCode == 200) {
@@ -379,9 +446,10 @@ $("#check_module").click(function() {
 
                 //결제가 성공하였습니다. 페이지로 이동
                 //사진 하나랑 결제내역 조회 페이지로,홈으로 두 개 버튼 만들고 싶음
+                //: 근데 만들 시간이 없어서 그냥 마이페이지로 보내버림
 
 
-                // location.href = '/teamSemiProject2';
+                location.href = '/teamSemiProject2/myPage';
 
             })
 
@@ -437,6 +505,8 @@ $("#check_module").click(function() {
 });
 
 /* 
+다시한번 설명
+
 1. 버튼에 click 이벤트가 발생했을때, 익명 함수를 실행한다, 
 2. 부여받은 가맹점식별코드 적고, 결제정보 객체를 인수로 하는 request_pay함수를 실행한다
 3. 결제정보 객체에는 요금, 등이 담겨있고, 주문번호는 내가 생성해야 된다.
@@ -450,14 +520,17 @@ param.merchant_uid에 지정하기를 권장한다 라고 한다
 
  4. 결제 성공시, 결제 실패시에 대응하는 함수가 실행된다 : 정확히는 결제 성공시 실패시가 아니라 imp_success 파라미터는 결제 프로세스 정상 종료 여부
  이고, 클라이언트 상에서 하는 거기 때문에 위변조의 가능성이 있으므로 이 값으로 결제의 성공 여부를 판단해서는 안된다
-(프로세스 창이 결제가 되고 꺼지던 도중에 취소해서 안되고 꺼지던 success로 취급된다)
 
- 블로그 예제는 클라이언트 단과 i'mport 서버에 기록이 남는 방식을 사용했고
- 
- 5. 나는 여기에 더해서 내 서버 즉 DB에 기록을 남기고, 그 기록을 i'mport 서버와 검증해서 맞으면 결제완료로
- 아니면 추가적인 조치를 취하는 로직을 만들어야 된다.
- 
+ */
+
+function addrClear() {
+    const addrInputs = document.querySelectorAll('#receiverInfo input');
 
 
+    for (let i = 0; i < addrInputs.length; i++) {
+        if (addrInputs[i].type != 'button') {
+            addrInputs[i].value = '';
+        }
 
-*/
+    }
+}

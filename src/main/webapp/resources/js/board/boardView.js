@@ -17,3 +17,8 @@ function deleteBoard(no) {
     });
 }
 }
+function updateBoard(){
+	document.requestForm.action = "updateBoard";
+	document.requestForm.method = "POST";
+	document.requestForm.submit();
+}

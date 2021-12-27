@@ -77,7 +77,7 @@
 
                 </ul>
                 <form class="d-flex">
-                    <input class="form-control me-sm-2" type="text" placeholder="Search" style=" border-bottom: 2px solid black;"> <button type="button" class="r-form-control-button" style="border: none; background-color: transparent;">
+                    <input class="form-control me-sm-2" type="text" placeholder="Search" id="searchInput" style=" border-bottom: 2px solid black;"> <button type="button" class="r-form-control-button" style="border: none; background-color: transparent;">
                     <i class="fas fa-search" style="font-size: 44px;"></i></button>
                 </form>
             </div>

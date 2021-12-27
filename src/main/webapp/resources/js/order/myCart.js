@@ -126,6 +126,7 @@ function amountChanged() {
     // 수량 input 태그 얻어오기
     console.log('변경함수실행');
     const orderAmount = this.parentNode.parentNode.firstElementChild.firstElementChild;
+    const productStock = this.parentNode.parentNode.firstElementChild.firstElementChild.nextElementSibling;
     if (isNaN(orderAmount.value)) {
         alert('숫자를 입력해 주세요');
         orderAmount.value = "";
@@ -133,6 +134,10 @@ function amountChanged() {
     } else if (orderAmount.value == 0) {
         alert('1미만으로 내릴 수 없습니다.');
         orderAmount.value = 1;
+        return;
+    } else if (orderAmount.value > (Number)(productStock.value)) {
+        alert('수량을 재고 이상으로 올릴 수 없습니다.');
+        orderAmount.value = productStock.value;
         return;
     }
     //클릭한 주문번호 얻어오기

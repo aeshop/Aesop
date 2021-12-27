@@ -71,7 +71,7 @@
                         <!-- 정렬방식 네비게이션 바 미완성: 나중에 도전할 예정 : 정렬방식으로 나오긴하는데, 어떤걸 클릭했는지 보여주는 효과를 내고싶음 -->
                         <div id="n-sort-navbar">
                         <div id="n-sort-wrapper">
-                           
+                           <div onclick="showMethod()">${method_name} &#9660;</div>
                             <ul id="n-sort-ul">
                                 <li><a href="view?cate=${category[0].currentCategoryNo}&sort_method=1">신상품</a></li>
                                 <li><a href="view?cate=${category[0].currentCategoryNo}&sort_method=2">상품명</a></li>
@@ -156,13 +156,15 @@
                                     </div>
                                     <div class="n-discription">
                                         <div class="n-tag">
-                                        
+                                        <input type="hidden" id="n-proNumber" value=${product.productNo}>
                                         <c:choose>
                                         <c:when test="${!empty isSoldout}">
                                          <span style="background-color: #fff; color: red; border:solid 1px red;">SOLD OUT</span>
                                         </c:when>
+                                        <c:when test="${product.discount eq 0}">
+                                        </c:when>
                                         <c:otherwise>
-                                         <span style="background-color: #000; color: #fff">시즌오프</span> <span style="background-color: red; color: #fff"><fmt:formatNumber
+                                         <span style="background-color: red; color: #fff">-<fmt:formatNumber
 										type="number" value="${product.discount*100}" /> %</span>
                                         </c:otherwise>
                                         </c:choose>
@@ -172,7 +174,10 @@
 							</a>
 							</strong>
                                         <div class="n-priceGroup">
-                                            <div class="n-dc-rate">${product.discount*100}%</div>
+                                                    
+                                        
+                                            <div class="n-dc-rate">${product.discount*100}%</div>                                        
+                                       
                                             <fmt:formatNumber type="number" maxFractionDigits="3" value="${(1-product.discount)*product.price}" var="discountPrice" />
                                             <div class="n-price">${discountPrice}원</div>
                                             <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" var="originalPrice" />
@@ -180,11 +185,10 @@
                                             <div class="n-origin-price">${originalPrice}원</div>
                                         </div>
                                         <div class="n-ico-basket">
-                                            <img src="${contextPath}/resources/images/category/cart.png" alt="장바구니 담기" onclick="">
+                                            <img src="${contextPath}/resources/images/category/cart.png" alt="장바구니 담기" onclick="addCart()">
                                         </div>
                                         <div class="n-review">
-                                            <span class="n-star"> <svg
-										xmlns="http://www.w3.org/2000/svg"
+                                            <span class="n-star"> <svg xmlns="http://www.w3.org/2000/svg"
 										xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
 										height="20" viewBox="0 0 20 20" class="star">
                                   <defs>
@@ -194,7 +198,19 @@
                                   <use xlink:href="#star-full"></use>
                               </svg>
 
-								</span> <span class="n-star-score"></span> <span class="n-reviewCount">(244)</span>
+								</span> 
+								<c:choose>
+								<c:when test="${!empty product.scoreCount }">
+								<span class="n-star-score">${product.scoreAvg}</span> <span class="n-reviewCount">(리뷰 ${product.scoreCount})</span>								
+								</c:when>
+								<c:otherwise>
+								<span class="n-star-score">-</span> <span class="n-reviewCount">(리뷰 0)</span>
+								
+								</c:otherwise>
+								
+								</c:choose>
+							
+                                
                                         </div>
                                         <div class="n-soldout-icon"></div>
                                     </div>
@@ -219,8 +235,8 @@
                         <div id="n-pagination-wrapper">
                             <ul class="n-pagination">
                                 <!-- 첫째, 이전 리모콘 버튼 -->
-                                <li><a class="page-link" href="view?cp=1&cate=${category[0].currentCategoryNo}">&lt;&lt;</a></li>
-                                <li><a class="page-link" href="view?cp=${pagination.prevPage}&cate=${category[0].currentCategoryNo}">&lt;</a></li>
+                                <li><a class="page-link" href="view?cp=1&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">&lt;&lt;</a></li>
+                                <li><a class="page-link" href="view?cp=${pagination.prevPage}&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">&lt;</a></li>
 
 
 
@@ -232,7 +248,7 @@
 
                                         </c:when>
                                         <c:otherwise>
-                                            <li><a class="page-link" href="view?cp=${index}&cate=${category[0].currentCategoryNo}">${index}</a></li>
+                                            <li><a class="page-link" href="view?cp=${index}&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">${index}</a></li>
 
                                         </c:otherwise>
                                     </c:choose>
@@ -243,8 +259,8 @@
 
 
                                 <!-- 다음, 마지막 리모콘 버튼 -->
-                                <li><a class="page-link" href="view?cp=${pagination.nextPage}&cate=${category[0].currentCategoryNo}">&gt;</a></li>
-                                <li><a class="page-link" href="view?cp=${pagination.maxPage}&cate=${category[0].currentCategoryNo}">&gt;&gt;</a></li>
+                                <li><a class="page-link" href="view?cp=${pagination.nextPage}&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">&gt;</a></li>
+                                <li><a class="page-link" href="view?cp=${pagination.maxPage}&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">&gt;&gt;</a></li>
 
                             </ul>
 
@@ -256,4 +272,80 @@
 
 
 
-<jsp:include page="../common/footer_n.jsp"></jsp:include>
+<%-- <jsp:include page="../common/footer_n.jsp"></jsp:include>
+ --%><jsp:include page="../common/r_footer.jsp"></jsp:include>
+
+<script type="text/javascript">
+
+
+function checkLogined(){
+	if("${sessionScope.loginMember.memberNo}"){
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+
+
+
+function showMethod(e){
+	
+document.getElementById('n-sort-ul').style.display="block";
+}
+
+
+
+
+
+
+	function addCart() {
+
+	    if (!checkLogined()) {
+	        alert("로그인 이후에 진행해 주세요");
+	        return;
+	    }
+
+	    const productNo = document.getElementById('n-proNumber').value;
+	    //제품번호 받아오기
+
+
+	    $.ajax({
+
+	        url: "/teamSemiProject2/product/addCart",
+	        method: "POST",
+	        data: {
+	            productNo: productNo,
+	            amount: 1,
+	        },
+
+	        success: function(result) {
+
+	            if (result == 1) {
+
+	                const moveToCart = confirm('상품이 장바구니에 담겼습니다. 이동하시겠습니까?');
+
+	                if (moveToCart) {
+	                    location.href = '/teamSemiProject2/order/view';
+	                }
+
+	            }
+
+
+
+	        },
+
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            console.log("ajax 통신-장바구니담기 중 오류 발생");
+	            console.log(jqXHR.responseText);
+	        }
+
+
+
+	    });
+
+	}
+
+
+</script>
