@@ -75,7 +75,7 @@
 	</style>
 </head>
 <body>
-	<img src="${contextPath}/resources/images/cnh/images/popimg.png" >
+	<img src="${contextPath}/resources/images/cnh/images/popimg.png" style="width:100%; height:100%;">
 		<span id="m_title" >
 		스킨케어 키트 <br>
 		</span>
@@ -87,8 +87,11 @@
 		<a href="${contextPath}/product/productDetail?productNo=82" style="text-decoration:none; color:black;">제품 상세 보기 　　　　　　　　>
 		</a>
 	</div>
-	<input type="checkbox" id="ck"> 
-	<button id="closeWin"  onclick="closeWin(1)">오늘 하루 안보기</button>
+	<input type="checkbox" id="ck" style="right: -40px;
+    position: relative;
+    top: -55px;"> 
+	<button id="closeWin"  onclick="closeWin(1)" style="right: -31px;
+    top: -60px;">오늘 하루 안보기</button>
 
 
   <script>

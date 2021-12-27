@@ -57,15 +57,4 @@
 
     });
 
-    $(".main_container_2_slide_center_image").on(("mouseover"), function () {
-      $(this).parent().hide();
-      $(".main_container_2_slide_center_hover").css("display", "block").css("background", "rgb(248, 202, 202)");
-    });
-
-    setTimeout(function () {
-      $(".main_container_2_slide_center_hover").on("mouseout", function () {
-        $(".main_container_2_slide_center_hover").hide();
-        $(".main_container_2_slide_center").css("display", "block");
-      });
-
-    });
+   

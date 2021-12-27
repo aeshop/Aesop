@@ -37,15 +37,24 @@ public class Member {
    
 
 
-   // 아이디 조회용
-   public Member(String memberEmail, String memberName) {
+   // 아이디 찾기
+   public Member( String memberEmail, String memberName) {
       super();
       this.memberEmail = memberEmail;
       this.memberName = memberName;
    }
+   
+   
+
+   public Member(String memberId, String memberEmail, String memberName) {
+	super();
+	this.memberId = memberId;
+	this.memberEmail = memberEmail;
+	this.memberName = memberName;
+}
 
 
-   // 회원 정보
+// 회원 정보
    public Member(int memberNo, String memberId, String memberEmail, String memberName, String memberBirthday,
          String memberPhone, Date enrollDate, int statusCode, int gradeCode, String memberGradeName,
          Double memberGradeDiscount) {

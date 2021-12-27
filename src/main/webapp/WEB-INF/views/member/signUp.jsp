@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <link rel="stylesheet" href="${contextPath}/resources/css/member/member.css">
 <jsp:include page="../common/r_header.jsp" />
 	<jsp:include page="../common/sidebar_n.jsp" />
@@ -35,7 +37,7 @@
         <div class="signup_input">
           <input id="email" name="email" placeholder="이메일" type="email" autocomplete="off" required>
           <button type="button" id="emailConfirm_btn" onclick="emailConfirm_check();" style= "width:110px; height: 40px; display:none;">이메일 인증</button>
-          <input id="emailConfirm" name="emailConfirm" placeholder="이메일" type="password" autocomplete="off" style= "width:110px; height: 40px; display:none;" required>
+          <input id="emailConfirm" name="emailConfirm" placeholder="이메일 인증번호를 입력해주세요." type="password" autocomplete="off" style= "width:110px; height: 40px; display:none;" required>
           <span id="checkEmail" class="validity-msg"></span>
           <span id="checkEmail2" class="validity-msg"></span>
         </div>
@@ -86,10 +88,20 @@
   </div>
 
 <!-- footer -->
-<script src="${contextPath}/resources/js/member/member.js"></script>
 <jsp:include page="../common/r_footer.jsp" />
+<script src="${contextPath}/resources/js/member/member.js"></script>
 
+<c:if test="${ !empty sessionScope.message }">
+	<script>
+	$(function(){
+		alert("${message}");
+	})
+	</script>
 
+	<%-- message 1회 출력 후 session에서 제거 --%>
+	<c:remove var="message" scope="session" />
+
+</c:if>
 
 </body>
 </html>

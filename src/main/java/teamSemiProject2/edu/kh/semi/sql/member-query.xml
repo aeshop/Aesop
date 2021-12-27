@@ -50,17 +50,20 @@
 
 	<!-- 회원 정보 일치 확인 -->
 	<entry key="memberInfo">
-		select * from member
-		where member_id = ?
-		and member_name = ?
-		and member_email = ?
-		and member_status_no = 101
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_EMAIL,
+		MEMBER_NAME, MEMBER_STATUS_NO
+		FROM MEMBER
+		WHERE MEMBER_NAME = ?
+		AND MEMBER_EMAIL = ?
+		AND MEMBER_STATUS_NO = 101
 	</entry>
 	<!-- 회원 비밀번호 변경 -->
 	<entry key="updatePw">
 		update member set
 		member_pw = ?
 		where member_id = ?
+		AND MEMBER_STATUS_NO = 101
+		
 	</entry>
 
 	
