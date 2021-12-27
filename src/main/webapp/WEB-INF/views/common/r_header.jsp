@@ -95,7 +95,7 @@
 				</ul>
 				<div class="d-flex">
 					<input class="form-control me-sm-2" type="text"
-						placeholder="Search"
+						placeholder="Search" id="searchKeyword"
 						style="border-bottom: 1px solid black; border-radius: 0; background-color: rgba(255, 255, 255, 0.2); font-size: 14px;">
 					<button type="button" class="r-form-control-button">
 						<i class="fas fa-search"></i>
