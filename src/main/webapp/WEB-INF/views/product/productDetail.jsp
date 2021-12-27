@@ -32,7 +32,6 @@
               <span id="originPrice">${formatedPrice}원</span> <!-- 상품금액, originPrice display: none 추가 -->
             
               <div id="discountRate"><fmt:formatNumber value="${product.discount*100}" pattern="#" />%</div> <!-- 할인율 0일경우 #salePrice에 수식 X, discountRate display: none 추가 -->
-            <input id="productStock" type="hidden" value="${product.stock}">
             </div>
             <div id="deliveryFee">
               <span>배송비</span>
@@ -44,7 +43,9 @@
                <span id="shipment">2,500원</span>              
               </c:otherwise>
               </c:choose>
-              
+              <input type="hidden" id="productStock" value="${product.stock}">
+            <div style="text-align:right;margin-top:-20px;">재고 : <span>${product.stock}</span>개</div>            
+
             </div>
             <div>
         <!--       <div id="productSize">

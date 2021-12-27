@@ -128,6 +128,16 @@
    
    </entry>
    
+      <!--  배송번호에 맞는 주문들 조회 -->   
+   <entry key="getOrderDetail">
+   SELECT order_no,o.product_no,order_amount,o.delivery_no,P.product_nm,P.product_price,P.discount, pi.PRODUCT_IMG_PATH,pi.PRODUCT_IMG_NM FROM order_1 o
+   JOIN product P ON(o.product_no = P.product_no)
+   JOIN product_img pi ON (o.product_no = pi.product_no)
+   WHERE pi.PRODUCT_IMG_LEVEL = 0
+   AND o.member_no = ?
+   AND o.delivery_no = ?
+   </entry>
+   
    
    
    

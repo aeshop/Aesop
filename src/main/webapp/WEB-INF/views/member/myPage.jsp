@@ -194,7 +194,7 @@
 				                          </td>
 				                          <td class="order-quantity">${o.orderAmount }</td>
 				                          <td class="order-no">
-				                              <a href="${contextPath}/myPage/orderDetail"> <!-- 주문상세 내역 페이지로 이동-->
+				                              <a href="${contextPath}/myPage/orderDetail?deNo=${o.deliveryNo }"> <!-- 주문상세 내역 페이지로 이동-->
 				                                  ${o.deliveryNo }
 				                              </a>
 				                          </td>

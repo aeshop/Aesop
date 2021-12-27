@@ -4,14 +4,19 @@ import static teamSemiProject2.edu.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import teamSemiProject2.edu.kh.semi.delivery.model.dao.DeliveryDAO;
+import teamSemiProject2.edu.kh.semi.delivery.model.vo.Delivery;
 import teamSemiProject2.edu.kh.semi.member.model.dao.MypageDAO;
 import teamSemiProject2.edu.kh.semi.member.model.vo.AddrList;
+import teamSemiProject2.edu.kh.semi.member.model.vo.Address;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Grade;
 import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 import teamSemiProject2.edu.kh.semi.member.model.vo.OrderList;
 import teamSemiProject2.edu.kh.semi.order.model.dao.OrderDAO;
+import teamSemiProject2.edu.kh.semi.order.model.vo.Order;
 
 public class MypageService {
 	
@@ -246,6 +251,43 @@ public class MypageService {
 		close(conn);
 		
 		return result;
+	}
+
+
+
+	public HashMap<String, Object> getOrderDetail(int memberNo, String deliveryNo) throws Exception{
+		Connection conn = getConnection();
+		
+		 HashMap<String, Object> resultMap = new HashMap<String, Object>();
+				 
+		 //해당 배송번호의 주문들과
+		List<OrderList> oList =	 dao.getOrderDetail(memberNo,deliveryNo,conn);
+		//해당 배송정보(주소 등)을 가져옴
+		Delivery del = new OrderDAO().getDelivery(deliveryNo, memberNo, conn);
+		
+		double sum = 0;
+		
+		for (OrderList orderList : oList) {
+			sum += (1- orderList.getProductDiscount()) * orderList.getProductPrice()*orderList.getOrderAmount();
+		}
+		int ship=0;
+		if(sum<50000) {
+			ship = 2500;
+		}
+		
+		
+		
+		
+		resultMap.put("orderList",oList);
+		resultMap.put("delivery",del);
+		resultMap.put("sum", sum);
+		resultMap.put("ship", ship);
+		
+		
+		close(conn);
+
+		 
+		return resultMap;
 	}
 
 }

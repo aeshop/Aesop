@@ -1,6 +1,7 @@
 package teamSemiProject2.edu.kh.semi.member.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import teamSemiProject2.edu.kh.semi.delivery.model.vo.Delivery;
 import teamSemiProject2.edu.kh.semi.member.model.service.MemberService;
 import teamSemiProject2.edu.kh.semi.member.model.service.MypageService;
 import teamSemiProject2.edu.kh.semi.member.model.vo.AddrList;
@@ -444,16 +446,33 @@ public class MypageController extends HttpServlet{
 			} else if (command.equals("orderDetail")) {
 				if(method.equals("GET")) {
 					try {
-						List<OrderList> orderList = service.selectOrderList(memberNo);
 						
-						session.setAttribute("orderList", orderList);
+						String deliveryNo = req.getParameter("deNo");
 						
-					}catch(Exception e) {
-						e.printStackTrace();
-					}
+					HashMap<String, Object> resultMap =	service.getOrderDetail(loginMember.getMemberNo(),deliveryNo);
+						
+					List<OrderList> oList = (List<OrderList>)(resultMap.get("orderList"));
+					Delivery del = (Delivery) resultMap.get("delivery");
+					
+					Double sum = (Double )resultMap.get("sum");
+					
+					int ship = (Integer)resultMap.get("ship");
+					
+					req.setAttribute("orderList",  oList);
+					req.setAttribute("delivery", del);
+					req.setAttribute("orderCount", oList.size());
+					req.setAttribute("sum", sum);
+					req.setAttribute("ship", ship);
+					
+					
 					path = "/WEB-INF/views/member/orderDetail.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
+					
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+					
 				}
 				
 			}

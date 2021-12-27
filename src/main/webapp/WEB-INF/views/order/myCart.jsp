@@ -80,7 +80,7 @@
 					<td><input type="hidden" value="${index.orderNo}"><input type="checkbox" class="n-order-chk" value="${index.orderNo}"></td>
 					<td><img src="${contextPath}${index.thumnailImgPath}${index.thumnailImgName}" style="margin: 6px 0;" alt="썸네일이미지"></td>
 					<td>
-					<a href="">${index.productName}</a></td>
+					<a href="${contextPath}/product/productDetail?productNo=${index.productNo}">${index.productName}</a></td>
 					<c:set var="price" value="${(1-index.productDiscount) *index.productPrice}"/>
 					
  					

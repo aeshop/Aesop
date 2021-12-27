@@ -21,7 +21,7 @@ function showPrice() {
     const salePrice = (Number)(document.querySelector('#salePrice').innerText.replaceAll(/[,원]/g, ''));
 
 
-    const maxAmount = document.querySelector('#productStock').value;
+    const maxAmount =  (Number)(document.querySelector('#productStock').value);
 
     //가격 변동에 직접적 영향을 미치는 element
     const amount = document.querySelector('#inputAmount');

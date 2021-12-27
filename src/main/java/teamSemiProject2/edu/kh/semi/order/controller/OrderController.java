@@ -312,7 +312,7 @@ public class OrderController extends HttpServlet {
 					
 					String ajaxMsg;
 					if(result>0) {
-						ajaxMsg = "결제 취소 후 취소작업에 성공함";
+						ajaxMsg = "결제 취소";
 
 						System.out.println(ajaxMsg);
 
