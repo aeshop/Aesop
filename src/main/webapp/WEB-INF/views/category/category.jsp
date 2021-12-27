@@ -55,12 +55,12 @@
                                     	<c:choose>
                                     	
                                     	<c:when test="${cCn==cN}">
-                                    <li><a href="view?cp=${pagination.currentPage}&cate=${cate.categoryNo2}&sort_method=${sort_method}" style="font-weight:bold;">${cate.categoryName}</a></li>
+                                    <li><a href="view?cp=1&cate=${cate.categoryNo2}&sort_method=${sort_method}" style="font-weight:bold;">${cate.categoryName}</a></li>
                                     	
                                     	</c:when>
                                     	
                                     	<c:otherwise>
-                                    	<li><a href="view?cp=${pagination.currentPage}&cate=${cate.categoryNo2}&sort_method=${sort_method}">${cate.categoryName}</a></li>
+                                    	<li><a href="view?cp=1&cate=${cate.categoryNo2}&sort_method=${sort_method}">${cate.categoryName}</a></li>
                                     	
                                     	</c:otherwise>
                                     	</c:choose>
@@ -111,12 +111,12 @@
 								
 							<c:choose>
 							<c:when test="${index.categoryNo2==index.currentCategoryNo}">
-							<li><a href="view?cp=${pagination.currentPage}&cate=${index.categoryNo2}&sort_method=${sort_method}" style="font-weight:bold;">${index.categoryName}</a></li>
+							<li><a href="view?cp=1&cate=${index.categoryNo2}&sort_method=${sort_method}" style="font-weight:bold;">${index.categoryName}</a></li>
 							
 							</c:when>
 							
 							<c:otherwise>
-								<li><a href="view?cp=${pagination.currentPage}&cate=${index.categoryNo2}&sort_method=${sort_method}">${index.categoryName}</a></li>							
+								<li><a href="view?cp=1&cate=${index.categoryNo2}&sort_method=${sort_method}">${index.categoryName}</a></li>							
 							</c:otherwise>
 							</c:choose>
 							
