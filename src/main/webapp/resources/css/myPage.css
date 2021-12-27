@@ -24,9 +24,7 @@
 /* content */
 .content{
     /* border: 1px solid black; */
-    box-sizing: border-box;
     width: 1200px;
-    float: left;
     margin: 90px 90px 50px 300px;
 }
 

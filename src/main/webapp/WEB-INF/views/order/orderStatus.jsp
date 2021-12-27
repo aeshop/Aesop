@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
 <jsp:include page="/WEB-INF/views/common/sidebar_n.jsp"/>
@@ -91,7 +91,7 @@
                       </a>
                   </td>
                   <td class="order-product-img">
-                      <img src="${os.productImgPath}">
+                      <img src="${contextPath}${os.productImgPath}${os.productImgNm}">
                   </td>
                   <td>
                       <a href="#" style="text-decoration: none;">
@@ -102,7 +102,7 @@
                   </td>
                   <td>${os.orderAmount }</td>
                   <td class="order-product-price">
-                      <strong> ${os.productPrice } </strong>
+                     <strong> <fmt:formatNumber value="${os.productPrice * os.orderAmount}" groupingUsed="true"/> 원</strong>
                   </td>
                   <td class="order-status">
                       <p> ${os.orderStatusName} </p>

@@ -4,6 +4,7 @@
 
 <!-- Footer -->
 <div class="footer_wrap">
+
 	<div class="footer_wrap_line"></div>
 
 	<div class="footer_item_wrap">

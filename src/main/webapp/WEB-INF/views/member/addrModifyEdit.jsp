@@ -5,7 +5,6 @@
 <jsp:include page="/WEB-INF/views/common/r_header.jsp"/>
 <jsp:include page="/WEB-INF/views/common/sidebar_n.jsp"/>
 
-    <!-------------------------------------------------- 낙희 --------------------------------->
     <!-- main 1페이지 -->
     <!-- content -->
     
@@ -91,9 +90,9 @@
           <div class="addr-register-btn">
               <span>
                    <!-- 등록 버튼 -->
-                  
+                  <a style="cursor:pointer;">
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_register2.gif" id="register">
-                   
+                   </a>
                   
                   <a href="${contextPath}/myPage/addr"> <!-- 취소 버튼 -->
                       <img src="${contextPath}/resources/images/cnh/images/btn_address_cancel.gif">

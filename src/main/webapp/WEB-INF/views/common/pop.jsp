@@ -59,6 +59,19 @@
     right: -33px;
     font-size: 13px;
 	}	
+	
+	#closeWin{
+		    position: relative;
+    right: -180px;
+    bottom: 55px;
+    color: gray;
+    background: none;
+    border: 1px solid gray;
+
+
+	}
+	
+	
 	</style>
 </head>
 <body>
@@ -74,7 +87,35 @@
 		<a href="${contextPath}/product/productDetail?productNo=82" style="text-decoration:none; color:black;">제품 상세 보기 　　　　　　　　>
 		</a>
 	</div>
+	<input type="checkbox" id="ck"> 
+	<button id="closeWin"  onclick="closeWin(1)">오늘 하루 안보기</button>
 
+
+  <script>
+  	/* function closeWin() {
+    	window.close();        
+	} */
+  	
+    //쿠키설정    
+    function setCookie( name, value, expiredays ) {
+	    var todayDate = new Date();
+	    todayDate.setDate( todayDate.getDate() + expiredays );
+	    document.cookie = name + '=' + escape( value ) + '; path=/; expires=' + todayDate.toGMTString() + ';'
+    }
+
+
+    //닫기 버튼 클릭시
+    function closeWin(key) {
+        //if($("#ck").prop("checked"))
+        if(document.getElementById("ck").checked)
+        {
+            setCookie('divpop'+key, 'Y' , 1 );
+        }
+        //$("#divpop"+key+"").hide();
+        window.close();  
+    }
   
+
+  </script>
 </body>
 </html>

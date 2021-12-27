@@ -22,14 +22,19 @@
                     <div id="n-category-hero-banner">
                         <!-- 캐러셀: 안함 -->
 
-                        <a href="#"> <img src="${contextPath}/resources/images/category/categoryBanner.jpg" alt="">
+                        <a href="#"> <img src="${contextPath}/resources/images/category/addproduct1.jpg" alt="">
 
                         </a>
                         <div class="n-wrap">
-                            <div class="n-label">new</div>
+                            <div class="n-label">New</div>
                             <div class="n-title">
-                                up to 40% sale <br>
-                                <strong>아직도 뭘 팔아야되는지 모르겠어오</strong>
+                                <span style="font-size:22px; letter-spacing: -1px;">up to 40% sale</span> <br>
+                                <strong style="letter-spacing: -3px;">시즈널 기프트 키트 </strong><br>
+                                <div style="font-size:13px; font-weight:100;">
+	                                관대함의 표현: 배려하고 보살피는 인물에서 영감을 받은 기프트 키트 컬렉션. <br><br>
+	                                처음 받은 뒤에도 반향을 불러일으키는 선물이 될 수 있도록 <br>
+	                                각 키트는 이솝 재단이 지원하는 다섯 가지 대의 중 하나와 함께합니다.
+                                </div>
                             </div>
                         </div>
 

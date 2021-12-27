@@ -4,8 +4,10 @@ import java.sql.Date;
 
 public class OrderList {
 
+	private int productNo;
 	private Date deliveryDt;
 	private String productImgPath;
+	private String productImgNm;
 	private String productName;
 	private int orderAmount;
 	private String deliveryNo;
@@ -13,6 +15,30 @@ public class OrderList {
 	private String orderStatusName;
 	
 	
+	
+	
+	public int getProductNo() {
+		return productNo;
+	}
+
+
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
+	
+	
+
+
+	public String getProductImgNm() {
+		return productImgNm;
+	}
+
+
+	public void setProductImgNm(String productImgNm) {
+		this.productImgNm = productImgNm;
+	}
+
+
 	public OrderList() {
 	}
 

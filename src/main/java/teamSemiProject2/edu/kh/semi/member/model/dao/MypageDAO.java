@@ -61,8 +61,10 @@ public class MypageDAO {
 			while(rs.next()) {
 				OrderList order = new OrderList();
 				
+				order.setProductNo(rs.getInt("PRODUCT_NO"));
 				order.setDeliveryDt(rs.getDate("DELIVERY_DT"));
 				order.setProductImgPath(rs.getString("PRODUCT_IMG_PATH"));
+				order.setProductImgNm(rs.getString("PRODUCT_IMG_NM"));
 				order.setProductName(rs.getString("PRODUCT_NM"));
 				order.setOrderAmount(rs.getInt("ORDER_AMOUNT"));
 				order.setDeliveryNo(rs.getString("DELIVERY_NO"));
@@ -108,6 +110,7 @@ public class MypageDAO {
 				
 				order.setDeliveryDt(rs.getDate("DELIVERY_DT"));
 				order.setProductImgPath(rs.getString("PRODUCT_IMG_PATH"));
+				order.setProductImgNm(rs.getString("PRODUCT_IMG_NM"));
 				order.setProductName(rs.getString("PRODUCT_NM"));
 				order.setOrderAmount(rs.getInt("ORDER_AMOUNT"));
 				order.setDeliveryNo(rs.getString("DELIVERY_NO"));
@@ -367,6 +370,74 @@ public class MypageDAO {
 
 		}
 
+		return result;
+	}
+
+
+	/** 배송지 등록 DAO
+	 * @param registerAddr
+	 * @param conn
+	 * @return result(1:성공, 0:실패)
+	 * @throws Exception
+	 */
+	public int registerDeliveryAddr(AddrList registerAddr, Connection conn) throws Exception {
+		
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("registerDeliveryAddr");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, registerAddr.getAddrName());
+			pstmt.setString(2, registerAddr.getZipCode());
+			pstmt.setString(3, registerAddr.getAddress1());
+			pstmt.setString(4, registerAddr.getAddress2());
+			pstmt.setInt(5, registerAddr.getMemberNo());
+			pstmt.setString(6, registerAddr.getAddrPhone());
+			pstmt.setString(7, registerAddr.getAddrReceiverName());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
+
+	/** 주문내역 카운트
+	 * @param memberNo
+	 * @param conn
+	 * @return result(1:성공 , 0:실패)
+	 * @throws Exception
+	 */
+	public int selectCountNum(int memberNo, Connection conn) throws Exception{
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("selectCountNum");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memberNo);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+			
+		}
+		
 		return result;
 	}
 
