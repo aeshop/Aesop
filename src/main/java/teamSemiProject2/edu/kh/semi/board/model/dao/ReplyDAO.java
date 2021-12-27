@@ -1,8 +1,6 @@
 package teamSemiProject2.edu.kh.semi.board.model.dao;
 
 import static teamSemiProject2.edu.kh.semi.common.JDBCTemplate.*;
-import static teamSemiProject2.edu.kh.semi.common.JDBCTemplate.*;
-import static teamSemiProject2.edu.kh.semi.common.JDBCTemplate.*;
 
 import java.io.FileInputStream;
 import java.sql.Connection;

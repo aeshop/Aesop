@@ -53,6 +53,9 @@
 	href="${contextPath}/resources/css/myPageBoard.css">
 </head>
 
+<script>
+	const contextPath = "${contextPath}";
+</script>
 <body>
 	<header id="carousel">
 		<!-- Bootstrap Carousel-->
@@ -171,7 +174,7 @@
 	    const keyword = searchBar.value;
 
 
-	    location.href = '/teamSemiProject2/category/search?keyword=' + keyword;
+	    location.href = contextPath + '/category/search?keyword=' + keyword;
 
 
 

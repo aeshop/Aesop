@@ -1,6 +1,7 @@
 package teamSemiProject2.edu.kh.semi.board.model.service;
 
 import static teamSemiProject2.edu.kh.semi.common.JDBCTemplate.*;
+
 import java.sql.Connection;
 import java.util.List;
 

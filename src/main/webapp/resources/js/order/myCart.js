@@ -145,7 +145,7 @@ function amountChanged() {
 
     //ajax 실행
     $.ajax({
-        url: "/teamSemiProject2/order/amountChange",
+        url: contextPath + "/order/amountChange",
         type: "POST",
         data: {
             "orderNo": orderNo,
@@ -183,7 +183,7 @@ function deleteOrder() {
     const deleteConfirm = confirm('선택하신 상품을 삭제하시겠습니까?');
 
     if (deleteConfirm) {
-        location.href = '/teamSemiProject2/order/delete?' + "orderNo=" + orderNo;
+        location.href = contextPath + '/order/delete?' + "orderNo=" + orderNo;
     }
 
 }
@@ -194,7 +194,7 @@ function deleteOrder() {
 
 function doOrder() {
     const orderNo = event.target.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.value;
-    location.href = '/teamSemiProject2/order/orderAll?' + "orderNo=" + orderNo;
+    location.href = contextPath + '/order/orderAll?' + "orderNo=" + orderNo;
 
 }
 
@@ -234,7 +234,7 @@ function deleteSelectedOrder(message) {
     const deleteConfirm = confirm(message);
 
     if (deleteConfirm) {
-        location.href = '/teamSemiProject2/order/deleteAll?' + deleteQueryString;
+        location.href = contextPath + '/order/deleteAll?' + deleteQueryString;
     }
 
 }
@@ -278,7 +278,7 @@ function orderSelectedProduct() {
         return;
     }
 
-    location.href = '/teamSemiProject2/order/orderAll?' + orderQueryString;
+    location.href = contextPath + '/order/orderAll?' + orderQueryString;
 
 }
 
