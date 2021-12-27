@@ -101,7 +101,6 @@ $("#pwd1").on("input", function(){
 // 이메일 유효성 검사
 document.getElementById("email").addEventListener("input", function() {
 	const inputEmail = document.getElementById("email").value;
-	const inputEmailConfirm = document.getElementById("emailConfirm").value;
 	const regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
 	const checkEmail = document.getElementById("checkEmail");
 
@@ -191,7 +190,6 @@ function emailConfirm_check() {
 	$("#name").on("input", function(){
 	const inputName = $("#name").val();
 	const regExp = /^[가-힣]{2,7}$/;
-	const checkName = document.getElementById("checkName");
 
 	if (inputName.length == 0) {
 		$("#checkName").text("");

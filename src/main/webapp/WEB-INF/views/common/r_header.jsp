@@ -25,6 +25,7 @@
 <!-- 외부 font -->
 <link href='https://fonts.googleapis.com/css?family=Playfair+Display'
    rel='stylesheet' type='text/css'>
+   
 
 <!-- swiper CSS -->
 <!-- 널디에서 사용하길래 사용해봅니다. (오토슬라이드 기능) -->
