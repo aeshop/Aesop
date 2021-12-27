@@ -29,7 +29,7 @@
 		<ul id="n-shipping" >
 			<li> 주문 상세 내역
 			</li>
-			<li> 주문 번호 : <span> <!-- 여기다가 해당 주문 번호 입력 --></span> 
+			<li> 주문 번호 : <span> ${delivery.deliveryNo}</span> 
 			</li>
 		</ul>
 	</div>
@@ -39,20 +39,14 @@
                       <col style="width: 120px;">
                       <col style="width: 1080px;">
                   </colgroup>
-                  <tr>
-                      <th>
-                          배송지명
-                      </th>
-                      <td>
-                          <!--  해당 주문내역에 등록된 배송지명 불러오기 -->
-                      </td>
-                  </tr>
+               
                   <tr>
                       <th>
                           성명
                       </th>
                       <td>
                          <!-- 해당 주문내역에 등록된 수령인 이름 불러오기 -->
+                           ${delivery.receiverName}
                       </td>
                   </tr>
                   <tr>
@@ -61,6 +55,9 @@
                       </th>
                       <td>
                           <!-- 해당 주문내역에 등록된 배송지 주소 불러오기 -->
+                          ${delivery.zipCode}<br>
+                          ${delivery.address1}<br>
+                          ${delivery.address2}
                       </td>
                   </tr>
                   <tr>
@@ -69,6 +66,7 @@
                       </th>
                       <td>
                           <!--  해당 주문내역에 등록된 배송 폰번호 불러오기 (멤버 폰번호가 아님)-->
+                          ${delivery.receiverPhone}
                       </td>
                   </tr>
               </table>
@@ -92,28 +90,46 @@
 			<tbody>
 				
 				<%--DB에서 정보 받아와서 화면에 뿌리기 hidden으로 주문번호 checkbox 앞에 숨겨둠 parentNode firstChild로 접근가능  --%>
-					<tr>
-						<td><img src="" style="margin: 6px 0;" alt="썸네일이미지"></td> <!-- src태그 안에다가 이미지 경로 넣기 -->
-						<td><a href=""></a></td>
+					
+					<c:forEach items="${orderList}" var="i" varStatus="vs">
+					
+					
+					
+						<tr>
+						<td><img src="${contextPath}${i.productImgPath}${i.productImgNm}" style="margin: 6px 0;" alt="썸네일이미지"></td> <!-- src태그 안에다가 이미지 경로 넣기 -->
+						<td><a href="${contextPath}/product/productDetail?productNo=${i.productNo}"></a>${i.productName}</td>
 					<c:set var="price" value=""/>
 					
  					
- 					<td class="proPrice" width="100px;"><fmt:formatNumber value="" maxFractionDigits="3"/> <!-- 상품 정가 넣기 -->  원</td>
+ 					<td class="proPrice" width="100px;"><fmt:formatNumber value="${(1-i.productDiscount)*i.productPrice}" maxFractionDigits="3"/> <!-- 상품 정가 넣기 -->  원</td>
 
 					<td> <!-- 수량 -->
 						<span>
 						 	<span class="n-qty-change"> 
-						 		<!--  수량 입력 --> 개
+						 		<!--  수량 입력 --> ${i.orderAmount}개
 								<input type="hidden" value =""> <!-- 이건 왜있는지 모르겠어요 (정보얻어오려고 있는 것 같아서 둡니다) -->
 							</span>
 						</span>
 					</td>
 					
-						<td width="100px;" rowspan="${orderCount}"><span class="n-shipCal"></span>원</td>		 <!-- 배송비 -->			
+						<td width="100px;" rowspan="${orderCount}"><span class="n-shipCal">${ship}</span>원</td>		 <!-- 배송비 -->			
 
-						<td ><span class="orderPrice"></span>원</td> <!-- 할인금액 -->
-						<td ><span class="orderPrice"></span>원</td> <!--  합계  -->
+						<td ><span></span>원</td> <!-- 할인금액 -->
+						<td ><span></span>원</td> <!--  합계  -->
 				</tr>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					</c:forEach>
+					
+				
 				
 				
 			</tbody>

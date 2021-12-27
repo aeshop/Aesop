@@ -2,8 +2,13 @@ package teamSemiProject2.edu.kh.semi.member.model.vo;
 
 import java.sql.Date;
 
+/**
+ * @author nyr
+ *
+ */
 public class OrderList {
 
+	private int orderNo;
 	private int productNo;
 	private Date deliveryDt;
 	private String productImgPath;
@@ -12,11 +17,24 @@ public class OrderList {
 	private int orderAmount;
 	private String deliveryNo;
 	private int productPrice;
+	private double productDiscount;
 	private String orderStatusName;
 	
 	
 	
 	
+	
+	
+	public int getOrderNo() {
+		return orderNo;
+	}
+
+
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+
+
 	public int getProductNo() {
 		return productNo;
 	}
@@ -137,6 +155,16 @@ public class OrderList {
 	}
 
 
+	
+
+	public double getProductDiscount() {
+		return productDiscount;
+	}
+
+
+	public void setProductDiscount(double productDiscount) {
+		this.productDiscount = productDiscount;
+	}
 
 
 	@Override
