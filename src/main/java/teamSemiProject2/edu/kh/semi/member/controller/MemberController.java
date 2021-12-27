@@ -88,14 +88,16 @@ public class MemberController extends HttpServlet {
 							session.setAttribute("loginMember", loginMember);
 							session.setMaxInactiveInterval(3000);
 
-							resp.sendRedirect(req.getContextPath());
 						} else { // 탈퇴회원 로그인
 							session.setAttribute("message", "탈퇴한 회원입니다.");
+							
 						}
 
 					} else { // 로그인 실패
 						session.setAttribute("message", "아이디 또는 비밀번호를 확인해주세요.");
+
 					}
+					resp.sendRedirect(req.getContextPath());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -158,11 +160,11 @@ public class MemberController extends HttpServlet {
 						message = "회원가입에 성공하셨습니다.";
 						
 						session.setAttribute("message", message);
-						resp.sendRedirect(req.getContextPath());
 					} else {
 						session.setAttribute("message", "회원가입에 실패하셨습니다.");
 
 					}
+					resp.sendRedirect(req.getContextPath());
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -321,12 +323,12 @@ public class MemberController extends HttpServlet {
 						req.setAttribute("id", memberId);
 						session.setAttribute("memberId", memberId);
 
-						resp.sendRedirect(req.getContextPath());
 					} else {
 						message = "회원정보를 다시 한번 확인해주세요.";
 						session.setAttribute("message", message);
 					}
 
+					resp.sendRedirect(req.getContextPath());
 				} catch (Exception e) {
 					e.printStackTrace();
 
@@ -397,13 +399,13 @@ public class MemberController extends HttpServlet {
 					if (result > 0) {
 						
 						message = "비밀번호가 수정되었습니다.";
-						resp.sendRedirect(req.getContextPath());
 					} else {
 						
 						message = "비밀번호 수정에 실패하셨습니다.";
 						path = "updatePw";
 					}
 					req.getSession().setAttribute("message", message);
+					resp.sendRedirect(req.getContextPath());
 
 				} catch (Exception e) {
 					e.printStackTrace();
