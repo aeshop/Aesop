@@ -284,8 +284,22 @@ public class OrderController extends HttpServlet {
 						int result=service.completeDelOrder(del,orderNoIntArr);
 						
 					}else {
+						//검증 불일치 시 자동환불처리 등을 진행할 수 있다는데 거기까지는 못했고
+						//그냥 수량조절, 거래파기 까지만 
 						System.out.println("불일치");
-						throw new Exception("아임포트 값과 서버 값이 서로 다름");
+
+						String [] orderNoArr = req.getParameterValues("orderNoList[]");
+						String deliveryNo = req.getParameter("merchant_uid");
+						
+						
+						
+						int result = service.payCancel(orderNoArr,deliveryNo);
+						
+						
+						
+					
+					
+					
 					}
 					
 					
