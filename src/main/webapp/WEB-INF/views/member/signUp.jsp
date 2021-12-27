@@ -36,7 +36,8 @@
         
         <div class="signup_input">
           <input id="email" name="email" placeholder="이메일" type="email" autocomplete="off" required>
-          <button type="button" id="emailConfirm_btn" onclick="emailConfirm_check();" style= "width:110px; height: 40px; display:none;">이메일 인증</button>
+          <button type="button" id="emailConfirm_btn" onclick="emailConfirm_check();" style= "width:110px; height: 40px; display:none; 
+          background-color: rgb(146 26 255); color:#fff; font-weight:bold;">이메일 인증</button>
           <input id="emailConfirm" name="emailConfirm" placeholder="이메일 인증번호를 입력해주세요." type="password" autocomplete="off" style= "width:110px; height: 40px; display:none;" required>
           <span id="checkEmail" class="validity-msg"></span>
           <span id="checkEmail2" class="validity-msg"></span>
