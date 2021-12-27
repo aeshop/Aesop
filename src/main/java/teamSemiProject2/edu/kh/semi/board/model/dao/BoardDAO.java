@@ -285,13 +285,17 @@ public class BoardDAO {
 		List<Board> board = new ArrayList<Board>();
 
 		try {
-			String sql = prop.getProperty("searchBoardList") + condition + " ORDER BY BOARD_NO DESC) A)";
-
+			String sql = prop.getProperty("searchBoardList") + condition +" ORDER BY BOARD_NO DESC) A)" +" WHERE RNUM BETWEEN ? AND ?" ;
+			
+			int startRow = (pagination.getCurrentPage() - 1) * pagination.getLimit() + 1;
+			int endRow = startRow + pagination.getLimit() - 1;
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, code);
 			pstmt.setString(2, search);
+			pstmt.setInt(3,startRow);
+			pstmt.setInt(4,endRow);
 			rs = pstmt.executeQuery();
-
+			
 			int count = pagination.getListCount() - (pagination.getCurrentPage() - 1) * pagination.getLimit();
 			while (rs.next()) {
 				Board board2 = new Board();
