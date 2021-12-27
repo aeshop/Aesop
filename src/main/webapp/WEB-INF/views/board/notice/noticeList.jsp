@@ -107,7 +107,7 @@
 								<option value="board_content">내용</option>
 								<option value="member_name">글쓴이</option>
 							</select> <input id="button" name="search" class="inputTypeText tSBKF" placeholder=""
-								value="" type="text">
+								value="${param.search}" type="text">
 							<button class="tSBKF">찾기</button>
 
 						</fieldset>
