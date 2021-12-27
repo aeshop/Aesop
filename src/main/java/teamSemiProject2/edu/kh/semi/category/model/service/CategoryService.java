@@ -54,6 +54,24 @@ public class CategoryService {
 		close(conn);
 		return pagination;
 	}
+	
+	
+
+	public Pagination getPagination(int cp, int categoryNo, String keyword) throws Exception{
+		conn = getConnection();
+
+		int productCount = dao.getPageCount(categoryNo,conn,keyword);
+		
+		Pagination pagination = new Pagination(productCount, cp);
+		
+		
+		
+		close(conn);
+		return pagination;
+	}
+	
+	
+	
 
 	public List<Product> getProduct(Pagination pagination,int categoryNo) throws Exception {
 		conn = getConnection();
@@ -96,6 +114,33 @@ public class CategoryService {
 
 		return pList;
 	}
+
+
+
+	public List<Product> searchKeyword(Pagination pagination,int categoryNo,int sortMethod,String keyword) throws Exception {
+		conn = getConnection();
+		
+		List<Product> pList = dao.searchKeyword(pagination,categoryNo,sortMethod,keyword,conn);
+		
+		
+		
+		//제품이 가진 이미지 경로정보를 제품 클래스에 추가
+		for (Product product : pList) {
+			List<ProductImage> imgList = dao.getProductImageList(product.getProductNo(),conn);
+			
+			product.setImgList(imgList);
+		}
+		
+		
+		
+		close(conn);
+		
+		
+		return pList;
+	}
+
+
+
 
 
 

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -86,10 +87,12 @@
  					<td class="proPrice" width="100px;"><fmt:formatNumber value="${price}" maxFractionDigits="3"/>원</td>
 
 					<td><span> <span class="n-qty-change"> 
+
 					<input type="text" class="n-qty-no proAmount" value="${index.orderAmount}">
 					<input type="hidden" value ="${index.productStock}"> 
 					<a onclick="amountUp(this)"><img src="${contextPath}/resources/images/order/btn_quantity_up.gif"alt="수량Up버튼"></a>
 				    <a onclick="amountDown(this)"><img src="${contextPath}/resources/images/order/btn_quantity_down.gif"alt="수량Down버튼"></a>
+
 						</span></span></td>
 					
 					<c:if test="${vs.count eq 1}">
@@ -167,3 +170,4 @@
 
 <jsp:include page="../common/r_footer.jsp" />
 <script type="text/javascript" src="${contextPath}/resources/js/order/myCart.js"></script>
+

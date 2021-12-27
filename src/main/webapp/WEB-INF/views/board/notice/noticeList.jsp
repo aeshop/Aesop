@@ -8,6 +8,7 @@
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<jsp:include page="../../common/r_header.jsp" />
+			<jsp:include page="../../common/sidebar_n.jsp" />
 			<link rel="stylesheet" href="${contextPath}/resources/css/board.css">
 			<title>하이</title>
 		</head>

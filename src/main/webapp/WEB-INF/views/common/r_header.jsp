@@ -1,38 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="contextPath"
-	value="${pageContext.servletContext.contextPath}" scope="application" />
+   value="${pageContext.servletContext.contextPath}" scope="application" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>aesop</title>
 <!-- 공용 CSS -->
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/common/r_common.css">
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/productDetail.css">
+
+<link rel="stylesheet"   href="${contextPath}/resources/css/common/r_common.css">
+<link rel="stylesheet"   href="${contextPath}/resources/css/productDetail.css">
+
 
 
 <!-- bootstrap -->
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
+   href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+   rel="stylesheet"
+   crossorigin="anonymous">
 
 <!-- 외부 font -->
 <link href='https://fonts.googleapis.com/css?family=Playfair+Display'
-	rel='stylesheet' type='text/css'>
+   rel='stylesheet' type='text/css'>
+   
 
 <!-- swiper CSS -->
 <!-- 널디에서 사용하길래 사용해봅니다. (오토슬라이드 기능) -->
 <link rel="stylesheet"
-	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+   href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
 
 
 <link rel="stylesheet" href="${contextPath}/resources/css/myPage.css">
@@ -122,7 +123,61 @@
 						<i class="fas fa-shopping-cart"></i>
 					</button>
 
+
 				</div>
 			</div>
 		</div>
+
 	</nav>
+	
+	<script type="text/javascript">
+	
+	
+		
+		document.addEventListener('keyDown', function(e){
+		    const searchBar = document.querySelector('#searchKeyword');
+		    console.log(event);
+		    
+		    if(searchBar.focus&&e.keyCode==13){
+		   
+		    	
+		    	 if ((searchBar.value.trim().length == 0)) {
+		 	        alert('검색어를 입력해 주세요.');
+		 	        searchBar.focus();
+		 	        return;
+		 	    } else {
+		 	    	search();
+		 	    }
+		    	 
+		    	
+		    }
+		    
+		   
+		});
+		
+	
+	
+	
+	
+	function search() {
+	    const searchBar = document.querySelector('#searchKeyword');
+	    //클래스로 입력창 내용을 받아옴
+
+	    if (searchBar.value.trim().length == 0) {
+	        alert('검색어를 입력해 주세요.');
+	        return;
+	    }
+
+	    const keyword = searchBar.value;
+
+
+	    location.href = '/teamSemiProject2/category/search?keyword=' + keyword;
+
+
+
+	}
+	
+	
+	
+	</script>
+

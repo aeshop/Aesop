@@ -87,7 +87,7 @@ public class MemberService {
 		Connection conn = getConnection();
 		Member member = dao.memberInfo(memberId, memberName, memberEmail, conn);
 		close(conn);
-		return null;
+		return member;
 	}
 
 

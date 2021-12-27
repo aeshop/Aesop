@@ -21,22 +21,21 @@ function showPrice() {
     const salePrice = (Number)(document.querySelector('#salePrice').innerText.replaceAll(/[,원]/g, ''));
 
 
-
+    const maxAmount = document.querySelector('#productStock').value;
 
     //가격 변동에 직접적 영향을 미치는 element
     const amount = document.querySelector('#inputAmount');
 
 
-    if (amount.value == 0) {
+    if ((Number)(amount.value) == 0) {
         alert('0 이하로 수량을 내릴 수 없습니다.');
         amount.value = 1;
         return;
     }
-    if (amount.value > document.querySelector('#productStock').value) {
+    if ((Number)(amount.value) > maxAmount) {
         alert('재고 이상으로 수량을 올릴 수 없습니다.');
-        amount.value = 1;
-        showPrice();
-        return;
+        amount.value = maxAmount;
+
     }
 
     //가격에 따라 가변적인 엘리먼트
@@ -82,7 +81,10 @@ buyNow는? 주문번호를 받아오고 insert하고 그 목록만 가지고 와
 */
 function addCart() {
 
-    console.log("addCart");
+    if (!checkLogined()) {
+        alert("로그인 이후에 진행해 주세요");
+        return;
+    }
 
     const productNo = document.getElementById('n-proNumber').value;
     //제품번호 받아오기
@@ -127,6 +129,11 @@ function addCart() {
 
 
 function buyNow() {
+
+    if (!checkLogined()) {
+        alert("로그인 이후에 진행해 주세요");
+        return;
+    }
 
     const productNo = document.getElementById('n-proNumber').value;
     //제품번호 받아오기

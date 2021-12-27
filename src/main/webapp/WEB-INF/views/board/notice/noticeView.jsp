@@ -7,6 +7,7 @@
 		<head>
 			<meta charset="UTF-8">
 			<jsp:include page="../../common/r_header.jsp" />
+			<jsp:include page="../../common/sidebar_n.jsp" />
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<title></title>
 
@@ -17,7 +18,7 @@
 			<div id="contents">
 			
 				<!-- 글 내용-->
-				<form id="BoardDelForm" name="" action="" method="post" target="_self">
+				
 					<div class="ec-base-table typeWrite">
 						<table id="mcBorder" summary="">
 
@@ -59,31 +60,30 @@
 								</tr>
 								<tr>
 									<td colspan="2" id="mcBorder">
-
-										<div class="detail">
-											<div class="fr-view fr-view-article zeta">
+										<c:if test="${not empty img}">
+											<img style="width: 20%;" src="${contextPath}${img}"/>
+										
+										</c:if>
 												<c:if test="${param.c eq '803'}">
-
 													<img style="width: 20%;" alt="관리자"
-														src="${contextPath}/resources/images/board/관리자.jpg">
+													src="${contextPath}/resources/images/board/관리자.jpg">
 												</c:if>
-												
-												<img style="width: 20%;" alt=""
-														src="${contextPath}${img}"> (여기에 상품 이미지 나옴 ㅇ.ㅇ)
 												<p>${board.boardContent}</p>
-											</div>
-										</div>
+											
 									</td>
 								</tr>
-								<tr class="attach displaynone" id="mcBorder">
+								<tr class="attach" id="mcBorder">
 									<th scope="row" id="mcBorder">첨부파일</th>
 									<td id="mcBorder"></td>
 								</tr>
-								<tr class="displaynone " id="mcBorder">
+								<tr id="mcBorder">
+									<c:if test="${loginMember.memberNo eq board.memberNo}">
 									
 									<td id="mcBorder" colspan="2" >
-											<button class="tSBKF nodragon" onclick="deleteBoard(no1);" >게시글 삭제</button>
+										<button class="tSBKF nodragon" onclick="deleteBoard(no1);" >게시글 삭제</button>
+										<button class="tSBKF nodragon" onclick="updateBoard();" >게시글 수정</button>
 									</td>
+									</c:if>
 
 
 								</tr>
@@ -104,6 +104,14 @@
 						</div>
 					</div>
 
+				
+
+				<form action="#" method="POST" name="requestForm">
+					<input type="hidden" name="cp" value="${param.cp }"> 
+					<input type="hidden" name="no"
+						value="${param.no }">
+						<input type="hidden" name="c"
+						value="${param.c }">
 				</form>
 					<script>
 						const boardNo = ${board.boardNo};
@@ -115,10 +123,7 @@
 				<script src="${contextPath}/resources/js/board/boardView.js"></script>
 
 
-				<form action="#" method="POST" name="requestForm">
-					<input type="hidden" name="cp" value="${param.cp }"> <input type="hidden" name="no"
-						value="${param.no }">
-				</form>
+	
 			</div>
 		</body>
 

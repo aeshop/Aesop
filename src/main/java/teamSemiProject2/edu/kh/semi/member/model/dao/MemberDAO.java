@@ -13,7 +13,6 @@ import teamSemiProject2.edu.kh.semi.member.model.vo.Member;
 
 public class MemberDAO {
 
-   private Statement stmt;
    private PreparedStatement pstmt;
    private ResultSet rs;
    private Properties prop;
@@ -236,6 +235,3 @@ public class MemberDAO {
 
 
 }
-
-
-

@@ -1,24 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${contextPath}/resources/css/member/member.css">
 <jsp:include page="../common/r_header.jsp" />
+	<jsp:include page="../common/sidebar_n.jsp" />
 
 <div class="signup_wrap">
 
-	<jsp:include page="../common/sidebar_n.jsp" />
     <form class="signup_form" method="post" name="signUpForm" action="${contextPath}/member/signup" onsubmit="return Validate();">
       <h2>회원가입</h2>
       <div class="join_step">
         <span class="join_active"></span>
         <span></span>
       </div>
+      
       <div class="titleStep">
         <span style="border-bottom: 1px solid #000;">Step 1</span>
-      </div>
-      <div style="border: 1px solid black; height: 48px;">
-        인증 가능한걸로 해볼게요
-      </div>
-      <div class="titleStep">
-        <span style="border-bottom: 1px solid #000;">Step 2</span>
       </div>
       <div class="input_wrap">
       
@@ -48,7 +43,7 @@
 
       <div class="input_wrap2">
         <div class="signup_input">
-          <input id="name" name="name" type="text" style="background-color: rgb(238 238 238);" required>
+          <input id="name" name="name" type="text" placeholder="이름" required>
           <span id="checkName" class="validity-msg"></span>
         </div>
         <div class="signup_input">

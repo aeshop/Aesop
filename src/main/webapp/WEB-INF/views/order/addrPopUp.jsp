@@ -44,8 +44,8 @@
                         <div id="addr-list">
                             <table>
                                 <tr id="addr-thead">
-                                    <th><input type="checkbox" id="addr-chk"></th>
                                     <th>배송지명</th>
+                                    <th>우편번호</th>
                                     <th>수령인</th>
                                     <th>휴대전화</th>
                                     <th>주소</th>
@@ -55,20 +55,19 @@
                                 
                                 <c:forEach items="${addrList}" var="addr" varStatus="vs">
                                 
-                                <tr class="addr-list-content">
-                                    <td><input type="checkbox" class="addr-chk-items"></td>
+                                <tr class="addr-list-content-${vs.index}">
                                     <td>
-                                    <c:if test="${addr.isDefault=='Y'}">
+                                   <span>${addr.addressName}</span>
+                                     <c:if test="${addr.isDefault=='Y'}">
                                     <span style="color:white;background-color:skyblue;padding:5px;">기본</span>                                    
-                                    </c:if>
-                                    ${addr.addressName}                                    
-                                    </td>
-                                    <td>${addr.receiverName}</td>
-                                    <td>${addr.addrPhone}</td>
-                                    <td class="addressName">${addr.address1} ${addr.address2}</td>
+                                    </c:if>                                   
+                                    </td>                                    
+                                    <td><span>${addr.zipCode}</span></td>
+                                    <td><span>${addr.receiverName}</span></td>
+                                    <td><span>${addr.addrPhone}</span></td>
+                                    <td class="addressName"><span>${addr.address1}</span> <span>${addr.address2}</span></td>
                                     <td>
-                                        <img src="/teamSemiProject2/resources/images/order/btn_address_apply.gif" alt="적용이미지"> <br>
-                                        <img src="/teamSemiProject2/resources/images/order/btn_address_modify.gif" alt="수정이미지">
+                                        <img src="/teamSemiProject2/resources/images/order/btn_address_apply.gif" alt="적용이미지" onclick="setParentAddress(event)">
                                     </td>
                                 </tr>
                                 
@@ -87,6 +86,8 @@
 
 
                     </div>
+
+<script type="text/javascript" src="${contextPath}/resources/js/order/applyAddr.js"></script>
 
 
                 </body>
