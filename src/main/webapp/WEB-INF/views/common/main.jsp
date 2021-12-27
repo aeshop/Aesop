@@ -102,16 +102,6 @@
 							<img
 								src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnJ257V3Wci6Nk7HmCAnMWyS2s_CgvcsljiQ&usqp=CAU" />
 						</div>
-						<button class="carousel-control-prev" type="button"
-							data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Previous</span>
-						</button>
-						<button class="carousel-control-next" type="button"
-							data-bs-target="#carouselExampleDark" data-bs-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Next</span>
-						</button>
 					</div>
 
 				</div>
@@ -121,8 +111,7 @@
 
 				<div class="main_container_2_slide_left_desc">
 				<br><br>
-					<h4>ㅂㅈㄷㅂㅈㄷㅂㅈ</h4>
-					<p>ㅈㅂㄷㅈㅂㄷㅂㄷㅂㅈㄷㄷ</p>
+					<h4>이솝</h4>
 				</div>
 			</div>
 
