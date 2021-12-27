@@ -8,7 +8,12 @@
 	<entry key="getPageCount">
 		SELECT count(*) FROM PRODUCT WHERE PRODUCT_CATEGORY BETWEEN ? AND ?
 	</entry>
-	<entry key="getProduct">
+	<entry key="getPageCount_search">
+		SELECT count(*) FROM PRODUCT WHERE PRODUCT_CATEGORY BETWEEN ? AND ?
+		AND PRODUCT_NM LIKE '%'||?||'%'
+	</entry>
+	
+<!-- 	<entry key="getProduct">
 	SELECT * FROM
 		(
 		SELECT ROWNUM rnum ,A.*
@@ -19,46 +24,82 @@
         WHERE c.category_no2 BETWEEN ? AND ?
 		ORDER BY p.pro_status_no,p.product_no DESC) A)
 		WHERE rnum BETWEEN ? AND ?
+	</entry> -->
+	
+	<entry key="getProduct">
+	SELECT * FROM
+	(
+	SELECT ROWNUM rnum ,A.*
+	FROM(      
+	SELECT p.* , c.category_nm, v1.avg, v1.cnt
+	FROM product p
+	JOIN product_category c ON(p.product_category = c.category_no2)
+	LEFT JOIN v_test1 v1 ON( p.product_no = v1.product_no)
+	WHERE c.category_no2 BETWEEN ? AND ?	
 	</entry>
 	
-	<entry key="getProduct22">
-	SELECT B.* FROM
-        (SELECT ROWNUM rnum,A.* FROM  (
-			SELECT product_no,product_nm, product_price,discount,stock,product_category,pro_status_no,category_nm, AVG(product_score), COUNT(product_score)
-			FROM(
-				SELECT p.* , c.category_nm, NVL(b.product_score,0) product_score
-				FROM product p
-				JOIN product_category c ON(p.product_category = c.category_no2)
-       			LEFT JOIN board b ON(p.product_no = b.board_no)
-        		WHERE c.category_no2 BETWEEN 300 AND 399
-			ORDER BY p.pro_status_no,p.product_no DESC)
-        GROUP BY product_no,product_nm,product_price,discount,stock,product_category,pro_status_no,category_nm)A)B
-        WHERE rnum  BETWEEN 1 AND 10	
-	</entry>
+	<!-- 
+	
+	각 제품의 정보 조회에 쓰이는 뷰
+	SELECT p.* , c.category_nm, v1.avg, v1.cnt
+FROM product p
+jOIN product_category c ON(p.product_category = c.category_no2)
+left join v_test1 v1 on( p.product_no = v1.product_no);
+	
+	 -->
 	
 	
 	
-		<!--  		
- order by 8, 2 desc; : 최신순 정렬
- order by 8, 3 asc; : 가나다순 정렬
- order by 8, 4 asc; : 낮은가격순 정렬 - 계산된 걸로 해야함
- order by 8, 4 desc; : 높은가격순 정렬 - 계산된 걸로 해야함
+		<!--  	
+			
+		 order by 8, 2 desc; : 최신순 정렬
+		 order by 8, 3 asc; : 가나다순 정렬
+		 order by 8, 4 asc; : 낮은가격순 정렬 - 계산된 걸로 해야함
+		 order by 8, 4 desc; : 높은가격순 정렬 - 계산된 걸로 해야함
+ 
 		-->
+		
 	<entry key="sortMethod1">
-		ORDER BY 8, 2 DESC
-	</entry>
+	ORDER BY p.pro_status_no,p.product_no DESC
+     ) A)
+     WHERE rnum BETWEEN ? AND ?</entry>
 	<entry key="sortMethod2">
-		ORDER BY 8, 3 ASC
-	</entry>
+	ORDER BY p.pro_status_no,p.product_nm ASC
+     ) A)
+	WHERE rnum BETWEEN ? AND ?</entry>
 	<entry key="sortMethod3">
-		ORDER BY 8 ASC, PRODUCT_PRICE * (1-DISCOUNT) ASC
+	ORDER BY p.pro_status_no,p.PRODUCT_PRICE * (1-p.DISCOUNT) ASC
+ 	) A)
+	WHERE rnum BETWEEN ? AND ?
 	</entry>
 	<entry key="sortMethod4">
- 		ORDER BY 8 ASC, PRODUCT_PRICE * (1-DISCOUNT) DESC
- 	</entry>
+	ORDER BY p.pro_status_no,p.PRODUCT_PRICE * (1-p.DISCOUNT) DESC
+     ) A)
+	WHERE rnum BETWEEN ? AND ?
+	</entry>
 	<entry key="getProductImageList">
 		SELECT * FROM PRODUCT_IMG WHERE PRODUCT_NO=?
 	</entry>
+
+
+
+	<entry key="searchKeyword">
+	SELECT * FROM
+	(
+	SELECT ROWNUM rnum ,A.*
+	FROM(      
+	SELECT p.* , c.category_nm, v1.avg, v1.cnt
+	FROM product p
+	JOIN product_category c ON(p.product_category = c.category_no2)
+	LEFT JOIN v_test1 v1 ON( p.product_no = v1.product_no)
+	WHERE c.category_no2 BETWEEN ? AND ?
+    AND p.product_nm LIKE '%'||?||'%'
+	</entry>
+
+
+
+
+
 
 
 </properties>

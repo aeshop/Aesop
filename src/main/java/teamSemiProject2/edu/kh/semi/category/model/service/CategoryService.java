@@ -54,6 +54,24 @@ public class CategoryService {
 		close(conn);
 		return pagination;
 	}
+	
+	
+
+	public Pagination getPagination(int cp, int categoryNo, String keyword) throws Exception{
+		conn = getConnection();
+
+		int productCount = dao.getPageCount(categoryNo,conn,keyword);
+		
+		Pagination pagination = new Pagination(productCount, cp);
+		
+		
+		
+		close(conn);
+		return pagination;
+	}
+	
+	
+	
 
 	public List<Product> getProduct(Pagination pagination,int categoryNo) throws Exception {
 		conn = getConnection();
@@ -99,10 +117,10 @@ public class CategoryService {
 
 
 
-	public List<Product> searchKeyword(String keyword) throws Exception {
+	public List<Product> searchKeyword(Pagination pagination,int categoryNo,int sortMethod,String keyword) throws Exception {
 		conn = getConnection();
 		
-		List<Product> pList = dao.searchKeyword(keyword,conn);
+		List<Product> pList = dao.searchKeyword(pagination,categoryNo,sortMethod,keyword,conn);
 		
 		
 		
@@ -120,6 +138,9 @@ public class CategoryService {
 		
 		return pList;
 	}
+
+
+
 
 
 

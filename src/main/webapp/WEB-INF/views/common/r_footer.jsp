@@ -222,6 +222,43 @@
 
 <script src="${contextPath}/resources/js/member/member.js"></script>
 
+
+
+
+
+<script>
+
+
+
+window.addEventListener('keydown',function(){
+	 const searchBar = document.querySelector('#searchKeyword');
+	 
+	    if((document.activeElement===searchBar)&&event.keyCode==13){	   
+	    	
+	    	 if ((searchBar.value.trim().length == 0)) {
+	 	        alert('검색어를 입력해 주세요.');
+	 	        searchBar.focus();
+	 	        return;
+	 	    } else {
+	 	    	search();
+	 	    }
+	    	 
+	    	
+	    }
+});
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
  <c:if test="${!empty memberId}">
   	<script>
   	$(function(){

@@ -220,6 +220,52 @@ public class CategoryDAO {
 	}
 	
 	
+	public int getPageCount(int categoryNo, Connection conn, String keyword) throws Exception {
+		int result = 0;
+		try {//상품 카테고리에 따라 동적으로 검색이 변해야 한다
+			String sql = prop.getProperty("getPageCount_search");
+			
+			int cateStart = 0;
+			int cateEnd = 0;
+			if (categoryNo == 300) {
+				cateStart = 300;
+				cateEnd = cateStart + 100 - 1;
+			} else {
+				
+				if(categoryNo%10==0) {
+					cateStart = categoryNo;
+					cateEnd = cateStart + 10 - 1;
+				} else {
+					cateStart = categoryNo;
+					cateEnd = categoryNo;
+
+				}
+			
+			}
+			
+			
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cateStart);
+			pstmt.setInt(2, cateEnd);
+			pstmt.setString(3, keyword);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+
+				result = rs.getInt(1);
+			}
+
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+
+		return result;
+	}
+	
+	
+	
+	
 
 	public List<Product> getProduct(Pagination pagination, int categoryNo, int sortMethod, Connection conn) throws Exception {
 
@@ -229,7 +275,7 @@ public class CategoryDAO {
 			String sql = prop.getProperty("getProduct");
 
 
-			sql+=prop.getProperty("sortMethod"+sortMethod);//정렬조건 달아줌
+			sql+=prop.getProperty("sortMethod"+sortMethod);//상황에 따른 정렬조건 달아줌
 			
 			pstmt = conn.prepareStatement(sql);
 			// pagination 객체에 존재하는 limit 를 활용해야 한다.
@@ -278,7 +324,8 @@ public class CategoryDAO {
 				tmp.setCategoryNo(rs.getInt("PRODUCT_CATEGORY"));//311 312 등이 온다
 				tmp.setStatusNo(rs.getInt("PRO_STATUS_NO"));
 				tmp.setCategoryName(rs.getString("CATEGORY_NM"));
-
+				tmp.setScoreAvg(rs.getString("AVG"));
+				tmp.setScoreCount(rs.getString("CNT"));
 				pList.add(tmp);
 			}
 		} finally {
@@ -288,27 +335,55 @@ public class CategoryDAO {
 
 		return pList;
 	}
-
-	public List<Product> searchKeyword(String keyword, Connection conn)  throws Exception {
-
+	public List<Product> searchKeyword(Pagination pagination, int categoryNo, int sortMethod, String keyword,Connection conn) throws Exception {
+		
 		List<Product> pList = new ArrayList<Product>();
-
+		
 		try {
 			String sql = prop.getProperty("searchKeyword");
-
-
+			
+			
+			sql+=prop.getProperty("sortMethod"+sortMethod);//정렬조건 달아줌
 			
 			pstmt = conn.prepareStatement(sql);
-		
-
+			// pagination 객체에 존재하는 limit 를 활용해야 한다.
+			// 현재 페이지가 1이면, 제품은 1~12번, 2면 13~24번 제품이 보여져야한다
+			// ((cp -1)*limit +1), ((cp -1)*limit +1) + limit -1
 			
-
-		
-
+			// 받아온 categoryNo를 경우의 수에 맞게 활용
+			
+			int cateStart = 0;
+			int cateEnd = 0;
+			if (categoryNo == 300) {
+				cateStart = 300;
+				cateEnd = cateStart + 100 - 1;
+			} else {
+				
+				if(categoryNo%10==0) {
+					cateStart = categoryNo;
+					cateEnd = cateStart + 10 - 1;
+				} else {
+					cateStart = categoryNo;
+					cateEnd = categoryNo;
+					
+				}
+				
+			}
+			
+			int startProduct = ((pagination.getCurrentPage() - 1) * pagination.getLimit() + 1);
+			int endProduct = startProduct + pagination.getLimit() - 1;
+			
 			// 카테고리별로 검색조건 앵커
-			pstmt.setString(1, keyword);
-		rs = pstmt.executeQuery();
-
+			pstmt.setInt(1, cateStart);
+			pstmt.setInt(2, cateEnd);
+			//검색조건 like %?%
+			pstmt.setString(3, keyword);
+			// 페이지네이션 ROWNUM BETWEEN 앵커
+			pstmt.setInt(4, startProduct);
+			pstmt.setInt(5, endProduct);
+			
+			rs = pstmt.executeQuery();
+			
 			while (rs.next()) {
 				Product tmp = new Product();
 				tmp.setProductNo(rs.getInt("PRODUCT_NO"));
@@ -319,16 +394,20 @@ public class CategoryDAO {
 				tmp.setCategoryNo(rs.getInt("PRODUCT_CATEGORY"));//311 312 등이 온다
 				tmp.setStatusNo(rs.getInt("PRO_STATUS_NO"));
 				tmp.setCategoryName(rs.getString("CATEGORY_NM"));
-
+				tmp.setScoreAvg(rs.getString("AVG"));
+				tmp.setScoreCount(rs.getString("CNT"));
 				pList.add(tmp);
 			}
 		} finally {
 			close(rs);
 			close(pstmt);
 		}
-
+		
 		return pList;
 	}
+
+	
+
 
 	
 

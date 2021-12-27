@@ -84,12 +84,12 @@
 
 				</ul>
 				<div class="d-flex">
-					<input class="form-control me-sm-2" type="text"
+					<input class="form-control me-sm-2" type="text" id="searchKeyword"
 						placeholder="Search" style="border-bottom: 1px solid black;
    													border-radius: 0;
 												    background-color: rgba( 255, 255, 255, 0.2 );
 												    font-size: 14px;">
-					<button type="button" class="r-form-control-button">
+					<button type="button" class="r-form-control-button" onclick="search()">
 						<i class="fas fa-search" ></i>
 					</button>
 
@@ -115,4 +115,62 @@
 			</div>
 		</div>
 	</nav>
+	
+	<script type="text/javascript">
+	
+	
+		
+		document.addEventListener('keyDown', function(e){
+		    const searchBar = document.querySelector('#searchKeyword');
+		    console.log(event);
+		    
+		    if(searchBar.focus&&e.keyCode==13){
+		   
+		    	
+		    	 if ((searchBar.value.trim().length == 0)) {
+		 	        alert('검색어를 입력해 주세요.');
+		 	        searchBar.focus();
+		 	        return;
+		 	    } else {
+		 	    	search();
+		 	    }
+		    	 
+		    	
+		    }
+		    
+		   
+		});
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	function search() {
+	    const searchBar = document.querySelector('#searchKeyword');
+	    //클래스로 입력창 내용을 받아옴
+
+	    if (searchBar.value.trim().length == 0) {
+	        alert('검색어를 입력해 주세요.');
+	        return;
+	    }
+
+	    const keyword = searchBar.value;
+
+
+	    location.href = '/teamSemiProject2/category/search?keyword=' + keyword;
+
+
+
+	}
+	
+	
+	
+	</script>
 	

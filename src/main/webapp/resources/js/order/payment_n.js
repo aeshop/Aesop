@@ -168,11 +168,6 @@ function getAddrInfo() {
 
 
 
-
-
-
-
-
 /*
 결제관련 비즈니스 로직
 
@@ -180,10 +175,10 @@ function getAddrInfo() {
 1)payment 페이지가 로드가 되면 계산 함수(calculatePayment())를 호출
 1-1) 각각의 가격, 전체 가격 계산후 화면에 표시 - 완료
 
-2-0) 사용자가 결제 버튼을 누름 : import가 켜지기 전에 
-2-1) ajax로 주문번호,주문수량x, 전체 가격(totalPrice)x 를 전달(이 때문에, 결제 페이지에선 물품의 수량변경, 삭제가 불가능하다.)
-2-2) 변경 : 주문번호만 전달 : 주문수량 ,전체 가격을 화면에서 긁어와서 진행하면 헛점 발생 
-2-3) 주문번호만 전달하게되면 결제페이지에서도 삭제, 수량조절이 가능한데, 번거로워서 안함
+2-0) 사용자가 결제 버튼을 누름 : <<import가 켜지기 전에>> 
+2-1) ajax로 주문번호만을 (주문수량, 전체 가격(totalPrice) X) 를 전달
+2-2) 주문번호만 전달 : 주문수량 ,전체 가격을 화면에서 긁어와서 결제를 진행 시도하면 헛점 발생 : 개발자 도구로 주문금액을 내맘대로 바꾸기 가능 
+2-3) 주문번호만 전달하게되면 결제페이지에서도 삭제, 수량조절이 가능한데: (서버값을 바꾸는거라), 번거로워서 안함
 
 2-2) product table 수량변경 시도, 
 2-2-1) 재고부족 시 체크 제약조건 위배로 발생하는 SQLException 에러코드 받고 rollback, 재고부족 메세지로 응답
@@ -300,7 +295,7 @@ $("#check_module").click(function() {
         type: "post",
         data: { orderNoList: orderNoArr },
         dataType: "json",
-        async: false,
+        async: false, //에이젝스 데이터 반환은 자바스크립트 코드의 실행보다 느리기 때문에 동기로 해두어야함 
 
         success: function(result) { //json으로 넘어옴 : 에이젝스가 자바스크립트 코드의 실행보다 느리기 때문에 발생하는 일이다 
             if (result.stCode == 200) {
@@ -451,9 +446,10 @@ $("#check_module").click(function() {
 
                 //결제가 성공하였습니다. 페이지로 이동
                 //사진 하나랑 결제내역 조회 페이지로,홈으로 두 개 버튼 만들고 싶음
+                //: 근데 만들 시간이 없어서 그냥 마이페이지로 보내버림
 
 
-                // location.href = '/teamSemiProject2';
+                location.href = '/teamSemiProject2/myPage';
 
             })
 
@@ -509,6 +505,8 @@ $("#check_module").click(function() {
 });
 
 /* 
+다시한번 설명
+
 1. 버튼에 click 이벤트가 발생했을때, 익명 함수를 실행한다, 
 2. 부여받은 가맹점식별코드 적고, 결제정보 객체를 인수로 하는 request_pay함수를 실행한다
 3. 결제정보 객체에는 요금, 등이 담겨있고, 주문번호는 내가 생성해야 된다.
@@ -522,23 +520,17 @@ param.merchant_uid에 지정하기를 권장한다 라고 한다
 
  4. 결제 성공시, 결제 실패시에 대응하는 함수가 실행된다 : 정확히는 결제 성공시 실패시가 아니라 imp_success 파라미터는 결제 프로세스 정상 종료 여부
  이고, 클라이언트 상에서 하는 거기 때문에 위변조의 가능성이 있으므로 이 값으로 결제의 성공 여부를 판단해서는 안된다
-(프로세스 창이 결제가 되고 꺼지던 도중에 취소해서 안되고 꺼지던 success로 취급된다)
 
- 블로그 예제는 클라이언트 단과 i'mport 서버에 기록이 남는 방식을 사용했고
- 
- 5. 나는 여기에 더해서 내 서버 즉 DB에 기록을 남기고, 그 기록을 i'mport 서버와 검증해서 맞으면 결제완료로
- 아니면 추가적인 조치를 취하는 로직을 만들어야 된다.
- 
-
-
-
-*/
+ */
 
 function addrClear() {
     const addrInputs = document.querySelectorAll('#receiverInfo input');
 
 
     for (let i = 0; i < addrInputs.length; i++) {
-        addrInputs[i].value = '';
+        if (addrInputs[i].type != 'button') {
+            addrInputs[i].value = '';
+        }
+
     }
 }

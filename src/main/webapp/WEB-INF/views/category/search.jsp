@@ -20,16 +20,16 @@
 
                 <div id="n-list-container">
                     <div id="n-category-hero-banner">
-                        <!-- 캐러셀: 안함 -->
-
-                        <a href="#"> <img src="${contextPath}/resources/images/category/categoryBanner.jpg" alt="">
+                        <!-- 캐러셀: 안함 이미지 딴거박음-->
+	
+                        <a href="#"> <img src="${contextPath}/resources/images/category/searchSample.jpg" alt="">
 
                         </a>
                         <div class="n-wrap">
                             <div class="n-label">new</div>
                             <div class="n-title">
                                 up to 40% sale <br>
-                                <strong>아직도 뭘 팔아야되는지 모르겠어오</strong>
+                                <strong>검색</strong>
                             </div>
                         </div>
 
@@ -43,19 +43,19 @@
                         <div id="n-category-navbar">
                             <ul id="n-category-ul">
 
-                                <c:forEach items="${category}" var="cate"> <%--cList가 받아져서 옴 --%>
+                                <c:forEach items="${category}" var="cate"> <%--카테고리 안들고왔는데 --%>
                                     <fmt:parseNumber var="cCn" value="${cate.currentCategoryNo/10}" integerOnly="true"/>
                                     	<fmt:parseNumber var="cN" value="${cate.categoryNo2/10}" integerOnly="true"/>
                                     <c:if test="${cate.categoryNo2%10==0}">
                                     	<c:choose>
                                     	
                                     	<c:when test="${cCn==cN}">
-                                    <li><a href="view?cp=${pagination.currentPage}&cate=${cate.categoryNo2}" style="font-weight:bold;">${cate.categoryName}</a></li>
+                                    <li><a href="search?keyword=${keyword}&cp=${pagination.currentPage}&cate=${cate.categoryNo2}" style="font-weight:bold;">${cate.categoryName}</a></li>
                                     	
                                     	</c:when>
                                     	
                                     	<c:otherwise>
-                                    	<li><a href="view?cp=${pagination.currentPage}&cate=${cate.categoryNo2}">${cate.categoryName}</a></li>
+                                    	<li><a href="search?keyword=${keyword}&cp=${pagination.currentPage}&cate=${cate.categoryNo2}">${cate.categoryName}</a></li>
                                     	
                                     	</c:otherwise>
                                     	</c:choose>
@@ -68,15 +68,15 @@
                             </ul>
 
                         </div>
-                        <!-- 정렬방식 네비게이션 바 미완성: 나중에 도전할 예정 : 정렬방식으로 나오긴하는데, 어떤걸 클릭했는지 보여주는 효과를 내고싶음 -->
+
                         <div id="n-sort-navbar">
                         <div id="n-sort-wrapper">
                            <div onclick="showMethod()">${method_name} &#9660;</div>
                             <ul id="n-sort-ul">
-                                <li><a href="view?cate=${category[0].currentCategoryNo}&sort_method=1">신상품</a></li>
-                                <li><a href="view?cate=${category[0].currentCategoryNo}&sort_method=2">상품명</a></li>
-                                <li><a href="view?cate=${category[0].currentCategoryNo}&sort_method=3">낮은가격</a></li>
-                                <li><a href="view?cate=${category[0].currentCategoryNo}&sort_method=4">높은가격</a></li>
+                                <li><a href="search?keyword=${keyword}&cate=${category[0].currentCategoryNo}&sort_method=1">신상품</a></li>
+                                <li><a href="search?keyword=${keyword}&cate=${category[0].currentCategoryNo}&sort_method=2">상품명</a></li>
+                                <li><a href="search?keyword=${keyword}&cate=${category[0].currentCategoryNo}&sort_method=3">낮은가격</a></li>
+                                <li><a href="search?keyword=${keyword}&cate=${category[0].currentCategoryNo}&sort_method=4">높은가격</a></li>
                             </ul>
 						</div>
                         </div>
@@ -106,12 +106,12 @@
 								
 							<c:choose>
 							<c:when test="${index.categoryNo2==index.currentCategoryNo}">
-							<li><a href="view?cp=${pagination.currentPage}&cate=${index.categoryNo2}" style="font-weight:bold;">${index.categoryName}</a></li>
+							<li><a href="search?keyword=${keyword}&cp=${pagination.currentPage}&cate=${index.categoryNo2}" style="font-weight:bold;">${index.categoryName}</a></li>
 							
 							</c:when>
 							
 							<c:otherwise>
-								<li><a href="view?cp=${pagination.currentPage}&cate=${index.categoryNo2}">${index.categoryName}</a></li>							
+								<li><a href="search?keyword=${keyword}&cp=${pagination.currentPage}&cate=${index.categoryNo2}">${index.categoryName}</a></li>							
 							</c:otherwise>
 							</c:choose>
 							
@@ -156,12 +156,10 @@
                                     </div>
                                     <div class="n-discription">
                                         <div class="n-tag">
-                                        <input type="hidden" id="n-proNumber" value=${product.productNo}>
+                                        
                                         <c:choose>
                                         <c:when test="${!empty isSoldout}">
                                          <span style="background-color: #fff; color: red; border:solid 1px red;">SOLD OUT</span>
-                                        </c:when>
-                                        <c:when test="${product.discount eq 0}">
                                         </c:when>
                                         <c:otherwise>
                                          <span style="background-color: red; color: #fff">-<fmt:formatNumber
@@ -174,10 +172,7 @@
 							</a>
 							</strong>
                                         <div class="n-priceGroup">
-                                                    
-                                        
-                                            <div class="n-dc-rate">${product.discount*100}%</div>                                        
-                                       
+                                            <div class="n-dc-rate">${product.discount*100}%</div>
                                             <fmt:formatNumber type="number" maxFractionDigits="3" value="${(1-product.discount)*product.price}" var="discountPrice" />
                                             <div class="n-price">${discountPrice}원</div>
                                             <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" var="originalPrice" />
@@ -235,8 +230,8 @@
                         <div id="n-pagination-wrapper">
                             <ul class="n-pagination">
                                 <!-- 첫째, 이전 리모콘 버튼 -->
-                                <li><a class="page-link" href="view?cp=1&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">&lt;&lt;</a></li>
-                                <li><a class="page-link" href="view?cp=${pagination.prevPage}&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">&lt;</a></li>
+                                <li><a class="page-link" href="search?keyword=${keyword}&cp=1&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">&lt;&lt;</a></li>
+                                <li><a class="page-link" href="search?keyword=${keyword}&cp=${pagination.prevPage}&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">&lt;</a></li>
 
 
 
@@ -248,7 +243,7 @@
 
                                         </c:when>
                                         <c:otherwise>
-                                            <li><a class="page-link" href="view?cp=${index}&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">${index}</a></li>
+                                            <li><a class="page-link" href="search?keyword=${keyword}&cp=${index}&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">${index}</a></li>
 
                                         </c:otherwise>
                                     </c:choose>
@@ -259,8 +254,8 @@
 
 
                                 <!-- 다음, 마지막 리모콘 버튼 -->
-                                <li><a class="page-link" href="view?cp=${pagination.nextPage}&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">&gt;</a></li>
-                                <li><a class="page-link" href="view?cp=${pagination.maxPage}&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">&gt;&gt;</a></li>
+                                <li><a class="page-link" href="search?keyword=${keyword}&cp=${pagination.nextPage}&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">&gt;</a></li>
+                                <li><a class="page-link" href="search?keyword=${keyword}&cp=${pagination.maxPage}&cate=${category[0].currentCategoryNo}&sort_method=${sort_method}">&gt;&gt;</a></li>
 
                             </ul>
 
@@ -276,6 +271,9 @@
  --%><jsp:include page="../common/r_footer.jsp"></jsp:include>
 
 <script type="text/javascript">
+
+document.querySelector('#searchKeyword').value = "${keyword}";
+
 
 
 function checkLogined(){

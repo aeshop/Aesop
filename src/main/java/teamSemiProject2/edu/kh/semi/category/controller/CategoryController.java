@@ -89,16 +89,16 @@ public class CategoryController extends HttpServlet {
 				req.setAttribute("category", cList);
 				
 				//DB의 얻어올 정보는 제품 정보 List<Product>와,  pagination 정보:페이지네이션 객체이고, pagination객체를 먼저 얻어와야한다
-//				Pagination pagination = service.getPagination(cp);				
 				Pagination pagination = service.getPagination(cp,categoryNo);				
 				//페이지네이션 계산이 다 끝난 객체와 입력된 파라미터들을 전달
-//				List<Product> pList = service.getProduct(pagination,categoryNo);
 				List<Product> pList = service.getProduct(pagination,categoryNo,sortMethod);
 				
 				
 				req.setAttribute("pagination", pagination);
 				req.setAttribute("productList", pList);
-				
+				req.setAttribute("sort_method", sortMethod);
+				String [] methodArr = {"신상품","상품명","낮은가격","높은가격"};
+				req.setAttribute("method_name", methodArr[sortMethod-1]);
 				//카테고리 페이지로 요청위임 경로설정
 				path = "/WEB-INF/views/category/category.jsp";
 				dispatcher = req.getRequestDispatcher(path);
@@ -109,16 +109,43 @@ public class CategoryController extends HttpServlet {
 				} else if (command.equals("search")) {
 					
 					
+					String c = req.getParameter("cate");//카테고리
 					String keyword = req.getParameter("keyword");
+					String p = req.getParameter("cp");				
+
+					
+					int categoryNo = c!=null? Integer.parseInt(c): 300;
+					
+					int cp = p!=null? Integer.parseInt(p) : 1;
+					Pagination pagination = service.getPagination(cp,categoryNo,keyword);				
+
+					//sort_method= 1(최신),2(상품명),3(낮,가),4(높,가),5
+					String sm = req.getParameter("sort_method");
+					
+					int sortMethod = sm!=null?Integer.parseInt(sm):1;
+					
 					
 					List<Product> pList = null;
-					pList=service.searchKeyword(keyword);
+					pList=service.searchKeyword(pagination, categoryNo,sortMethod,keyword );
 					
+//					System.out.println(pagination);
 					
+					req.setAttribute("pagination", pagination);
+
+					
+					req.setAttribute("keyword", keyword);
+					List<Category> cList = service.getCategory();
+					for(Category cate : cList){
+						cate.setCurrentCategoryNo(categoryNo);					
+					}
+
+					req.setAttribute("category", cList);
+					req.setAttribute("sort_method", sortMethod);
+
 					req.setAttribute("productList", pList);
 					
 					//카테고리 페이지로 요청위임 경로설정
-					path = "/WEB-INF/views/category/category.jsp";
+					path = "/WEB-INF/views/category/search.jsp";
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
 					

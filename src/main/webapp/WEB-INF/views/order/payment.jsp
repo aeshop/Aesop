@@ -364,7 +364,7 @@ const pay_info = {
 
 <%--  <script type="text/javascript" src="${contextPath}/resources/js/order/payment.js"></script>
  --%> 
-<script type="text/javascript" src="${contextPath}/resources/js/order/payment_2_내작업본.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/order/payment_n.js"></script>
 
 
 <!-- 다음 주소 api 사용 -->

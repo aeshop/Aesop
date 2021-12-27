@@ -1,5 +1,5 @@
 function search() {
-    const searchBar = document.querySelector('검색창 태그에 주는 아이디');
+    const searchBar = document.querySelector('#searchKeyword');
     //클래스로 입력창 내용을 받아옴
 
     if (searchBar.value.trim().length == 0) {
@@ -17,4 +17,8 @@ function search() {
 }
 
 
-document.querySelector('.r-form-control-button').addEventListener('click', search);
+document.addEventListener('keydown', function(e) {
+    if (searchBar.focus && e.key == 13) {
+        search();
+    }
+});

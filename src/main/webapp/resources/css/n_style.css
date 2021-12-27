@@ -117,14 +117,25 @@ footer {
     background-color: #fff;
 }
 
+#n-sort-wrapper {
+    position: relative;
+}
+
+#n-sort-wrapper div {
+    padding: 6px 0;
+    margin-right: 20px;
+}
+
 #n-sort-ul {
     width: 100px;
-    float: right;
     margin-right: 20px;
     background-color: white;
     border: 1px solid gray;
     z-index: 99;
-    /* display: none; */
+    position: absolute;
+    top: 10px;
+    left: 80%;
+    display: none;
 }
 
 #n-sort-ul li {
