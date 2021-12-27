@@ -198,18 +198,33 @@ $("#check_module").click(function() {
         // dAddress2: document.querySelector('#rAddr2').value,
         dAddress2: document.querySelector('#sample6_detailAddress').value,
         dReceiverName: document.querySelector('#rName').value,
-        dReceiverPhone: document.querySelector('#rPhone1').value + "-" + document.querySelector('#rPhone2').value + "-" + document.querySelector('#rPhone3').value,
+        dReceiverPhone1: document.querySelector('#rPhone1').value,
+        dReceiverPhone2: document.querySelector('#rPhone2').value,
+        dReceiverPhone3: document.querySelector('#rPhone3').value,
         dMessage: document.querySelector('#rMessage').value
 
     }
 
 
 
+    //빈거 어캄? 
+    const orderInputs = document.querySelector('#n-order-info').querySelectorAll('input');
+    console.log(orderInputs);
 
+    for (const iterator of orderInputs) {
+        if (iterator.value === "") {
+            alert('요구 항목을 모두 입력해 주세요.');
+            return;
+        }
+    }
 
+    for (const key in deliveryInfo) {
+        if (key != 'dMessage' && (deliveryInfo[key] == "")) {
 
-
-
+            alert('요구 항목을 모두 입력해 주세요.');
+            return;
+        }
+    }
 
 
 
@@ -304,7 +319,7 @@ $("#check_module").click(function() {
                     dAddress1: deliveryInfo.dAddress1,
                     dAddress2: deliveryInfo.dAddress2,
                     dReceiverName: deliveryInfo.dReceiverName,
-                    dReceiverPhone: deliveryInfo.dReceiverPhone,
+                    dReceiverPhone: deliveryInfo.dReceiverPhone1 + "-" + deliveryInfo.dReceiverPhone2 + "-" + deliveryInfo.dReceiverPhone3,
                     dMessage: deliveryInfo.dMessage,
                     orderNoList: orderNoArr
 
