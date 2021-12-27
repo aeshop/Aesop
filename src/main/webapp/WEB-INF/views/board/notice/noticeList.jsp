@@ -113,7 +113,7 @@
 						</fieldset>
 						<input type="hidden" name="c" value="${param.c}">
 					</form>
-					<%-- 로그인이 되어있는 경우에만 글쓰기 버튼 노출 --%> <c:if test="${param.c ne '803'}">
+					<%-- 로그인이 되어있는 경우에만 글쓰기 버튼 노출 --%> <c:if test="${param.c ne '803' || loginMember.memberNo eq 30}">
 						<c:if test="${!empty loginMember }">
 							<button type="button" class="tSBKF" id="insertBtn"
 								onclick="location.href = '${contextPath}/board/notice/insert?c=${param.c}';">글쓰기</button>
