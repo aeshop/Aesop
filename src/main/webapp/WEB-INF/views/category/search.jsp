@@ -22,14 +22,12 @@
                     <div id="n-category-hero-banner">
                         <!-- 캐러셀: 안함 이미지 딴거박음-->
 	
-                        <a href="#"> <img src="${contextPath}/resources/images/category/searchSample.jpg" alt="">
+                        <a href="#"> <img src="${contextPath}/resources/images/category/aesopSearch.webp" alt="">
 
                         </a>
                         <div class="n-wrap">
-                            <div class="n-label">new</div>
                             <div class="n-title">
-                                up to 40% sale <br>
-                                <strong>검색</strong>
+                                <strong>검색 페이지</strong>
                             </div>
                         </div>
 

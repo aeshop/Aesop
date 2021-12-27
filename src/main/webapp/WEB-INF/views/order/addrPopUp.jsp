@@ -67,7 +67,7 @@
                                     <td><span>${addr.addrPhone}</span></td>
                                     <td class="addressName"><span>${addr.address1}</span> <span>${addr.address2}</span></td>
                                     <td>
-                                        <img src="${contextPath}resources/images/order/btn_address_apply.gif" alt="적용이미지" onclick="setParentAddress(event)">
+                                        <img src="${contextPath}/resources/images/order/btn_address_apply.gif" alt="적용이미지" onclick="setParentAddress(event)">
                                     </td>
                                 </tr>
                                 
@@ -78,11 +78,7 @@
 
                         </div>
 
-                        <div id="addr-manage">
-                            <img src="${contextPath}/resources/images/order/btn_address_delete.gif" alt="선택주소록삭제">
-                            <img src="${contextPath}/resources/images/order/btn_address_register.gif" alt="배송지등록">
-
-                        </div>
+                        
 
 
                     </div>

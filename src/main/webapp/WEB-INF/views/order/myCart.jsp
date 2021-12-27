@@ -162,7 +162,7 @@
 		</div>
 
 		<p>
-			<button class="btn btn-outline-secondary" style="width: 108px; font-size: 14px;">쇼핑계속하기</button>
+			<button class="btn btn-outline-secondary" style="width: 108px; font-size: 14px;"  onclick="location.href='${contextPath}/category/view';">쇼핑계속하기</button>
 		</p>
 	</div>
 </div>
