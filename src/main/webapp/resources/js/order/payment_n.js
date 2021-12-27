@@ -281,8 +281,8 @@ $("#check_module").click(function() {
 
         name: pay_info.deliveryName,
         //결제창에서 보여질 이름
-        // amount: totalPrice,
-        amount: 100,
+        amount: totalPrice,
+        // amount: 100,
         //가격 
         buyer_email: pay_info.buyerEmail,
         buyer_name: pay_info.buyerName,
