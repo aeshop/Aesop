@@ -591,8 +591,7 @@ window.addEventListener('keydown',function(){
 
 </c:if>
 
-<c:if test="${!empty memberId}">
-	<script>
+
  <c:if test="${!empty memberId}">
   	<script>
   	$(function(){
