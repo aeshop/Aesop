@@ -116,7 +116,6 @@
 					<script>
 						const boardNo = ${board.boardNo};
 						const no1 = '${param.no}';
-						const contextPath = '${contextPath}';
 						</script>
 						
 
