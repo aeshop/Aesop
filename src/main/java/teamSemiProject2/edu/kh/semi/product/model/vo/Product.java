@@ -16,9 +16,15 @@ public class Product {
 	private int categoryNo;
 	private int statusNo;
 
+	//카테고리
 	private String categoryName;
 	private String statusName;
 	
+	//별점
+	private String scoreAvg;
+	private String scoreCount;
+	
+	//이미지리스트
 	private List<ProductImage> imgList;
 	
 	
@@ -144,13 +150,39 @@ public class Product {
 		this.imgList = imgList;
 	}
 
+	
+
+	public String getScoreAvg() {
+		return scoreAvg;
+	}
+
+
+	public void setScoreAvg(String scoreAvg) {
+		this.scoreAvg = scoreAvg;
+	}
+
+
+	public String getScoreCount() {
+		return scoreCount;
+	}
+
+
+	public void setScoreCount(String scoreCount) {
+		this.scoreCount = scoreCount;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Product [productNo=" + productNo + ", productName=" + productName + ", price=" + price + ", discount="
 				+ discount + ", stock=" + stock + ", categoryNo=" + categoryNo + ", statusNo=" + statusNo
-				+ ", categoryName=" + categoryName + ", statusName=" + statusName + ", imgList=" + imgList + "]";
+				+ ", categoryName=" + categoryName + ", statusName=" + statusName + ", scoreAvg=" + scoreAvg
+				+ ", scoreCount=" + scoreCount + ", imgList=" + imgList + "]";
 	}
+
+
+
+
 	
 	
 	

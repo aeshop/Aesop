@@ -10,7 +10,7 @@ public class Pagination {
 	//계산에 영향미치는 변수
 	private int currentPage; //현재 페이지
 	private int productCount;//전체 제품수
-	private int limit=12;//한번에 화면에서 보여줄 제품 개수
+	private int limit=8;//한번에 화면에서 보여줄 제품 개수
 	private int pageSize=5; //한번에 화면에서 보여줄 페이지 개수
 	
 	

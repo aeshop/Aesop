@@ -150,7 +150,16 @@
   
   
 	
-		
+		<script type="text/javascript">		
+			function checkLogined(){
+				if("${sessionScope.loginMember.memberNo}"){
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+		</script>
 	
 	<script type="text/javascript" src="${contextPath}/resources/js/product/productDetail.js"></script>
 	
