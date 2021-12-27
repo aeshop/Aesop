@@ -153,7 +153,7 @@ document.getElementById("email").addEventListener("input", function() {
 // 이메일 인증 함수
 function emailConfirm_check() {
 	const inputEmailConfirm = document.getElementById("email").value;
-	$("#emailConfirm").css("display", "block");
+	$("#emailConfirm").css("display", "inline-block");
 	if(inputEmailConfirm.length == 0){
 		inputEmailConfirm.text("");
 		checkObj.emailConfirm = false;
@@ -167,10 +167,11 @@ function emailConfirm_check() {
 				$("#emailConfirm").on("input",function(){
 					if (result == $("#emailConfirm").val()){
 					
+						$("#emailConfirm_btn").css("display", "none");
 						$("#checkEmail2").text("인증이 확인되었습니다.").css("color", "rgb(146 26 255)");
 						checkObj.emailConfirm = true;
 					}else{
-						$("#emailConfirm_btn").css("display", "none");
+						$("#emailConfirm_btn").css("display", "blocinline-blockk");
 						$("#checkEmail2").text("잘못된 인증 번호입니다. 다시 확인해주세요.").css("color", "rgb(146 26 255)");
 						checkObj.emailConfirm = false;
 					}
