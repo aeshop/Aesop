@@ -587,12 +587,6 @@ header {
   width: 100%;
 }
 
-.main_container_2_slide_center_hover {
-  display: none;
-  position: relative;
-  width: 30%;
-  height: 95%;
-}
 
 .main_container_2 > div > ul > li {
   padding: 0 33px;
