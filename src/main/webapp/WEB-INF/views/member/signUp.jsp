@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <link rel="stylesheet" href="${contextPath}/resources/css/member/member.css">
 <jsp:include page="../common/r_header.jsp" />
 	<jsp:include page="../common/sidebar_n.jsp" />
@@ -86,10 +88,20 @@
   </div>
 
 <!-- footer -->
-<script src="${contextPath}/resources/js/member/member.js"></script>
 <jsp:include page="../common/r_footer.jsp" />
+<script src="${contextPath}/resources/js/member/member.js"></script>
 
+<c:if test="${ !empty sessionScope.message }">
+	<script>
+	$(function(){
+		alert("${message}");
+	})
+	</script>
 
+	<%-- message 1회 출력 후 session에서 제거 --%>
+	<c:remove var="message" scope="session" />
+
+</c:if>
 
 </body>
 </html>

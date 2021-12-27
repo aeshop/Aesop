@@ -287,7 +287,7 @@ public class MemberController extends HttpServlet {
 					resp.getWriter().print(temp);
 
 				} catch (Exception e) {
-					e.printStackTrace();// TODO: handle exception
+					e.printStackTrace();
 				}
 				HttpSession saveKey = req.getSession();
 				saveKey.setAttribute("AuthenticationKey", AuthenticationKey);
@@ -342,30 +342,24 @@ public class MemberController extends HttpServlet {
 				req.getRequestDispatcher(path).forward(req, resp);
 
 			} else{
-				HttpSession session = req.getSession();
 				// POST
-				String memberId = req.getParameter("memberId");
 				String memberName = req.getParameter("memberName");
 				String memberEmail = req.getParameter("memberEmail");
 
-				memberId = replaceParameter(memberId);
 				memberEmail = replaceParameter(memberEmail);
 				try {
 					MemberService service = new MemberService();
 
-					Member member = service.memberinfo(memberId, memberName, memberEmail);
+					Member member = service.memberInfo(memberName, memberEmail);
 
+					HttpSession session = req.getSession();
 					if (member != null) {
 
 						if (member.getStatusCode() == 101) {
 
 							session.setAttribute("member", member);
-							session.setMaxInactiveInterval(1000);
+							session.setMaxInactiveInterval(3000);
 
-							System.out.println(member);
-							
-							path = "/WEB-INF/views/member/updatePw.jsp";
-							req.getRequestDispatcher(path).forward(req, resp);
 						} else { // 탈퇴회원 로그인
 							session.setAttribute("message", "탈퇴한 회원입니다.");
 						}
@@ -382,17 +376,23 @@ public class MemberController extends HttpServlet {
 
 		// 비밀번호 변경
 		if (command.equals("updatePw")) {
-			if (method.equals("POST")) {
+			if (method.equals("GET")) {
+
 				path = "/WEB-INF/views/member/updatePw.jsp";
 				req.getRequestDispatcher(path).forward(req, resp);
-				
-				HttpSession session = req.getSession();
-				String memberPw = req.getParameter("newPwd1");
-				String memberId = (String) session.getAttribute("member");
-				System.out.println(memberId);
+
+			}else {
+
+				String memberId = req.getParameter("id");
+				String memberPw = req.getParameter("pwd1");
+				Member member = new Member();
+				member.setMemberId(memberId);
+				member.setMemberPw(memberPw);
 				try {
 
-					int result = new MemberService().updatePw( memberPw, memberId);
+					MemberService service = new MemberService();
+					
+					int result = service.updatePw(memberId, memberPw);
 
 					if (result > 0) {
 						
@@ -400,15 +400,15 @@ public class MemberController extends HttpServlet {
 						resp.sendRedirect(req.getContextPath());
 					} else {
 						
-						message = "비밀번호가 일치하지 않습니다.";
+						message = "비밀번호 수정에 실패하셨습니다.";
 						path = "updatePw";
 					}
 					req.getSession().setAttribute("message", message);
 
 				} catch (Exception e) {
 					e.printStackTrace();
+					req.setAttribute("e", e);
 				}
-
 			}
 		}
 

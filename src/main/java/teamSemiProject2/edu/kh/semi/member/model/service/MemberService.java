@@ -59,7 +59,6 @@ public class MemberService {
 	 * @throws Exception
 	 */
 	public int emailDupCheck(String inputEmail) throws Exception {
-		Connection conn = getConnection();
 		int result = dao.emailDupCheck(inputEmail, conn);
 		close(conn);
 		return result;
@@ -67,7 +66,6 @@ public class MemberService {
 
 
 	public String findId(Member member) throws Exception{
-		Connection conn = getConnection();
 		String findId = dao.findId(member, conn);
 		close(conn);
 		return findId;
@@ -75,17 +73,20 @@ public class MemberService {
 
 
 
-	public int updatePw(String memberPw, String memberId) throws Exception{
-		Connection conn = getConnection();
-		int result = dao.updatePw(memberPw, memberId, conn);
+	public int updatePw(String memberId, String memberPw) throws Exception{
+		int result = dao.updatePw(memberId, memberPw, conn);
+		if(result > 0 ){
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
 
 
-	public Member memberinfo(String memberId, String memberName, String memberEmail) throws Exception{
-		Connection conn = getConnection();
-		Member member = dao.memberInfo(memberId, memberName, memberEmail, conn);
+	public Member memberInfo(String memberName, String memberEmail) throws Exception{
+		Member member = dao.memberInfo(memberName, memberEmail, conn);
 		close(conn);
 		return member;
 	}

@@ -16,8 +16,6 @@
 <link rel="stylesheet"   href="${contextPath}/resources/css/common/r_common.css">
 <link rel="stylesheet"   href="${contextPath}/resources/css/productDetail.css">
 
-
-
 <!-- bootstrap -->
 <link
    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -33,7 +31,6 @@
 <!-- 널디에서 사용하길래 사용해봅니다. (오토슬라이드 기능) -->
 <link rel="stylesheet"
    href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
 
 
 <link rel="stylesheet" href="${contextPath}/resources/css/myPage.css">
