@@ -3,11 +3,11 @@
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/member/member.css">
 <jsp:include page="../common/r_header.jsp" />
+	<jsp:include page="../common/sidebar_n.jsp" />
 
 
 <div class="xans-element- xans-member xans-member-findid" style="text-align: center;">
 
-	<jsp:include page="../common/sidebar_n.jsp" />
 	<form id="findPw" method="post" action="updatePw" >
 		<div class="findPw_container">
 			<fieldset>
