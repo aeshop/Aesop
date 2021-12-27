@@ -19,22 +19,43 @@ calculateRow 함수 : 한 열의 상품가와 수량을 계산하는 함수
 
 */
 
-document.addEventListener('DOMContentLoaded', calculatePrice);
+document.addEventListener('DOMContentLoaded', function() {
+    const chkBoxs = document.querySelectorAll('input[type="checkbox"]');
+    for (let i = 0; i < chkBoxs.length; i++) {
+        chkBoxs[i].checked = true;
+    }
+
+    calculatePrice();
+});
+
+const proChk = document.querySelectorAll('input[type="checkbox"]');
+
+for (let i = 0; i < proChk.length; i++) {
+    proChk[i].addEventListener('change', calculatePrice);
+
+}
 
 const proAmountArr = document.querySelectorAll('.proAmount');
 
 // calculateRow() 행 가격 계산 함수
-function calculateRow(proPrice, amount) {
+function calculateRow(checkBox, proPrice, amount) {
 
     const p = (Number)((proPrice.innerText).replaceAll(/[,원]/g, ''));
     const a = (Number)(amount.value);
 
+    if (checkBox.checked) {
+        return p * a;
 
-    return p * a;
+    } else {
+        return 0;
+    }
 }
 
 // calculatePrice() 전체 가격 계산 함수
 function calculatePrice() {
+
+    //각 열의 체크박스 정보 담은 태그
+    const checkSubArr = document.querySelectorAll('.n-order-chk');
     //각 열의 가격정보 담은 span 태그
     const proPriceArr = document.querySelectorAll('.proPrice');
 
@@ -53,7 +74,7 @@ function calculatePrice() {
 
         //합계 정보도 계산해서 화면에 뿌려줘야한다
 
-        const orderPrice = calculateRow(proPriceArr[i], proAmountArr[i]);
+        const orderPrice = calculateRow(checkSubArr[i], proPriceArr[i], proAmountArr[i]);
 
         orderPriceArr[i].innerText = orderPrice.toLocaleString('ko-KR');
         sum += orderPrice;
@@ -248,6 +269,21 @@ function checkAll(e) {
         iterator.checked = chkStatus;
     }
 }
+
+(function() {
+    const chks = document.querySelectorAll('.n-order-chk');
+
+    for (let i = 0; i < chks.length; i++) {
+        chks[i].addEventListener('change', function() {
+            if (!chks[i].checked) {
+                document.querySelector('#allChk').checked = false;
+            }
+        });
+
+    }
+})();
+
+
 
 function deleteAll() {
     const chkBoxArr = document.querySelectorAll('.n-order-chk');
