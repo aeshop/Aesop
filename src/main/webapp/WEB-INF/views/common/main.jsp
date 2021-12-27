@@ -25,8 +25,7 @@
       그외 = div 태그 안 소분류들
          
          --%>
-				<c:forEach items="${applicationScope.category}" var="item"
-					varStatus="vs">
+				<c:forEach items="${applicationScope.category}" var="item" varStatus="vs">
 					<c:choose>
 						<c:when test="${vs.index==0}">
 							<li class="sidebar_categoty">
@@ -52,6 +51,7 @@
 						</c:otherwise>
 
 					</c:choose>
+					</c:forEach>
 	    <div class="sidebar" style="position: fixed;">
 	    
 	      <ul class="sidebar_ul">
