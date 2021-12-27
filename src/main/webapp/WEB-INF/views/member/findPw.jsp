@@ -8,22 +8,27 @@
 <div class="xans-element- xans-member xans-member-findid" style="text-align: center;">
 
 	<jsp:include page="../common/sidebar_n.jsp" />
-	<form id="findId" method="post" action="findId" >
-		<div class="findId_container">
+	<form id="findPw" method="post" action="updatePw" >
+		<div class="findPw_container">
 			<fieldset>
-				<legend>아이디 찾기</legend>
+				<legend>비밀번호 찾기</legend>
 
-				<p id="name_view" class="name" style="">
+				<p id="id_view" class="id">
+					<strong id="id_lable">아이디</strong> 
+					<input id="id" name="id" class="lostInput" type="text">
+				</p>
+				
+				<p id="name_view" class="name">
 					<strong id="name_lable">이름</strong> 
 					<input id="name" name="name" class="lostInput" type="text">
 				</p>
 
-				<p id="email_view" class="email" style="">
+				<p id="email_view" class="email">
 					<strong>이메일</strong> 
 					<input id="email" name="email" class="lostInput" type="email">
 				</p>
 
-				<button type="submit" class="btn btn-dark" id="findId_btn">확인</button>
+				<button type="submit" class="btn btn-dark" id="findPw_btn">확인</button>
 			</fieldset>
 		</div>
 	</form>

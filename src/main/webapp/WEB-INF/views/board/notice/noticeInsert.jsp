@@ -3,6 +3,7 @@
 
 		<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application" />
 		<jsp:include page="../../common/r_header.jsp" />
+		<jsp:include page="../../common/sidebar_n.jsp" />
 		<!DOCTYPE html>
 		<html lang="ko">
 

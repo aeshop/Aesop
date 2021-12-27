@@ -3,6 +3,8 @@
 <jsp:include page="../common/r_header.jsp" />
 
 <div class="join_wrap">
+
+	<jsp:include page="../common/sidebar_n.jsp" />
     <div id="join">
       <div class="join_container">
         <div class="join_container_form">

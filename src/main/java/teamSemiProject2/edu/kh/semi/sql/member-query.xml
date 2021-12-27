@@ -3,53 +3,67 @@
 <properties>
 	<!-- 로그인 (탈퇴 회원 제외) -->
 	<entry key="login">
-		SELECT MEMBER_NO, MEMBER_ID, MEMBER_EMAIL, MEMBER_NAME, MEMBER_BIRTHDAY, 
-		MEMBER_PHONE, ENROLL_DT, MEMBER_STATUS_NO,  
-        MEMBER_GRADE_NO, MEMBER_GRADE_NAME, MEMBER_GRADE_DISCOUNT
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_EMAIL,
+		MEMBER_NAME, MEMBER_BIRTHDAY,
+		MEMBER_PHONE, ENROLL_DT, MEMBER_STATUS_NO,
+		MEMBER_GRADE_NO, MEMBER_GRADE_NAME, MEMBER_GRADE_DISCOUNT
 		FROM MEMBER
-        JOIN MEMBER_GRADE USING(MEMBER_GRADE_NO)
+		JOIN MEMBER_GRADE USING(MEMBER_GRADE_NO)
 		WHERE MEMBER_ID = ?
-		AND MEMBER_PW = ?
+		AND MEMBER_PW =
+		?
 		AND MEMBER_STATUS_NO != 102
 	</entry>
-	
-	
+
+
 	<!-- 회원 가입 -->
 	<entry key="signUp">
 		INSERT INTO MEMBER VALUES
 		(SEQ_MEMBER_NO.NEXTVAL,?,?,?,?,?,?, DEFAULT, DEFAULT, DEFAULT)
 	</entry>
-	
+
 	<!-- 아이디 중복 확인 -->
 	<entry key="idDupCheck">
 		SELECT COUNT(*) FROM MEMBER
-		WHERE MEMBER_STATUS_NO = 101
+		WHERE MEMBER_STATUS_NO =
+		101
 		AND MEMBER_ID = ?
 	</entry>
-	
-	
+
+
 	<!-- 이메일 중복 확인 -->
 	<entry key="emailDupCheck">
 		SELECT COUNT(*) FROM MEMBER
-		WHERE MEMBER_STATUS_NO = 101
-		AND MEMBER_EMAIL = ?  
+		WHERE MEMBER_STATUS_NO =
+		101
+		AND MEMBER_EMAIL = ?
 	</entry>
-	
+
 	<!-- 회원 아이디 찾기 -->
 	<entry key="findId">
 		select member_id from member
 		where member_email = ?
-		and member_name = ?
-		and member_status_no = 101 
-	</entry>
-	
-	<!-- 회원 비밀번호 찾기 -->
-	<entry key="findPw">
-		select member_pw from member
-		where member_id = ?
-		and member_name = ?
+		and
+		member_name = ?
 		and member_status_no = 101
 	</entry>
+
+	<!-- 회원 정보 일치 확인 -->
+	<entry key="memberInfo">
+		select * from member
+		where member_id = ?
+		and member_name = ?
+		and member_email = ?
+		and member_status_no = 101
+	</entry>
+
+	<!-- 회원 비밀번호 변경 -->
+	<entry key="updatePw">
+		update member set
+		member_pw = ?
+		where member_id = ?
+	</entry>
+
 	
 	
 </properties>
