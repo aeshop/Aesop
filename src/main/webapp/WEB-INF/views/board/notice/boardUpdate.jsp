@@ -1,187 +1,161 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-		<title>게시글 수정</title>
-		<link rel="stylesheet" href="${contextPath}/resources/css/board-style.css">
-		
 
-		<div class="container my-5">
+		<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application" />
+		<jsp:include page="../../common/r_header.jsp" />
+		<jsp:include page="../../common/sidebar_n.jsp" />
+		<!DOCTYPE html>
+		<html lang="ko">
 
-			<h3>게시글 수정</h3>
-			<hr>
-			<!-- 파일 업로드를 위한 라이브러리 cos.jar 라이브러리 다운로드(http://www.servlets.com/) -->
+		<head>
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+				integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+			<title>게시글 수정</title>
+			<link rel="stylesheet" href="${contextPath}/resources/css/boardInsert.css">
+		</head>
 
-			<!-- 
-				- enctype : form 태그 데이터가 서버로 제출 될 때 인코딩 되는 방법을 지정. (POST 방식일 때만 사용 가능)
-				- application/x-www-form-urlencoded : 모든 문자를 서버로 전송하기 전에 인코딩 (form태그 기본값)
-				- multipart/form-data : 모든 문자를 인코딩 하지 않음.(원본 데이터가 유지되어 이미지, 파일등을 서버로 전송 할 수 있음.) 
-			-->
-			<form action="update" method="post" enctype="multipart/form-data" role="form"
-				onsubmit="return boardValidate();">
+		<body>
+			<div class="container my-5">
 
-				<%-- 카테고리 --%>
+				<h3>게시글 수정</h3>
+				<div style="border-bottom: 5px double #353535; width:800px; border-radius: 5px;">
+				</div>
+				<form action="update" method="post" onsubmit="return boardValidate();">
+
 					<div class="mb-2">
-						<label class="input-group-addon mr-3 insert-label">카테고리</label>
-						<select class="custom-select" id="categoryCode" name="categoryCode" style="width: 150px;">
-
+						<label class="input-group-addon mr-5 insert-label" style="padding-right: 10px;">카테고리:</label>
+						<select class="custom-select tSBKF" id="categoryCode" name="categoryCode"
+							style="width: 150px; margin:0 30px 0 0;">
 							<c:forEach items="${category}" var="c">
 
-								<c:choose>
-									<%-- 현재 만드는 중인 카테고리 옵션의 코드가 현재 게시물의 카테고리 코드와 같다면 변수 생성 --%>
-										<c:when test="${c.categoryCode ==  board.categoryCode}">
-											<c:set var="sel" value="selected" />
-										</c:when>
+								<c:if test="${c.categoryCode ne 801 }">
+									<option id="categoryOption" value="${c.categoryCode}">${c.categoryName }</option>
 
-										<c:otherwise>
-											<c:remove var="sel" />
-										</c:otherwise>
-								</c:choose>
 
-								<option value="${c.categoryCode}" ${sel}>${c.categoryName }</option>
+								</c:if>
+								<c:if test="${c.categoryCode eq 801}">
+									<c:if test="${not empty product}">
+
+										<option id="categoryOption" value="${c.categoryCode}">${c.categoryName }
+										</option>
+
+									</c:if>
+								</c:if>
 							</c:forEach>
+
+						</select>
+						<c:if test="${empty product}">
+							<span class="voidworker" style="color:#ff5151">　　구매하신 상품이 존재하지 않습니다.</span>
+
+						</c:if>
+						<c:if test="${not empty product}">
+							<select id="reviewImg" name="reviewImg" class="tSBKF" style="padding-left: 30px;">
+								<c:forEach items="${product}" var="p">
+									<option value="${p.productNo}" title="${contextPath}${p.categoryName}">
+										${p.productName}</option>
+
+								</c:forEach>
+							</select>
+						</c:if>
+					</div>
+
+					<div class="form-inline mb-2">
+						<label class="input-group-addon mr-3 insert-label" style="padding-bottom: 19px;">제목　</label>
+						<input placeholder=" 제목을 입력해주세요." type="text" class="fgmkt" id="boardTitle" name="boardTitle"
+							size="40" value="${board.boardTitle}">
+						<label class="rvrv input-group-addon mr-3 insert-label" <c:if
+							test="${ empty product}">style="visibility: hidden;</c:if> " >　　평점　</label>
+						<select name="star" class="tSBKF rvrv" <c:if test="${ empty product}">style="visibility: hidden;
+							</c:if> ">
+
+							<option value="1">★☆☆☆☆</option>
+							<option value="2">★★☆☆☆</option>
+							<option value="3">★★★☆☆</option>
+							<option value="4">★★★★☆</option>
+							<option value="5" selected>★★★★★</option>
+
 
 						</select>
 					</div>
 
-
-					<div class="form-inline mb-2">
-						<label class="input-group-addon mr-3 insert-label">제목</label>
-						<input type="text" class="form-control" id="boardTitle" name="boardTitle" size="70"
-							value="${board.boardTitle}">
-					</div>
-
-					<div class="form-inline mb-2">
-						<label class="input-group-addon mr-3 insert-label">작성자</label>
+					<div class="trekjhj">
+						<label class="input-group-addon mr-3 insert-label" style="padding-bottom: 10px;">　작성자</label>
 						<h5 class="my-0" id="writer">${loginMember.memberName }</h5>
 					</div>
 
 
-					<div class="form-inline mb-2">
-						<label class="input-group-addon mr-3 insert-label">수정일</label>
+					<div class="trekjhj">
+						<label style="padding-bottom: 10px;">　작성일</label>
 						<h5 class="my-0" id="today"></h5>
 					</div>
 
-					<hr>
+					<div style="border-bottom: 5px double #353535; width:800px; border-radius: 5px;">
+					</div>
 
 
-					<%-- imgList에 존재하는 이미지의 레벨에 따라 변수 선언 --%>
-						<c:forEach items="${board.imgList}" var="img">
-							<c:choose>
+					<div class="form-group">
 
-								<c:when test="${img.imgLevel == 0 }">
-									<c:set var="img0" value="${contextPath}${img.imgPath}${img.imgName}" />
-								</c:when>
-								<c:when test="${img.imgLevel == 1 }">
-									<c:set var="img1" value="${contextPath}${img.imgPath}${img.imgName}" />
-								</c:when>
-								<c:when test="${img.imgLevel == 2 }">
-									<c:set var="img2" value="${contextPath}${img.imgPath}${img.imgName}" />
-								</c:when>
-								<c:when test="${img.imgLevel == 3 }">
-									<c:set var="img3" value="${contextPath}${img.imgPath}${img.imgName}" />
-								</c:when>
+						<textarea style="resize: none;" rows="20" cols="85" placeholder=" 내용을 입력 해주세요 " class="fgmkt"
+							name="boardContent">${board.boardContent }</textarea>
+					</div>
+					<input type="hidden" name="c" value="${param.c}">
 
 
-							</c:choose>
-						</c:forEach>
+					<div class="text-center">
+						<button type="submit" class="tSBKF">수정</button>
+						<button type="button" class="tSBKF" onclick="location.href='list?c=${param.c}'">목록으로</button>
+					</div>
+
+					<!-- update 진행 시 사용할 게시글 번호 -->
+					<input type="hidden" name="no" value="${board.boardNo}">
+					<input type="hidden" name="cp" value="${param.cp}">
+				</form>
+			</div>
 
 
-						<div class="form-inline mb-2">
-							<label class="input-group-addon mr-3 insert-label">썸네일</label>
-							<div class="boardImg thubnail">
-								<img src="${img0}">
-							</div>
-						</div>
+			<script>
 
-						<div class="form-inline mb-2">
-							<label class="input-group-addon mr-3 insert-label">업로드<br>이미지</label>
-							<div class="mr-2 boardImg">
-								<img src="${img1}">
-							</div>
+				(function () {
+					// 오늘 날짜 출력 
+					var today = new Date();
+					var month = (today.getMonth() + 1);
+					var date = today.getDate();
 
-							<div class="mr-2 boardImg">
-								<img src="${img2}">
-							</div>
-
-							<div class="mr-2 boardImg">
-								<img src="${img3}">
-							</div>
-						</div>
+					var str = today.getFullYear() + "-"
+						+ (month < 10 ? "0" + month : month) + "-"
+						+ (date < 10 ? "0" + date : date);
+					$("#today").html(str);
+				})();
 
 
-						<!-- 파일 업로드 하는 부분 -->
-						<div id="fileArea">
-							<input type="file" name="img0" onchange="loadImg(this,0)">
-							<input type="file" name="img1" onchange="loadImg(this,1)">
-							<input type="file" name="img2" onchange="loadImg(this,2)">
-							<input type="file" name="img3" onchange="loadImg(this,3)">
-						</div>
+				// 유효성 검사 
+				function boardValidate() {
+					if ($("#boardTitle").val().trim().length == 0) {
+						alert("제목을 입력해 주세요.");
+						$("#title").focus();
+						return false;
+					}
 
-						<div class="form-group">
-							<div>
-								<label for="content">내용</label>
-							</div>
-							<textarea class="form-control" id="boardContent" name="boardContent" rows="15"
-								style="resize: none;">${board.boardContent }</textarea>
-						</div>
-
-
-						<hr class="mb-4">
-
-						<div class="text-center">
-							<button type="submit" class="btn btn-primary">수정</button>
-							<button type="button" class="btn btn-primary">목록으로</button>
-						</div>
-
-						<!-- update 진행 시 사용할 게시글 번호 -->
-						<input type="hidden" name="no" value="${board.boardNo}">
-						<input type="hidden" name="cp" value="${param.cp}">
-			</form>
-		</div>
-
-
-		<script>
-
-			(function () {
-				// 오늘 날짜 출력 
-				var today = new Date();
-				var month = (today.getMonth() + 1);
-				var date = today.getDate();
-
-				var str = today.getFullYear() + "-"
-					+ (month < 10 ? "0" + month : month) + "-"
-					+ (date < 10 ? "0" + date : date);
-				$("#today").html(str);
-			})();
-
-
-			// 유효성 검사 
-			function boardValidate() {
-				if ($("#boardTitle").val().trim().length == 0) {
-					alert("제목을 입력해 주세요.");
-					$("#title").focus();
-					return false;
+					if ($("#boardContent").val().trim().length == 0) {
+						alert("내용을 입력해 주세요.");
+						$("#content").focus();
+						return false;
+					}
 				}
 
-				if ($("#boardContent").val().trim().length == 0) {
-					alert("내용을 입력해 주세요.");
-					$("#content").focus();
-					return false;
+				// 수정버튼 클릭 시 동작
+				function updateForm() {
+					document.requestForm.action = "updateForm";
+					document.requestForm.method = "POST";
+					document.requestForm.submit();
 				}
-			}
 
-			// 수정버튼 클릭 시 동작
-			function updateForm() {
-				document.requestForm.action = "updateForm";
-				document.requestForm.method = "POST";
-				document.requestForm.submit();
-			}
+			</script>
 
-		</script>
 
 		</body>
+		<script src="${contextPath}/resources/js/board/boardInsert.js"></script>
 
 		</html>
 
-
-
-		
+		<jsp:include page="../../common/r_footer.jsp" />
