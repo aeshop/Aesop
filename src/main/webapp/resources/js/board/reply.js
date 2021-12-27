@@ -78,12 +78,12 @@ console.log(1);
         success :function(result){
             console.log(result);
             if(result>0){
-                alert("댓글 삽입 성공");
+               
                 $("#replyContent").val(""); // 작성한 댓글 삭제
                 // 화면에 아직안나옴
                 selectReplyList(); // 댓글 조회 함수 호출
             }else{
-                alert("댓글 삽입 실패");
+             
             }
         },
         error : function(req,status,error){
@@ -175,7 +175,6 @@ function updateReply(replyNo, el) {
         type : "POST",
         success : function(result){
             if(result>0){
-                alert("댓글이 수정되었습니다.");
                 selectReplyList();
             }
         },
@@ -197,7 +196,6 @@ function deleteReply(replyNo) {
         
         success : function(result){
             if(result>0){
-                alert("댓글이 삭제되었습니다..");
                 selectReplyList();
             }
         },

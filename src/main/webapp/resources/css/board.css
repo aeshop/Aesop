@@ -13,7 +13,9 @@
 .ec-base-table.typeList td {
 	padding: 8px 10px 7px;
 }
-
+.page-link{
+	color:#9f9f9f;
+}
 .banner {
 	background-image: url("../images/board/창고.png"),
 		linear-gradient(139.73deg, #F9CF93 0%, #DBD0C0 100%);
@@ -22,6 +24,7 @@
 	border-radius: 24px;
 	padding: 24px;
 	margin: 50px auto;
+
 	text-shadow: rgb(0, 0, 0) 10px 10px 10px;
 	width:1000px;
 }

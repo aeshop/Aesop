@@ -45,7 +45,7 @@ let beforeReplyRow;
 				<li class="reply-row">
 					<div>
 						<p class="rWriter">${reply.memberName}</p>
-						<p class="rDate">작성일 : ${reply.replyCreateDate }</p>
+						<p class="rDate">　작성일 : ${reply.replyCreateDate }</p>
 					</div>
 	
 					<p class="rContent">${reply.replyContent }</p>

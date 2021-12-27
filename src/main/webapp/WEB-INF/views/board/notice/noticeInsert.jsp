@@ -32,7 +32,14 @@
 								style="width: 150px; margin:0 30px 0 0;">
 								<c:forEach items="${category}" var="c">
 								
-									<c:if test="${c.categoryCode ne 801 }">
+									<c:if test="${c.categoryCode eq 803 }">
+										<c:if test="${loginMember.memberNo eq 30}">
+											<option id="categoryOption" value="${c.categoryCode}">${c.categoryName }</option>
+										</c:if>
+									</c:if>
+								
+									<c:if test="${c.categoryCode eq 802 }">
+										
 										<option id="categoryOption" value="${c.categoryCode}">${c.categoryName }</option>
 										
 										
