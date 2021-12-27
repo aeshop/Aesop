@@ -62,7 +62,6 @@
                 <table class="n-cart-table">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" onclick=""></th>
                             <th>이미지</th>
                             <th>상품정보</th>
                             <th>판매가</th>
@@ -76,11 +75,10 @@
                     
                     <c:forEach items="${orderList}" var="index" varStatus="vs">
                      	<tr>
+                            
                             <td>
-                            <input type="hidden" class="orderNumber" value="${index.orderNo}">
-                                <input type="checkbox" onclick="">
-                            </td>
-                            <td>
+                                                        <input type="hidden" class="orderNumber" value="${index.orderNo}">
+                            
                                  <img src="${contextPath}${index.thumnailImgPath}${index.thumnailImgName}" alt="물품이미지">
                             </td>
                             <td><a href="">${index.productName}</a>
@@ -217,7 +215,6 @@
                           
 
                                 <span><img src="${contextPath}/resources/images/order/btn_address.gif" id="addrInfo" onclick="getAddrInfo()" alt="주소록 버튼"></span>
-<c:if test="${empty defaultAddress.zipCode}"> <span style="color:red;">주문자 기본 주소가 없습니다.</span></c:if>
                             </td>
                         </tr>
                         <tr>

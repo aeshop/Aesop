@@ -70,8 +70,8 @@
                   </tr>
                   <tr class="default-addr">
                       <td colspan="2">
-                          <input type="checkbox" id="default-check">
-                          <label for="default-check">기본 배송지로 저장</label>
+                          <!-- <input type="checkbox" id="default-check">
+                          <label for="default-check">기본 배송지로 저장</label> -->
                       </td>
                   </tr>
               </table>
