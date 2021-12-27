@@ -21,7 +21,7 @@ footer {
 /* -------------------start category */
 
 #n-list-container {
-    width: 1050px;
+    width: 1200px;
     margin: 0px auto;
 }
 
@@ -31,13 +31,13 @@ footer {
 
 #n-category-hero-banner img {
     width: 100%;
-    height: 400px;
+    height: 619px;
 }
 
 #n-category-hero-banner .n-wrap {
-    margin-left: 20px;
+    margin-left: 46px;
     position: absolute;
-    top: 100px;
+    top: 46px;
     color: #fff;
     font-size: 1.5em;
     font-weight: bold;
@@ -48,13 +48,14 @@ footer {
     font-size: 1em;
     font-weight: bold;
     background-color: #000;
-    padding: 0px 5px;
+    padding: 0px 7px 0 5px;
     display: inline;
 }
 
 #n-category-hero-banner .n-title strong {
     font-size: 1.2em;
 }
+
 
 
 /*  카테고리페이지-배너 */
@@ -216,7 +217,7 @@ footer {
 }
 
 .n-star .star {
-    fill: rgb(146, 1, 255);
+    fill: rgb(125, 63, 0);
     width: 8%;
     height: 8%;
 }
@@ -241,7 +242,12 @@ footer {
 .n-pagination li {
     display: inline-block;
 }
-
+.n-pagination{
+	
+    margin-bottom: 70px;
+    padding-top: 40px;
+	
+}
 
 /* 페이지네이션 */
 
@@ -253,13 +259,13 @@ footer {
 
 #n-order-container {
     width: 1000px;
-    margin: 0 auto;
+    margin: 30px auto;
 }
 
 #n-membership-benefit-wrapper {
     width: 100%;
     height: 101px;
-    background-color: rgb(194, 169, 169);
+    background-color: #e8e8e8;
     position: relative;
 }
 
@@ -285,6 +291,7 @@ footer {
     width: 10%;
     text-align: center;
     vertical-align: middle;
+    border-right: 1px solid #eee;
 }
 
 .n-infomation div:nth-child(2) {
@@ -292,10 +299,15 @@ footer {
     vertical-align: middle;
 }
 
+/*  낙희 수정 부분 (12/27추가 )*/
 #n-shipping-wrapper {
-    margin: 10px 0px;
-    padding: 5px;
-    background-color: rgba(174, 51, 190, 0.911);
+    margin: 20px 0 20px;
+    border: 1px solid #cbcdce;
+    border-bottom-color: #202020;
+    border-left: 0;
+    background: #f2f2f2;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .n-cart-table {
@@ -391,6 +403,12 @@ footer {
 
 /* -------------------start order-payment */
 
+#n-shipping {
+	
+	    margin-bottom: 0;
+}
+
+
 #n-order-container {
     font-size: 0.8em;
 }
@@ -426,6 +444,7 @@ footer {
     display: inline-block;
     margin-left: 30px;
     text-align: justify;
+    margin: 10px 0px 10px 30px;
 }
 
 #n-shipping li:nth-child(2) {

@@ -30,9 +30,9 @@
 		<div class="n-infomation">
 			<div class="n-membership">혜택정보</div>
 			<div class="n-membership">
-				<span id="n-membership-id">${sessionScope.loginMember.memberName}</span>님은, [<span
-					id="n-membership-rank">${sessionScope.loginMember.memberGradeName}</span>] 회원이십니다. <br>구매금액의
-				<span id="n-membership-rate">${discountRate}</span>%을 할인 받으실 수 있습니다.
+				<span id="n-membership-id"><strong>${sessionScope.loginMember.memberName}</strong></span>님은, <strong> [<span
+					id="n-membership-rank">${sessionScope.loginMember.memberGradeName}</span>] </strong> 회원이십니다. <br>구매금액의
+				<span id="n-membership-rate"><strong>${discountRate}</strong></span>%을 할인 받으실 수 있습니다.
 			</div>
 
 		</div>
@@ -41,7 +41,7 @@
 	<div id="n-shipping-wrapper">
 
 		<ul id="n-shipping">
-			<li>국내배송상품(<span>${orderCount}</span>)
+			<li>국내배송상품 ( <span>${orderCount}</span> )
 			</li>
 		</ul>
 	</div>
@@ -50,7 +50,7 @@
 		<table class="n-cart-table">
 			<thead>
 				<tr>
-					<th><input type="checkbox" id="allChk" onchange="checkAll(this)"></th>
+					<th style="padding: 10px 0;"><input type="checkbox" id="allChk" onchange="checkAll(this)"></th>
 					<th>이미지</th>
 					<th>상품정보</th>
 					<th>판매가</th>
@@ -77,7 +77,7 @@
 				<%--DB에서 정보 받아와서 화면에 뿌리기 hidden으로 주문번호 checkbox 앞에 숨겨둠 parentNode firstChild로 접근가능  --%>
 					<tr>
 					<td><input type="hidden" value="${index.orderNo}"><input type="checkbox" class="n-order-chk" value="${index.orderNo}"></td>
-					<td><img src="${contextPath}${index.thumnailImgPath}${index.thumnailImgName}" alt="썸네일이미지"></td>
+					<td><img src="${contextPath}${index.thumnailImgPath}${index.thumnailImgName}" style="margin: 6px 0;" alt="썸네일이미지"></td>
 					<td>
 					<a href="">${index.productName}</a></td>
 					<c:set var="price" value="${(1-index.productDiscount) *index.productPrice}"/>
@@ -97,7 +97,7 @@
 
 					</c:if>	
 						<td ><span class="orderPrice"></span>원</td>
-					<td class="n-cart-btns"><a onclick="doOrder()"><img src="${contextPath}/resources/images/order/btn_order_p.png" alt="주문하기버튼img"></a> 
+					<td class="n-cart-btns"><a onclick="doOrder()"><img src="${contextPath}/resources/images/order/btn_order_p.png" style="margin: 0px 0px 10px 0;  height: 23.13px;" alt="주문하기버튼img"></a> 
 					<a onclick="deleteOrder()"><img src="${contextPath}/resources/images/order/btn_delete2.gif"alt="삭제버튼img"></a></td>
 				</tr>
 				
@@ -117,8 +117,8 @@
 
 
 			<tfoot>
-			<tr><td colspan="5" style="text-align:left;" >[기본배송]</td>
-				<td colspan="3">상품구매금액 <span class="n-proCal"></span>+ 배송비 <span class="n-shipCal"></span> = 합계 : <span class="n-sumCal"></span>원</td></tr>
+			<tr><td colspan="5" style="text-align:left; padding-left: 20px;" >[기본배송]</td>
+				<td colspan="3" style="padding: 10px 0;">상품구매금액 <span class="n-proCal"></span>+ 배송비 <span class="n-shipCal"></span> = 합계 : <span class="n-sumCal"></span>원</td></tr>
 				
 			</tfoot>
 		</table>
@@ -154,12 +154,12 @@
 	<!-- 주문버튼 -->
 	<div class="n-order-btn-wrapper">
 		<div>
-			<button class="btn btn-primary" onclick="orderAll(this)">전체상품주문</button>
-			<button class="btn btn-secondary" onclick="orderSelectedProduct()">선택상품주문</button>
+			<button class="btn btn-primary" onclick="orderAll(this)" style="background: black; border-color: black;">전체상품주문</button>
+			<button class="btn btn-secondary" onclick="orderSelectedProduct()" style="border-color: black;  background: gray;">선택상품주문</button>
 		</div>
 
 		<p>
-			<button class="btn btn-outline-secondary">쇼핑계속하기</button>
+			<button class="btn btn-outline-secondary" style="width: 108px; font-size: 14px;">쇼핑계속하기</button>
 		</p>
 	</div>
 </div>

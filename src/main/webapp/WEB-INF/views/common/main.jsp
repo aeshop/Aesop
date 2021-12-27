@@ -61,7 +61,7 @@
 
     <!-- main 1페이지 -->
     <div class="main_container_1">
-    <img src="${contextPath}/resources/images/cnh/images/kakao.png" style="display:none;" onload="window.open('/teamSemiProject2/pop','','width=537px, height=682px')">
+    <img src="${contextPath}/resources/images/cnh/images/kakao.png" style="display:none;">
       	 <video autoplay muted loop style="width: 100%;">
       		 <source src="https://player.vimeo.com/external/638938995.hd.mp4?s=11da203a3eb6cefd91f8fbf6af2dacc20d102060&amp;profile_id=175" type="video/mp4">
     	 </video>
@@ -252,5 +252,36 @@
 
 <!-- footer -->
 <jsp:include page="r_footer.jsp" />
+
+<script>
+//쿠키 불러오기
+	function getCookie(name) 
+	{ 
+	    var obj = name + "="; 
+	    var x = 0; 
+	    while ( x <= document.cookie.length ) 
+	    { 
+	        var y = (x+obj.length); 
+	        if ( document.cookie.substring( x, y ) == obj ) 
+	        { 
+	            if ((endOfCookie=document.cookie.indexOf( ";", y )) == -1 ) 
+	                endOfCookie = document.cookie.length;
+	            return unescape( document.cookie.substring( y, endOfCookie ) ); 
+	        } 
+	        x = document.cookie.indexOf( " ", x ) + 1; 
+	        
+	        if ( x == 0 ) break; 
+	    } 
+	    return ""; 
+	}
+	
+	
+    $(function(){    
+    	
+        if(getCookie("divpop1") !="Y"){
+        	window.open('/teamSemiProject2/pop','','width=500%, height=682px')
+        }
+    });
+</script>
 </body>
 </html>

@@ -241,8 +241,7 @@ public class MypageService {
 		
 		int result = dao.selectCountNum(memberNo, conn);
 		
-		if(result> 0) commit(conn);
-		else 		  rollback(conn);
+	
 		
 		close(conn);
 		

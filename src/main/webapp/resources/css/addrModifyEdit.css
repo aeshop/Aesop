@@ -13,7 +13,7 @@
 
 .grade-name{
     color: rgb(201, 89, 10);
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .grade-text{
@@ -111,7 +111,7 @@
 
 .my-title{
     font-size: 15px;
-    font-weight: 800;
+    font-weight: 600;
     padding-bottom: 15px;
     border-bottom: 1px solid black;
     width: 250px;
@@ -136,7 +136,7 @@
 .myinfo > ul > li{
     list-style: none;
     font-size: 13px;
-    font-weight: 550;
+    font-weight: 450;
     line-height: 1.5;
     padding: 19px 0;
     border-bottom: 1px solid #e0e0e0;
@@ -147,7 +147,7 @@
 
 .myinfo > ul > li > a {
     text-decoration: none;
-    /* color: black; */
+    font-size: 14px;
     display: block;
     position : relative;
 }
@@ -167,7 +167,7 @@
     text-decoration: none;
     /* color: black; */
     text-align: center;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .myShopping_activity p{

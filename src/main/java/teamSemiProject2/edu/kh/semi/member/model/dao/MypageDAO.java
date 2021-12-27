@@ -61,8 +61,10 @@ public class MypageDAO {
 			while(rs.next()) {
 				OrderList order = new OrderList();
 				
+				order.setProductNo(rs.getInt("PRODUCT_NO"));
 				order.setDeliveryDt(rs.getDate("DELIVERY_DT"));
 				order.setProductImgPath(rs.getString("PRODUCT_IMG_PATH"));
+				order.setProductImgNm(rs.getString("PRODUCT_IMG_NM"));
 				order.setProductName(rs.getString("PRODUCT_NM"));
 				order.setOrderAmount(rs.getInt("ORDER_AMOUNT"));
 				order.setDeliveryNo(rs.getString("DELIVERY_NO"));
@@ -108,6 +110,7 @@ public class MypageDAO {
 				
 				order.setDeliveryDt(rs.getDate("DELIVERY_DT"));
 				order.setProductImgPath(rs.getString("PRODUCT_IMG_PATH"));
+				order.setProductImgNm(rs.getString("PRODUCT_IMG_NM"));
 				order.setProductName(rs.getString("PRODUCT_NM"));
 				order.setOrderAmount(rs.getInt("ORDER_AMOUNT"));
 				order.setDeliveryNo(rs.getString("DELIVERY_NO"));
@@ -422,11 +425,17 @@ public class MypageDAO {
 			
 			pstmt.setInt(1, memberNo);
 			
-			result = pstmt.executeUpdate();
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
 			
 			
 		}finally {
+			close(rs);
 			close(pstmt);
+			
 		}
 		
 		return result;

@@ -58,7 +58,7 @@
 		<div id="carouselExampleDark" class="carousel carousel-dark slide"
 			data-bs-ride="carousel">
 			<div class="carousel-inner"
-				style="text-align: center; line-height: 40px;">
+				style="text-align: center; line-height: 40px;  font-size: 13px;">
 				<div class="carousel-item active" data-bs-interval="5500">전 구매
 					무료 배송과 선물포장 혜택을 즐겨보세요.</div>
 				<div class="carousel-item" data-bs-interval="5500">
@@ -117,7 +117,8 @@
 								onclick="location.href='${contextPath}/member/logout'">LOGOUT</button>
 						</c:otherwise>
 					</c:choose>
-					<button type="button">
+					<button type="button"
+						onclick="location.href='${contextPath}/order/view'">
 						<i class="fas fa-shopping-cart"></i>
 					</button>
 

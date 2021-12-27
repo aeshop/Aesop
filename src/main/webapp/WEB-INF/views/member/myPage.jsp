@@ -29,15 +29,27 @@
                   <span>${sessionScope.loginMember.memberGradeName}</span>
                   등급 혜택
               </div>
-              <div class="accrual-rate">
+              <div class="accrual-rate" style="letter-spacing: 0.0006px;">
                   현재 등급의 할인율이
                  <strong>${ Math.floor((1 - sessionScope.loginMember.memberGradeDiscount) *100) } <!-- 1 - memberGradeDiscount *100 -->
                   % </strong> 입니다. 아래 <strong>‘멤버십 등급별 혜택 보기’</strong>로 혜택을 확인해 보세요!
               </div>
-      
               <div class="grade-bar">
                   <div class="bar"> 
-                      <div class="graph" id="myGrp" style="width: 20%;"></div>
+                  	<c:choose>
+                  	
+                  		<c:when test="${sessionScope.grade.leftMoney  >= 300000  }">
+	                    	<div class="graph" id="myGrp" style="width: 0%;"></div>
+                  		</c:when>
+                  		<c:when test="${sessionScope.grade.leftMoney > 200000 } ">
+                  			<div class="graph" id="myGrp" style="width: 70%;"></div>
+                  		</c:when>
+                  		<c:when test="${sessionScope.grade.leftMoney > 100000 || sessionScope.grade.leftMoney < 0 } ">
+                  			<div class="graph" id="myGrp" style="width: 30%;"></div>
+                  		</c:when>
+                  		<c:otherwise>
+                  		</c:otherwise>
+                  	</c:choose>
                   </div> 
               </div>
               <div class="grade-guide">
@@ -82,7 +94,7 @@
                               <span class="count-icon">
                                   <span>
 	                                    <span class="count">
-				 							${sessioinScope.result}
+				 							${sessionScope.result}
 										</span>
                                   </span>
                               </span>
@@ -126,15 +138,15 @@
                               </a>
                           </td>
                           <td>
-                              <a href="${contextPath}/myPage/myPageBoard">
+                              <a href="${contextPath}/board/notice/list?search_key=member_name&search=${loginMember.memberName}&c=801">
                                   <p>
                                       <img src="${contextPath}/resources/images/cnh/images/board.png">
                                   </p>
-                                  <p>게시물 관리</p>
+                                  <p>리뷰 관리</p>
                               </a>
                           </td>
                           <td>
-                              <a href="${contextPath}/myPage/myPageBoard">
+                              <a href="${contextPath}/board/notice/list?search_key=member_name&search=${loginMember.memberName}&c=802">
                                   <p>
                                       <img src="${contextPath}/resources/images/cnh/images/qna.png">
                                   </p>
@@ -158,7 +170,7 @@
                           <th class="order-price"style="width: 110px;">상품구매금액</th>
                       </tr>
                   </thead>
-                  <tbody>
+                  <tbody style="font-weight: 300;">
                   		<!--  로그인한 멤버의 주문내역이 없는경우, 아닌경우 -->
                   			<c:choose>
                   				<c:when test="${empty sessionScope.orderList}">
@@ -167,22 +179,22 @@
 	                    		    </tr>
                   				</c:when>
                   				<c:otherwise>
-			                  		<c:forEach items="${sessionScope.orderList}" var="o" begin="0" end="4">
+			                  		<c:forEach items="${sessionScope.orderList}" var="o" begin="0" end="2">
                   						<tr>
 				                          <td class="order-date"> ${o.deliveryDt}</td>
 				                          <td class="order-img"> 
 				                              <a href="#">
-				                                  <img src="${o.productImgPath}">
+				                                  <img src="${contextPath}${o.productImgPath}${o.productImgNm}">
 				                              </a>
 				                          </td>
 				                          <td class="order-product">
-				                              <a href="${contextPath}/product/productDetail?productNo=${sessionScope.product.productNo}">
+				                              <a href="${contextPath}/product/productDetail?productNo=${o.productNo}">
 				                                  <strong>${o.productName }</strong>
 				                              </a>
 				                          </td>
 				                          <td class="order-quantity">${o.orderAmount }</td>
 				                          <td class="order-no">
-				                              <a href="#"> <!-- 주문상세 내역 페이지로 이동-->
+				                              <a href="${contextPath}/myPage/orderDetail"> <!-- 주문상세 내역 페이지로 이동-->
 				                                  ${o.deliveryNo }
 				                              </a>
 				                          </td>

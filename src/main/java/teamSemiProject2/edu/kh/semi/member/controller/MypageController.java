@@ -420,7 +420,9 @@ public class MypageController extends HttpServlet{
 					dispatcher = req.getRequestDispatcher(path);
 					dispatcher.forward(req, resp);
 				}
-						// 회원탈퇴
+			
+				
+				// 회원탈퇴
 			} else if (command.equals("secession")) {
 				if (method.equals("GET")) {
 					try {
@@ -436,6 +438,24 @@ public class MypageController extends HttpServlet{
 						e.printStackTrace();
 					}
 				}
+			
+				
+			// 주문 상세내역 조회
+			} else if (command.equals("orderDetail")) {
+				if(method.equals("GET")) {
+					try {
+						List<OrderList> orderList = service.selectOrderList(memberNo);
+						
+						session.setAttribute("orderList", orderList);
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+					path = "/WEB-INF/views/member/orderDetail.jsp";
+					dispatcher = req.getRequestDispatcher(path);
+					dispatcher.forward(req, resp);
+				}
+				
 			}
 			
 	}
