@@ -104,17 +104,17 @@
                       <li>
                           <a href="${contextPath}/myPage/orderStatus">
                               <img src="${contextPath}/resources/images/cnh/images/myicon_02.png"> 취소/교환/반품 내역
-                              <span class="count-icon">
+                              <!-- <span class="count-icon">
                                   <span class="count">1</span>
-                              </span>
+                              </span> -->
                           </a>
                       </li>
                       <li>
                           <a href="${contextPath}/order/view">
                               <img src="${contextPath}/resources/images/cnh/images/wish_icon.png"> 장바구니
-                              <span class="count-icon">
+                            <!--   <span class="count-icon">
                                   <span class="count">1</span>
-                              </span>
+                              </span> -->
                           </a>
                       </li>
                       <li>
