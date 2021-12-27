@@ -3,7 +3,6 @@ package teamSemiProject2.edu.kh.semi.member.model.vo;
 import java.sql.Date;
 
 public class Member {
-
    private int memberNo;
    private String memberId;
    private String memberPw;

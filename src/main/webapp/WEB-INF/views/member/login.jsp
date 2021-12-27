@@ -5,7 +5,6 @@
 
 <div class="login_wrap">
 
-	<jsp:include page="../common/sidebar_n.jsp" />
 	<form id="login" method="post" action="${contextPath}/member/login" onsubmit="return loginValidate()" >
 		<div class="login_container">
 			<div class="login_container_form">

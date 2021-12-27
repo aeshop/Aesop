@@ -156,8 +156,8 @@ public class MemberController extends HttpServlet {
 
 					if (result > 0) {
 						message = "회원가입에 성공하셨습니다.";
+						
 						session.setAttribute("message", message);
-
 						resp.sendRedirect(req.getContextPath());
 					} else {
 						session.setAttribute("message", "회원가입에 실패하셨습니다.");
