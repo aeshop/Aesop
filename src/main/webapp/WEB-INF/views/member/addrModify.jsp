@@ -120,7 +120,7 @@
 
 
   <!-- footer include -->
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/common/r_footer.jsp"/>
 
 <script type="text/javascript" src="${contextPath}/resources/js/member/myPage/addrModify.js"></script>
 <!-- <script>

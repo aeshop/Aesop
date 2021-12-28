@@ -114,7 +114,7 @@
 
 
   <!-- footer include -->
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/common/r_footer.jsp"/>
 
 <!-- 폰 번호 저장 -->
 <script>

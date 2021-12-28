@@ -125,7 +125,7 @@
   </div>
   
   <!-- footer include -->
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/common/r_footer.jsp"/>
 
 </body>
 </html>
