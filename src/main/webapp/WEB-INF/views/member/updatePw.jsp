@@ -31,7 +31,7 @@
 					</div>
 					<p class="ec-base-button gBlank20">
 						<button type="submit" class="btn btn-dark" id="updatePw_btn">확인</button>
-						<button type="button" class="btn btn-dark" onclick="location.href='${contextPath}/main';">취소</button>
+						<button type="button" class="btn btn-dark" onclick="location.href='${contextPath}/main'">취소</button>
 						<!-- <a href=""> <img
 							src="//img.echosting.cafe24.com/skin/base_ko_KR/member/btn_cancel.gif"
 							alt="취소">

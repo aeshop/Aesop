@@ -27,7 +27,7 @@
 
 				<button type="button" class="btn btn-dark" id="findPw_btn" 
 				onclick="location.href='${contextPath}/member/updatePw'">확인</button>
-				<button type="button" class="btn btn-dark" onclick="location.href='${contextPath}/main';">취소</button>
+				<button type="button" class="btn btn-dark" onclick="location.href='${contextPath}/main'">취소</button>
 			</fieldset>
 		</div>
 	</form>
